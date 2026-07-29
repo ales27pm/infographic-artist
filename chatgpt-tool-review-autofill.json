@@ -1,0 +1,128 @@
+{
+  "$schema": "https://27pm.org/internal/chatgpt-tool-review-autofill.v1.json",
+  "generated_from": "python/chatgpt-app-submission.json",
+  "app_info": {
+    "display_name": "Infographic Artist",
+    "subtitle": "Brand research & critique",
+    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "category": "DESIGN"
+  },
+  "mcp_server": {
+    "url": "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
+    "authentication": "No Auth"
+  },
+  "default_csp_metadata": {
+    "connect_domains": [],
+    "resource_domains": []
+  },
+  "tools": {
+    "open_brand_atlas": {
+      "readOnlyHint": true,
+      "read_only_justification": "Searches bundled atlas metadata and returns bounded identity records without changing any state.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not publish content or write to any public or third-party system.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not delete, overwrite, revoke, send, or perform irreversible actions.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "get_brand_case": {
+      "readOnlyHint": true,
+      "read_only_justification": "Retrieves one bundled atlas case and its public source references without modifying records.",
+      "openWorldHint": false,
+      "open_world_justification": "Returns reference URLs but does not fetch, post, or update anything outside the app.",
+      "destructiveHint": false,
+      "destructive_justification": "Cannot delete or overwrite atlas content or user data.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "compare_brand_systems": {
+      "readOnlyHint": true,
+      "read_only_justification": "Computes a comparison from bundled brand-system records and returns the result without persistence.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not change public internet state or external services.",
+      "destructiveHint": false,
+      "destructive_justification": "Performs no deletion, overwrite, transmission, or irreversible action.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "explore_brand_graph": {
+      "readOnlyHint": true,
+      "read_only_justification": "Filters the bundled knowledge graph into a bounded subgraph without changing the graph.",
+      "openWorldHint": false,
+      "open_world_justification": "Uses only packaged data and does not contact or modify third-party systems.",
+      "destructiveHint": false,
+      "destructive_justification": "Cannot remove, alter, or publish graph nodes or relationships.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "search_design_systems": {
+      "readOnlyHint": true,
+      "read_only_justification": "Searches the bundled graphic-systems library and returns matching methods and precedents.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not submit queries to external systems or make public changes.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not delete, overwrite, or mutate library records.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "generate_brand_directions": {
+      "readOnlyHint": true,
+      "read_only_justification": "Computes three text-only creative routes from the supplied brief without storing or publishing them.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not create public assets, send messages, or update any external system.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not overwrite user work or perform any irreversible action.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "critique_brand_image": {
+      "readOnlyHint": true,
+      "read_only_justification": "Temporarily reads a user-selected image, computes local design metrics in memory, and returns a critique.",
+      "openWorldHint": false,
+      "open_world_justification": "The image is not published or transmitted to a third-party service by this tool.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not modify, replace, or delete the uploaded image.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "compare_brand_images": {
+      "readOnlyHint": true,
+      "read_only_justification": "Temporarily reads two selected images and computes local perceptual-similarity metrics without persistence.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not publish the images or change any external service.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not edit, overwrite, or delete either image.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    },
+    "coach_brand_decision": {
+      "readOnlyHint": true,
+      "read_only_justification": "Transforms a design question or critique object into a local coaching exercise and acceptance criteria.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not send, publish, schedule, or update content outside the app.",
+      "destructiveHint": false,
+      "destructive_justification": "Performs no deletion, overwrite, revocation, or irreversible action.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": []
+      }
+    }
+  }
+}

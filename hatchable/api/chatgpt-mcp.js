@@ -1,6 +1,6 @@
-import { APP_NAME, APP_VERSION, TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, SUPPORTED_PROTOCOL_VERSIONS, TOOLS, RESOURCES, RESOURCE_TEMPLATES, TOOL_SPECS, TOOL_SUMMARIES } from "lib/contract.js";
-import { loadWidgetHtml } from "lib/data.js";
-import { executeTool } from "lib/core.js";
+import { APP_NAME, APP_VERSION, TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, SUPPORTED_PROTOCOL_VERSIONS, TOOLS, RESOURCES, RESOURCE_TEMPLATES, TOOL_SPECS, TOOL_SUMMARIES } from "../lib/contract.js";
+import { loadWidgetHtml } from "../lib/data.js";
+import { executeTool } from "../lib/core.js";
 export const access="public";
 export const methods=["POST","OPTIONS"];
 const ALLOWED_ORIGINS=new Set(['https://chatgpt.com','https://platform.openai.com']);

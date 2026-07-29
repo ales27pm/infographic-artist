@@ -2,6 +2,14 @@
 
 Release date: 2026-07-24
 
+## Plugin resubmission release notes
+
+Initial submission of Infographic Artist, an MCP-based design research and critique app by 27pm.
+
+The app provides nine read-only tools for brand-system research, precedent comparison, knowledge-graph exploration, original creative-direction generation, uploaded-image critique, perceptual-similarity triage, and design coaching.
+
+The app requires no authentication, includes no commerce or advertising, performs no external write actions, and does not publish user content. Uploaded images are accessed temporarily through ChatGPT-provided file URLs for the requested analysis and are not persistently stored by the app.
+
 ## Included
 
 - Nine read-only MCP tools for atlas research, cases, comparison, graph exploration, systems research, creative direction, image critique, image similarity, and coaching.
@@ -20,7 +28,7 @@ Release date: 2026-07-24
 - Added environment-driven exact-token domain verification through `OPENAI_APPS_CHALLENGE_TOKEN`.
 - Added a public website at `/` for the listing URL.
 - Added automated tests and smoke coverage for the website and domain challenge.
-- Updated the import JSON to the current Plugins submission schema URL.
+- Updated the import JSON to the current Apps SDK submission schema URL.
 - Updated the review package for website fields, country/region availability, publisher identity consistency, Apps Management permissions, and global-data-residency project requirements.
 
 ## Publication boundary

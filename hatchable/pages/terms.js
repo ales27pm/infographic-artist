@@ -1,3 +1,38 @@
-import { page, setCommonHeaders } from "lib/site.js";
+import { SITE, TERMS_SECTIONS } from "../lib/site-config.js";
+import { esc, page, sections, setCommonHeaders } from "../lib/site.js";
+
 export const access = "public";
-export default async function(req,res){setCommonHeaders(res);return res.send(page("Terms of Use", "<header><div class=\"eyebrow\">Infographic Artist</div><h1>Terms of Use</h1><p class=\"lede\">Effective July 24, 2026</p></header><section class=\"card\"><p>Infographic Artist provides educational and professional design-analysis tools. Results combine deterministic measurements and a curated research corpus.</p><ul><li>Do not use the app to reproduce protected logos, mascots, signature typography, trade dress, or other third-party intellectual property.</li><li>Historical cases are precedents of method, not templates or licenses.</li><li>Similarity scores are triage signals, not legal determinations.</li><li>Users remain responsible for originality, rights clearance, accessibility, production testing, and commercial decisions.</li><li>The service may reject malformed files, unsupported formats, oversized images, and unsafe URLs.</li></ul></section>"));}
+export const methods = ["GET"];
+
+export default async function (_req, res) {
+  setCommonHeaders(res);
+  return res.send(
+    page({
+      title: "Terms of Service",
+      description:
+        "Terms of service for Infographic Artist by 27pm, including permitted use, IP boundaries, disclaimers, and Quebec governing law.",
+      path: "/terms",
+      children: `
+<header class="content-shell">
+  <div class="content-meta">
+    <p class="eyebrow">${esc(SITE.productName)}</p>
+    <p>Effective: ${esc(SITE.effectiveDate)}</p>
+    <p>Last updated: ${esc(SITE.lastUpdatedDate)}</p>
+  </div>
+  <div>
+    <h1 class="page-title">Terms of Service</h1>
+    <p class="lede">These terms govern use of ${esc(SITE.productName)}, a read-only MCP design research and critique app published by ${esc(
+        SITE.publisherName,
+      )}.</p>
+  </div>
+</header>
+<div class="content-shell">
+  <div></div>
+  <div>
+    ${sections(TERMS_SECTIONS)}
+  </div>
+</div>
+`,
+    }),
+  );
+}

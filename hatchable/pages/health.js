@@ -1,5 +1,5 @@
-import { APP_NAME, APP_VERSION } from "lib/contract.js";
-import { atlasSummary } from "lib/core.js";
+import { APP_NAME, APP_VERSION } from "../lib/contract.js";
+import { atlasSummary } from "../lib/core.js";
 
 export const access = "public";
 

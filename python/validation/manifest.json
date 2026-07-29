@@ -37,13 +37,13 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 1796,
-      "sha256": "4d20ac62a910de5f005b9d1a6b96a7ef788c8ff7916b63e300f23b4ebb706107"
+      "bytes": 2458,
+      "sha256": "4995d6e14e4b21d97e5f702103f20e5ba3d4bdfd0da0d4d8696de107c7b4e908"
     },
     {
       "path": "SOURCE_MANIFEST.md",
-      "bytes": 1738,
-      "sha256": "1b3dce7a5e3df4619635412ff9eb2a0d3a0efca53803a20e0d9f1399cb721567"
+      "bytes": 1800,
+      "sha256": "c22a7210ddc14ca4a5758d05d6f1dbb30a048235f0d5b91a200a71304fdabecf"
     },
     {
       "path": "assets/app-icon-512.png",
@@ -92,8 +92,8 @@
     },
     {
       "path": "chatgpt-app-submission.json",
-      "bytes": 9145,
-      "sha256": "5c38f3d6b81c72092b1635de3acad80a2dd4d72a6888e5f3677ecc015d9ec5d6"
+      "bytes": 9300,
+      "sha256": "496b8f01053d7a64aa744c2ebd136d4b71c3f72ed087bfdce17bd035380df238"
     },
     {
       "path": "contract.py",
@@ -217,8 +217,8 @@
     },
     {
       "path": "scripts/validate_submission.py",
-      "bytes": 6148,
-      "sha256": "9c9a2f484877130c2d56c57d00dc98777f5b1f01414a2f063821d6f9b5136f2c"
+      "bytes": 6149,
+      "sha256": "909a67a5f737b6b04c6367b8a4cf532984414df40b2eb16ddec540a16910904d"
     },
     {
       "path": "server.py",
@@ -247,8 +247,8 @@
     },
     {
       "path": "submission/review-report.md",
-      "bytes": 2430,
-      "sha256": "3df09cc4f31cb031c79ef8c40095ec340ed6cb51508f0eb80cd955463b0f842b"
+      "bytes": 2431,
+      "sha256": "5b37ee4e65be4b70e9f881018bdc234f993da54fd49508c2c41b5c8e58754365"
     },
     {
       "path": "submission/test-prompts.md",

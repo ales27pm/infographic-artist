@@ -61,7 +61,7 @@ except Exception as exc:
     manifest = {}
     errors.append(f"submission JSON: {exc}")
 
-check(manifest.get("$schema") == "https://developers.openai.com/plugins/schemas/chatgpt-app-submission.v1.json", "invalid submission schema URI")
+check(manifest.get("$schema") == "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json", "invalid submission schema URI")
 check(manifest.get("schema_version") == 1, "schema_version must be integer 1")
 check(manifest.get("app_info", {}).get("display_name") == "Infographic Artist", "missing app display name")
 check(len(manifest.get("app_info", {}).get("subtitle", "")) <= 30, "subtitle exceeds 30 characters")

@@ -27,7 +27,7 @@ Each tool has an explicit output schema with a strict top-level `{view, data}` e
 
 ## Submission import
 
-- `chatgpt-app-submission.json` targets the current Plugins submission schema.
+- `chatgpt-app-submission.json` targets the current Apps SDK submission schema.
 - The file contains the app metadata, nine tool annotation justifications, five positive cases, and three negative cases.
 
 ## Hosting review

@@ -1,5 +1,4 @@
-import { browser } from "hatchable";
-import { loadAtlas, loadLibrary, loadGraph } from "lib/data.js";
+import { loadAtlas, loadLibrary, loadGraph } from "./data.js";
 
 const MAX_RESULTS = 25;
 const ALLOWED_IMAGE_MIME_TYPES = new Set(['image/png','image/jpeg','image/webp','image/gif']);
@@ -136,6 +135,7 @@ function validateImageInput(file) {
 }
 export async function imageMetrics(file) {
   const url=validateImageInput(file);
+  const { browser } = await import("hatchable");
   return await browser.session(async (page)=>{
     await page.goto(url,{waitUntil:'networkidle0',timeout:20000});
     return await page.evaluate(async ()=>{

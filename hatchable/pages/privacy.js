@@ -1,3 +1,42 @@
-import { page, setCommonHeaders } from "lib/site.js";
+import { PRIVACY_SECTIONS, SITE } from "../lib/site-config.js";
+import { esc, page, sections, setCommonHeaders } from "../lib/site.js";
+
 export const access = "public";
-export default async function(req,res){setCommonHeaders(res);return res.send(page("Privacy Policy", "<header><div class=\"eyebrow\">Infographic Artist</div><h1>Privacy Policy</h1><p class=\"lede\">Effective July 24, 2026</p></header><section class=\"card\"><h2>Data processed</h2><p>The app receives only the parameters needed for the tool the user asks ChatGPT to run. For image critique or comparison, ChatGPT supplies a short-lived file download URL and file identifier. The server accesses the image only to perform the requested analysis.</p><h2>Storage and retention</h2><p>This version does not create user accounts, maintain user profiles, persist uploaded images, or store raw conversation history. Image bytes are processed transiently and discarded when the request finishes.</p><h2>Third parties</h2><p>The application does not send user prompts or images to advertising networks, data brokers, or external AI providers. Historical source links are opened only when the user chooses them.</p><h2>Security</h2><p>Image inputs are limited to supported image types and public HTTPS addresses. Local, private, reserved, and credential-bearing URLs are rejected.</p><h2>Legal limits</h2><p>Similarity and critique results are perceptual design analysis, not legal advice or trademark clearance.</p><h2>Contact</h2><p><a href=\"https://github.com/ales27pm\">github.com/ales27pm</a></p></section>"));}
+export const methods = ["GET"];
+
+export default async function (_req, res) {
+  setCommonHeaders(res);
+  return res.send(
+    page({
+      title: "Privacy Policy",
+      description:
+        "Privacy policy for Infographic Artist by 27pm, including image handling, logs, retention, and user rights.",
+      path: "/privacy",
+      children: `
+<header class="content-shell">
+  <div class="content-meta">
+    <p class="eyebrow">${esc(SITE.productName)}</p>
+    <p>Effective: ${esc(SITE.effectiveDate)}</p>
+    <p>Last updated: ${esc(SITE.lastUpdatedDate)}</p>
+  </div>
+  <div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="lede">This policy explains how ${esc(SITE.publisherName)} handles data for ${esc(
+        SITE.productName,
+      )}, a ChatGPT-accessible MCP app for brand research and critique.</p>
+  </div>
+</header>
+<div class="content-shell">
+  <div></div>
+  <div>
+    ${sections(PRIVACY_SECTIONS)}
+    <section class="content-section" aria-labelledby="privacy-contact">
+      <h2 id="privacy-contact">Contact</h2>
+      <p>Privacy questions and requests should be sent through <a href="/support">support</a>.</p>
+    </section>
+  </div>
+</div>
+`,
+    }),
+  );
+}
