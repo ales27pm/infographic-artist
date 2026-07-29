@@ -7,7 +7,7 @@
 - Authentication: none.
 - Commerce: none.
 - External writes: rendering tools may call the configured image-generation provider; no public publishing or third-party user-account mutation.
-- User data persisted: none.
+- User data persisted: time-bounded render job metadata and plugin-generated concept-board assets are retained under the configured generated-asset retention window, 168 hours by default; uploaded critique/comparison images are not persisted.
 - Image-generation API calls by this app: `render_brand_direction` and `run_brand_workflow` may call OpenAI Images when configured.
 - Generated-asset storage by this app: render jobs and generated concept-board images are retained under `GENERATED_ASSET_RETENTION_HOURS`, 168 hours by default.
 - Third-party artwork bundled: none.

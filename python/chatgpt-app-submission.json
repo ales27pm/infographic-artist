@@ -204,7 +204,7 @@
     },
     {
       "description": "Poll a render job for status and generated assets.",
-      "user_prompt": "Check the render job status and show me any generated board links and evaluation results.",
+      "user_prompt": "Using the job_id returned by the previous run_brand_workflow call, check the render job status and show me any generated board links and evaluation results.",
       "file_attachment_urls": null,
       "tools_triggered": "get_render_job",
       "expected_output": "Returns queued, running, succeeded, or failed status plus retained generated-asset URLs, expiration, and evaluation metadata without starting a new render.",

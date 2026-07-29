@@ -223,7 +223,7 @@ def run(output: Path | None = None) -> dict[str, Any]:
                 failures.append("tools_list")
             if not report["checks"]["tools_list"]["all_have_output_schema"]:
                 failures.append("output_schema")
-            if report["checks"]["tools_list"]["mutable_tools"] != ["render_brand_direction", "run_brand_workflow"]:
+            if set(report["checks"]["tools_list"]["mutable_tools"]) != {"render_brand_direction", "run_brand_workflow"}:
                 failures.append("tool_annotations")
             if not report["checks"]["tools_list"]["render_tools_present"]:
                 failures.append("render_tools")

@@ -2,7 +2,7 @@
 
 Effective date: July 29, 2026
 
-Infographic Artist provides educational and professional design-analysis tools. Results are generated from deterministic measurements and a curated research corpus.
+Infographic Artist provides educational and professional design-analysis tools. Analysis and critique scores are generated from deterministic measurements and a curated research corpus; plugin-rendered concept boards depend on the configured image-generation provider.
 
 - Do not use the app to reproduce protected logos, mascots, signature typography, trade dress, or other third-party intellectual property.
 - Historical cases are precedents of method, not templates or licenses.

@@ -175,6 +175,7 @@ async def support(_request) -> HTMLResponse:
 
 async def generated_asset(request) -> FileResponse:
     try:
+        core.cleanup_expired_render_assets()
         path, media_type = core.resolve_generated_asset_path(
             str(request.path_params.get("job_id") or ""),
             str(request.path_params.get("filename") or ""),
@@ -186,6 +187,7 @@ async def generated_asset(request) -> FileResponse:
 
 @contextlib.asynccontextmanager
 async def lifespan(_app: Starlette):
+    core.recover_interrupted_render_jobs()
     async with session_manager.run():
         yield
 

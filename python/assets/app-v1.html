@@ -36,13 +36,21 @@
 
   let bridgeSequence = 0;
   const bridgePending = new Map();
+  const bridgeAllowedOrigins = new Set(['https://chatgpt.com','https://chat.openai.com','https://platform.openai.com']);
+  function bridgeTargetOrigin(){
+    try{
+      const origin=new URL(document.referrer).origin;
+      if(bridgeAllowedOrigins.has(origin))return origin;
+    }catch(_){}
+    return 'https://chatgpt.com';
+  }
   function bridgeRequest(method,params={},timeoutMs=8000){
     if(window.parent===window) return Promise.reject(new Error('MCP Apps bridge unavailable'));
     const id=`ia-${Date.now()}-${++bridgeSequence}`;
     return new Promise((resolve,reject)=>{
       const timer=setTimeout(()=>{bridgePending.delete(id);reject(new Error(`Bridge timeout: ${method}`));},timeoutMs);
       bridgePending.set(id,{resolve,reject,timer});
-      window.parent.postMessage({jsonrpc:'2.0',id,method,params},'*');
+      window.parent.postMessage({jsonrpc:'2.0',id,method,params},bridgeTargetOrigin());
     });
   }
   async function callTool(name,args){
@@ -105,10 +113,26 @@
     const h=d.image_generation_handoff||{};
     root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Rendu plugin.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn render-route" data-route="${esc(r.id)}">Rendre</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
+  let renderPollTimer = null;
+  let renderPollJob = '';
+  let renderPollCount = 0;
+  function clearRenderPoll(){
+    if(renderPollTimer){clearTimeout(renderPollTimer);renderPollTimer=null;}
+  }
+  function scheduleRenderPoll(d){
+    if(!d?.job_id || !['queued','running'].includes(String(d.status||'')))return;
+    if(renderPollJob!==d.job_id){renderPollJob=d.job_id;renderPollCount=0;}
+    if(renderPollCount>=40)return;
+    renderPollTimer=setTimeout(async()=>{
+      renderPollTimer=null;
+      renderPollCount++;
+      await callTool('get_render_job',{job_id:d.job_id});
+    },2500);
+  }
   function renderAssetGrid(d){
     const assets=arr(d.assets);
     if(!assets.length)return '<section class="empty"><div><div class="spinner"></div><h2>Rendu en cours</h2><p class="lead">Rafraîchis le statut pour récupérer les planches générées.</p></div></section>';
-    return `<section class="asset-grid">${assets.map(a=>`<article class="asset"><img src="${esc(a.asset_url)}" alt="${esc(a.route_name||'Generated concept board')}" loading="lazy"><div class="asset-body"><div class="eyebrow">${esc(a.route_id)}</div><h3>${esc(a.route_name||'Concept board')}</h3><p class="meta">${esc(a.width)}×${esc(a.height)} · ${esc(a.mime_type)} · ${esc(Math.round((Number(a.bytes)||0)/1024))} KB</p></div></article>`).join('')}</section>`;
+    return `<section class="asset-grid">${assets.map(a=>{const hasDims=Number.isFinite(Number(a.width))&&Number(a.width)>0&&Number.isFinite(Number(a.height))&&Number(a.height)>0;const dims=hasDims?`${esc(a.width)}×${esc(a.height)}`:'dimensions non disponibles';return `<article class="asset"><img src="${esc(a.asset_url)}" alt="${esc(a.route_name||'Generated concept board')}" loading="lazy"><div class="asset-body"><div class="eyebrow">${esc(a.route_id)}</div><h3>${esc(a.route_name||'Concept board')}</h3><p class="meta">${dims} · ${esc(a.mime_type)} · ${esc(Math.round((Number(a.bytes)||0)/1024))} KB</p></div></article>`}).join('')}</section>`;
   }
   function renderEvaluations(d){
     const evaluations=arr(d.evaluations);
@@ -117,7 +141,9 @@
   }
   function renderRenderJob(d){
     const p=d.progress||{};
-    root.innerHTML=titleBlock(d.kind==='workflow'?'Workflow de rendu':'Rendu de direction',d.job_id||'Render job',`${d.provider||''} · ${d.options?.model||''}`)+`<div class="section-title"><span class="status-pill" data-status="${esc(d.status)}">${esc(d.status||'queued')}</span><button class="btn refresh-render" data-job="${esc(d.job_id)}">Rafraîchir</button></div><section class="job-meta"><div class="stat"><b>${esc(p.completed ?? 0)}/${esc(p.total ?? 1)}</b>progression</div><div class="stat"><b>${esc(d.options?.size||'')}</b>format</div><div class="stat"><b>${esc(d.options?.quality||'')}</b>qualité</div><div class="stat"><b>${esc(d.expires_at||'')}</b>expiration</div></section>${d.error?`<div class="notice error"><strong>Erreur.</strong> ${esc(d.error)}</div>`:''}${d.provider_note?`<p class="meta">${esc(d.provider_note)}</p>`:''}${renderAssetGrid(d)}${renderEvaluations(d)}`;
+    const expires=d.expires_at?new Date(d.expires_at).toLocaleString():'';
+    root.innerHTML=titleBlock(d.kind==='workflow'?'Workflow de rendu':'Rendu de direction',d.job_id||'Render job',`${d.provider||''} · ${d.options?.model||''}`)+`<div class="section-title"><span class="status-pill" data-status="${esc(d.status)}">${esc(d.status||'queued')}</span><button class="btn refresh-render" data-job="${esc(d.job_id)}">Rafraîchir</button></div><section class="job-meta"><div class="stat"><b>${esc(p.completed ?? 0)}/${esc(p.total ?? 1)}</b>progression</div><div class="stat"><b>${esc(d.options?.size||'')}</b>format</div><div class="stat"><b>${esc(d.options?.quality||'')}</b>qualité</div><div class="stat"><b>${esc(expires)}</b>expiration</div></section>${d.error?`<div class="notice error"><strong>Erreur.</strong> ${esc(d.error)}</div>`:''}${d.provider_note?`<p class="meta">${esc(d.provider_note)}</p>`:''}${renderAssetGrid(d)}${renderEvaluations(d)}`;
+    scheduleRenderPoll(d);
   }
   function renderWorkflow(d){renderRenderJob(d);}
   function renderCritique(d){
@@ -128,6 +154,7 @@
   function renderSimilarity(d){root.innerHTML=titleBlock('Triage de similarité',`${d.risk_score}/100 · ${d.risk_band}`,'La proximité visuelle est décomposée pour montrer où agir, au lieu de fournir un verdict opaque.')+similarityBlock(d);}
   function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
   function render(payload){
+    clearRenderPoll();
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
     const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,render_job:renderRenderJob,render_workflow:renderWorkflow,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
     if(f) f(d); else root.innerHTML=`<section class="empty"><div><h2>Résultat reçu</h2><pre>${esc(JSON.stringify(payload,null,2))}</pre></div></section>`;
@@ -144,6 +171,7 @@
   }
   function accept(x){const p=extract(x);if(p)render(p);}
   window.addEventListener('message',e=>{
+    if(e.source!==window.parent || !bridgeAllowedOrigins.has(e.origin))return;
     const d=e.data;
     if(d?.jsonrpc==='2.0'&&d.id&&bridgePending.has(d.id)){
       const pending=bridgePending.get(d.id);bridgePending.delete(d.id);clearTimeout(pending.timer);

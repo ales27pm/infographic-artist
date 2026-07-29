@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import os
 from functools import lru_cache
 from pathlib import Path
@@ -264,7 +265,13 @@ def _simple_doc(title: str, markdown: str) -> str:
     )
 
 
-app = FastAPI(title=APP_NAME, version=APP_VERSION, docs_url=None, redoc_url=None, openapi_url=None)
+@contextlib.asynccontextmanager
+async def lifespan(_app: FastAPI):
+    core.recover_interrupted_render_jobs()
+    yield
+
+
+app = FastAPI(title=APP_NAME, version=APP_VERSION, docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=sorted(_allowed_origins()),
@@ -329,6 +336,7 @@ async def health() -> JSONResponse:
 @app.get("/generated-assets/{job_id}/{filename}")
 async def generated_asset(job_id: str, filename: str) -> FileResponse:
     try:
+        core.cleanup_expired_render_assets()
         path, media_type = core.resolve_generated_asset_path(job_id, filename)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc

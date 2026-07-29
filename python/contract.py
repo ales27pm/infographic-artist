@@ -60,6 +60,38 @@ RENDER_OPTIONS_SCHEMA: dict[str, Any] = {
     },
 }
 
+RENDER_ROUTE_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "description": "Optional full route object returned by generate_brand_directions.",
+    "properties": {
+        "id": {"type": "string", "maxLength": 80},
+        "name": {"type": "string", "maxLength": 160},
+        "concept_board_prompt": {"type": "string", "minLength": 24, "maxLength": 32000},
+        "board_evaluation_focus": {
+            "type": "array",
+            "items": {"type": "string", "maxLength": 220},
+            "maxItems": 6,
+        },
+    },
+    "required": ["concept_board_prompt"],
+    "additionalProperties": True,
+}
+
+BRIEF_RENDER_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "description": "Optional brief metadata to store with the render job.",
+    "properties": {
+        "name": {"type": "string", "maxLength": 120},
+        "sector": {"type": "string", "maxLength": 160},
+        "promise": {"type": "string", "maxLength": 1000},
+        "audience": {"type": "string", "maxLength": 400},
+        "traits": {"type": "array", "items": {"type": "string", "maxLength": 100}, "maxItems": 8},
+        "must_avoid": {"type": "array", "items": {"type": "string", "maxLength": 100}, "maxItems": 8},
+        "risk_tolerance": {"type": "string", "maxLength": 120},
+    },
+    "additionalProperties": False,
+}
+
 
 READ_ONLY_ANNOTATIONS = {
     "readOnlyHint": True,
@@ -82,6 +114,33 @@ def _object_schema(properties: dict[str, Any], required: list[str] | None = None
         "required": required or [],
         "additionalProperties": False,
     }
+
+
+def _render_direction_input_schema() -> dict[str, Any]:
+    schema = _object_schema(
+        {
+            "route_id": {"type": "string", "default": "custom", "description": "Route identifier such as symbol, type, or system."},
+            "route_name": {"type": "string", "default": "Concept board", "description": "Human-readable route name."},
+            "concept_board_prompt": {
+                "type": "string",
+                "minLength": 24,
+                "maxLength": 32000,
+                "description": "Art-directed prompt returned by generate_brand_directions. Required unless route.concept_board_prompt is provided.",
+            },
+            "route": deepcopy(RENDER_ROUTE_SCHEMA),
+            "brief": deepcopy(BRIEF_RENDER_SCHEMA),
+            "evaluation_focus": {
+                "type": "array",
+                "items": {"type": "string", "maxLength": 220},
+                "maxItems": 6,
+                "default": [],
+                "description": "Optional criteria to apply when evaluating the generated board.",
+            },
+            **deepcopy(RENDER_OPTIONS_SCHEMA),
+        }
+    )
+    schema["anyOf"] = [{"required": ["concept_board_prompt"]}, {"required": ["route"]}]
+    return schema
 
 
 def _result_schema(view: str) -> dict[str, Any]:
@@ -216,35 +275,7 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
             "Use this when the user wants the plugin to generate and store one concept-board image for a previously "
             "created creative route. This starts an asynchronous image-generation job that may call an external provider and incur cost."
         ),
-        "input": _object_schema(
-            {
-                "route_id": {"type": "string", "default": "custom", "description": "Route identifier such as symbol, type, or system."},
-                "route_name": {"type": "string", "default": "Concept board", "description": "Human-readable route name."},
-                "concept_board_prompt": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Art-directed prompt returned by generate_brand_directions. Required unless route.concept_board_prompt is provided.",
-                },
-                "route": {
-                    "type": "object",
-                    "description": "Optional full route object returned by generate_brand_directions.",
-                    "additionalProperties": True,
-                },
-                "brief": {
-                    "type": "object",
-                    "description": "Optional brief metadata to store with the render job.",
-                    "additionalProperties": True,
-                },
-                "evaluation_focus": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "maxItems": 6,
-                    "default": [],
-                    "description": "Optional criteria to apply when evaluating the generated board.",
-                },
-                **deepcopy(RENDER_OPTIONS_SCHEMA),
-            }
-        ),
+        "input": _render_direction_input_schema(),
         "view": "render_job",
         "invoking": "Starting image render",
         "invoked": "Render job started",

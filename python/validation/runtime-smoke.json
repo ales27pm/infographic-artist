@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "base_url": "http://127.0.0.1:52967",
+  "base_url": "http://127.0.0.1:55113",
   "checks": {
     "health": {
       "status_code": 200,
@@ -42,7 +42,7 @@
       "is_error": false
     },
     "render_job": {
-      "job_id": "render-98feeed274b54209be23e60a1b28ad28",
+      "job_id": "render-cbc0c156524f42a5ad64a49e1353aff8",
       "status": "succeeded",
       "asset_count": 1,
       "asset_status_code": 200,
@@ -52,7 +52,7 @@
     "widget_resource": {
       "uri": "ui://infographic-artist/app-v1.html",
       "mime_type": "text/html;profile=mcp-app",
-      "bytes": 27259,
+      "bytes": 28578,
       "has_mcp_bridge": true
     },
     "website": {
@@ -73,5 +73,5 @@
   },
   "runtime": "official-mcp-sdk",
   "failures": [],
-  "server_log_tail": "INFO:     127.0.0.1:36142 - \"GET /generated-assets/render-98feeed274b54209be23e60a1b28ad28/symbol-e832fe9f76.png HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2635165]"
+  "server_log_tail": "INFO:     127.0.0.1:53136 - \"GET /generated-assets/render-cbc0c156524f42a5ad64a49e1353aff8/e832fe9f768bb003e83db597.png HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53136 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2706600]"
 }

@@ -28,20 +28,26 @@ https://VOTRE-DOMAINE/.well-known/openai-apps-challenge
 ```bash
 docker build -t infographic-artist-chatgpt .
 
+docker volume create infographic-artist-generated
+
 docker run --rm -p 8000:8000 \
+  -v infographic-artist-generated:/app/generated_assets \
   -e APP_BASE_URL=https://VOTRE-DOMAINE \
   -e MCP_ALLOWED_HOSTS=VOTRE-DOMAINE \
   -e MCP_ALLOWED_ORIGINS=https://chatgpt.com,https://platform.openai.com \
   -e CORS_ALLOW_ORIGINS=https://chatgpt.com,https://platform.openai.com \
-  -e OPENAI_API_KEY=<set-in-deployment-for-live-rendering> \
+  -e OPENAI_API_KEY \
   -e IMAGE_GENERATION_PROVIDER=openai \
   -e IMAGE_GENERATION_MODEL=gpt-image-2 \
-  -e GENERATED_ASSET_DIR=generated_assets \
+  -e GENERATED_ASSET_DIR=/app/generated_assets \
   -e GENERATED_ASSET_RETENTION_HOURS=168 \
+  -e GENERATED_ASSET_MAX_BYTES=536870912 \
+  -e RENDER_MAX_CONCURRENT_JOBS=2 \
+  -e RENDER_DAILY_IMAGE_LIMIT=25 \
   infographic-artist-chatgpt
 ```
 
-`APP_BASE_URL` reçoit seulement l’origine HTTPS, sans `/mcp`, chemin, requête ou fragment. `MCP_ALLOWED_HOSTS` reçoit seulement le nom d’hôte. `OPENAI_API_KEY` est requis pour le rendu réel lorsque `IMAGE_GENERATION_PROVIDER=openai`; utiliser `IMAGE_GENERATION_PROVIDER=mock` seulement pour la validation locale ou hors production.
+`APP_BASE_URL` reçoit seulement l’origine HTTPS, sans `/mcp`, chemin, requête ou fragment. `MCP_ALLOWED_HOSTS` reçoit seulement le nom d’hôte. `OPENAI_API_KEY` est requis pour le rendu réel lorsque `IMAGE_GENERATION_PROVIDER=openai`; exporter cette variable dans l’environnement du déploiement plutôt que de la mettre en clair dans la commande. Utiliser `IMAGE_GENERATION_PROVIDER=mock` seulement pour la validation locale ou hors production. `GENERATED_ASSET_DIR` doit pointer vers un volume monté ou un stockage objet équivalent afin de conserver les jobs et actifs générés pendant la fenêtre de rétention, y compris après redémarrage ou redéploiement.
 
 Le paquet contient aussi `render.yaml`, `Procfile` et `Dockerfile`. Le fournisseur doit préserver les requêtes POST vers `/mcp`, les réponses JSON MCP et les en-têtes de transport.
 

@@ -11,7 +11,7 @@
 | Authentication | None |
 | Commerce | None |
 | Public writes | None |
-| Persistent user storage | None |
+| Persistent user storage | Time-bounded render job metadata and plugin-generated concept-board assets are retained under the configured generated-asset retention window, 168 hours by default. Uploaded critique/comparison images are not persisted. |
 | Suggested initial availability | Canada |
 
 ## Description

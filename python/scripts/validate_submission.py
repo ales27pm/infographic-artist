@@ -63,6 +63,9 @@ check(len(manifest.get("test_cases", [])) >= 7, "expected at least seven positiv
 check(len(manifest.get("negative_test_cases", [])) >= 3, "expected at least three negative test cases")
 for name, item in manifest.get("tools", {}).items():
     annotations = item.get("annotations") or {}
+    if name not in TOOL_DEFINITIONS:
+        check(False, f"{name}: manifest tool missing from server contract")
+        continue
     expected = TOOL_DEFINITIONS[name].get("annotations", READ_ONLY_ANNOTATIONS)
     check(annotations.get("readOnlyHint") is expected["readOnlyHint"], f"{name}: readOnlyHint mismatch")
     check(annotations.get("openWorldHint") is expected["openWorldHint"], f"{name}: openWorldHint mismatch")
@@ -99,7 +102,7 @@ check("OPENAI_APPS_CHALLENGE_TOKEN" in (ROOT / ".env.example").read_text(encodin
 
 
 secret_re = re.compile(r"(?:sk-proj-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|hf_[A-Za-z0-9]{20,})")
-ignored = {".git", ".venv", ".pytest_cache", "__pycache__", "validation"}
+ignored = {".git", ".venv", ".pytest_cache", ".ruff_cache", "__pycache__", "validation"}
 for path in ROOT.rglob("*"):
     if any(part in ignored for part in path.parts):
         continue

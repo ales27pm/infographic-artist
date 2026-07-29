@@ -14,7 +14,7 @@ Creative-direction results include concept-board prompts. When `render_brand_dir
 
 This version does not create user accounts, maintain user profiles, persist uploaded images, or store raw conversation history. Uploaded-image bytes are processed in memory and discarded when the critique or comparison request finishes.
 
-Plugin-rendered concept boards are generated assets. They are stored under `GENERATED_ASSET_DIR` with job metadata and are eligible for deletion after `GENERATED_ASSET_RETENTION_HOURS`, 168 hours by default. Generated asset URLs contain opaque job IDs and filenames, but users should not include secrets or confidential client material in render prompts.
+Plugin-rendered concept boards are generated assets. They are stored under `GENERATED_ASSET_DIR` with bounded job metadata and are eligible for deletion after `GENERATED_ASSET_RETENTION_HOURS`, 168 hours by default. Generated asset URLs contain opaque job IDs and hash-only filenames; route names and client identifiers are not embedded in filenames. Users should not include secrets or confidential client material in render prompts.
 
 ## Third parties
 

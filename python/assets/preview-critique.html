@@ -11,6 +11,9 @@
 @media(max-width:560px){.wrap{padding:15px}.top{padding:11px 13px}.brand span:last-child{display:none}.grid,.route-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.actions .btn:nth-child(2){display:none}}
 @media(prefers-color-scheme:dark){:root{--bg:#171914;--panel:#20231c;--ink:#f2efe6;--muted:#b0b5a9;--line:#f2efe625;--dark:#0d0f0b}.scoreball b{color:#151712}.card:before{opacity:.25}.sources a{color:#aeb9ff}}
 </style>
+<style>
+.status-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-weight:760}.status-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn)}.status-pill[data-status="succeeded"]:before{background:var(--good)}.status-pill[data-status="failed"]:before{background:var(--bad)}.asset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.asset{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}.asset img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}.asset-body{padding:12px}.job-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.job-meta .stat{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 76%,transparent)}@media(max-width:850px){.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.job-meta{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.asset-grid,.job-meta{grid-template-columns:1fr}}
+</style>
 </head>
 <body><script>window.__INFOGRAPHIC_DEMO__={"view": "critique", "data": {"context": "Proposition de symbole modulaire pour une architecture durable.", "score": 72.7, "grade": "B", "axes": {"beaux_arts": {"label": "Beaux-arts / composition", "score": 18.3}, "hierarchy": {"label": "Hiérarchie visuelle", "score": 16.6}, "legibility": {"label": "Lisibilité et réduction", "score": 11.0}, "memorability": {"label": "Mémorisation", "score": 13.2}, "differentiation": {"label": "Différenciation", "score": 13.6, "confidence": "faible; aucune référence fournie"}}, "technical_metrics": {"width": 900, "height": 620, "aspect_ratio": 1.4516, "contrast": 0.3532, "edge_density": 0.0315, "entropy": 0.3639, "foreground_occupancy": 0.3021, "centroid": {"x": 0.5001, "y": 0.4828}, "balance": 0.9251, "small_size_stability": 0.0, "saliency_concentration": 0.8959}, "priority_actions": ["Supprimer les détails qui s’effondrent à 24 px, puis vérifier les versions monochrome, floue, gravée et inversée.", "Réduire l’idée à un contour redessinable après deux secondes d’exposition; conserver une seule anomalie contrôlée."], "reference_comparison": null, "method_note": "Les mesures techniques soutiennent la critique; elles ne remplacent ni le jugement humain, ni les tests utilisateurs, ni la recherche d’antériorité, ni la revue juridique."}};</script>
 <div class="app">
@@ -33,13 +36,21 @@
 
   let bridgeSequence = 0;
   const bridgePending = new Map();
+  const bridgeAllowedOrigins = new Set(['https://chatgpt.com','https://chat.openai.com','https://platform.openai.com']);
+  function bridgeTargetOrigin(){
+    try{
+      const origin=new URL(document.referrer).origin;
+      if(bridgeAllowedOrigins.has(origin))return origin;
+    }catch(_){}
+    return 'https://chatgpt.com';
+  }
   function bridgeRequest(method,params={},timeoutMs=8000){
     if(window.parent===window) return Promise.reject(new Error('MCP Apps bridge unavailable'));
     const id=`ia-${Date.now()}-${++bridgeSequence}`;
     return new Promise((resolve,reject)=>{
       const timer=setTimeout(()=>{bridgePending.delete(id);reject(new Error(`Bridge timeout: ${method}`));},timeoutMs);
       bridgePending.set(id,{resolve,reject,timer});
-      window.parent.postMessage({jsonrpc:'2.0',id,method,params},'*');
+      window.parent.postMessage({jsonrpc:'2.0',id,method,params},bridgeTargetOrigin());
     });
   }
   async function callTool(name,args){
@@ -100,8 +111,41 @@
   function renderDirections(d){
     const b=d.brief||{};
     const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Handoff ChatGPT.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Rendu plugin.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn render-route" data-route="${esc(r.id)}">Rendre</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
+  let renderPollTimer = null;
+  let renderPollJob = '';
+  let renderPollCount = 0;
+  function clearRenderPoll(){
+    if(renderPollTimer){clearTimeout(renderPollTimer);renderPollTimer=null;}
+  }
+  function scheduleRenderPoll(d){
+    if(!d?.job_id || !['queued','running'].includes(String(d.status||'')))return;
+    if(renderPollJob!==d.job_id){renderPollJob=d.job_id;renderPollCount=0;}
+    if(renderPollCount>=40)return;
+    renderPollTimer=setTimeout(async()=>{
+      renderPollTimer=null;
+      renderPollCount++;
+      await callTool('get_render_job',{job_id:d.job_id});
+    },2500);
+  }
+  function renderAssetGrid(d){
+    const assets=arr(d.assets);
+    if(!assets.length)return '<section class="empty"><div><div class="spinner"></div><h2>Rendu en cours</h2><p class="lead">Rafraîchis le statut pour récupérer les planches générées.</p></div></section>';
+    return `<section class="asset-grid">${assets.map(a=>{const hasDims=Number.isFinite(Number(a.width))&&Number(a.width)>0&&Number.isFinite(Number(a.height))&&Number(a.height)>0;const dims=hasDims?`${esc(a.width)}×${esc(a.height)}`:'dimensions non disponibles';return `<article class="asset"><img src="${esc(a.asset_url)}" alt="${esc(a.route_name||'Generated concept board')}" loading="lazy"><div class="asset-body"><div class="eyebrow">${esc(a.route_id)}</div><h3>${esc(a.route_name||'Concept board')}</h3><p class="meta">${dims} · ${esc(a.mime_type)} · ${esc(Math.round((Number(a.bytes)||0)/1024))} KB</p></div></article>`}).join('')}</section>`;
+  }
+  function renderEvaluations(d){
+    const evaluations=arr(d.evaluations);
+    if(!evaluations.length)return '';
+    return `<section class="section"><div class="section-title"><h2>Évaluation</h2></div><div class="grid">${evaluations.map(e=>{const c=e.critique||{};return `<article class="card"><div class="eyebrow">${esc(e.route_id)}</div><h3>${esc(c.score ?? '—')} · grade ${esc(c.grade||'—')}</h3>${list(c.priority_actions,'Aucune action prioritaire')}</article>`}).join('')}</div></section>`;
+  }
+  function renderRenderJob(d){
+    const p=d.progress||{};
+    const expires=d.expires_at?new Date(d.expires_at).toLocaleString():'';
+    root.innerHTML=titleBlock(d.kind==='workflow'?'Workflow de rendu':'Rendu de direction',d.job_id||'Render job',`${d.provider||''} · ${d.options?.model||''}`)+`<div class="section-title"><span class="status-pill" data-status="${esc(d.status)}">${esc(d.status||'queued')}</span><button class="btn refresh-render" data-job="${esc(d.job_id)}">Rafraîchir</button></div><section class="job-meta"><div class="stat"><b>${esc(p.completed ?? 0)}/${esc(p.total ?? 1)}</b>progression</div><div class="stat"><b>${esc(d.options?.size||'')}</b>format</div><div class="stat"><b>${esc(d.options?.quality||'')}</b>qualité</div><div class="stat"><b>${esc(expires)}</b>expiration</div></section>${d.error?`<div class="notice error"><strong>Erreur.</strong> ${esc(d.error)}</div>`:''}${d.provider_note?`<p class="meta">${esc(d.provider_note)}</p>`:''}${renderAssetGrid(d)}${renderEvaluations(d)}`;
+    scheduleRenderPoll(d);
+  }
+  function renderWorkflow(d){renderRenderJob(d);}
   function renderCritique(d){
     const axes=Object.values(d.axes||{});
     root.innerHTML=titleBlock('Critique sur 100',`${d.score} · grade ${d.grade}`,d.context||'Mesures techniques et jugement graphique combinés.')+`<section class="bars">${axes.map(a=>`<div class="axis"><strong>${esc(a.label)}</strong><div class="track"><div class="fill" style="width:${pct((a.score/20)*100)}%"></div></div><b>${esc(a.score)}/20</b></div>`).join('')}</section><section class="section"><div class="section-title"><h2>Actions prioritaires</h2></div>${list(d.priority_actions)}</section>${d.reference_comparison?similarityBlock(d.reference_comparison):''}<div class="notice"><strong>Limite.</strong> ${esc(d.method_note)}</div>`;
@@ -110,8 +154,9 @@
   function renderSimilarity(d){root.innerHTML=titleBlock('Triage de similarité',`${d.risk_score}/100 · ${d.risk_band}`,'La proximité visuelle est décomposée pour montrer où agir, au lieu de fournir un verdict opaque.')+similarityBlock(d);}
   function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
   function render(payload){
+    clearRenderPoll();
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
-    const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
+    const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,render_job:renderRenderJob,render_workflow:renderWorkflow,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
     if(f) f(d); else root.innerHTML=`<section class="empty"><div><h2>Résultat reçu</h2><pre>${esc(JSON.stringify(payload,null,2))}</pre></div></section>`;
   }
   function extract(x){
@@ -126,6 +171,7 @@
   }
   function accept(x){const p=extract(x);if(p)render(p);}
   window.addEventListener('message',e=>{
+    if(e.source!==window.parent || !bridgeAllowedOrigins.has(e.origin))return;
     const d=e.data;
     if(d?.jsonrpc==='2.0'&&d.id&&bridgePending.has(d.id)){
       const pending=bridgePending.get(d.id);bridgePending.delete(d.id);clearTimeout(pending.timer);
@@ -136,6 +182,15 @@
   });
   window.addEventListener('openai:set_globals',e=>accept(e.detail));
   root.addEventListener('click',async e=>{
+    const refresh=e.target.closest?.('.refresh-render');
+    if(refresh){setLoading('Actualisation du rendu');await callTool('get_render_job',{job_id:refresh.dataset.job});return;}
+    const renderBtn=e.target.closest?.('.render-route');
+    if(renderBtn){
+      const routes=arr(current?.data?.routes);
+      const route=routes.find(x=>String(x.id)===String(renderBtn.dataset.route));
+      if(route){setLoading('Démarrage du rendu');await callTool('render_brand_direction',{route,brief:current.data.brief||{}});}
+      return;
+    }
     const link=e.target.closest?.('.sources a');if(!link)return;
     const href=link.href;if(!href)return;
     if(window.openai?.openExternal){e.preventDefault();await window.openai.openExternal({href});}

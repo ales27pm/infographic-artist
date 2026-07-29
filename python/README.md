@@ -68,13 +68,16 @@ IMAGE_GENERATION_PROVIDER=openai
 IMAGE_GENERATION_MODEL=gpt-image-2
 GENERATED_ASSET_DIR=generated_assets
 GENERATED_ASSET_RETENTION_HOURS=168
+GENERATED_ASSET_MAX_BYTES=536870912
+RENDER_MAX_CONCURRENT_JOBS=2
+RENDER_DAILY_IMAGE_LIMIT=25
 ```
 
 `APP_BASE_URL` must be an HTTPS origin with no path, query, or fragment. It is injected into `_meta.ui.domain`, the compatibility `openai/widgetDomain` field, and the widget resource allowlist so generated image assets can load from the app origin.
 
 Keep `OPENAI_APPS_CHALLENGE_TOKEN` empty until the OpenAI portal issues a verification token. Once set, the well-known route returns exactly that token; while unset, it returns HTTP 404.
 
-`OPENAI_API_KEY` is required only for live plugin-side rendering with `IMAGE_GENERATION_PROVIDER=openai`. Local tests and smoke checks use `IMAGE_GENERATION_PROVIDER=mock` to avoid paid image-generation calls.
+`OPENAI_API_KEY` is required only for live plugin-side rendering with `IMAGE_GENERATION_PROVIDER=openai`. Live rendering is bounded by the configured concurrency and daily image quotas. Local tests and smoke checks use `IMAGE_GENERATION_PROVIDER=mock` to avoid paid image-generation calls.
 
 A `Dockerfile`, `Procfile`, and `render.yaml` are included.
 

@@ -61,6 +61,7 @@ def test_graph_and_library_are_bounded() -> None:
 
 
 def test_directions_are_structurally_incompatible_and_french() -> None:
+    configured_retention = core._retention_hours()
     result = core.generate_directions(
         {
             "name": "Atelier Boréal",
@@ -75,7 +76,7 @@ def test_directions_are_structurally_incompatible_and_french() -> None:
     assert all("Ne pas emprunter" in route["anti_copy_rule"] for route in result["routes"])
     assert result["image_generation_handoff"]["mode"] == "plugin_rendering_available"
     assert "run_brand_workflow" in result["image_generation_handoff"]["instructions"]
-    assert "168 heures" in result["image_generation_handoff"]["storage_note"]
+    assert f"{configured_retention:g} heures" in result["image_generation_handoff"]["storage_note"]
     assert all("concept board" in route["concept_board_prompt"] for route in result["routes"])
     assert all("Do not reproduce existing marks" in route["concept_board_prompt"] for route in result["routes"])
     assert all(len(route["board_evaluation_focus"]) == 3 for route in result["routes"])

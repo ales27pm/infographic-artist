@@ -168,7 +168,7 @@ export const PRIVACY_SECTIONS = [
     body: [
       "The service is designed around no user account database, no payment collection, no public publishing, and only narrowly scoped generation actions.",
       "Image inputs are limited to supported public HTTPS file URLs and supported image types. Private, local, reserved, or credential-bearing URLs are rejected by the service.",
-      "Generated-asset URLs are scoped to opaque render job IDs and filenames, but users should avoid sending secrets or confidential material in prompts.",
+      "Generated-asset URLs are scoped to opaque render job IDs and hash-only filenames, but users should avoid sending secrets or confidential material in prompts.",
       "No security measure is perfect. Users should avoid submitting secrets, unreleased client artwork, personal documents, or regulated information unless they are comfortable with ChatGPT and the hosting path processing it for the request.",
     ],
   },

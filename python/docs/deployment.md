@@ -18,20 +18,26 @@ Required public routes:
 
 ```bash
 docker build -t infographic-artist-chatgpt .
+docker volume create infographic-artist-generated
+
 docker run --rm -p 8000:8000 \
+  -v infographic-artist-generated:/app/generated_assets \
   -e APP_BASE_URL=https://brand-atlas.example.com \
   -e MCP_ALLOWED_HOSTS=brand-atlas.example.com \
   -e MCP_ALLOWED_ORIGINS=https://chatgpt.com,https://platform.openai.com \
   -e CORS_ALLOW_ORIGINS=https://chatgpt.com,https://platform.openai.com \
-  -e OPENAI_API_KEY=<set-in-deployment-for-live-rendering> \
+  -e OPENAI_API_KEY \
   -e IMAGE_GENERATION_PROVIDER=openai \
   -e IMAGE_GENERATION_MODEL=gpt-image-2 \
-  -e GENERATED_ASSET_DIR=generated_assets \
+  -e GENERATED_ASSET_DIR=/app/generated_assets \
   -e GENERATED_ASSET_RETENTION_HOURS=168 \
+  -e GENERATED_ASSET_MAX_BYTES=536870912 \
+  -e RENDER_MAX_CONCURRENT_JOBS=2 \
+  -e RENDER_DAILY_IMAGE_LIMIT=25 \
   infographic-artist-chatgpt
 ```
 
-`APP_BASE_URL` must be the HTTPS origin only, without `/mcp` or any other path. `MCP_ALLOWED_HOSTS` receives only the hostname. `OPENAI_API_KEY` is required for live rendering when `IMAGE_GENERATION_PROVIDER=openai`; use `IMAGE_GENERATION_PROVIDER=mock` only for local or non-production validation.
+`APP_BASE_URL` must be the HTTPS origin only, without `/mcp` or any other path. `MCP_ALLOWED_HOSTS` receives only the hostname. `OPENAI_API_KEY` is required for live rendering when `IMAGE_GENERATION_PROVIDER=openai`; export it in the deployment environment and pass it through with `-e OPENAI_API_KEY` rather than writing the secret into the command. Use `IMAGE_GENERATION_PROVIDER=mock` only for local or non-production validation. `GENERATED_ASSET_DIR` must point at mounted durable storage, or equivalent object storage, so generated jobs and assets survive restarts and redeployments for the configured retention window.
 
 ## Domain verification
 
@@ -56,8 +62,8 @@ No JSON wrapper, quotes, prefix, or added newline should be returned.
 ## Production constraints
 
 - Install `requirements.txt` so `/health` reports `official-mcp-sdk`.
-- Keep the MCP service stateless.
-- Configure generated-asset storage on durable enough local or mounted storage for the selected retention window.
+- Keep the MCP process stateless except for configured generated-asset storage.
+- Configure generated-asset storage on durable mounted storage or object storage for the selected retention window.
 - Terminate TLS at the platform or reverse proxy.
 - Do not log uploaded image bytes or complete user prompts.
 - Do not log `OPENAI_API_KEY` or generated image bytes.
