@@ -1,0 +1,8 @@
+[project]
+name = "Infographic Artist"
+
+[[secret]]
+key = "OPENAI_APPS_CHALLENGE_TOKEN"
+required = false
+expose = true
+description = "Jeton temporaire fourni par le portail OpenAI pour vérifier le domaine de publication."

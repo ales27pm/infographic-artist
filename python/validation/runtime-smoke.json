@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "base_url": "http://127.0.0.1:36131",
+  "base_url": "http://127.0.0.1:39825",
   "checks": {
     "health": {
       "status_code": 200,
@@ -58,5 +58,5 @@
   },
   "runtime": "official-mcp-sdk",
   "failures": [],
-  "server_log_tail": "INFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2147465]"
+  "server_log_tail": "INFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2198887]"
 }

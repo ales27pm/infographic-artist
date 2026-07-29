@@ -72,3 +72,4 @@ validation/runtime-smoke.json
 ```
 
 The live Hatchable deployment is project `proj_0ZtdM0sQTbe1` at `https://infographic-artist-1w7v.hatchable.site`.
+The matching source export is committed under `../hatchable`.

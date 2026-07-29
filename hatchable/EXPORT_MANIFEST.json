@@ -1,0 +1,144 @@
+{
+  "project_id": "proj_0ZtdM0sQTbe1",
+  "public_url": "https://infographic-artist-1w7v.hatchable.site",
+  "deployment_version": 18,
+  "source": "Hatchable read_file export from live project",
+  "exported_at": "2026-07-29T00:24:34Z",
+  "notes": [
+    "Stored Hatchable app files are exported byte-for-byte under this directory.",
+    "The virtual platform AGENTS.md is intentionally excluded because Hatchable generates it live.",
+    "No Hatchable deploy was performed by this export."
+  ],
+  "files": [
+    {
+      "path": "api/chatgpt-mcp.js",
+      "sha256": "7bf2cc50cc2dd3b6bcecbb43af521efe86deb1ac7e2fcff722f1a9c124e682d1",
+      "bytes": 5137
+    },
+    {
+      "path": "hatchable.toml",
+      "sha256": "436bbebcf9232a4d944c03df1b6455d11c7275f18aa52bcba95d026a01ee9a7d",
+      "bytes": 220
+    },
+    {
+      "path": "lib/contract.js",
+      "sha256": "532a41ec3530aab586f2c827da2ddd767c446ab89f1e119e5882327927f883a5",
+      "bytes": 16744
+    },
+    {
+      "path": "lib/core.js",
+      "sha256": "a0cb4ab892caa9811070b151ba239651900a5023b650db56cfe330eb886ab8d7",
+      "bytes": 30214
+    },
+    {
+      "path": "lib/data-part00.js",
+      "sha256": "ffa900fa87e4b8ee709bc7670197b8c8a3fef7c9e50653bbfcccd9b67fd438bc",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part01.js",
+      "sha256": "5d234d8794d08d9626f0bf86e982481a9e89cd56a7bc80b0e78a545d78ad5e0e",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part02.js",
+      "sha256": "12c03070d57c0c0dc3d99391168eb8cb023f2f70fe8da45a695f417e772900e0",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part03.js",
+      "sha256": "e8a2d47fc328c5c0bdd82b002a18e7df71c726f2217af70f9557f748548f334d",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part04.js",
+      "sha256": "9b4be124ea4dcde46c61082eeee418d9f5ee2315a5e85a77c4fc77e1004245d1",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part05.js",
+      "sha256": "5f2ddd5a9d636eb089cdf34bf8628ac375280b157f03ab10266885c9106122e4",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part06.js",
+      "sha256": "be3b8649420969c761dd50252dc704b1f9b537ba555649221861633af28078e0",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part07.js",
+      "sha256": "b05193c1087de47e0a21d264b0b5dcd1b96fdc96a4e52e2dc96d4d20b85fab4f",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part08.js",
+      "sha256": "a338f004322b670f5245a2fc84941e57d22f91bad06a2a451d26fe307dc14fe5",
+      "bytes": 8018
+    },
+    {
+      "path": "lib/data-part09a.js",
+      "sha256": "44573b02ea15bcb47084b26cc3fd0fd1fb872edfbcb8c76bf5b6d50a2bfff25c",
+      "bytes": 4018
+    },
+    {
+      "path": "lib/data-part09b.js",
+      "sha256": "2fe102e21b5fe40a40b6eb6caadc526da7b9bc9815a07aff513026fb06f671a9",
+      "bytes": 4018
+    },
+    {
+      "path": "lib/data-part10a.js",
+      "sha256": "d7bff2029d302481e4c088ef1ecd02568c38cbac7421a6e639203eddb1f9c001",
+      "bytes": 3018
+    },
+    {
+      "path": "lib/data-part10b.js",
+      "sha256": "215cc3d60d8a9cabd183555157c4e7fe67085f1add90123b094f75d30cd86b09",
+      "bytes": 2806
+    },
+    {
+      "path": "lib/data.js",
+      "sha256": "7e3a4cea1543cb5b2b5fc9adbba3789e69550879218e372a5e0004a900061da8",
+      "bytes": 3768
+    },
+    {
+      "path": "lib/site.js",
+      "sha256": "7c9cbff5e2f446e1caa2784730838893b82929f2c348bb6d62d1a1f21a290fe1",
+      "bytes": 2093
+    },
+    {
+      "path": "package.json",
+      "sha256": "6dc1b06d6b093e9cccb20bee06a93836eee0420ae26803ca2ce4065d82f070d1",
+      "bytes": 17
+    },
+    {
+      "path": "pages/.well-known/openai-apps-challenge.js",
+      "sha256": "27b772682dd351cab42916284c044ec648aeb1e2002f215d2f4b13833526c847",
+      "bytes": 827
+    },
+    {
+      "path": "pages/health.js",
+      "sha256": "de647f7e1d131d2254e44ab66a5119120eab22cc35db3b1e0ac6e40573c4b065",
+      "bytes": 757
+    },
+    {
+      "path": "pages/index.js",
+      "sha256": "b3c41a2adf378965752b17f483669966fec2e7ba291de194e095c1c3280e50cd",
+      "bytes": 1747
+    },
+    {
+      "path": "pages/privacy.js",
+      "sha256": "cee9d495aa52fe5fd92d4ae4553474df455dcd17b9e52883393c310250c3ab45",
+      "bytes": 1492
+    },
+    {
+      "path": "pages/support.js",
+      "sha256": "f0d1a0c8845c7e241d444b629971b05cbb5ab6fc09773c71b42b9a2c52d48da1",
+      "bytes": 1027
+    },
+    {
+      "path": "pages/terms.js",
+      "sha256": "0df11446e783492d8fda94a6460437fa0aadbf5aff8e1e239f28eb68c0108631",
+      "bytes": 1051
+    }
+  ]
+}
