@@ -1,30 +1,48 @@
 from __future__ import annotations
 
+import asyncio
+import base64
 import hashlib
 import io
 import ipaddress
 import json
 import math
+import os
 import random
 import re
+import shutil
 import socket
 import statistics
+import time
 import unicodedata
 from collections import Counter
+from collections.abc import Iterable
 from dataclasses import dataclass
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 from urllib.parse import urljoin, urlparse
+from uuid import uuid4
 
 import httpx
 import numpy as np
-from PIL import Image, ImageFilter, ImageOps
+from PIL import Image, ImageDraw, ImageOps
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 MAX_RESULTS = 25
 MAX_FILE_BYTES = 12 * 1024 * 1024
 ALLOWED_IMAGE_MIME_TYPES = {"image/png", "image/jpeg", "image/webp", "image/gif"}
+OPENAI_IMAGE_GENERATIONS_URL = "https://api.openai.com/v1/images/generations"
+DEFAULT_IMAGE_MODEL = "gpt-image-2"
+DEFAULT_ASSET_RETENTION_HOURS = 168
+DEFAULT_GENERATED_ASSET_MAX_BYTES = 512 * 1024 * 1024
+DEFAULT_RENDER_DAILY_IMAGE_LIMIT = 25
+DEFAULT_RENDER_MAX_CONCURRENT_JOBS = 2
+SUPPORTED_RENDER_SIZES = {"auto", "1024x1024", "1536x1024", "1024x1536"}
+SUPPORTED_RENDER_QUALITIES = {"auto", "low", "medium", "high"}
+SUPPORTED_OUTPUT_FORMATS = {"png", "jpeg", "webp"}
+SUPPORTED_BACKGROUNDS = {"auto", "transparent", "opaque"}
 
 
 def normalize(value: Any) -> str:
@@ -366,6 +384,75 @@ _ROUTE_ARCHETYPES = [
 ]
 
 
+_CONCEPT_BOARD_LAYERS = {
+    "symbol": (
+        "a dominant black-and-white symbol silhouette, a reduction strip at 48, 24, and 12 px, "
+        "one cropped detail showing the counterform logic, and two restrained application mockups"
+    ),
+    "type": (
+        "a wordmark construction study with abstract placeholder glyphs, spacing rhythm diagrams, "
+        "a monogram crop, and two small-use tests where the typographic anomaly remains readable"
+    ),
+    "system": (
+        "a governed visual grammar with a visible grid, three generated module variations, "
+        "one motion/keyframe strip, and two application mockups that share the same invariants"
+    ),
+}
+
+
+def _join_prompt_terms(values: Iterable[Any], fallback: str, *, limit: int = 6) -> str:
+    clean = [compact_text(value, 90) for value in values if compact_text(value, 90)]
+    return ", ".join(clean[:limit]) if clean else fallback
+
+
+def _concept_board_prompt(
+    *,
+    name: str,
+    sector: str,
+    promise: str,
+    audience: str,
+    traits: list[str],
+    avoid: list[str],
+    archetype: dict[str, Any],
+    precedents: list[dict[str, Any]],
+) -> str:
+    precedent_names = _join_prompt_terms((source.get("name") for source in precedents), "no visible precedent references", limit=3)
+    trait_text = _join_prompt_terms(traits, "clear, coherent, distinctive")
+    avoid_text = _join_prompt_terms(
+        [
+            *avoid,
+            "existing logos",
+            "mascots",
+            "signature typography",
+            "trade dress",
+            "recognizable third-party colour systems",
+        ],
+        "existing logos, protected marks, mascots, signature typography, trade dress",
+        limit=10,
+    )
+    layer_text = _CONCEPT_BOARD_LAYERS.get(archetype["key"], "three disciplined visual studies and production tests")
+    return compact_text(
+        "Create one square concept board for an original brand identity, not a finished logo. "
+        f"Brand or project name: {name}. Sector: {sector}. Promise to make visible: {promise}. "
+        f"Audience: {audience}. Direction: {archetype['name']}. Structural idea: {archetype['architecture']} "
+        f"Show {layer_text}. Express these traits through structure: {trait_text}. "
+        f"Use a restrained palette logic that can still work in black and white. Avoid: {avoid_text}. "
+        f"The cited precedents are method-only context ({precedent_names}); do not include, imitate, remix, "
+        "or allude visually to their protected forms. Do not reproduce existing marks, protected logos, mascots, "
+        "signature lettering, negative-space tricks, trade dress, or recognizable third-party brand systems. "
+        "Use placeholder text where needed and keep the board production-minded, high-contrast, and independently derived.",
+        1800,
+    )
+
+
+def _board_evaluation_focus(archetype: dict[str, Any]) -> list[str]:
+    return [
+        f"La planche exprime la promesse par la structure {archetype['key']} plutôt que par une finition de surface.",
+        "La silhouette, la topologie, la typographie, le comportement chromatique et la composition divergent clairement des précédents cités.",
+        "L’idée principale survit aux tests monochrome, petite taille, flou et rappel rapide.",
+    ]
+
+
 def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
     name = compact_text(brief.get("name"), 120)
     sector = compact_text(brief.get("sector"), 160)
@@ -412,12 +499,759 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
             "anti_copy_rule": "Ne pas emprunter la silhouette, la construction des lettres, la combinaison chromatique, le dispositif d’espace négatif ou la composition du précédent. Redériver chaque forme depuis ce brief.",
             "fit": {"audience": audience, "risk_tolerance": risk, "sector": sector},
         }
+        route["concept_board_prompt"] = _concept_board_prompt(
+            name=name,
+            sector=sector,
+            promise=promise,
+            audience=audience,
+            traits=traits,
+            avoid=avoid,
+            archetype=archetype,
+            precedents=route["precedents"],
+        )
+        route["board_evaluation_focus"] = _board_evaluation_focus(archetype)
         routes.append(route)
     return {
         "brief": {"name": name, "sector": sector, "promise": promise, "audience": audience, "traits": traits, "must_avoid": avoid, "risk_tolerance": risk},
         "routes": routes,
+        "image_generation_handoff": {
+            "mode": "plugin_rendering_available",
+            "instructions": "Utiliser render_brand_direction pour une route ou run_brand_workflow pour générer les trois planches dans le plugin, puis consulter get_render_job pendant l’exécution.",
+            "storage_note": f"Les planches rendues par le plugin sont conservées comme actifs générés jusqu’à expiration de la rétention configurée, {_retention_hours():g} heures.",
+        },
         "decision_rule": "Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.",
     }
+
+
+_BACKGROUND_TASKS: set[asyncio.Task[Any]] = set()
+_SAFE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{7,80}$")
+_SAFE_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_.-]{1,160}$")
+MAX_RENDER_PROMPT_CHARS = 32000
+MAX_RENDER_METADATA_BYTES = 40_000
+IMAGE_DOWNLOAD_TOTAL_DEADLINE_SECONDS = 20.0
+IMAGE_DOWNLOAD_CONNECT_TIMEOUT_SECONDS = 10.0
+
+
+def _utcnow() -> datetime:
+    return datetime.now(UTC)
+
+
+def _iso(value: datetime) -> str:
+    return value.astimezone(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _parse_iso(value: Any) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).astimezone(UTC)
+    except ValueError:
+        return None
+
+
+def _env_float(name: str, default: float) -> float:
+    value = os.getenv(name, "").strip()
+    if not value:
+        return default
+    try:
+        parsed = float(value)
+    except ValueError:
+        return default
+    return parsed if math.isfinite(parsed) and parsed > 0 else default
+
+
+def _env_int(name: str, default: int) -> int:
+    value = os.getenv(name, "").strip()
+    if not value:
+        return default
+    try:
+        parsed = int(value)
+    except ValueError:
+        return default
+    return parsed if parsed > 0 else default
+
+
+def _numeric_env_warning(name: str, default: float | int) -> str:
+    value = os.getenv(name, "").strip()
+    if not value:
+        return ""
+    try:
+        numeric = float(value)
+    except ValueError:
+        return f"{name} is invalid; using default {default}."
+    if not math.isfinite(numeric) or numeric <= 0:
+        return f"{name} must be positive and finite; using default {default}."
+    return ""
+
+
+def _asset_root() -> Path:
+    value = os.getenv("GENERATED_ASSET_DIR", "generated_assets").strip() or "generated_assets"
+    path = Path(value)
+    if not path.is_absolute():
+        path = ROOT / path
+    return path
+
+
+def _jobs_dir() -> Path:
+    return _asset_root() / "jobs"
+
+
+def _assets_dir() -> Path:
+    return _asset_root() / "assets"
+
+
+def _retention_hours() -> float:
+    return max(1.0, _env_float("GENERATED_ASSET_RETENTION_HOURS", float(DEFAULT_ASSET_RETENTION_HOURS)))
+
+
+def _generation_timeout() -> float:
+    return max(10.0, _env_float("IMAGE_GENERATION_TIMEOUT_SECONDS", 120.0))
+
+
+def _max_retained_bytes() -> int:
+    return max(1, _env_int("GENERATED_ASSET_MAX_BYTES", DEFAULT_GENERATED_ASSET_MAX_BYTES))
+
+
+def _render_daily_image_limit() -> int:
+    return max(1, _env_int("RENDER_DAILY_IMAGE_LIMIT", DEFAULT_RENDER_DAILY_IMAGE_LIMIT))
+
+
+def _render_max_concurrent_jobs() -> int:
+    return max(1, _env_int("RENDER_MAX_CONCURRENT_JOBS", DEFAULT_RENDER_MAX_CONCURRENT_JOBS))
+
+
+def _provider() -> str:
+    return normalize(os.getenv("IMAGE_GENERATION_PROVIDER", "openai")) or "openai"
+
+
+def _image_model(model: Any = "") -> str:
+    return compact_text(model or os.getenv("IMAGE_GENERATION_MODEL") or DEFAULT_IMAGE_MODEL, 80)
+
+
+def _safe_slug(value: Any, fallback: str = "asset") -> str:
+    slug = re.sub(r"[^a-z0-9._-]+", "-", normalize(value)).strip("-._")
+    return slug[:72] or fallback
+
+
+def _new_job_id(prefix: str) -> str:
+    return f"{prefix}-{uuid4().hex}"
+
+
+def _validate_job_id(job_id: str) -> None:
+    if not _SAFE_ID_RE.match(job_id):
+        raise ValueError("Invalid render job ID.")
+
+
+def _validate_filename(filename: str) -> None:
+    if not _SAFE_FILE_RE.match(filename) or "/" in filename or "\\" in filename:
+        raise ValueError("Invalid generated asset filename.")
+
+
+def _job_path(job_id: str) -> Path:
+    _validate_job_id(job_id)
+    return _jobs_dir() / f"{job_id}.json"
+
+
+def _write_job(job: dict[str, Any]) -> None:
+    _jobs_dir().mkdir(parents=True, exist_ok=True)
+    path = _job_path(str(job["job_id"]))
+    tmp = path.with_name(f"{path.name}.tmp")
+    tmp.write_text(json.dumps(job, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
+def _read_job(job_id: str) -> dict[str, Any]:
+    path = _job_path(job_id)
+    if not path.is_file():
+        raise ValueError("Render job not found.")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _iter_job_records() -> Iterable[tuple[Path, dict[str, Any]]]:
+    jobs_dir = _jobs_dir()
+    if not jobs_dir.exists():
+        return
+    for path in jobs_dir.glob("*.json"):
+        try:
+            _validate_job_id(path.stem)
+            job = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        yield path, job
+
+
+def _public_asset_url(job_id: str, filename: str) -> str:
+    base = os.getenv("APP_BASE_URL", "").strip().rstrip("/")
+    path = f"/generated-assets/{job_id}/{filename}"
+    return f"{base}{path}" if base else path
+
+
+def _public_job(job: dict[str, Any]) -> dict[str, Any]:
+    published = json.loads(json.dumps(job, ensure_ascii=False))
+    for asset in published.get("assets", []):
+        filename = asset.get("filename")
+        if filename:
+            asset["asset_url"] = _public_asset_url(str(published["job_id"]), str(filename))
+    return published
+
+
+def _update_job(job_id: str, **updates: Any) -> dict[str, Any]:
+    job = _read_job(job_id)
+    job.update(updates)
+    job["updated_at"] = _iso(_utcnow())
+    _write_job(job)
+    return job
+
+
+def _job_artifact_bytes(job_id: str) -> int:
+    try:
+        _validate_job_id(job_id)
+    except ValueError:
+        return 0
+    total = 0
+    job_path = _job_path(job_id)
+    if job_path.is_file():
+        total += job_path.stat().st_size
+    asset_dir = _assets_dir() / job_id
+    if asset_dir.exists():
+        for path in asset_dir.rglob("*"):
+            if path.is_file():
+                total += path.stat().st_size
+    return total
+
+
+def _delete_job_artifacts(job_id: str) -> None:
+    _validate_job_id(job_id)
+    _job_path(job_id).unlink(missing_ok=True)
+    shutil.rmtree(_assets_dir() / job_id, ignore_errors=True)
+
+
+def _cleanup_storage_quota() -> None:
+    max_bytes = _max_retained_bytes()
+    records: list[tuple[datetime, str, str, int]] = []
+    total = 0
+    for path, job in _iter_job_records() or []:
+        job_id = path.stem
+        artifact_bytes = _job_artifact_bytes(job_id)
+        total += artifact_bytes
+        if str(job.get("status")) in {"succeeded", "failed"}:
+            records.append((_parse_iso(job.get("created_at")) or datetime.min.replace(tzinfo=UTC), job_id, str(job.get("status")), artifact_bytes))
+    if total <= max_bytes:
+        return
+    for _, job_id, _, artifact_bytes in sorted(records):
+        _delete_job_artifacts(job_id)
+        total -= artifact_bytes
+        if total <= max_bytes:
+            break
+
+
+def _cleanup_expired_assets() -> None:
+    now = _utcnow()
+    for path, job in _iter_job_records() or []:
+        expires_at = _parse_iso(job.get("expires_at"))
+        if expires_at and expires_at <= now:
+            _delete_job_artifacts(path.stem)
+    _cleanup_storage_quota()
+
+
+def cleanup_expired_render_assets() -> None:
+    _cleanup_expired_assets()
+
+
+def recover_interrupted_render_jobs() -> None:
+    _cleanup_expired_assets()
+    for path, job in _iter_job_records() or []:
+        if str(job.get("status")) not in {"queued", "running"}:
+            continue
+        try:
+            _update_job(
+                path.stem,
+                status="failed",
+                error="Render job was interrupted by a server restart before completion.",
+            )
+        except Exception:
+            continue
+
+
+def _render_options(args: dict[str, Any]) -> dict[str, Any]:
+    size = str(args.get("size") or "1024x1024")
+    quality = str(args.get("quality") or "medium")
+    output_format = str(args.get("output_format") or "png").lower()
+    background = str(args.get("background") or "auto")
+    model = _image_model(args.get("model"))
+    if size not in SUPPORTED_RENDER_SIZES:
+        raise ValueError(f"Unsupported render size: {size}")
+    if quality not in SUPPORTED_RENDER_QUALITIES:
+        raise ValueError(f"Unsupported render quality: {quality}")
+    if output_format not in SUPPORTED_OUTPUT_FORMATS:
+        raise ValueError(f"Unsupported output format: {output_format}")
+    if background not in SUPPORTED_BACKGROUNDS:
+        raise ValueError(f"Unsupported background: {background}")
+    if background == "transparent" and output_format == "jpeg":
+        raise ValueError("Transparent background requires PNG or WebP output.")
+    if background == "transparent" and model == "gpt-image-2":
+        raise ValueError("Transparent background is not supported with gpt-image-2.")
+    return {
+        "model": model,
+        "size": size,
+        "quality": quality,
+        "output_format": output_format,
+        "background": background,
+    }
+
+
+def _string_list_payload(value: Any, *, limit: int, item_limit: int) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [compact_text(item, item_limit) for item in value if compact_text(item, item_limit)][:limit]
+
+
+def _brief_payload(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    payload: dict[str, Any] = {}
+    for key, limit in {
+        "name": 120,
+        "sector": 160,
+        "promise": 1000,
+        "audience": 400,
+        "risk_tolerance": 120,
+    }.items():
+        text = compact_text(value.get(key), limit)
+        if text:
+            payload[key] = text
+    traits = _string_list_payload(value.get("traits"), limit=8, item_limit=100)
+    must_avoid = _string_list_payload(value.get("must_avoid"), limit=8, item_limit=100)
+    if traits:
+        payload["traits"] = traits
+    if must_avoid:
+        payload["must_avoid"] = must_avoid
+    return payload
+
+
+def _ensure_job_payload_size(payload: dict[str, Any]) -> dict[str, Any]:
+    size = len(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8"))
+    if size > MAX_RENDER_METADATA_BYTES:
+        raise ValueError("Render metadata exceeds the maximum persisted size.")
+    return payload
+
+
+def _route_payload(args: dict[str, Any]) -> dict[str, Any]:
+    route = args.get("route") if isinstance(args.get("route"), dict) else {}
+    prompt = compact_text(args.get("concept_board_prompt") or route.get("concept_board_prompt"), MAX_RENDER_PROMPT_CHARS)
+    if len(prompt) < 24:
+        raise ValueError("concept_board_prompt is required and must describe the board to render.")
+    evaluation_focus = args.get("evaluation_focus") or route.get("board_evaluation_focus") or []
+    return {
+        "route_id": _safe_slug(args.get("route_id") or route.get("id") or "custom", "custom"),
+        "route_name": compact_text(args.get("route_name") or route.get("name") or "Concept board", 160),
+        "concept_board_prompt": prompt,
+        "evaluation_focus": [compact_text(item, 220) for item in evaluation_focus if compact_text(item, 220)][:6],
+        "brief": _brief_payload(args.get("brief")),
+    }
+
+
+def _workflow_render_payload(directions: dict[str, Any]) -> dict[str, Any]:
+    routes = []
+    for index, route in enumerate(directions.get("routes", []), start=1):
+        prompt = compact_text(route.get("concept_board_prompt"), MAX_RENDER_PROMPT_CHARS)
+        if len(prompt) < 24:
+            raise ValueError("Generated route is missing a renderable concept_board_prompt.")
+        routes.append(
+            {
+                "id": _safe_slug(route.get("id") or f"route-{index}", f"route-{index}"),
+                "name": compact_text(route.get("name") or f"Route {index}", 160),
+                "concept_board_prompt": prompt,
+                "board_evaluation_focus": _string_list_payload(route.get("board_evaluation_focus"), limit=6, item_limit=220),
+            }
+        )
+    return {
+        "brief": _brief_payload(directions.get("brief")),
+        "directions": {"routes": routes},
+    }
+
+
+def _new_job(kind: str, *, provider: str, options: dict[str, Any], payload: dict[str, Any]) -> dict[str, Any]:
+    now = _utcnow()
+    job_id = _new_job_id("render" if kind == "render" else "workflow")
+    payload = _ensure_job_payload_size(payload)
+    return {
+        "job_id": job_id,
+        "kind": kind,
+        "status": "queued",
+        "created_at": _iso(now),
+        "updated_at": _iso(now),
+        "expires_at": _iso(now + timedelta(hours=_retention_hours())),
+        "provider": provider,
+        "options": options,
+        "progress": {"completed": 0, "total": 1 if kind == "render" else 3},
+        "input": payload,
+        "assets": [],
+        "evaluations": [],
+        "error": "",
+        "retention": {
+            "hours": _retention_hours(),
+            "policy": "Generated job metadata and image assets are removed after the configured retention window.",
+        },
+    }
+
+
+def _track_task(task: asyncio.Task[Any]) -> None:
+    _BACKGROUND_TASKS.add(task)
+    task.add_done_callback(_BACKGROUND_TASKS.discard)
+
+
+def _provider_note(provider: str) -> str:
+    if provider == "mock":
+        return "mock provider for local validation; no external image API call was made"
+    return "OpenAI Images API generation request"
+
+
+def _job_render_cost(job: dict[str, Any]) -> int:
+    if str(job.get("kind")) == "workflow":
+        total = job.get("progress", {}).get("total") if isinstance(job.get("progress"), dict) else None
+        return max(1, int(total or 3))
+    return 1
+
+
+def _enforce_render_abuse_controls(kind: str, provider: str) -> None:
+    if provider != "openai":
+        return
+    queued_or_running = 0
+    daily_images = 0
+    day_start = _utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    for _, job in _iter_job_records() or []:
+        if str(job.get("provider")) != "openai":
+            continue
+        if str(job.get("status")) in {"queued", "running"}:
+            queued_or_running += 1
+        created_at = _parse_iso(job.get("created_at"))
+        if created_at and created_at >= day_start:
+            daily_images += _job_render_cost(job)
+    requested_images = 3 if kind == "workflow" else 1
+    if queued_or_running >= _render_max_concurrent_jobs():
+        raise ValueError("Render concurrency limit reached; poll existing jobs before starting another paid render.")
+    if daily_images + requested_images > _render_daily_image_limit():
+        raise ValueError("Daily paid render quota reached for this deployment.")
+
+
+def generation_runtime_summary() -> dict[str, Any]:
+    provider = _provider()
+    warnings = [
+        warning
+        for warning in (
+            _numeric_env_warning("GENERATED_ASSET_RETENTION_HOURS", DEFAULT_ASSET_RETENTION_HOURS),
+            _numeric_env_warning("IMAGE_GENERATION_TIMEOUT_SECONDS", 120),
+            _numeric_env_warning("GENERATED_ASSET_MAX_BYTES", DEFAULT_GENERATED_ASSET_MAX_BYTES),
+            _numeric_env_warning("RENDER_DAILY_IMAGE_LIMIT", DEFAULT_RENDER_DAILY_IMAGE_LIMIT),
+            _numeric_env_warning("RENDER_MAX_CONCURRENT_JOBS", DEFAULT_RENDER_MAX_CONCURRENT_JOBS),
+        )
+        if warning
+    ]
+    return {
+        "provider": provider,
+        "model": _image_model(),
+        "retention_hours": _retention_hours(),
+        "storage": {
+            "backend": "filesystem",
+            "cleanup": "startup, render enqueue, status polling, and generated-asset requests",
+            "max_retained_bytes": _max_retained_bytes(),
+        },
+        "abuse_controls": {
+            "max_concurrent_jobs": _render_max_concurrent_jobs(),
+            "daily_image_limit": _render_daily_image_limit(),
+        },
+        "openai_key_configured": bool(os.getenv("OPENAI_API_KEY", "").strip()) if provider == "openai" else False,
+        "configuration_warnings": warnings,
+    }
+
+
+def _parse_dimensions(size: str) -> tuple[int, int]:
+    if size == "1536x1024":
+        return 1536, 1024
+    if size == "1024x1536":
+        return 1024, 1536
+    return 1024, 1024
+
+
+def _mock_render_bytes(prompt: str, options: dict[str, Any], route_id: str, route_name: str) -> bytes:
+    width, height = _parse_dimensions(str(options.get("size") or "1024x1024"))
+    seed = hashlib.sha256(f"{prompt}|{route_id}|{route_name}".encode()).digest()
+    colours = [
+        tuple(seed[i] for i in range(0, 3)),
+        tuple(seed[i] for i in range(3, 6)),
+        tuple(seed[i] for i in range(6, 9)),
+    ]
+    im = Image.new("RGB", (width, height), "#f2efe6")
+    draw = ImageDraw.Draw(im)
+    margin = max(54, width // 18)
+    draw.rectangle((margin, margin, width - margin, height - margin), outline="#151712", width=max(4, width // 180))
+    for index, colour in enumerate(colours):
+        x0 = margin + (index * width // 7) + seed[10 + index] * width // 900
+        y0 = margin + (index * height // 9) + seed[13 + index] * height // 950
+        x1 = min(width - margin, x0 + width // (3 + index))
+        y1 = min(height - margin, y0 + height // (4 + index))
+        fill = "#{:02x}{:02x}{:02x}".format(*colour)
+        if index == 0:
+            draw.rounded_rectangle((x0, y0, x1, y1), radius=width // 28, fill=fill)
+        elif index == 1:
+            draw.ellipse((x0, y0, x1, y1), fill=fill)
+        else:
+            draw.polygon([(x0, y1), ((x0 + x1) // 2, y0), (x1, y1), ((x0 + x1) // 2, min(height - margin, y1 + height // 8))], fill=fill)
+    strip_top = height - margin - height // 8
+    for index, size in enumerate((48, 24, 12)):
+        box = margin + index * width // 10
+        draw.rectangle((box, strip_top, box + width // 18, strip_top + width // 18), fill="#151712")
+        draw.text((box, strip_top + width // 16), f"{size}px", fill="#151712")
+    draw.text((margin, margin // 2), compact_text(route_name, 52), fill="#151712")
+    draw.text((margin, height - margin // 2), f"Mock concept board · {route_id}", fill="#151712")
+    out = io.BytesIO()
+    fmt = "JPEG" if options.get("output_format") == "jpeg" else str(options.get("output_format") or "png").upper()
+    im.save(out, format=fmt, quality=92)
+    return out.getvalue()
+
+
+async def _openai_render_bytes(prompt: str, options: dict[str, Any]) -> bytes:
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is required for IMAGE_GENERATION_PROVIDER=openai.")
+    body = {
+        "model": options["model"],
+        "prompt": prompt,
+        "n": 1,
+        "size": options["size"],
+        "quality": options["quality"],
+        "output_format": options["output_format"],
+        "background": options["background"],
+        "moderation": "auto",
+    }
+    timeout = httpx.Timeout(_generation_timeout(), connect=10.0)
+    async with httpx.AsyncClient(timeout=timeout) as client:
+        response = await client.post(
+            OPENAI_IMAGE_GENERATIONS_URL,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json=body,
+        )
+    if response.status_code >= 400:
+        try:
+            error_message = response.json().get("error", {}).get("message") or response.text
+        except Exception:
+            error_message = response.text
+        raise RuntimeError(f"OpenAI image generation failed: {compact_text(error_message, 500)}")
+    data = response.json()
+    items = data.get("data") or []
+    if not items or not isinstance(items[0], dict) or not items[0].get("b64_json"):
+        raise RuntimeError("OpenAI image generation did not return base64 image data.")
+    return _base64_decode(str(items[0]["b64_json"]))
+
+
+def _base64_decode(value: str) -> bytes:
+    try:
+        return base64.b64decode(value, validate=True)
+    except Exception as exc:
+        raise RuntimeError("Image API response contained invalid base64 data.") from exc
+
+
+async def _render_bytes(prompt: str, options: dict[str, Any], provider: str, route_id: str, route_name: str) -> bytes:
+    if provider == "mock":
+        return await asyncio.to_thread(_mock_render_bytes, prompt, options, route_id, route_name)
+    if provider != "openai":
+        raise ValueError(f"Unsupported image generation provider: {provider}")
+    return await _openai_render_bytes(prompt, options)
+
+
+def _normalized_image_format(value: Any) -> str:
+    output = str(value or "").lower()
+    if output in {"jpg", "jpeg"}:
+        return "jpeg"
+    return output if output in SUPPORTED_OUTPUT_FORMATS else ""
+
+
+def _image_has_alpha(image: Image.Image) -> bool:
+    return image.mode in {"RGBA", "LA"} or (image.mode == "P" and "transparency" in image.info)
+
+
+def _store_asset(job_id: str, image_bytes: bytes, options: dict[str, Any], route: dict[str, Any]) -> dict[str, Any]:
+    Image.MAX_IMAGE_PIXELS = 50_000_000
+    with Image.open(io.BytesIO(image_bytes)) as image:
+        image.load()
+        detected_format = _normalized_image_format(image.format) or _normalized_image_format(options.get("output_format")) or "png"
+        keep_alpha = (
+            str(options.get("background")) == "transparent"
+            and detected_format in {"png", "webp"}
+            and _image_has_alpha(image)
+        )
+        converted = image.convert("RGBA" if keep_alpha else "RGB")
+        width, height = converted.size
+        out = io.BytesIO()
+        fmt = "JPEG" if detected_format == "jpeg" else detected_format.upper()
+        converted.save(out, format=fmt, quality=92)
+        payload = out.getvalue()
+    digest = hashlib.sha256(payload).hexdigest()
+    extension = "jpg" if detected_format == "jpeg" else detected_format
+    filename = f"{digest[:24]}.{extension}"
+    directory = _assets_dir() / job_id
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / filename
+    path.write_bytes(payload)
+    mime_type = "image/jpeg" if detected_format == "jpeg" else f"image/{detected_format}"
+    return {
+        "asset_id": digest[:16],
+        "route_id": route.get("route_id", "custom"),
+        "route_name": route.get("route_name", "Concept board"),
+        "filename": filename,
+        "asset_url": _public_asset_url(job_id, filename),
+        "mime_type": mime_type,
+        "bytes": len(payload),
+        "sha256": digest,
+        "width": width,
+        "height": height,
+    }
+
+
+def _asset_to_image(job_id: str, asset: dict[str, Any]) -> Image.Image:
+    path = _assets_dir() / job_id / str(asset["filename"])
+    with Image.open(path) as image:
+        image.load()
+        return image.convert("RGB")
+
+
+def _critique_stored_asset(job_id: str, asset: dict[str, Any], context: str) -> dict[str, Any]:
+    return critique_image(_asset_to_image(job_id, asset), context=context)
+
+
+def _safe_fail_job(job_id: str, exc: Exception) -> None:
+    try:
+        _update_job(job_id, status="failed", error=f"{type(exc).__name__}: {exc}")
+    except Exception:
+        return
+
+
+async def _run_render_job(job_id: str) -> None:
+    try:
+        job = _update_job(job_id, status="running")
+        provider = str(job["provider"])
+        options = dict(job["options"])
+        route = dict(job["input"]["route"])
+        image_bytes = await _render_bytes(route["concept_board_prompt"], options, provider, route["route_id"], route["route_name"])
+        asset = await asyncio.to_thread(_store_asset, job_id, image_bytes, options, route)
+        evaluation = await asyncio.to_thread(
+            _critique_stored_asset,
+            job_id,
+            asset,
+            " | ".join(route.get("evaluation_focus", [])) or route.get("route_name", ""),
+        )
+        _update_job(
+            job_id,
+            status="succeeded",
+            assets=[asset],
+            evaluations=[{"route_id": route["route_id"], "asset_id": asset["asset_id"], "critique": evaluation}],
+            progress={"completed": 1, "total": 1},
+            provider_note=_provider_note(provider),
+        )
+    except Exception as exc:
+        _safe_fail_job(job_id, exc)
+
+
+async def _run_workflow_job(job_id: str) -> None:
+    try:
+        job = _update_job(job_id, status="running")
+        provider = str(job["provider"])
+        options = dict(job["options"])
+        routes = list(job["input"]["directions"].get("routes", []))
+        assets: list[dict[str, Any]] = []
+        evaluations: list[dict[str, Any]] = []
+        for index, route in enumerate(routes, start=1):
+            route_payload = {
+                "route_id": _safe_slug(route.get("id") or f"route-{index}", f"route-{index}"),
+                "route_name": compact_text(route.get("name") or f"Route {index}", 160),
+                "concept_board_prompt": route["concept_board_prompt"],
+                "evaluation_focus": route.get("board_evaluation_focus", []),
+            }
+            image_bytes = await _render_bytes(
+                route_payload["concept_board_prompt"],
+                options,
+                provider,
+                route_payload["route_id"],
+                route_payload["route_name"],
+            )
+            asset = await asyncio.to_thread(_store_asset, job_id, image_bytes, options, route_payload)
+            assets.append(asset)
+            critique = await asyncio.to_thread(
+                _critique_stored_asset,
+                job_id,
+                asset,
+                " | ".join(route_payload.get("evaluation_focus", [])) or route_payload["route_name"],
+            )
+            evaluations.append(
+                {
+                    "route_id": route_payload["route_id"],
+                    "asset_id": asset["asset_id"],
+                    "critique": critique,
+                }
+            )
+            _update_job(job_id, assets=assets, evaluations=evaluations, progress={"completed": index, "total": len(routes)})
+        _update_job(job_id, status="succeeded", provider_note=_provider_note(provider), progress={"completed": len(routes), "total": len(routes)})
+    except Exception as exc:
+        _safe_fail_job(job_id, exc)
+
+
+async def render_brand_direction(args: dict[str, Any]) -> dict[str, Any]:
+    _cleanup_expired_assets()
+    provider = _provider()
+    options = _render_options(args)
+    _enforce_render_abuse_controls("render", provider)
+    route = _route_payload(args)
+    job = _new_job(
+        "render",
+        provider=provider,
+        options=options,
+        payload={"route": route},
+    )
+    _write_job(job)
+    _track_task(asyncio.create_task(_run_render_job(job["job_id"])))
+    return _public_job(job)
+
+
+async def run_brand_workflow(args: dict[str, Any]) -> dict[str, Any]:
+    _cleanup_expired_assets()
+    provider = _provider()
+    options = _render_options(args)
+    _enforce_render_abuse_controls("workflow", provider)
+    directions = generate_directions(args)
+    job = _new_job(
+        "workflow",
+        provider=provider,
+        options=options,
+        payload=_workflow_render_payload(directions),
+    )
+    _write_job(job)
+    _track_task(asyncio.create_task(_run_workflow_job(job["job_id"])))
+    return _public_job(job)
+
+
+def get_render_job(job_id: str) -> dict[str, Any]:
+    job = _read_job(job_id)
+    expires_at = _parse_iso(job.get("expires_at"))
+    if expires_at and expires_at <= _utcnow():
+        _delete_job_artifacts(job_id)
+        raise ValueError("Render job has expired.")
+    _cleanup_expired_assets()
+    return _public_job(job)
+
+
+def resolve_generated_asset_path(job_id: str, filename: str) -> tuple[Path, str]:
+    _validate_job_id(job_id)
+    _validate_filename(filename)
+    job = get_render_job(job_id)
+    asset = next((item for item in job.get("assets", []) if item.get("filename") == filename), None)
+    if not asset:
+        raise ValueError("Generated asset not found.")
+    path = (_assets_dir() / job_id / filename).resolve()
+    root = (_assets_dir() / job_id).resolve()
+    if root not in path.parents or not path.is_file():
+        raise ValueError("Generated asset not found.")
+    return path, str(asset.get("mime_type") or "application/octet-stream")
 
 
 @dataclass(frozen=True)
@@ -452,6 +1286,7 @@ def _validate_public_https_url(url: str) -> None:
 
 
 async def download_image(file_value: dict[str, Any]) -> Image.Image:
+    deadline = time.monotonic() + IMAGE_DOWNLOAD_TOTAL_DEADLINE_SECONDS
     image_input = ImageInput(
         download_url=str(file_value.get("download_url") or ""),
         file_id=str(file_value.get("file_id") or ""),
@@ -463,13 +1298,18 @@ async def download_image(file_value: dict[str, Any]) -> Image.Image:
     if image_input.mime_type and image_input.mime_type.casefold() not in ALLOWED_IMAGE_MIME_TYPES:
         raise ValueError(f"Unsupported image MIME type: {image_input.mime_type}")
     _validate_public_https_url(image_input.download_url)
-    timeout = httpx.Timeout(20.0, connect=10.0)
     current_url = image_input.download_url
     chunks: list[bytes] = []
-    async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
+    async with httpx.AsyncClient(follow_redirects=False) as client:
         for _ in range(5):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise ValueError("Le téléchargement de l’image a dépassé la limite de 20 secondes.")
             _validate_public_https_url(current_url)
-            async with client.stream("GET", current_url, headers={"Accept": "image/*"}) as response:
+            timeout = httpx.Timeout(remaining, connect=min(IMAGE_DOWNLOAD_CONNECT_TIMEOUT_SECONDS, remaining))
+            async with client.stream("GET", current_url, headers={"Accept": "image/*"}, timeout=timeout) as response:
+                if time.monotonic() > deadline:
+                    raise ValueError("Le téléchargement de l’image a dépassé la limite de 20 secondes.")
                 if response.status_code in {301, 302, 303, 307, 308}:
                     location = response.headers.get("location")
                     if not location:
@@ -486,6 +1326,8 @@ async def download_image(file_value: dict[str, Any]) -> Image.Image:
                     raise ValueError("L’image dépasse la limite de traitement de 12 Mo.")
                 total = 0
                 async for chunk in response.aiter_bytes():
+                    if time.monotonic() > deadline:
+                        raise ValueError("Le téléchargement de l’image a dépassé la limite de 20 secondes.")
                     total += len(chunk)
                     if total > MAX_FILE_BYTES:
                         raise ValueError("L’image dépasse la limite de traitement de 12 Mo.")

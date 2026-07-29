@@ -6,10 +6,13 @@
 <title>Infographic Artist</title>
 <style>
 :root{color-scheme:light dark;--bg:#f2efe6;--panel:#fbf9f2;--ink:#151712;--muted:#666b61;--line:#1b1e1724;--accent:#ff6238;--acid:#c9ff39;--blue:#586cff;--dark:#141611;--good:#2f8a57;--warn:#d58a18;--bad:#c94638}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font:14px/1.48 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}body{padding:0}.app{min-height:360px}.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}.mark{width:32px;height:32px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;transform:rotate(-13deg);background:conic-gradient(from 20deg,var(--acid),var(--accent),var(--blue),var(--acid))}.mark:after{content:"";width:12px;height:12px;background:var(--dark);border-radius:2px}.badge{font-size:11px;padding:5px 8px;border:1px solid var(--line);border-radius:99px;color:var(--muted)}.actions{display:flex;gap:7px}.btn{border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:8px 11px;cursor:pointer;font-weight:650}.btn:hover{background:var(--dark);color:var(--bg)}.wrap{padding:22px;max-width:1180px;margin:auto}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:20px;align-items:end;margin-bottom:20px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:850;color:var(--muted)}h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.04em;margin:.25em 0}h1{font-size:clamp(37px,7vw,78px);line-height:.88}h2{font-size:clamp(28px,5vw,52px);line-height:.95}h3{font-size:24px;line-height:1.03}.lead{max-width:760px;color:var(--muted);font-size:15px}.scoreball{aspect-ratio:1;max-width:190px;justify-self:end;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,var(--panel),transparent 52%),conic-gradient(var(--acid),var(--accent),var(--blue),var(--acid));box-shadow:inset 0 0 0 18px color-mix(in srgb,var(--bg) 85%,transparent)}.scoreball b{font:50px Georgia;color:var(--ink)}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line);margin:18px 0 24px}.stat{padding:14px 12px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat b{display:block;font:28px Georgia}.meta{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:260px;padding:18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 84%,transparent)}.card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-55px;top:-60px;background:var(--card-accent,var(--acid));opacity:.42}.card>*{position:relative}.card h3{margin-top:28px}.tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}.tag{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:4px 7px}.card .footer{margin-top:auto;display:flex;gap:7px}.card .footer .btn{flex:1}.notice{padding:14px 16px;border-left:4px solid var(--accent);border-radius:4px 12px 12px 4px;background:color-mix(in srgb,var(--panel) 82%,transparent);margin:12px 0}.section{margin:24px 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding-bottom:8px}.list{display:grid;gap:8px;padding:0;list-style:none}.list li{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 70%,transparent)}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.matrix{overflow:auto;border:1px solid var(--line);border-radius:16px}.matrix table{width:100%;border-collapse:collapse;min-width:700px}.matrix th,.matrix td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}.matrix th{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}.graphbox{height:530px;border:1px solid var(--line);border-radius:20px;background:var(--dark);overflow:hidden;position:relative}.graphbox svg{width:100%;height:100%;display:block}.graph-label{font-size:11px;fill:#f6f2e8;paint-order:stroke;stroke:#141611;stroke-width:3px;stroke-linejoin:round}.graph-node{cursor:pointer;transition:.15s}.graph-node:hover{r:9}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.route{padding:18px;border-radius:19px;border:1px solid var(--line);background:var(--panel)}.route:nth-child(1){border-top:8px solid var(--acid)}.route:nth-child(2){border-top:8px solid var(--accent)}.route:nth-child(3){border-top:8px solid var(--blue)}.bars{display:grid;gap:12px}.axis{display:grid;grid-template-columns:180px 1fr 48px;gap:10px;align-items:center}.track{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--acid))}.gauge{height:22px;border-radius:99px;background:linear-gradient(90deg,var(--good),var(--warn),var(--bad));position:relative}.gauge i{position:absolute;top:-5px;width:4px;height:32px;background:var(--ink);border-radius:2px;transform:translateX(-2px)}.coach{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}.coach-panel{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.sources a{color:var(--blue);word-break:break-word}.empty{display:grid;place-items:center;text-align:center;min-height:360px;border:1px dashed var(--line);border-radius:20px;padding:30px}.empty .mark{width:64px;height:64px;margin:auto}.spinner{width:20px;height:20px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.error{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--panel))}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font:14px/1.48 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}body{padding:0}.app{min-height:360px}.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}.mark{width:32px;height:32px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;transform:rotate(-13deg);background:conic-gradient(from 20deg,var(--acid),var(--accent),var(--blue),var(--acid))}.mark:after{content:"";width:12px;height:12px;background:var(--dark);border-radius:2px}.badge{font-size:11px;padding:5px 8px;border:1px solid var(--line);border-radius:99px;color:var(--muted)}.actions{display:flex;gap:7px}.btn{border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:8px 11px;cursor:pointer;font-weight:650}.btn:hover{background:var(--dark);color:var(--bg)}.wrap{padding:22px;max-width:1180px;margin:auto}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:20px;align-items:end;margin-bottom:20px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:850;color:var(--muted)}h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.04em;margin:.25em 0}h1{font-size:clamp(37px,7vw,78px);line-height:.88}h2{font-size:clamp(28px,5vw,52px);line-height:.95}h3{font-size:24px;line-height:1.03}.lead{max-width:760px;color:var(--muted);font-size:15px}.scoreball{aspect-ratio:1;max-width:190px;justify-self:end;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,var(--panel),transparent 52%),conic-gradient(var(--acid),var(--accent),var(--blue),var(--acid));box-shadow:inset 0 0 0 18px color-mix(in srgb,var(--bg) 85%,transparent)}.scoreball b{font:50px Georgia;color:var(--ink)}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line);margin:18px 0 24px}.stat{padding:14px 12px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat b{display:block;font:28px Georgia}.meta{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:260px;padding:18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 84%,transparent)}.card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-55px;top:-60px;background:var(--card-accent,var(--acid));opacity:.42}.card>*{position:relative}.card h3{margin-top:28px}.tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}.tag{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:4px 7px}.card .footer{margin-top:auto;display:flex;gap:7px}.card .footer .btn{flex:1}.notice{padding:14px 16px;border-left:4px solid var(--accent);border-radius:4px 12px 12px 4px;background:color-mix(in srgb,var(--panel) 82%,transparent);margin:12px 0}.section{margin:24px 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding-bottom:8px}.list{display:grid;gap:8px;padding:0;list-style:none}.list li{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 70%,transparent)}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.matrix{overflow:auto;border:1px solid var(--line);border-radius:16px}.matrix table{width:100%;border-collapse:collapse;min-width:700px}.matrix th,.matrix td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}.matrix th{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}.graphbox{height:530px;border:1px solid var(--line);border-radius:20px;background:var(--dark);overflow:hidden;position:relative}.graphbox svg{width:100%;height:100%;display:block}.graph-label{font-size:11px;fill:#f6f2e8;paint-order:stroke;stroke:#141611;stroke-width:3px;stroke-linejoin:round}.graph-node{cursor:pointer;transition:.15s}.graph-node:hover{r:9}.route-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.route{padding:18px;border-radius:19px;border:1px solid var(--line);background:var(--panel)}.route:nth-child(1){border-top:8px solid var(--acid)}.route:nth-child(2){border-top:8px solid var(--accent)}.route:nth-child(3){border-top:8px solid var(--blue)}.bars{display:grid;gap:12px}.axis{display:grid;grid-template-columns:180px 1fr 48px;gap:10px;align-items:center}.track{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--acid))}.gauge{height:22px;border-radius:99px;background:linear-gradient(90deg,var(--good),var(--warn),var(--bad));position:relative}.gauge i{position:absolute;top:-5px;width:4px;height:32px;background:var(--ink);border-radius:2px;transform:translateX(-2px)}.coach{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}.coach-panel{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.prompt{white-space:pre-wrap;word-break:break-word;margin:8px 0 12px;padding:12px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--bg) 68%,var(--panel));font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.sources a{color:var(--blue);word-break:break-word}.empty{display:grid;place-items:center;text-align:center;min-height:360px;border:1px dashed var(--line);border-radius:20px;padding:30px}.empty .mark{width:64px;height:64px;margin:auto}.spinner{width:20px;height:20px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.error{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--panel))}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:850px){.grid,.route-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.scoreball{justify-self:start;max-width:120px}.stats{grid-template-columns:repeat(2,1fr)}.compare,.coach{grid-template-columns:1fr}.axis{grid-template-columns:125px 1fr 42px}}
 @media(max-width:560px){.wrap{padding:15px}.top{padding:11px 13px}.brand span:last-child{display:none}.grid,.route-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.actions .btn:nth-child(2){display:none}}
 @media(prefers-color-scheme:dark){:root{--bg:#171914;--panel:#20231c;--ink:#f2efe6;--muted:#b0b5a9;--line:#f2efe625;--dark:#0d0f0b}.scoreball b{color:#151712}.card:before{opacity:.25}.sources a{color:#aeb9ff}}
+</style>
+<style>
+.status-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-weight:760}.status-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn)}.status-pill[data-status="succeeded"]:before{background:var(--good)}.status-pill[data-status="failed"]:before{background:var(--bad)}.asset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.asset{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}.asset img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}.asset-body{padding:12px}.job-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.job-meta .stat{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 76%,transparent)}@media(max-width:850px){.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.job-meta{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.asset-grid,.job-meta{grid-template-columns:1fr}}
 </style>
 </head>
 <body><script>window.__INFOGRAPHIC_DEMO__={"view": "critique", "data": {"context": "Proposition de symbole modulaire pour une architecture durable.", "score": 72.7, "grade": "B", "axes": {"beaux_arts": {"label": "Beaux-arts / composition", "score": 18.3}, "hierarchy": {"label": "Hiérarchie visuelle", "score": 16.6}, "legibility": {"label": "Lisibilité et réduction", "score": 11.0}, "memorability": {"label": "Mémorisation", "score": 13.2}, "differentiation": {"label": "Différenciation", "score": 13.6, "confidence": "faible; aucune référence fournie"}}, "technical_metrics": {"width": 900, "height": 620, "aspect_ratio": 1.4516, "contrast": 0.3532, "edge_density": 0.0315, "entropy": 0.3639, "foreground_occupancy": 0.3021, "centroid": {"x": 0.5001, "y": 0.4828}, "balance": 0.9251, "small_size_stability": 0.0, "saliency_concentration": 0.8959}, "priority_actions": ["Supprimer les détails qui s’effondrent à 24 px, puis vérifier les versions monochrome, floue, gravée et inversée.", "Réduire l’idée à un contour redessinable après deux secondes d’exposition; conserver une seule anomalie contrôlée."], "reference_comparison": null, "method_note": "Les mesures techniques soutiennent la critique; elles ne remplacent ni le jugement humain, ni les tests utilisateurs, ni la recherche d’antériorité, ni la revue juridique."}};</script>
@@ -31,17 +34,43 @@
   const titleBlock = (eyebrow,title,lead='') => `<section class="hero"><div><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(title)}</h1>${lead?`<p class="lead">${esc(lead)}</p>`:''}</div></section>`;
   const sourceLinks = sources => arr(sources).length ? `<div class="sources">${arr(sources).map(s=>`<p><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title||s.url)}</a>${s.kind?` <span class="meta">· ${esc(s.kind)}</span>`:''}</p>`).join('')}</div>` : '<p class="meta">Aucune source détaillée sur cette fiche index.</p>';
 
+  let bridgeSequence = 0;
+  const bridgePending = new Map();
+  const bridgeAllowedOrigins = new Set(['https://chatgpt.com','https://chat.openai.com','https://platform.openai.com']);
+  function bridgeTargetOrigin(){
+    try{
+      const origin=new URL(document.referrer).origin;
+      if(bridgeAllowedOrigins.has(origin))return origin;
+    }catch(_){}
+    return 'https://chatgpt.com';
+  }
+  function bridgeRequest(method,params={},timeoutMs=8000){
+    if(window.parent===window) return Promise.reject(new Error('MCP Apps bridge unavailable'));
+    const id=`ia-${Date.now()}-${++bridgeSequence}`;
+    return new Promise((resolve,reject)=>{
+      const timer=setTimeout(()=>{bridgePending.delete(id);reject(new Error(`Bridge timeout: ${method}`));},timeoutMs);
+      bridgePending.set(id,{resolve,reject,timer});
+      window.parent.postMessage({jsonrpc:'2.0',id,method,params},bridgeTargetOrigin());
+    });
+  }
   async function callTool(name,args){
+    let lastError=null;
     try{
-      if(window.openai?.callTool) return await window.openai.callTool(name,args);
-      if(window.openai?.app?.callServerTool) return await window.openai.app.callServerTool({name,arguments:args});
-    }catch(err){ showError(err); return null; }
-    const prompt = name==='get_brand_case' ? `Ouvre la fiche de marque ${args.item_id} dans Infographic Artist.` : `Utilise Infographic Artist avec l’outil ${name}.`;
+      const result=await bridgeRequest('tools/call',{name,arguments:args});
+      accept(result);
+      return result;
+    }catch(err){lastError=err;}
     try{
-      if(window.openai?.sendFollowUpMessage) return await window.openai.sendFollowUpMessage({prompt});
-      if(window.openai?.app?.sendMessage) return await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
-    }catch(err){ showError(err); }
-    return null;
+      if(window.openai?.callTool){const result=await window.openai.callTool(name,args);accept(result);return result;}
+      if(window.openai?.app?.callServerTool){const result=await window.openai.app.callServerTool({name,arguments:args});accept(result);return result;}
+    }catch(err){lastError=err;}
+    const prompt=name==='get_brand_case'?`Ouvre la fiche de marque ${args.item_id} dans Infographic Artist.`:`Utilise Infographic Artist avec l’outil ${name}.`;
+    try{
+      if(window.openai?.sendFollowUpMessage)return await window.openai.sendFollowUpMessage({prompt});
+      if(window.openai?.app?.sendMessage)return await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
+      await bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
+      return null;
+    }catch(err){showError(err||lastError);return null;}
   }
   function showError(err){root.innerHTML=`<section class="empty error"><div><h2>Analyse interrompue</h2><p>${esc(err?.message||err)}</p></div></section>`;}
   function setLoading(label='Analyse en cours'){root.innerHTML=`<section class="empty"><div><div class="spinner"></div><h2>${esc(label)}</h2></div></section>`;}
@@ -81,8 +110,42 @@
   }
   function renderDirections(d){
     const b=d.brief||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div><section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    const h=d.image_generation_handoff||{};
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Rendu plugin.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn render-route" data-route="${esc(r.id)}">Rendre</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
+  let renderPollTimer = null;
+  let renderPollJob = '';
+  let renderPollCount = 0;
+  function clearRenderPoll(){
+    if(renderPollTimer){clearTimeout(renderPollTimer);renderPollTimer=null;}
+  }
+  function scheduleRenderPoll(d){
+    if(!d?.job_id || !['queued','running'].includes(String(d.status||'')))return;
+    if(renderPollJob!==d.job_id){renderPollJob=d.job_id;renderPollCount=0;}
+    if(renderPollCount>=40)return;
+    renderPollTimer=setTimeout(async()=>{
+      renderPollTimer=null;
+      renderPollCount++;
+      await callTool('get_render_job',{job_id:d.job_id});
+    },2500);
+  }
+  function renderAssetGrid(d){
+    const assets=arr(d.assets);
+    if(!assets.length)return '<section class="empty"><div><div class="spinner"></div><h2>Rendu en cours</h2><p class="lead">Rafraîchis le statut pour récupérer les planches générées.</p></div></section>';
+    return `<section class="asset-grid">${assets.map(a=>{const hasDims=Number.isFinite(Number(a.width))&&Number(a.width)>0&&Number.isFinite(Number(a.height))&&Number(a.height)>0;const dims=hasDims?`${esc(a.width)}×${esc(a.height)}`:'dimensions non disponibles';return `<article class="asset"><img src="${esc(a.asset_url)}" alt="${esc(a.route_name||'Generated concept board')}" loading="lazy"><div class="asset-body"><div class="eyebrow">${esc(a.route_id)}</div><h3>${esc(a.route_name||'Concept board')}</h3><p class="meta">${dims} · ${esc(a.mime_type)} · ${esc(Math.round((Number(a.bytes)||0)/1024))} KB</p></div></article>`}).join('')}</section>`;
+  }
+  function renderEvaluations(d){
+    const evaluations=arr(d.evaluations);
+    if(!evaluations.length)return '';
+    return `<section class="section"><div class="section-title"><h2>Évaluation</h2></div><div class="grid">${evaluations.map(e=>{const c=e.critique||{};return `<article class="card"><div class="eyebrow">${esc(e.route_id)}</div><h3>${esc(c.score ?? '—')} · grade ${esc(c.grade||'—')}</h3>${list(c.priority_actions,'Aucune action prioritaire')}</article>`}).join('')}</div></section>`;
+  }
+  function renderRenderJob(d){
+    const p=d.progress||{};
+    const expires=d.expires_at?new Date(d.expires_at).toLocaleString():'';
+    root.innerHTML=titleBlock(d.kind==='workflow'?'Workflow de rendu':'Rendu de direction',d.job_id||'Render job',`${d.provider||''} · ${d.options?.model||''}`)+`<div class="section-title"><span class="status-pill" data-status="${esc(d.status)}">${esc(d.status||'queued')}</span><button class="btn refresh-render" data-job="${esc(d.job_id)}">Rafraîchir</button></div><section class="job-meta"><div class="stat"><b>${esc(p.completed ?? 0)}/${esc(p.total ?? 1)}</b>progression</div><div class="stat"><b>${esc(d.options?.size||'')}</b>format</div><div class="stat"><b>${esc(d.options?.quality||'')}</b>qualité</div><div class="stat"><b>${esc(expires)}</b>expiration</div></section>${d.error?`<div class="notice error"><strong>Erreur.</strong> ${esc(d.error)}</div>`:''}${d.provider_note?`<p class="meta">${esc(d.provider_note)}</p>`:''}${renderAssetGrid(d)}${renderEvaluations(d)}`;
+    scheduleRenderPoll(d);
+  }
+  function renderWorkflow(d){renderRenderJob(d);}
   function renderCritique(d){
     const axes=Object.values(d.axes||{});
     root.innerHTML=titleBlock('Critique sur 100',`${d.score} · grade ${d.grade}`,d.context||'Mesures techniques et jugement graphique combinés.')+`<section class="bars">${axes.map(a=>`<div class="axis"><strong>${esc(a.label)}</strong><div class="track"><div class="fill" style="width:${pct((a.score/20)*100)}%"></div></div><b>${esc(a.score)}/20</b></div>`).join('')}</section><section class="section"><div class="section-title"><h2>Actions prioritaires</h2></div>${list(d.priority_actions)}</section>${d.reference_comparison?similarityBlock(d.reference_comparison):''}<div class="notice"><strong>Limite.</strong> ${esc(d.method_note)}</div>`;
@@ -91,8 +154,9 @@
   function renderSimilarity(d){root.innerHTML=titleBlock('Triage de similarité',`${d.risk_score}/100 · ${d.risk_band}`,'La proximité visuelle est décomposée pour montrer où agir, au lieu de fournir un verdict opaque.')+similarityBlock(d);}
   function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
   function render(payload){
+    clearRenderPoll();
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
-    const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
+    const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,render_job:renderRenderJob,render_workflow:renderWorkflow,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
     if(f) f(d); else root.innerHTML=`<section class="empty"><div><h2>Résultat reçu</h2><pre>${esc(JSON.stringify(payload,null,2))}</pre></div></section>`;
   }
   function extract(x){
@@ -106,8 +170,31 @@
     return null;
   }
   function accept(x){const p=extract(x);if(p)render(p);}
-  window.addEventListener('message',e=>{const d=e.data;if(d?.method==='ui/notifications/tool-result'||d?.method==='openai:set_globals'||d?.type==='openai:set_globals')accept(d);});
+  window.addEventListener('message',e=>{
+    if(e.source!==window.parent || !bridgeAllowedOrigins.has(e.origin))return;
+    const d=e.data;
+    if(d?.jsonrpc==='2.0'&&d.id&&bridgePending.has(d.id)){
+      const pending=bridgePending.get(d.id);bridgePending.delete(d.id);clearTimeout(pending.timer);
+      if(d.error)pending.reject(new Error(d.error.message||'Bridge request failed'));else pending.resolve(d.result);
+      return;
+    }
+    if(d?.method==='ui/notifications/tool-result'||d?.method==='openai:set_globals'||d?.type==='openai:set_globals')accept(d);
+  });
   window.addEventListener('openai:set_globals',e=>accept(e.detail));
+  root.addEventListener('click',async e=>{
+    const refresh=e.target.closest?.('.refresh-render');
+    if(refresh){setLoading('Actualisation du rendu');await callTool('get_render_job',{job_id:refresh.dataset.job});return;}
+    const renderBtn=e.target.closest?.('.render-route');
+    if(renderBtn){
+      const routes=arr(current?.data?.routes);
+      const route=routes.find(x=>String(x.id)===String(renderBtn.dataset.route));
+      if(route){setLoading('Démarrage du rendu');await callTool('render_brand_direction',{route,brief:current.data.brief||{}});}
+      return;
+    }
+    const link=e.target.closest?.('.sources a');if(!link)return;
+    const href=link.href;if(!href)return;
+    if(window.openai?.openExternal){e.preventDefault();await window.openai.openExternal({href});}
+  });
   document.getElementById('newSearch').addEventListener('click',()=>callTool('open_brand_atlas',{query:'',limit:12}));
   document.getElementById('fullscreen').addEventListener('click',async()=>{try{if(window.openai?.requestDisplayMode)await window.openai.requestDisplayMode({mode:'fullscreen'});else if(window.openai?.app?.requestDisplayMode)await window.openai.app.requestDisplayMode({mode:'fullscreen'});}catch(_){}});
   const initial = extract(window.__INFOGRAPHIC_DEMO__) || extract(window.openai) || extract(window.openai?.toolOutput) || extract(window.openai?.toolResult);

@@ -6,10 +6,13 @@
 - Subtitle: **Brand research & critique**.
 - Authentication: none.
 - Commerce: none.
-- External writes: none.
-- User data persisted: none.
+- External writes: rendering tools may call the configured image-generation provider; no public publishing or third-party user-account mutation.
+- User data persisted: time-bounded render job metadata and plugin-generated concept-board assets are retained under the configured generated-asset retention window, 168 hours by default; uploaded critique/comparison images are not persisted.
+- Image-generation API calls by this app: `render_brand_direction` and `run_brand_workflow` may call OpenAI Images when configured.
+- Generated-asset storage by this app: render jobs and generated concept-board images are retained under `GENERATED_ASSET_RETENTION_HOURS`, 168 hours by default.
 - Third-party artwork bundled: none.
 - The atlas contains names, metadata, principles, and public-source links only.
+- `generate_brand_directions` returns three original routes plus plugin-ready concept-board prompts; rendering tools can create and evaluate boards inside the app.
 - The image tools process user-selected ChatGPT files in memory.
 - The app explicitly warns that perceptual similarity is not legal clearance.
 - The website and policies are served from the same production origin as MCP.

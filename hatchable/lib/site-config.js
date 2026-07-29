@@ -5,7 +5,7 @@ export const SITE = {
   siteUrl: "https://infographic-artist-1w7v.hatchable.site",
   mcpUrl: "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
   versionLabel: "v1.0.0",
-  toolCount: 9,
+  toolCount: 12,
   copyrightYear: "2026",
   effectiveDate: "July 29, 2026",
   lastUpdatedDate: "July 29, 2026",
@@ -16,7 +16,7 @@ export const SITE = {
     note: "Support mailbox confirmed by the publisher.",
   },
   description:
-    "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, render plugin-side concept boards, critique visual proposals on five axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
 };
 
 export const NAVIGATION = [
@@ -35,6 +35,9 @@ export const TOOL_NAMES = [
   "explore_brand_graph",
   "search_design_systems",
   "generate_brand_directions",
+  "render_brand_direction",
+  "run_brand_workflow",
+  "get_render_job",
   "critique_brand_image",
   "compare_brand_images",
   "coach_brand_decision",
@@ -63,7 +66,11 @@ export const WORKFLOWS = [
   },
   {
     name: "Original direction generation",
-    text: "Generate three structurally distinct creative routes from a brief without copying protected forms.",
+    text: "Generate three structurally distinct creative routes and plugin-ready concept-board prompts without copying protected forms.",
+  },
+  {
+    name: "Plugin-side rendering",
+    text: "Start asynchronous concept-board rendering jobs through the image-generation provider, store generated assets, and poll status.",
   },
   {
     name: "Visual critique",
@@ -86,7 +93,7 @@ export const SERVICE_FACTS = [
   "No authentication required",
   "No commerce or payment processing",
   "No advertisements",
-  "No external write actions",
+  "Image rendering may call OpenAI's image-generation API",
   "Does not publish user content",
 ];
 
@@ -114,6 +121,7 @@ export const PRIVACY_SECTIONS = [
     heading: "Information processed",
     body: [
       "The MCP tools receive only the arguments needed for the requested brand research, comparison, critique, similarity triage, or coaching workflow.",
+      "Creative-direction outputs include concept-board prompts. When rendering tools are used, Infographic Artist sends the selected prompt and rendering options to the configured image-generation provider, stores the generated asset, and returns a job status link.",
       "For uploaded-image critique or comparison, ChatGPT supplies a short-lived file URL and file metadata. Infographic Artist accesses the image temporarily to complete the requested analysis.",
       "Bundled brand-atlas, knowledge-graph, and graphic-system data are read locally by the service.",
     ],
@@ -126,9 +134,10 @@ export const PRIVACY_SECTIONS = [
     ],
   },
   {
-    heading: "Read-only tools",
+    heading: "Tool actions",
     body: [
-      "All nine MCP tools are read-only, non-destructive, idempotent, and do not modify external systems.",
+      "Atlas, case, comparison, graph, library, direction generation, critique, similarity, coaching, and render-status tools are read-only from the user's perspective.",
+      "render_brand_direction and run_brand_workflow are non-destructive generation actions. They may call the configured image-generation provider, incur provider costs for the operator, and create generated image assets in the app's configured storage.",
       "The app does not publish content, write to third-party services, send email, create accounts, place orders, or post user material publicly.",
     ],
   },
@@ -144,6 +153,7 @@ export const PRIVACY_SECTIONS = [
     heading: "Retention",
     body: [
       "Infographic Artist does not maintain user profiles, payment records, persistent uploaded-image storage, or a public content database.",
+      "Generated render-job metadata and generated image assets are retained only for the configured generated-asset retention window, 168 hours by default, and are then eligible for deletion.",
       "Temporary request data is used to answer the active request. Operational logs, if any, are retained according to the hosting provider's normal infrastructure practices.",
     ],
   },
@@ -156,8 +166,9 @@ export const PRIVACY_SECTIONS = [
   {
     heading: "Security",
     body: [
-      "The service is designed around read-only tools, no user account database, no payment collection, and no external write actions.",
+      "The service is designed around no user account database, no payment collection, no public publishing, and only narrowly scoped generation actions.",
       "Image inputs are limited to supported public HTTPS file URLs and supported image types. Private, local, reserved, or credential-bearing URLs are rejected by the service.",
+      "Generated-asset URLs are scoped to opaque render job IDs and hash-only filenames, but users should avoid sending secrets or confidential material in prompts.",
       "No security measure is perfect. Users should avoid submitting secrets, unreleased client artwork, personal documents, or regulated information unless they are comfortable with ChatGPT and the hosting path processing it for the request.",
     ],
   },
@@ -192,7 +203,7 @@ export const TERMS_SECTIONS = [
   {
     heading: "Description of service",
     body: [
-      "Infographic Artist is an MCP-based design research and critique app by 27pm. It provides read-only tools for brand-system research, precedent comparison, knowledge-graph exploration, original direction generation, uploaded-image critique, perceptual-similarity triage, and design coaching.",
+      "Infographic Artist is an MCP-based design research, rendering, and critique app by 27pm. It provides tools for brand-system research, precedent comparison, knowledge-graph exploration, original direction generation, plugin-side concept-board rendering, uploaded-image critique, perceptual-similarity triage, and design coaching.",
       "The service is available through ChatGPT, requires no separate account with 27pm, has no authentication flow, includes no commerce, and contains no advertising.",
     ],
   },
@@ -229,6 +240,7 @@ export const TERMS_SECTIONS = [
       "27pm owns or licenses the Infographic Artist service, site text, tool implementation, original icon assets, and bundled research structure, except for rights held by others.",
       "Third-party brand names may appear as factual references in research data. Their appearance does not imply endorsement, affiliation, sponsorship, or permission.",
       "27pm makes no ownership claim over third-party trademarks, logos, brand names, or protected forms. Historical precedents are used to explain methods and design principles, not to provide templates or licenses.",
+      "Concept-board prompts and plugin-rendered boards are creative exploration outputs, not finished brand assets, image-generation service promises, or trademark clearance.",
       "You retain rights you already hold in uploaded materials. Service-generated output is provided for creative and educational assistance and should be independently reviewed before commercial use.",
     ],
   },
@@ -282,7 +294,7 @@ export const SUPPORT_FAQS = [
   {
     question: "How do I use Infographic Artist in ChatGPT?",
     answer:
-      "Open ChatGPT, choose the Infographic Artist plugin or app when available, and ask for a brand atlas search, case study, comparison, graph exploration, original direction, uploaded-image critique, similarity triage, or coaching exercise.",
+      "Open ChatGPT, choose the Infographic Artist plugin or app when available, and ask for a brand atlas search, case study, comparison, graph exploration, original direction, plugin-side concept-board rendering, uploaded-image critique, similarity triage, or coaching exercise.",
   },
   {
     question: "What image formats are supported?",
@@ -292,7 +304,7 @@ export const SUPPORT_FAQS = [
   {
     question: "Are uploaded images stored?",
     answer:
-      "No. Infographic Artist accesses ChatGPT-provided short-lived file URLs temporarily for the requested critique or comparison and does not persist uploaded images.",
+      "Uploaded images are not persisted. Plugin-rendered concept boards and their job metadata are stored only as generated assets for the configured retention window, 168 hours by default.",
   },
   {
     question: "Why did a tool not trigger?",

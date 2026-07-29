@@ -9,17 +9,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 errors: list[str] = []
-EXPECTED_TOOLS = {
-    "open_brand_atlas",
-    "get_brand_case",
-    "compare_brand_systems",
-    "explore_brand_graph",
-    "search_design_systems",
-    "generate_brand_directions",
-    "critique_brand_image",
-    "compare_brand_images",
-    "coach_brand_decision",
-}
+sys.path.insert(0, str(ROOT))
+from contract import READ_ONLY_ANNOTATIONS, TOOL_DEFINITIONS  # noqa: E402
+
+EXPECTED_TOOLS = set(TOOL_DEFINITIONS)
 
 
 def check(condition: bool, message: str) -> None:
@@ -35,22 +28,21 @@ for name in ["contract.py", "core.py", "fallback_server.py", "official_server.py
 
 
 # Inspect the actual live descriptor source used by the restricted-build fallback.
-sys.path.insert(0, str(ROOT))
 try:
     import fallback_server
 
     descriptors = fallback_server.get_tool_descriptors()
     check({item.get("name") for item in descriptors} == EXPECTED_TOOLS, "live descriptor tools do not match expected tools")
-    check(len(descriptors) == 9, "expected nine live tool descriptors")
     for item in descriptors:
         tool_name = str(item.get("name") or "<unknown>")
         check(str(item.get("description") or "").startswith("Use this when"), f"{tool_name}: description must start with Use this when")
         check(bool(item.get("outputSchema")), f"{tool_name}: missing outputSchema")
         annotations = item.get("annotations") or {}
-        check(annotations.get("readOnlyHint") is True, f"{tool_name}: live readOnlyHint must be true")
-        check(annotations.get("openWorldHint") is False, f"{tool_name}: live openWorldHint must be false")
-        check(annotations.get("destructiveHint") is False, f"{tool_name}: live destructiveHint must be false")
-        check(annotations.get("idempotentHint") is True, f"{tool_name}: live idempotentHint must be true")
+        expected = TOOL_DEFINITIONS[tool_name].get("annotations", READ_ONLY_ANNOTATIONS)
+        check(annotations.get("readOnlyHint") is expected["readOnlyHint"], f"{tool_name}: live readOnlyHint mismatch")
+        check(annotations.get("openWorldHint") is expected["openWorldHint"], f"{tool_name}: live openWorldHint mismatch")
+        check(annotations.get("destructiveHint") is expected["destructiveHint"], f"{tool_name}: live destructiveHint mismatch")
+        check(annotations.get("idempotentHint") is expected["idempotentHint"], f"{tool_name}: live idempotentHint mismatch")
 except Exception as exc:
     errors.append(f"live descriptor inspection: {exc}")
 
@@ -67,13 +59,17 @@ check(manifest.get("app_info", {}).get("display_name") == "Infographic Artist", 
 check(len(manifest.get("app_info", {}).get("subtitle", "")) <= 30, "subtitle exceeds 30 characters")
 check(manifest.get("app_info", {}).get("category") == "DESIGN", "category must be DESIGN")
 check(set(manifest.get("tools", {})) == EXPECTED_TOOLS, "submission tools do not match server tools")
-check(len(manifest.get("test_cases", [])) == 5, "expected exactly five positive test cases")
-check(len(manifest.get("negative_test_cases", [])) == 3, "expected exactly three negative test cases")
+check(len(manifest.get("test_cases", [])) >= 7, "expected at least seven positive test cases")
+check(len(manifest.get("negative_test_cases", [])) >= 3, "expected at least three negative test cases")
 for name, item in manifest.get("tools", {}).items():
     annotations = item.get("annotations") or {}
-    check(annotations.get("readOnlyHint") is True, f"{name}: readOnlyHint must be true")
-    check(annotations.get("openWorldHint") is False, f"{name}: openWorldHint must be false")
-    check(annotations.get("destructiveHint") is False, f"{name}: destructiveHint must be false")
+    if name not in TOOL_DEFINITIONS:
+        check(False, f"{name}: manifest tool missing from server contract")
+        continue
+    expected = TOOL_DEFINITIONS[name].get("annotations", READ_ONLY_ANNOTATIONS)
+    check(annotations.get("readOnlyHint") is expected["readOnlyHint"], f"{name}: readOnlyHint mismatch")
+    check(annotations.get("openWorldHint") is expected["openWorldHint"], f"{name}: openWorldHint mismatch")
+    check(annotations.get("destructiveHint") is expected["destructiveHint"], f"{name}: destructiveHint mismatch")
     check(bool(item.get("justifications", {}).get("read_only_justification")), f"{name}: missing read-only justification")
     check(bool(item.get("justifications", {}).get("open_world_justification")), f"{name}: missing open-world justification")
     check(bool(item.get("justifications", {}).get("destructive_justification")), f"{name}: missing destructive justification")
@@ -106,7 +102,7 @@ check("OPENAI_APPS_CHALLENGE_TOKEN" in (ROOT / ".env.example").read_text(encodin
 
 
 secret_re = re.compile(r"(?:sk-proj-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|hf_[A-Za-z0-9]{20,})")
-ignored = {".git", ".venv", ".pytest_cache", "__pycache__", "validation"}
+ignored = {".git", ".venv", ".pytest_cache", ".ruff_cache", "__pycache__", "validation"}
 for path in ROOT.rglob("*"):
     if any(part in ignored for part in path.parts):
         continue

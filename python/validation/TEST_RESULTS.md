@@ -1,6 +1,6 @@
 # Validation results — Infographic Artist ChatGPT App 1.0.1
 
-Validation date: **2026-07-28**
+Validation date: **2026-07-29**
 
 ## Result
 
@@ -12,17 +12,18 @@ This result does not claim that the app has already been hosted, submitted, appr
 
 | Check | Result |
 |---|---|
-| Pytest suite | **29 passed** |
+| Pytest suite | **33 passed** |
 | Submission import validator | **passed** |
 | Python syntax/bytecode compilation | **passed** |
 | Widget JavaScript syntax (`node --check`) | **passed** |
 | Secret-pattern scan | **passed** |
-| Tool count | **9** |
+| Tool count | **12** |
 | Every tool has `inputSchema` | **yes** |
 | Every tool has `outputSchema` | **yes** |
 | Every tool has explicit read/open-world/destructive hints | **yes** |
-| Positive review cases | **5** |
-| Negative review cases | **3** |
+| Positive review cases | **8** |
+| Negative review cases | **4** |
+| Plugin render lifecycle | **covered by unit, MCP smoke, and JS mirror probes** |
 
 ## Runtime MCP smoke test
 
@@ -34,8 +35,9 @@ A real local HTTP process was started and exercised through JSON-RPC on `/mcp`.
 | `GET /health` | HTTP 200 |
 | MCP protocol | `2025-06-18` |
 | Server name | `infographic-artist` |
-| `tools/list` | 9 tools |
+| `tools/list` | 12 tools |
 | Representative `tools/call` | `open_brand_atlas` returned the FedEx case |
+| Render `tools/call` | `render_brand_direction` completed with one generated PNG and one evaluation |
 | Widget URI | `ui://infographic-artist/app-v1.html` |
 | Widget MIME | `text/html;profile=mcp-app` |
 | Widget bridge | `tools/call` and `ui/notifications/tool-result` detected |

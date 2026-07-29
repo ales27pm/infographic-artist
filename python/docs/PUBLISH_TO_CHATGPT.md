@@ -28,15 +28,26 @@ https://VOTRE-DOMAINE/.well-known/openai-apps-challenge
 ```bash
 docker build -t infographic-artist-chatgpt .
 
+docker volume create infographic-artist-generated
+
 docker run --rm -p 8000:8000 \
+  -v infographic-artist-generated:/app/generated_assets \
   -e APP_BASE_URL=https://VOTRE-DOMAINE \
   -e MCP_ALLOWED_HOSTS=VOTRE-DOMAINE \
   -e MCP_ALLOWED_ORIGINS=https://chatgpt.com,https://platform.openai.com \
   -e CORS_ALLOW_ORIGINS=https://chatgpt.com,https://platform.openai.com \
+  -e OPENAI_API_KEY \
+  -e IMAGE_GENERATION_PROVIDER=openai \
+  -e IMAGE_GENERATION_MODEL=gpt-image-2 \
+  -e GENERATED_ASSET_DIR=/app/generated_assets \
+  -e GENERATED_ASSET_RETENTION_HOURS=168 \
+  -e GENERATED_ASSET_MAX_BYTES=536870912 \
+  -e RENDER_MAX_CONCURRENT_JOBS=2 \
+  -e RENDER_DAILY_IMAGE_LIMIT=25 \
   infographic-artist-chatgpt
 ```
 
-`APP_BASE_URL` reçoit seulement l’origine HTTPS, sans `/mcp`, chemin, requête ou fragment. `MCP_ALLOWED_HOSTS` reçoit seulement le nom d’hôte.
+`APP_BASE_URL` reçoit seulement l’origine HTTPS, sans `/mcp`, chemin, requête ou fragment. `MCP_ALLOWED_HOSTS` reçoit seulement le nom d’hôte. `OPENAI_API_KEY` est requis pour le rendu réel lorsque `IMAGE_GENERATION_PROVIDER=openai`; exporter cette variable dans l’environnement du déploiement plutôt que de la mettre en clair dans la commande. Utiliser `IMAGE_GENERATION_PROVIDER=mock` seulement pour la validation locale ou hors production. `GENERATED_ASSET_DIR` doit pointer vers un volume monté ou un stockage objet équivalent afin de conserver les jobs et actifs générés pendant la fenêtre de rétention, y compris après redémarrage ou redéploiement.
 
 Le paquet contient aussi `render.yaml`, `Procfile` et `Dockerfile`. Le fournisseur doit préserver les requêtes POST vers `/mcp`, les réponses JSON MCP et les en-têtes de transport.
 
@@ -55,7 +66,7 @@ Sur le serveur public, confirmer :
 
 - `GET /`, `/health`, `/privacy`, `/terms` et `/support` retournent HTTP 200;
 - MCP `initialize` réussit;
-- `tools/list` expose exactement neuf outils;
+- `tools/list` expose exactement douze outils;
 - chaque outil possède `inputSchema`, `outputSchema` et les annotations exigées;
 - `resources/read` retourne `text/html;profile=mcp-app`;
 - le runtime de production affiche `official-mcp-sdk` dans `/health`.
@@ -65,7 +76,7 @@ Sur le serveur public, confirmer :
 1. Activer Developer Mode.
 2. Créer un plugin de développement pointant vers `https://VOTRE-DOMAINE/mcp`.
 3. Actualiser après chaque modification des outils, schémas, annotations, instructions, CSP ou ressource UI.
-4. Exécuter les cinq scénarios positifs et les trois négatifs de `chatgpt-app-submission.json`.
+4. Exécuter les scénarios positifs et négatifs de `chatgpt-app-submission.json`, y compris le démarrage d’un rendu, le workflow complet et `get_render_job`.
 5. Tester les fichiers joints avec `critique_brand_image` et `compare_brand_images`.
 6. Vérifier le widget en vue compacte et agrandie.
 
@@ -132,9 +143,9 @@ La réponse doit contenir uniquement le jeton, sans JSON, guillemets, tableau, p
 ## 7. Scanner et soumettre
 
 1. Lancer **Scan Tools**.
-2. Vérifier les neuf outils, les schémas, les annotations, les security schemes, les `_meta`, la ressource UI, la CSP et les instructions.
+2. Vérifier les douze outils, les schémas, les annotations, les security schemes, les `_meta`, la ressource UI, la CSP et les instructions.
 3. Corriger toute divergence sur le serveur, redéployer et rescanner.
-4. Importer ou recopier les cinq cas positifs et les trois cas négatifs.
+4. Importer ou recopier les cas positifs et négatifs.
 5. Ajouter les starter prompts, les captures, les notes de version et les attestations.
 6. Confirmer la disponibilité géographique.
 7. Déclencher **Submit for Review** depuis l’organisation propriétaire.

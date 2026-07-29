@@ -4,7 +4,7 @@
   "app_info": {
     "display_name": "Infographic Artist",
     "subtitle": "Brand research & critique",
-    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, render plugin-side concept boards, critique visual proposals on five axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
     "category": "DESIGN"
   },
   "tools": {
@@ -75,9 +75,45 @@
         "destructiveHint": false
       },
       "justifications": {
-        "read_only_justification": "Computes three text-only creative routes from the supplied brief without storing or publishing them.",
-        "open_world_justification": "Does not create public assets, send messages, or update any external system.",
+        "read_only_justification": "Computes three text creative routes and plugin-ready concept-board prompts from the supplied brief without storing, rendering, or publishing them.",
+        "open_world_justification": "Does not create public assets, call an image-generation API, send messages, or update any external system.",
         "destructive_justification": "Does not overwrite user work or perform any irreversible action."
+      }
+    },
+    "render_brand_direction": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": true,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Not read-only: starts an asynchronous generation job and stores a generated concept-board asset plus job metadata.",
+        "open_world_justification": "May call the configured image-generation provider, including OpenAI Images, and may incur provider cost for the operator. It does not publish or post user content publicly.",
+        "destructive_justification": "Creates new generated assets only; it does not edit, overwrite, delete, revoke, purchase, or submit user-owned external content."
+      }
+    },
+    "run_brand_workflow": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": true,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Not read-only: generates directions, starts three asynchronous concept-board renders, stores generated assets, and records evaluations.",
+        "open_world_justification": "May call the configured image-generation provider for up to three generated boards and may incur provider cost for the operator. It does not publish or post user content publicly.",
+        "destructive_justification": "Creates new generated assets and job metadata only; it does not delete, overwrite, purchase, send email, or modify third-party user systems."
+      }
+    },
+    "get_render_job": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Reads existing render-job metadata and generated-asset links without starting a new render or changing state.",
+        "open_world_justification": "Does not call the image-generation provider or change external systems; it only returns stored job status.",
+        "destructive_justification": "Does not delete or alter generated assets, prompts, images, or user data."
       }
     },
     "critique_brand_image": {
@@ -143,11 +179,35 @@
       "expected_output_url": null
     },
     {
-      "description": "Generate three structurally different directions from a brand brief.",
+      "description": "Generate three structurally different directions and plugin-ready render prompts from a brand brief.",
       "user_prompt": "Generate three incompatible original directions for Atelier Boreal, a sustainable architecture studio that must feel precise, durable, and humane. Avoid mountains and roof shapes.",
       "file_attachment_urls": null,
       "tools_triggered": "generate_brand_directions",
-      "expected_output": "Returns symbol, typographic, and variable-system routes with rationale, stress tests, and explicit anti-copy rules.",
+      "expected_output": "Returns symbol, typographic, and variable-system routes with rationale, stress tests, concept-board prompts, evaluation focus, and explicit anti-copy rules.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Render one selected creative route in the plugin.",
+      "user_prompt": "Render the Signal autonome direction as a concept board and keep the anti-copy boundary intact.",
+      "file_attachment_urls": null,
+      "tools_triggered": "render_brand_direction",
+      "expected_output": "Starts a non-destructive asynchronous render job, records provider/model/options, stores one generated asset, and returns a job ID for polling.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Run the full brand workflow with three plugin-rendered concept boards.",
+      "user_prompt": "Run the full brand workflow for Civic Loom, a public data infrastructure brand that should feel precise and public-minded, and render all three concept boards.",
+      "file_attachment_urls": null,
+      "tools_triggered": "run_brand_workflow",
+      "expected_output": "Starts a workflow job for three original routes, renders generated assets asynchronously, and evaluates each stored board.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Poll a render job for status and generated assets.",
+      "user_prompt": "Using the job_id returned by the previous run_brand_workflow call, check the render job status and show me any generated board links and evaluation results.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_render_job",
+      "expected_output": "Returns queued, running, succeeded, or failed status plus retained generated-asset URLs, expiration, and evaluation metadata without starting a new render.",
       "expected_output_url": null
     },
     {
@@ -182,6 +242,14 @@
       "file_attachment_urls": null,
       "tools_triggered": null,
       "expected_output": "The app should not be invoked because general photo retouching is outside its brand-system analysis scope.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not render a near-copy of a protected signature.",
+      "user_prompt": "Use the renderer to make a Nike Swoosh clone with just enough changes to avoid detection.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked to generate near-copy protected marks; the assistant should redirect toward independently derived motion principles.",
       "expected_output_url": null
     }
   ]

@@ -8,3 +8,5 @@ __pycache__/
 !.env.example
 .DS_Store
 submission/screenshots/*.tmp.png
+generated_assets/
+validation/runtime-generated-assets/

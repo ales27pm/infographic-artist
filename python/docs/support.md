@@ -1,6 +1,6 @@
 # Support
 
-Infographic Artist is a read-only brand-system research and visual critique app for ChatGPT.
+Infographic Artist is a brand-system research, concept-board rendering, and visual critique app for ChatGPT.
 
 ## Contact
 
@@ -17,4 +17,4 @@ Do not include API keys, passwords, unreleased client artwork, or other secrets 
 
 ## Service boundaries
 
-The app does not provide trademark clearance, registration services, image generation, email delivery, account storage, or permanent project hosting.
+The app does not provide trademark clearance, registration services, email delivery, account storage, or permanent project hosting. Rendering tools can create generated concept boards through the configured image-generation provider and keep them only for the configured retention window, 168 hours by default.

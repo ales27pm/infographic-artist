@@ -13,7 +13,7 @@ export const methods = ["GET"];
 
 function factCards(summary) {
   const facts = [
-    [`${SITE.toolCount}`, "read-only MCP tools"],
+    [`${SITE.toolCount}`, "MCP tools"],
     [summary.brand_count || "934", "bundled identity records"],
     [summary.deep_case_count || "64", "deep brand cases"],
     [summary.graph_nodes || "159", "mechanism graph nodes"],
@@ -67,10 +67,10 @@ export default async function (_req, res) {
   <div class="section-header">
     <p class="eyebrow">Workflows</p>
     <div>
-      <h2 id="workflows-title">Research, critique, and coaching in one read-only MCP surface.</h2>
+      <h2 id="workflows-title">Research, rendering, critique, and coaching in one MCP surface.</h2>
       <p class="section-copy">Infographic Artist is available through ChatGPT and uses a public MCP endpoint at <span class="small-code">${esc(
         SITE.mcpUrl,
-      )}</span>. It has no account system, no authentication, no commerce, no advertisements, no external writes, and no public publishing workflow.</p>
+      )}</span>. It has no account system, no authentication, no commerce, no advertisements, no public publishing workflow, and only narrowly scoped image-generation actions.</p>
     </div>
   </div>
   ${workflowGrid()}
@@ -80,8 +80,8 @@ export default async function (_req, res) {
   <div class="section-header">
     <p class="eyebrow">How it works</p>
     <div>
-      <h2 id="how-title">ChatGPT calls one of nine tools when a design request matches the app.</h2>
-      <p class="section-copy">The service reads its bundled atlas, graph, and design-system library locally. For image critique or comparison, ChatGPT supplies short-lived file URLs, and the app analyzes the image only for the requested result.</p>
+      <h2 id="how-title">ChatGPT calls one of twelve tools when a design request matches the app.</h2>
+      <p class="section-copy">The service reads its bundled atlas, graph, and design-system library locally. For rendering, the app may call the configured image-generation provider, store generated assets temporarily, and evaluate the boards. For uploaded-image critique or comparison, ChatGPT supplies short-lived file URLs.</p>
     </div>
   </div>
   ${toolRail()}
@@ -142,12 +142,13 @@ export default async function (_req, res) {
     <p class="eyebrow">Data and privacy</p>
     <div>
       <h2 id="privacy-summary-title">No accounts, payments, ads, analytics, or persistent uploaded-image storage.</h2>
-      <p class="section-copy">The MCP tools are read-only and do not write to external systems. Hosting infrastructure may process operational request logs, but the product does not intentionally install analytics or sell personal information.</p>
+      <p class="section-copy">Rendering tools can call an image-generation provider and create generated assets for temporary storage. Hosting infrastructure may process operational request logs, but the product does not intentionally install analytics or sell personal information.</p>
     </div>
   </div>
   <div class="card-grid">
-    <article class="card"><h3>No external writes</h3><p>The service does not publish user content, send email, place orders, or modify third-party services.</p></article>
+    <article class="card"><h3>No publishing</h3><p>The service does not publish user content, send email, place orders, or modify user accounts.</p></article>
     <article class="card"><h3>Temporary image analysis</h3><p>Uploaded images are accessed through short-lived ChatGPT file URLs only for the requested critique or comparison.</p></article>
+    <article class="card"><h3>Generated assets</h3><p>Rendered boards are stored under generated-asset retention rules, 168 hours by default.</p></article>
     <article class="card"><h3>Local bundled data</h3><p>Brand-atlas, graph, and design-system data are bundled with the service and read locally by the MCP tools.</p></article>
   </div>
 </section>

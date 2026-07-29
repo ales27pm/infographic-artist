@@ -15,6 +15,8 @@ from typing import Any
 import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from contract import TOOL_DEFINITIONS  # noqa: E402
 
 
 def free_port() -> int:
@@ -46,7 +48,15 @@ def rpc(client: httpx.Client, url: str, request_id: int, method: str, params: di
 def run(output: Path | None = None) -> dict[str, Any]:
     port = free_port()
     env = os.environ.copy()
-    env.update({"HOST": "127.0.0.1", "PORT": str(port), "OPENAI_APPS_CHALLENGE_TOKEN": "infographic-artist-smoke-token"})
+    env.update(
+        {
+            "HOST": "127.0.0.1",
+            "PORT": str(port),
+            "OPENAI_APPS_CHALLENGE_TOKEN": "infographic-artist-smoke-token",
+            "IMAGE_GENERATION_PROVIDER": "mock",
+            "GENERATED_ASSET_DIR": str(ROOT / "validation" / "runtime-generated-assets"),
+        }
+    )
     process = subprocess.Popen(
         [sys.executable, "server.py"],
         cwd=ROOT,
@@ -112,7 +122,8 @@ def run(output: Path | None = None) -> dict[str, Any]:
                 "count": len(tool_names),
                 "names": tool_names,
                 "all_have_output_schema": all(bool(item.get("outputSchema")) for item in tools.get("tools", [])),
-                "all_read_only": all(item.get("annotations", {}).get("readOnlyHint") is True for item in tools.get("tools", [])),
+                "mutable_tools": [item["name"] for item in tools.get("tools", []) if item.get("annotations", {}).get("readOnlyHint") is False],
+                "render_tools_present": {"render_brand_direction", "run_brand_workflow", "get_render_job"}.issubset(set(tool_names)),
             }
 
             called = rpc(
@@ -129,6 +140,47 @@ def run(output: Path | None = None) -> dict[str, Any]:
                 "result_count": len(results),
                 "first_result": results[0].get("name") if results else None,
                 "is_error": called.get("isError", False),
+            }
+
+            render_started = rpc(
+                client,
+                base + "/mcp",
+                30,
+                "tools/call",
+                {
+                    "name": "render_brand_direction",
+                    "arguments": {
+                        "route_id": "symbol",
+                        "route_name": "Smoke concept board",
+                        "concept_board_prompt": "Create one square concept board for an original brand identity symbol direction with reduction tests, placeholder text, and no existing logos.",
+                        "quality": "low",
+                    },
+                },
+            )
+            render_data = render_started.get("structuredContent", {}).get("data", {})
+            job_id = render_data.get("job_id", "")
+            deadline = time.time() + 12
+            while time.time() < deadline:
+                checked = rpc(client, base + "/mcp", 31, "tools/call", {"name": "get_render_job", "arguments": {"job_id": job_id}})
+                render_data = checked.get("structuredContent", {}).get("data", {})
+                if render_data.get("status") in {"succeeded", "failed"}:
+                    break
+                time.sleep(0.2)
+            assets = render_data.get("assets", [])
+            asset_status = None
+            asset_type = None
+            if assets:
+                asset_url = assets[0].get("asset_url", "")
+                response = client.get(asset_url if asset_url.startswith("http") else base + asset_url)
+                asset_status = response.status_code
+                asset_type = response.headers.get("content-type")
+            report["checks"]["render_job"] = {
+                "job_id": job_id,
+                "status": render_data.get("status"),
+                "asset_count": len(assets),
+                "asset_status_code": asset_status,
+                "asset_content_type": asset_type,
+                "evaluation_count": len(render_data.get("evaluations", [])),
             }
 
             resources = rpc(client, base + "/mcp", 4, "resources/list")
@@ -167,12 +219,22 @@ def run(output: Path | None = None) -> dict[str, Any]:
             failures = []
             if report["checks"]["health"]["status_code"] != 200:
                 failures.append("health")
-            if report["checks"]["tools_list"]["count"] != 9:
+            if report["checks"]["tools_list"]["count"] != len(TOOL_DEFINITIONS):
                 failures.append("tools_list")
             if not report["checks"]["tools_list"]["all_have_output_schema"]:
                 failures.append("output_schema")
+            if set(report["checks"]["tools_list"]["mutable_tools"]) != {"render_brand_direction", "run_brand_workflow"}:
+                failures.append("tool_annotations")
+            if not report["checks"]["tools_list"]["render_tools_present"]:
+                failures.append("render_tools")
             if report["checks"]["tool_call"]["view"] != "atlas" or report["checks"]["tool_call"]["result_count"] < 1:
                 failures.append("tool_call")
+            if (
+                report["checks"]["render_job"]["status"] != "succeeded"
+                or report["checks"]["render_job"]["asset_count"] < 1
+                or report["checks"]["render_job"]["asset_status_code"] != 200
+            ):
+                failures.append("render_job")
             if report["checks"]["widget_resource"]["mime_type"] != "text/html;profile=mcp-app":
                 failures.append("widget_mime")
             if not report["checks"]["widget_resource"]["has_mcp_bridge"]:

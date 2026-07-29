@@ -11,12 +11,12 @@
 | Authentication | None |
 | Commerce | None |
 | Public writes | None |
-| Persistent user storage | None |
+| Persistent user storage | Time-bounded render job metadata and plugin-generated concept-board assets are retained under the configured generated-asset retention window, 168 hours by default. Uploaded critique/comparison images are not persisted. |
 | Suggested initial availability | Canada |
 
 ## Description
 
-Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and convert feedback into measurable design exercises.
+Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, render plugin-side concept boards, critique visual proposals on five axes, triage perceptual similarity, and convert feedback into measurable design exercises.
 
 ## Production URLs
 
@@ -44,8 +44,9 @@ Replace `VOTRE-DOMAINE` only after the final deployment is stable.
 
 ## Reviewer summary
 
-- Nine deterministic, read-only MCP tools.
-- No login, purchases, messaging, publishing, deletion, or external mutation.
+- Twelve deterministic MCP tools; only `render_brand_direction` and `run_brand_workflow` are mutable, cost-bearing generation actions.
+- Direction generation returns plugin-ready prompts. Rendering tools create generated assets and job metadata under the configured retention window, 168 hours by default.
+- No login, purchases, messaging, publishing, deletion, or external user-account mutation.
 - Uploaded images are fetched from user-selected ChatGPT file URLs, processed in memory, and not persisted.
 - The package contains metadata and analytical descriptions of iconic identities, not third-party logo artwork.
 - Similarity results are perceptual triage and explicitly not trademark clearance.
@@ -54,7 +55,7 @@ Replace `VOTRE-DOMAINE` only after the final deployment is stable.
 
 ## Test inventory
 
-- Exactly five positive cases and three negative cases are provided in `chatgpt-app-submission.json`.
+- Positive and negative cases, including rendering and render-status polling, are provided in `chatgpt-app-submission.json`.
 - Reviewer notes: `submission/review-notes.md`.
 - Source audit: `submission/review-report.md`.
 - Reproducible validation: `validation/TEST_RESULTS.md` and `validation/runtime-smoke.json`.

@@ -8,9 +8,15 @@ import os
 try:
     import mcp  # noqa: F401
 except ModuleNotFoundError:
-    from fallback_server import app, get_resource_templates, get_resources, get_tool_descriptors
+    from fallback_server import app as app
+    from fallback_server import get_resource_templates as get_resource_templates
+    from fallback_server import get_resources as get_resources
+    from fallback_server import get_tool_descriptors as get_tool_descriptors
 else:
-    from official_server import app, get_resource_templates, get_resources, get_tool_descriptors
+    from official_server import app as app
+    from official_server import get_resource_templates as get_resource_templates
+    from official_server import get_resources as get_resources
+    from official_server import get_tool_descriptors as get_tool_descriptors
 
 
 def main() -> None:

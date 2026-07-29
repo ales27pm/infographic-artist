@@ -1,5 +1,5 @@
 import { APP_NAME, APP_VERSION } from "../lib/contract.js";
-import { atlasSummary } from "../lib/core.js";
+import { atlasSummary, generationRuntimeSummary } from "../lib/core.js";
 
 export const access = "public";
 
@@ -19,6 +19,7 @@ export default async function (_req, res) {
     transport: "hatchable-stateless-jsonrpc",
     mcp_path: "/api/chatgpt-mcp",
     domain_challenge_configured: challengeConfigured(),
+    image_generation: generationRuntimeSummary(),
     ...summary,
   });
 }
