@@ -1,0 +1,2042 @@
+{
+  "version": "1.0.0",
+  "entry_count": 105,
+  "entries": [
+    {
+      "name": "Pentagram",
+      "type": "studio",
+      "region": "International",
+      "era": "1972–aujourd’hui",
+      "focus": [
+        "identité",
+        "stratégie",
+        "édition",
+        "exposition",
+        "numérique",
+        "motion"
+      ],
+      "principles": [
+        "partenaires auteurs",
+        "équipes multidisciplinaires",
+        "systèmes adaptés au contexte"
+      ],
+      "key_works": [
+        "MIT Media Lab",
+        "Mastercard",
+        "Saks Fifth Avenue",
+        "Windows"
+      ],
+      "source_url": "https://www.pentagram.com/about",
+      "source_status": "official"
+    },
+    {
+      "name": "Chermayeff & Geismar & Haviv",
+      "type": "studio",
+      "region": "Amérique du Nord",
+      "era": "1957–aujourd’hui",
+      "focus": [
+        "symboles autonomes",
+        "identités institutionnelles",
+        "simplification"
+      ],
+      "principles": [
+        "idée unique forte",
+        "forme mémorisable",
+        "durabilité"
+      ],
+      "key_works": [
+        "Chase",
+        "Mobil",
+        "National Geographic",
+        "NBC"
+      ],
+      "source_url": "https://www.cghnyc.com/",
+      "source_status": "official"
+    },
+    {
+      "name": "Vignelli Associates",
+      "type": "studio",
+      "region": "Europe / Amérique du Nord",
+      "era": "1971–2014",
+      "focus": [
+        "identité",
+        "signalétique",
+        "édition",
+        "produit",
+        "architecture"
+      ],
+      "principles": [
+        "discipline systémique",
+        "nombre limité de familles typographiques",
+        "cohérence du détail à la ville"
+      ],
+      "key_works": [
+        "NYC Subway",
+        "American Airlines",
+        "Knoll",
+        "National Park Service publications"
+      ],
+      "source_url": "https://www.rit.edu/vignellicenter/vignelli-archives",
+      "source_status": "institutional"
+    },
+    {
+      "name": "Josef Müller-Brockmann",
+      "type": "designer",
+      "region": "Europe",
+      "era": "1914–1996",
+      "focus": [
+        "grille",
+        "affiche",
+        "typographie",
+        "information"
+      ],
+      "principles": [
+        "grille comme outil",
+        "hiérarchie mesurable",
+        "réduction du bruit"
+      ],
+      "key_works": [
+        "Musica Viva posters",
+        "The Graphic Artist and His Design Problems",
+        "Grid Systems"
+      ],
+      "source_url": "https://www.sfmoma.org/artist/Josef_Muller-Brockmann/",
+      "source_status": "museum"
+    },
+    {
+      "name": "NASA Graphics Standards Program",
+      "type": "manual/system",
+      "region": "Amérique du Nord",
+      "era": "1975–1992",
+      "focus": [
+        "identité institutionnelle",
+        "signalétique",
+        "véhicules",
+        "documentation"
+      ],
+      "principles": [
+        "règles explicites",
+        "versions de production",
+        "architecture de système"
+      ],
+      "key_works": [
+        "NASA Worm",
+        "vehicle markings",
+        "signage"
+      ],
+      "source_url": "https://www.nasa.gov/history/alsj/NASA-Graphics-Standards-Manual-NHB-1430-2-Jan-1976.pdf",
+      "source_status": "official"
+    },
+    {
+      "name": "Braun Design System",
+      "type": "product system",
+      "region": "Europe",
+      "era": "1950s–aujourd’hui",
+      "focus": [
+        "design industriel",
+        "interface",
+        "photographie",
+        "typographie"
+      ],
+      "principles": [
+        "moins mais mieux",
+        "clarté fonctionnelle",
+        "cohérence de gamme"
+      ],
+      "key_works": [
+        "SK 4",
+        "T3 radio",
+        "ET calculators"
+      ],
+      "source_url": "https://www.braun.com/en/design",
+      "source_status": "official"
+    },
+    {
+      "name": "IBM Design Language",
+      "type": "corporate system",
+      "region": "Amérique du Nord",
+      "era": "1956–aujourd’hui",
+      "focus": [
+        "identité",
+        "produit",
+        "édition",
+        "numérique",
+        "motion"
+      ],
+      "principles": [
+        "langage commun",
+        "modularité",
+        "gouvernance"
+      ],
+      "key_works": [
+        "IBM 8-bar",
+        "Rebus",
+        "Carbon Design System"
+      ],
+      "source_url": "https://www.ibm.com/design/language/",
+      "source_status": "official"
+    },
+    {
+      "name": "Paul Rand",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Saul Bass",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Lella Vignelli",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Massimo Vignelli",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Otl Aicher",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Lance Wyman",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Milton Glaser",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Ivan Chermayeff",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Tom Geismar",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Sagi Haviv",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Michael Bierut",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Paula Scher",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Marina Willer",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Harry Pearce",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Domenic Lippa",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Alan Fletcher",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Colin Forbes",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Theo Crosby",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Wim Crouwel",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Benno Wissing",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Total Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Unimark International",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Landor",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Wolff Olins",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Interbrand",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "FutureBrand",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "MetaDesign",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Studio Dumbar",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "North",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Collins",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Koto",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "DesignStudio",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Mucho",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Base Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Studio Feixen",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Experimental Jetset",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Spin",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Build",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "SocioDesign",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Anagrama",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Heydays",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Manual",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Character",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Gretel",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Porto Rocha",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Mother Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Siegel+Gale",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Lippincott",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Design Bridge and Partners",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Superunion",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Jung von Matt",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Sagmeister & Walsh",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "&Walsh",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Neville Brody",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Peter Saville",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "David Carson",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "April Greiman",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Armin Hofmann",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Emil Ruder",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Karl Gerstner",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Max Bill",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Herbert Bayer",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "László Moholy-Nagy",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Jan Tschichold",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Adrian Frutiger",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Erik Spiekermann",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Matthew Carter",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Margaret Calvert",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Jock Kinneir",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Ken Garland",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Richard Hollis",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Abram Games",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Tom Eckersley",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Yusaku Kamekura",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Ikko Tanaka",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Shigeo Fukuda",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Kazumasa Nagai",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Kenya Hara",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Kashiwa Sato",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Taku Satoh",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Ruedi Baur",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Philippe Apeloig",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Studio Dumbar Motion",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Bauhaus",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Swiss International Style",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Basel School of Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Ulm School of Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "New Typography",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Corporate Identity Program",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Wayfinding Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Information Design",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Editorial Grid Systems",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Brand Architecture",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Design Systems for Digital Products",
+      "type": "studio",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Motion Identity Systems",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Sound Branding Systems",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Packaging Systems",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    },
+    {
+      "name": "Retail Experience Systems",
+      "type": "designer/method",
+      "region": "à classifier",
+      "era": "index",
+      "focus": [
+        "identité",
+        "système graphique",
+        "méthode"
+      ],
+      "principles": [
+        "étudier le processus",
+        "séparer mécanisme et style",
+        "vérifier la source avant citation"
+      ],
+      "key_works": [],
+      "source_url": "",
+      "source_status": "index"
+    }
+  ]
+}

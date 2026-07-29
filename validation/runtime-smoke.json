@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "base_url": "http://127.0.0.1:36131",
+  "checks": {
+    "health": {
+      "status_code": 200,
+      "app": "Infographic Artist",
+      "version": "1.0.1",
+      "atlas_total": 934
+    },
+    "initialize": {
+      "protocol_version": "2025-06-18",
+      "server_name": "infographic-artist"
+    },
+    "tools_list": {
+      "count": 9,
+      "names": [
+        "open_brand_atlas",
+        "get_brand_case",
+        "compare_brand_systems",
+        "explore_brand_graph",
+        "search_design_systems",
+        "generate_brand_directions",
+        "critique_brand_image",
+        "compare_brand_images",
+        "coach_brand_decision"
+      ],
+      "all_have_output_schema": true,
+      "all_read_only": true
+    },
+    "tool_call": {
+      "view": "atlas",
+      "result_count": 1,
+      "first_result": "FedEx",
+      "is_error": false
+    },
+    "widget_resource": {
+      "uri": "ui://infographic-artist/app-v1.html",
+      "mime_type": "text/html;profile=mcp-app",
+      "bytes": 22665,
+      "has_mcp_bridge": true
+    },
+    "website": {
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "has_product_name": true
+    },
+    "domain_challenge": {
+      "status_code": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "exact_token_only": true
+    },
+    "public_pages": {
+      "/privacy": 200,
+      "/terms": 200,
+      "/support": 200
+    }
+  },
+  "runtime": "official-mcp-sdk",
+  "failures": [],
+  "server_log_tail": "INFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:37882 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2147465]"
+}

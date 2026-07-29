@@ -1,0 +1,26 @@
+# Publication checklist
+
+- [ ] Deploy the Docker service to a stable public HTTPS origin.
+- [ ] Set `APP_BASE_URL` to the exact HTTPS origin.
+- [ ] Set `MCP_ALLOWED_HOSTS` to the production host only.
+- [ ] Verify `GET /`, `/health`, `/privacy`, `/terms`, and `/support`.
+- [ ] Verify MCP `initialize`, `tools/list`, `resources/read`, and all nine `tools/call` flows.
+- [ ] Confirm `/health` reports `official-mcp-sdk` in production.
+- [ ] Connect `https://<origin>/mcp` in ChatGPT Developer Mode.
+- [ ] Confirm the widget renders in compact and fullscreen modes.
+- [ ] Test the five positive and three negative submission cases.
+- [ ] Use the final owning OpenAI organization and project.
+- [ ] Complete publisher identity verification under the intended public name.
+- [ ] Confirm Apps Management: Write plus draft/status read permission.
+- [ ] Confirm the OpenAI project uses global data residency, not EU data residency.
+- [ ] Create a **With MCP** plugin draft.
+- [ ] Enter website, MCP, privacy, terms, and support URLs.
+- [ ] Select countries/regions where support and legal terms are ready.
+- [ ] Copy the portal challenge token into `OPENAI_APPS_CHALLENGE_TOKEN`.
+- [ ] Verify `/.well-known/openai-apps-challenge` returns exactly that token.
+- [ ] Run **Scan Tools** and resolve every warning.
+- [ ] Import or copy the contents of `chatgpt-app-submission.json`.
+- [ ] Upload the 512 px icon and three screenshots.
+- [ ] Ensure publisher identity, website, support contact, privacy policy, and terms are consistent.
+- [ ] Submit from the verified organization owner or authorized submitter account.
+- [ ] Publish explicitly after review approval.

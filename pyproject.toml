@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "infographic-artist-chatgpt-app"
+version = "1.0.1"
+description = "A submission-ready ChatGPT App for brand-system research, visual critique, similarity triage, and creative direction."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "ales27pm" }]
+dependencies = [
+  "mcp>=1.28.1,<2",
+  "fastapi>=0.115,<1",
+  "starlette>=0.48,<1",
+  "uvicorn[standard]>=0.35,<1",
+  "httpx>=0.28,<1",
+  "jsonschema>=4.20,<5",
+  "numpy>=2.0,<3",
+  "pillow>=11,<13",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4,<9",
+  "pytest-asyncio>=1.1,<2",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+infographic-artist-app = "server:main"
+
+[tool.hatch.build.targets.wheel]
+include = ["server.py", "official_server.py", "fallback_server.py", "contract.py", "core.py", "assets/**", "data/**", "docs/**"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501"]

@@ -1,0 +1,3735 @@
+{
+  "nodes": [
+    {
+      "id": "brand:adidas-three-stripes",
+      "label": "adidas Three Stripes",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "sport et vêtement",
+      "ref": "adidas-three-stripes",
+      "x": 0.192853,
+      "y": 0.834456,
+      "degree": 5
+    },
+    {
+      "id": "pattern:actif repetitif",
+      "label": "actif répétitif",
+      "node_type": "pattern",
+      "ref": "actif répétitif",
+      "x": 0.157237,
+      "y": 0.925629,
+      "degree": 3
+    },
+    {
+      "id": "region:europe",
+      "label": "Europe",
+      "node_type": "region",
+      "ref": "Europe",
+      "x": 0.199757,
+      "y": 0.755865,
+      "degree": 21
+    },
+    {
+      "id": "asset:pattern",
+      "label": "pattern",
+      "node_type": "asset",
+      "ref": "pattern",
+      "x": 0.248977,
+      "y": 0.817871,
+      "degree": 8
+    },
+    {
+      "id": "asset:product",
+      "label": "product",
+      "node_type": "asset",
+      "ref": "product",
+      "x": 0.190002,
+      "y": 0.760229,
+      "degree": 16
+    },
+    {
+      "id": "asset:symbol",
+      "label": "symbol",
+      "node_type": "asset",
+      "ref": "symbol",
+      "x": 0.205842,
+      "y": 0.692233,
+      "degree": 46
+    },
+    {
+      "id": "brand:aeg-corporate-identity",
+      "label": "AEG Corporate Identity",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "industrie, architecture et entreprise",
+      "ref": "aeg-corporate-identity",
+      "x": 0.182079,
+      "y": 0.73173,
+      "degree": 5
+    },
+    {
+      "id": "pattern:ecosysteme multi actifs",
+      "label": "écosystème multi-actifs",
+      "node_type": "pattern",
+      "ref": "écosystème multi-actifs",
+      "x": 0.132659,
+      "y": 0.665124,
+      "degree": 5
+    },
+    {
+      "id": "asset:wordmark",
+      "label": "wordmark",
+      "node_type": "asset",
+      "ref": "wordmark",
+      "x": 0.246438,
+      "y": 0.728392,
+      "degree": 15
+    },
+    {
+      "id": "asset:typography",
+      "label": "typography",
+      "node_type": "asset",
+      "ref": "typography",
+      "x": 0.220998,
+      "y": 0.732423,
+      "degree": 17
+    },
+    {
+      "id": "brand:air-canada-rondelle",
+      "label": "Air Canada Rondelle",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "transport aérien et Canada",
+      "ref": "air-canada-rondelle",
+      "x": 0.166295,
+      "y": 0.65363,
+      "degree": 5
+    },
+    {
+      "id": "pattern:embleme patrimonial",
+      "label": "emblème patrimonial",
+      "node_type": "pattern",
+      "ref": "emblème patrimonial",
+      "x": 0.125634,
+      "y": 0.712051,
+      "degree": 7
+    },
+    {
+      "id": "region:canada",
+      "label": "Canada",
+      "node_type": "region",
+      "ref": "Canada",
+      "x": 0.170763,
+      "y": 0.62542,
+      "degree": 6
+    },
+    {
+      "id": "asset:color",
+      "label": "color",
+      "node_type": "asset",
+      "ref": "color",
+      "x": 0.232112,
+      "y": 0.642429,
+      "degree": 16
+    },
+    {
+      "id": "brand:airbnb-belo",
+      "label": "Airbnb Bélo",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "plateforme numérique et hospitalité",
+      "ref": "airbnb-belo",
+      "x": 0.26265,
+      "y": 0.590205,
+      "degree": 5
+    },
+    {
+      "id": "pattern:symbole relationnel",
+      "label": "symbole relationnel",
+      "node_type": "pattern",
+      "ref": "symbole relationnel",
+      "x": 0.280438,
+      "y": 0.604859,
+      "degree": 7
+    },
+    {
+      "id": "region:amerique du nord",
+      "label": "Amérique du Nord",
+      "node_type": "region",
+      "ref": "Amérique du Nord",
+      "x": 0.246719,
+      "y": 0.677869,
+      "degree": 27
+    },
+    {
+      "id": "asset:interface",
+      "label": "interface",
+      "node_type": "asset",
+      "ref": "interface",
+      "x": 0.247467,
+      "y": 0.586526,
+      "degree": 11
+    },
+    {
+      "id": "asset:motion",
+      "label": "motion",
+      "node_type": "asset",
+      "ref": "motion",
+      "x": 0.253447,
+      "y": 0.642519,
+      "degree": 16
+    },
+    {
+      "id": "brand:amazon-smile",
+      "label": "Amazon Smile / A-to-Z Arrow",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "commerce électronique",
+      "ref": "amazon-smile",
+      "x": 0.227993,
+      "y": 0.797361,
+      "degree": 5
+    },
+    {
+      "id": "pattern:contreforme semantique",
+      "label": "contreforme sémantique",
+      "node_type": "pattern",
+      "ref": "contreforme sémantique",
+      "x": 0.198801,
+      "y": 0.911668,
+      "degree": 2
+    },
+    {
+      "id": "asset:packaging",
+      "label": "packaging",
+      "node_type": "asset",
+      "ref": "packaging",
+      "x": 0.245668,
+      "y": 0.837966,
+      "degree": 9
+    },
+    {
+      "id": "brand:apple",
+      "label": "Apple",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "technologie grand public",
+      "ref": "apple",
+      "x": 0.246865,
+      "y": 0.689653,
+      "degree": 5
+    },
+    {
+      "id": "pattern:silhouette autonome",
+      "label": "silhouette autonome",
+      "node_type": "pattern",
+      "ref": "silhouette autonome",
+      "x": 0.226547,
+      "y": 0.673712,
+      "degree": 5
+    },
+    {
+      "id": "brand:bbc-blocks",
+      "label": "BBC Blocks",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média public et diffusion",
+      "ref": "bbc-blocks",
+      "x": 0.268329,
+      "y": 0.698777,
+      "degree": 5
+    },
+    {
+      "id": "pattern:systeme modulaire",
+      "label": "système modulaire",
+      "node_type": "pattern",
+      "ref": "système modulaire",
+      "x": 0.297593,
+      "y": 0.634433,
+      "degree": 6
+    },
+    {
+      "id": "brand:bell-system-identity",
+      "label": "Bell System Identity",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "télécommunications et infrastructure",
+      "ref": "bell-system-identity",
+      "x": 0.154001,
+      "y": 0.643136,
+      "degree": 5
+    },
+    {
+      "id": "asset:wayfinding",
+      "label": "wayfinding",
+      "node_type": "asset",
+      "ref": "wayfinding",
+      "x": 0.111257,
+      "y": 0.697576,
+      "degree": 7
+    },
+    {
+      "id": "asset:architecture",
+      "label": "architecture",
+      "node_type": "asset",
+      "ref": "architecture",
+      "x": 0.168221,
+      "y": 0.702699,
+      "degree": 11
+    },
+    {
+      "id": "brand:bmw-roundel",
+      "label": "BMW Roundel",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "automobile et patrimoine",
+      "ref": "bmw-roundel",
+      "x": 0.177697,
+      "y": 0.707129,
+      "degree": 5
+    },
+    {
+      "id": "brand:braun-design-system",
+      "label": "Braun Design System",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "produit, électronique et design industriel",
+      "ref": "braun-design-system",
+      "x": 0.190385,
+      "y": 0.668354,
+      "degree": 5
+    },
+    {
+      "id": "brand:canada-wordmark",
+      "label": "Canada Wordmark",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "institution publique et Canada",
+      "ref": "canada-wordmark",
+      "x": 0.213904,
+      "y": 0.684232,
+      "degree": 5
+    },
+    {
+      "id": "pattern:mot marque proprietaire",
+      "label": "mot-marque propriétaire",
+      "node_type": "pattern",
+      "ref": "mot-marque propriétaire",
+      "x": 0.242174,
+      "y": 0.761604,
+      "degree": 6
+    },
+    {
+      "id": "brand:cbc-gem",
+      "label": "CBC Gem",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média public et Canada",
+      "ref": "cbc-gem",
+      "x": 0.23528,
+      "y": 0.594133,
+      "degree": 5
+    },
+    {
+      "id": "brand:cbs-eye",
+      "label": "CBS Eye",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média",
+      "ref": "cbs-eye",
+      "x": 0.270665,
+      "y": 0.642397,
+      "degree": 5
+    },
+    {
+      "id": "brand:chanel-double-c",
+      "label": "CHANEL Double C",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "luxe et mode",
+      "ref": "chanel-double-c",
+      "x": 0.176213,
+      "y": 0.854296,
+      "degree": 5
+    },
+    {
+      "id": "pattern:monogramme geometrique",
+      "label": "monogramme géométrique",
+      "node_type": "pattern",
+      "ref": "monogramme géométrique",
+      "x": 0.12916,
+      "y": 0.840522,
+      "degree": 6
+    },
+    {
+      "id": "asset:monogram",
+      "label": "monogram",
+      "node_type": "asset",
+      "ref": "monogram",
+      "x": 0.148923,
+      "y": 0.838865,
+      "degree": 9
+    },
+    {
+      "id": "brand:channel-4-blocks",
+      "label": "Channel 4 Blocks",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média, télévision et mouvement",
+      "ref": "channel-4-blocks",
+      "x": 0.197046,
+      "y": 0.575628,
+      "degree": 5
+    },
+    {
+      "id": "pattern:identite en mouvement",
+      "label": "identité en mouvement",
+      "node_type": "pattern",
+      "ref": "identité en mouvement",
+      "x": 0.211199,
+      "y": 0.494822,
+      "degree": 3
+    },
+    {
+      "id": "asset:sound",
+      "label": "sound",
+      "node_type": "asset",
+      "ref": "sound",
+      "x": 0.179272,
+      "y": 0.43631,
+      "degree": 1
+    },
+    {
+      "id": "brand:cn-continuous-line",
+      "label": "CN Continuous Line",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "transport ferroviaire et Canada",
+      "ref": "cn-continuous-line",
+      "x": 0.169507,
+      "y": 0.741265,
+      "degree": 5
+    },
+    {
+      "id": "brand:coca-cola-script",
+      "label": "Coca-Cola Script",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "boisson",
+      "ref": "coca-cola-script",
+      "x": 0.266778,
+      "y": 0.770229,
+      "degree": 5
+    },
+    {
+      "id": "brand:deutsche-bank",
+      "label": "Deutsche Bank",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "services financiers",
+      "ref": "deutsche-bank",
+      "x": 0.160039,
+      "y": 0.771638,
+      "degree": 5
+    },
+    {
+      "id": "brand:expo-67-symbol",
+      "label": "Expo 67 Symbol",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "événement, culture et Québec",
+      "ref": "expo-67-symbol",
+      "x": 0.163513,
+      "y": 0.823535,
+      "degree": 5
+    },
+    {
+      "id": "region:quebec",
+      "label": "Québec",
+      "node_type": "region",
+      "ref": "Québec",
+      "x": 0.088184,
+      "y": 0.842192,
+      "degree": 3
+    },
+    {
+      "id": "brand:fedex",
+      "label": "FedEx",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "logistique",
+      "ref": "fedex",
+      "x": 0.228034,
+      "y": 0.813939,
+      "degree": 4
+    },
+    {
+      "id": "brand:girl-scouts-trefoil",
+      "label": "Girl Scouts Trefoil",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "jeunesse, communauté et organisme",
+      "ref": "girl-scouts-trefoil",
+      "x": 0.295535,
+      "y": 0.717909,
+      "degree": 5
+    },
+    {
+      "id": "asset:embroidery",
+      "label": "embroidery",
+      "node_type": "asset",
+      "ref": "embroidery",
+      "x": 0.37386,
+      "y": 0.759209,
+      "degree": 1
+    },
+    {
+      "id": "brand:google-identity",
+      "label": "Google Identity",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "technologie et services numériques",
+      "ref": "google-identity",
+      "x": 0.201745,
+      "y": 0.640312,
+      "degree": 5
+    },
+    {
+      "id": "brand:guinness-harp",
+      "label": "Guinness Harp",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "boisson et patrimoine national",
+      "ref": "guinness-harp",
+      "x": 0.173601,
+      "y": 0.77741,
+      "degree": 5
+    },
+    {
+      "id": "brand:hydro-quebec",
+      "label": "Hydro-Québec",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "énergie publique et Québec",
+      "ref": "hydro-quebec",
+      "x": 0.124247,
+      "y": 0.787415,
+      "degree": 5
+    },
+    {
+      "id": "brand:i-love-ny",
+      "label": "I LOVE NY",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "destination et culture",
+      "ref": "i-love-ny",
+      "x": 0.23976,
+      "y": 0.72305,
+      "degree": 5
+    },
+    {
+      "id": "brand:ibm-8-bar",
+      "label": "IBM 8-bar",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "technologie et entreprise",
+      "ref": "ibm-8-bar",
+      "x": 0.342893,
+      "y": 0.700782,
+      "degree": 6
+    },
+    {
+      "id": "brand:instagram-glyph",
+      "label": "Instagram Glyph",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "plateforme numérique et social",
+      "ref": "instagram-glyph",
+      "x": 0.211542,
+      "y": 0.556384,
+      "degree": 5
+    },
+    {
+      "id": "pattern:interface devenue signe",
+      "label": "interface devenue signe",
+      "node_type": "pattern",
+      "ref": "interface devenue signe",
+      "x": 0.16658,
+      "y": 0.432848,
+      "degree": 1
+    },
+    {
+      "id": "brand:lacoste-crocodile",
+      "label": "Lacoste Crocodile",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "sport et mode",
+      "ref": "lacoste-crocodile",
+      "x": 0.207028,
+      "y": 0.826608,
+      "degree": 5
+    },
+    {
+      "id": "pattern:mascotte evolutive",
+      "label": "mascotte évolutive",
+      "node_type": "pattern",
+      "ref": "mascotte évolutive",
+      "x": 0.243616,
+      "y": 0.891178,
+      "degree": 3
+    },
+    {
+      "id": "asset:mascot",
+      "label": "mascot",
+      "node_type": "asset",
+      "ref": "mascot",
+      "x": 0.185812,
+      "y": 0.799092,
+      "degree": 6
+    },
+    {
+      "id": "brand:lego-wordmark",
+      "label": "LEGO Wordmark",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "jouet et créativité",
+      "ref": "lego-wordmark",
+      "x": 0.263692,
+      "y": 0.786391,
+      "degree": 5
+    },
+    {
+      "id": "pattern:packaging rituel",
+      "label": "packaging rituel",
+      "node_type": "pattern",
+      "ref": "packaging rituel",
+      "x": 0.293314,
+      "y": 0.87196,
+      "degree": 3
+    },
+    {
+      "id": "brand:london-underground-roundel",
+      "label": "London Underground Roundel",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "transport et orientation",
+      "ref": "london-underground-roundel",
+      "x": 0.140923,
+      "y": 0.712206,
+      "degree": 5
+    },
+    {
+      "id": "pattern:signaletique de reseau",
+      "label": "signalétique de réseau",
+      "node_type": "pattern",
+      "ref": "signalétique de réseau",
+      "x": 0.079775,
+      "y": 0.658005,
+      "degree": 2
+    },
+    {
+      "id": "brand:louis-vuitton-monogram",
+      "label": "Louis Vuitton Monogram",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "luxe et maroquinerie",
+      "ref": "louis-vuitton-monogram",
+      "x": 0.187162,
+      "y": 0.868985,
+      "degree": 5
+    },
+    {
+      "id": "brand:lufthansa-crane",
+      "label": "Lufthansa Crane",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "transport aérien",
+      "ref": "lufthansa-crane",
+      "x": 0.151243,
+      "y": 0.727954,
+      "degree": 5
+    },
+    {
+      "id": "brand:mastercard-circles",
+      "label": "Mastercard Circles",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "paiement",
+      "ref": "mastercard-circles",
+      "x": 0.335583,
+      "y": 0.622311,
+      "degree": 6
+    },
+    {
+      "id": "brand:mcdonalds-golden-arches",
+      "label": "McDonald’s Golden Arches",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "restauration",
+      "ref": "mcdonalds-golden-arches",
+      "x": 0.176264,
+      "y": 0.593917,
+      "degree": 5
+    },
+    {
+      "id": "pattern:architecture devenue signe",
+      "label": "architecture devenue signe",
+      "node_type": "pattern",
+      "ref": "architecture devenue signe",
+      "x": 0.115551,
+      "y": 0.484252,
+      "degree": 1
+    },
+    {
+      "id": "brand:mercedes-star",
+      "label": "Mercedes-Benz Three-Pointed Star",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "automobile et mobilité",
+      "ref": "mercedes-star",
+      "x": 0.144336,
+      "y": 0.747265,
+      "degree": 5
+    },
+    {
+      "id": "brand:michelin-bibendum",
+      "label": "Michelin Bibendum",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "mobilité, service et mascotte",
+      "ref": "michelin-bibendum",
+      "x": 0.236493,
+      "y": 0.776027,
+      "degree": 5
+    },
+    {
+      "id": "brand:microsoft-four-squares",
+      "label": "Microsoft Four Squares",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "technologie et portefeuille de produits",
+      "ref": "microsoft-four-squares",
+      "x": 0.263817,
+      "y": 0.609116,
+      "degree": 5
+    },
+    {
+      "id": "brand:mit-press-colophon",
+      "label": "MIT Press Colophon",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "édition, recherche et technologie",
+      "ref": "mit-press-colophon",
+      "x": 0.185513,
+      "y": 0.781007,
+      "degree": 5
+    },
+    {
+      "id": "brand:montreal-1976-system",
+      "label": "Montréal 1976 Emblem + System",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "événement, sport et Québec",
+      "ref": "montreal-1976-system",
+      "x": 0.112401,
+      "y": 0.758491,
+      "degree": 5
+    },
+    {
+      "id": "brand:mta-subway-identity",
+      "label": "MTA New York Subway Identity",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "transport, information et ville",
+      "ref": "mta-subway-identity",
+      "x": 0.158393,
+      "y": 0.662899,
+      "degree": 5
+    },
+    {
+      "id": "brand:mtv",
+      "label": "MTV",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média et culture",
+      "ref": "mtv",
+      "x": 0.273287,
+      "y": 0.761963,
+      "degree": 5
+    },
+    {
+      "id": "pattern:conteneur mutable",
+      "label": "conteneur mutable",
+      "node_type": "pattern",
+      "ref": "conteneur mutable",
+      "x": 0.27577,
+      "y": 0.907598,
+      "degree": 2
+    },
+    {
+      "id": "brand:nasa-worm",
+      "label": "NASA Worm",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "science et institution",
+      "ref": "nasa-worm",
+      "x": 0.30207,
+      "y": 0.791532,
+      "degree": 6
+    },
+    {
+      "id": "brand:national-geographic-frame",
+      "label": "National Geographic Yellow Frame",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média et exploration",
+      "ref": "national-geographic-frame",
+      "x": 0.232178,
+      "y": 0.504074,
+      "degree": 6
+    },
+    {
+      "id": "pattern:cadre proprietaire",
+      "label": "cadre propriétaire",
+      "node_type": "pattern",
+      "ref": "cadre propriétaire",
+      "x": 0.237452,
+      "y": 0.373969,
+      "degree": 1
+    },
+    {
+      "id": "brand:nfb-man-seeing",
+      "label": "NFB Man Seeing / L’homme qui voit",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "cinéma public, culture et Canada",
+      "ref": "nfb-man-seeing",
+      "x": 0.211413,
+      "y": 0.613095,
+      "degree": 5
+    },
+    {
+      "id": "brand:nike-swoosh",
+      "label": "Nike Swoosh",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "sport et vêtement",
+      "ref": "nike-swoosh",
+      "x": 0.251557,
+      "y": 0.710779,
+      "degree": 5
+    },
+    {
+      "id": "brand:nintendo-racetrack",
+      "label": "Nintendo Racetrack Wordmark",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "jeu vidéo et divertissement",
+      "ref": "nintendo-racetrack",
+      "x": 0.216177,
+      "y": 0.787092,
+      "degree": 5
+    },
+    {
+      "id": "region:asie",
+      "label": "Asie",
+      "node_type": "region",
+      "ref": "Asie",
+      "x": 0.189699,
+      "y": 0.69397,
+      "degree": 4
+    },
+    {
+      "id": "brand:olympic-rings",
+      "label": "Olympic Rings",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "sport international",
+      "ref": "olympic-rings",
+      "x": 0.202543,
+      "y": 0.59255,
+      "degree": 5
+    },
+    {
+      "id": "region:international",
+      "label": "International",
+      "node_type": "region",
+      "ref": "International",
+      "x": 0.117376,
+      "y": 0.605045,
+      "degree": 3
+    },
+    {
+      "id": "brand:parks-canada-beaver",
+      "label": "Parks Canada Beaver",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "environnement, service public et Canada",
+      "ref": "parks-canada-beaver",
+      "x": 0.135713,
+      "y": 0.695952,
+      "degree": 5
+    },
+    {
+      "id": "brand:pbs-profiles",
+      "label": "PBS P-Head / Profiles",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "média public",
+      "ref": "pbs-profiles",
+      "x": 0.247734,
+      "y": 0.632385,
+      "degree": 5
+    },
+    {
+      "id": "brand:penguin-books-system",
+      "label": "Penguin Books",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "édition et culture",
+      "ref": "penguin-books-system",
+      "x": 0.232531,
+      "y": 0.85028,
+      "degree": 5
+    },
+    {
+      "id": "brand:shell-pecten",
+      "label": "Shell Pecten",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "énergie et mobilité",
+      "ref": "shell-pecten",
+      "x": 0.170989,
+      "y": 0.671488,
+      "degree": 5
+    },
+    {
+      "id": "brand:slack-octothorpe",
+      "label": "Slack Octothorpe",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "logiciel et collaboration",
+      "ref": "slack-octothorpe",
+      "x": 0.272298,
+      "y": 0.622231,
+      "degree": 5
+    },
+    {
+      "id": "brand:sony-wordmark-motion",
+      "label": "Sony Wordmark + Motion Logo",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "technologie, média et divertissement",
+      "ref": "sony-wordmark-motion",
+      "x": 0.223127,
+      "y": 0.598201,
+      "degree": 5
+    },
+    {
+      "id": "brand:spotify-waves",
+      "label": "Spotify Waves",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "plateforme numérique et audio",
+      "ref": "spotify-waves",
+      "x": 0.258716,
+      "y": 0.663031,
+      "degree": 5
+    },
+    {
+      "id": "brand:starbucks-siren",
+      "label": "Starbucks Siren",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "café et hospitalité",
+      "ref": "starbucks-siren",
+      "x": 0.239571,
+      "y": 0.799474,
+      "degree": 5
+    },
+    {
+      "id": "brand:target-bullseye",
+      "label": "Target Bullseye",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "commerce de détail",
+      "ref": "target-bullseye",
+      "x": 0.20957,
+      "y": 0.640201,
+      "degree": 5
+    },
+    {
+      "id": "brand:tiffany-blue-box",
+      "label": "Tiffany Blue Box",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "luxe, joaillerie et emballage",
+      "ref": "tiffany-blue-box",
+      "x": 0.294217,
+      "y": 0.780819,
+      "degree": 5
+    },
+    {
+      "id": "asset:material",
+      "label": "material",
+      "node_type": "asset",
+      "ref": "material",
+      "x": 0.352598,
+      "y": 0.880393,
+      "degree": 1
+    },
+    {
+      "id": "brand:toyota-ellipses",
+      "label": "Toyota Three Ellipses",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "automobile",
+      "ref": "toyota-ellipses",
+      "x": 0.144495,
+      "y": 0.77748,
+      "degree": 5
+    },
+    {
+      "id": "brand:unilever-u",
+      "label": "Unilever U",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "entreprise multi-marques et biens de consommation",
+      "ref": "unilever-u",
+      "x": 0.217452,
+      "y": 0.883366,
+      "degree": 5
+    },
+    {
+      "id": "brand:uniqlo-bilingual-squares",
+      "label": "UNIQLO Bilingual Squares",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "mode, commerce et architecture",
+      "ref": "uniqlo-bilingual-squares",
+      "x": 0.233893,
+      "y": 0.66826,
+      "degree": 5
+    },
+    {
+      "id": "brand:volkswagen-vw-system",
+      "label": "Volkswagen VW",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "automobile et mobilité",
+      "ref": "volkswagen-vw-system",
+      "x": 0.153032,
+      "y": 0.801653,
+      "degree": 5
+    },
+    {
+      "id": "brand:woolmark-certification",
+      "label": "Woolmark",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "textile, certification et qualité",
+      "ref": "woolmark-certification",
+      "x": 0.088997,
+      "y": 0.688633,
+      "degree": 5
+    },
+    {
+      "id": "pattern:certification de qualite",
+      "label": "certification de qualité",
+      "node_type": "pattern",
+      "ref": "certification de qualité",
+      "x": 0.0,
+      "y": 0.696846,
+      "degree": 1
+    },
+    {
+      "id": "asset:certification",
+      "label": "certification",
+      "node_type": "asset",
+      "ref": "certification",
+      "x": 0.002208,
+      "y": 0.660011,
+      "degree": 1
+    },
+    {
+      "id": "brand:wwf-panda",
+      "label": "WWF Panda",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "conservation",
+      "ref": "wwf-panda",
+      "x": 0.162661,
+      "y": 0.690455,
+      "degree": 5
+    },
+    {
+      "id": "brand:youtube-play",
+      "label": "YouTube Play Button",
+      "node_type": "brand",
+      "depth": "deep",
+      "category": "plateforme numérique et vidéo",
+      "ref": "youtube-play",
+      "x": 0.236859,
+      "y": 0.568467,
+      "degree": 5
+    },
+    {
+      "id": "library:pentagram-practice",
+      "label": "Pentagram",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "pentagram-practice",
+      "x": 0.531754,
+      "y": 0.559949,
+      "degree": 5
+    },
+    {
+      "id": "principle:identite",
+      "label": "identité",
+      "node_type": "principle",
+      "ref": "identité",
+      "x": 0.709846,
+      "y": 0.529834,
+      "degree": 28
+    },
+    {
+      "id": "principle:strategie",
+      "label": "stratégie",
+      "node_type": "principle",
+      "ref": "stratégie",
+      "x": 0.550996,
+      "y": 0.475305,
+      "degree": 1
+    },
+    {
+      "id": "principle:edition",
+      "label": "édition",
+      "node_type": "principle",
+      "ref": "édition",
+      "x": 0.58091,
+      "y": 0.61103,
+      "degree": 3
+    },
+    {
+      "id": "principle:exposition",
+      "label": "exposition",
+      "node_type": "principle",
+      "ref": "exposition",
+      "x": 0.568595,
+      "y": 0.502768,
+      "degree": 1
+    },
+    {
+      "id": "library:chermayeff-geismar-haviv",
+      "label": "Chermayeff & Geismar & Haviv",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "chermayeff-geismar-haviv",
+      "x": 0.217497,
+      "y": 0.275046,
+      "degree": 4
+    },
+    {
+      "id": "principle:symboles autonomes",
+      "label": "symboles autonomes",
+      "node_type": "principle",
+      "ref": "symboles autonomes",
+      "x": 0.187125,
+      "y": 0.169344,
+      "degree": 1
+    },
+    {
+      "id": "principle:identites institutionnelles",
+      "label": "identités institutionnelles",
+      "node_type": "principle",
+      "ref": "identités institutionnelles",
+      "x": 0.20592,
+      "y": 0.158787,
+      "degree": 1
+    },
+    {
+      "id": "principle:simplification",
+      "label": "simplification",
+      "node_type": "principle",
+      "ref": "simplification",
+      "x": 0.225694,
+      "y": 0.161355,
+      "degree": 1
+    },
+    {
+      "id": "library:vignelli-associates",
+      "label": "Vignelli Associates",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "vignelli-associates",
+      "x": 0.62755,
+      "y": 0.660751,
+      "degree": 4
+    },
+    {
+      "id": "principle:signaletique",
+      "label": "signalétique",
+      "node_type": "principle",
+      "ref": "signalétique",
+      "x": 0.550921,
+      "y": 0.794764,
+      "degree": 2
+    },
+    {
+      "id": "principle:produit",
+      "label": "produit",
+      "node_type": "principle",
+      "ref": "produit",
+      "x": 0.59767,
+      "y": 0.660267,
+      "degree": 2
+    },
+    {
+      "id": "library:muller-brockmann",
+      "label": "Josef Müller-Brockmann",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "muller-brockmann",
+      "x": 0.826669,
+      "y": 0.07583,
+      "degree": 4
+    },
+    {
+      "id": "principle:grille",
+      "label": "grille",
+      "node_type": "principle",
+      "ref": "grille",
+      "x": 0.779092,
+      "y": 0.036966,
+      "degree": 1
+    },
+    {
+      "id": "principle:affiche",
+      "label": "affiche",
+      "node_type": "principle",
+      "ref": "affiche",
+      "x": 0.853309,
+      "y": 0.0,
+      "degree": 1
+    },
+    {
+      "id": "principle:typographie",
+      "label": "typographie",
+      "node_type": "principle",
+      "ref": "typographie",
+      "x": 0.891073,
+      "y": 0.164769,
+      "degree": 2
+    },
+    {
+      "id": "principle:information",
+      "label": "information",
+      "node_type": "principle",
+      "ref": "information",
+      "x": 0.800677,
+      "y": 0.016457,
+      "degree": 1
+    },
+    {
+      "id": "library:nasa-graphics-standards-manual",
+      "label": "NASA Graphics Standards Program",
+      "node_type": "library",
+      "kind": "system",
+      "ref": "nasa-graphics-standards-manual",
+      "x": 0.450107,
+      "y": 0.891185,
+      "degree": 5
+    },
+    {
+      "id": "principle:identite institutionnelle",
+      "label": "identité institutionnelle",
+      "node_type": "principle",
+      "ref": "identité institutionnelle",
+      "x": 0.491744,
+      "y": 0.992229,
+      "degree": 1
+    },
+    {
+      "id": "principle:vehicules",
+      "label": "véhicules",
+      "node_type": "principle",
+      "ref": "véhicules",
+      "x": 0.502626,
+      "y": 0.967976,
+      "degree": 1
+    },
+    {
+      "id": "principle:documentation",
+      "label": "documentation",
+      "node_type": "principle",
+      "ref": "documentation",
+      "x": 0.474454,
+      "y": 1.0,
+      "degree": 1
+    },
+    {
+      "id": "library:braun-design-system",
+      "label": "Braun Design System",
+      "node_type": "library",
+      "kind": "system",
+      "ref": "braun-design-system",
+      "x": 0.945204,
+      "y": 0.269575,
+      "degree": 4
+    },
+    {
+      "id": "principle:design industriel",
+      "label": "design industriel",
+      "node_type": "principle",
+      "ref": "design industriel",
+      "x": 0.913604,
+      "y": 0.386914,
+      "degree": 1
+    },
+    {
+      "id": "principle:interface",
+      "label": "interface",
+      "node_type": "principle",
+      "ref": "interface",
+      "x": 1.0,
+      "y": 0.242867,
+      "degree": 1
+    },
+    {
+      "id": "principle:photographie",
+      "label": "photographie",
+      "node_type": "principle",
+      "ref": "photographie",
+      "x": 0.985627,
+      "y": 0.310565,
+      "degree": 1
+    },
+    {
+      "id": "library:ibm-design-language",
+      "label": "IBM Design Language",
+      "node_type": "library",
+      "kind": "system",
+      "ref": "ibm-design-language",
+      "x": 0.539674,
+      "y": 0.631507,
+      "degree": 5
+    },
+    {
+      "id": "principle:numerique",
+      "label": "numérique",
+      "node_type": "principle",
+      "ref": "numérique",
+      "x": 0.580364,
+      "y": 0.691626,
+      "degree": 1
+    },
+    {
+      "id": "library:paul-rand",
+      "label": "Paul Rand",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "paul-rand",
+      "x": 0.751249,
+      "y": 0.542874,
+      "degree": 3
+    },
+    {
+      "id": "principle:systeme graphique",
+      "label": "système graphique",
+      "node_type": "principle",
+      "ref": "système graphique",
+      "x": 0.757276,
+      "y": 0.501867,
+      "degree": 25
+    },
+    {
+      "id": "principle:methode",
+      "label": "méthode",
+      "node_type": "principle",
+      "ref": "méthode",
+      "x": 0.752989,
+      "y": 0.505474,
+      "degree": 25
+    },
+    {
+      "id": "library:saul-bass",
+      "label": "Saul Bass",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "saul-bass",
+      "x": 0.779278,
+      "y": 0.525434,
+      "degree": 3
+    },
+    {
+      "id": "library:lella-vignelli",
+      "label": "Lella Vignelli",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "lella-vignelli",
+      "x": 0.759149,
+      "y": 0.562785,
+      "degree": 3
+    },
+    {
+      "id": "library:massimo-vignelli",
+      "label": "Massimo Vignelli",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "massimo-vignelli",
+      "x": 0.780132,
+      "y": 0.562776,
+      "degree": 3
+    },
+    {
+      "id": "library:otl-aicher",
+      "label": "Otl Aicher",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "otl-aicher",
+      "x": 0.789021,
+      "y": 0.489868,
+      "degree": 3
+    },
+    {
+      "id": "library:lance-wyman",
+      "label": "Lance Wyman",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "lance-wyman",
+      "x": 0.768525,
+      "y": 0.577559,
+      "degree": 3
+    },
+    {
+      "id": "library:milton-glaser",
+      "label": "Milton Glaser",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "milton-glaser",
+      "x": 0.788637,
+      "y": 0.542961,
+      "degree": 3
+    },
+    {
+      "id": "library:ivan-chermayeff",
+      "label": "Ivan Chermayeff",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "ivan-chermayeff",
+      "x": 0.742102,
+      "y": 0.433826,
+      "degree": 3
+    },
+    {
+      "id": "library:tom-geismar",
+      "label": "Tom Geismar",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "tom-geismar",
+      "x": 0.747504,
+      "y": 0.453046,
+      "degree": 3
+    },
+    {
+      "id": "library:sagi-haviv",
+      "label": "Sagi Haviv",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "sagi-haviv",
+      "x": 0.726678,
+      "y": 0.442598,
+      "degree": 3
+    },
+    {
+      "id": "library:michael-bierut",
+      "label": "Michael Bierut",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "michael-bierut",
+      "x": 0.727757,
+      "y": 0.517727,
+      "degree": 3
+    },
+    {
+      "id": "library:paula-scher",
+      "label": "Paula Scher",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "paula-scher",
+      "x": 0.716268,
+      "y": 0.489994,
+      "degree": 3
+    },
+    {
+      "id": "library:marina-willer",
+      "label": "Marina Willer",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "marina-willer",
+      "x": 0.759604,
+      "y": 0.438883,
+      "degree": 3
+    },
+    {
+      "id": "library:harry-pearce",
+      "label": "Harry Pearce",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "harry-pearce",
+      "x": 0.732457,
+      "y": 0.549473,
+      "degree": 3
+    },
+    {
+      "id": "library:domenic-lippa",
+      "label": "Domenic Lippa",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "domenic-lippa",
+      "x": 0.780216,
+      "y": 0.471077,
+      "degree": 3
+    },
+    {
+      "id": "library:alan-fletcher",
+      "label": "Alan Fletcher",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "alan-fletcher",
+      "x": 0.776324,
+      "y": 0.497623,
+      "degree": 3
+    },
+    {
+      "id": "library:colin-forbes",
+      "label": "Colin Forbes",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "colin-forbes",
+      "x": 0.736484,
+      "y": 0.486519,
+      "degree": 3
+    },
+    {
+      "id": "library:theo-crosby",
+      "label": "Theo Crosby",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "theo-crosby",
+      "x": 0.716799,
+      "y": 0.464711,
+      "degree": 3
+    },
+    {
+      "id": "library:wim-crouwel",
+      "label": "Wim Crouwel",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "wim-crouwel",
+      "x": 0.770958,
+      "y": 0.54494,
+      "degree": 3
+    },
+    {
+      "id": "library:benno-wissing",
+      "label": "Benno Wissing",
+      "node_type": "library",
+      "kind": "designer",
+      "ref": "benno-wissing",
+      "x": 0.791702,
+      "y": 0.515696,
+      "degree": 3
+    },
+    {
+      "id": "library:total-design",
+      "label": "Total Design",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "total-design",
+      "x": 0.760328,
+      "y": 0.465912,
+      "degree": 3
+    },
+    {
+      "id": "library:unimark-international",
+      "label": "Unimark International",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "unimark-international",
+      "x": 0.772944,
+      "y": 0.452815,
+      "degree": 3
+    },
+    {
+      "id": "library:landor",
+      "label": "Landor",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "landor",
+      "x": 0.737615,
+      "y": 0.570734,
+      "degree": 3
+    },
+    {
+      "id": "library:wolff-olins",
+      "label": "Wolff Olins",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "wolff-olins",
+      "x": 0.751005,
+      "y": 0.580904,
+      "degree": 3
+    },
+    {
+      "id": "library:interbrand",
+      "label": "Interbrand",
+      "node_type": "library",
+      "kind": "studio",
+      "ref": "interbrand",
+      "x": 0.732976,
+      "y": 0.461905,
+      "degree": 3
+    }
+  ],
+  "edges": [
+    {
+      "source": "brand:adidas-three-stripes",
+      "target": "pattern:actif repetitif",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:adidas-three-stripes",
+      "target": "region:europe",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:adidas-three-stripes",
+      "target": "asset:pattern",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:adidas-three-stripes",
+      "target": "asset:product",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:adidas-three-stripes",
+      "target": "asset:symbol",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:actif repetitif",
+      "target": "brand:expo-67-symbol",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:actif repetitif",
+      "target": "brand:louis-vuitton-monogram",
+      "relation": "utilise"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:aeg-corporate-identity",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:bbc-blocks",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:bmw-roundel",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:braun-design-system",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:chanel-double-c",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:channel-4-blocks",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:deutsche-bank",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:guinness-harp",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:lacoste-crocodile",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:lego-wordmark",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:london-underground-roundel",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:louis-vuitton-monogram",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:lufthansa-crane",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:mercedes-star",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:michelin-bibendum",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:penguin-books-system",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:shell-pecten",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:spotify-waves",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:unilever-u",
+      "relation": "origine"
+    },
+    {
+      "source": "region:europe",
+      "target": "brand:volkswagen-vw-system",
+      "relation": "origine"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:chanel-double-c",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:expo-67-symbol",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:girl-scouts-trefoil",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:ibm-8-bar",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:louis-vuitton-monogram",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:mtv",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:pattern",
+      "target": "brand:unilever-u",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:aeg-corporate-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:air-canada-rondelle",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:apple",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:bmw-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:braun-design-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:chanel-double-c",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:lacoste-crocodile",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:louis-vuitton-monogram",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:mercedes-star",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:nasa-worm",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:nike-swoosh",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:nintendo-racetrack",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:toyota-ellipses",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:volkswagen-vw-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:product",
+      "target": "brand:woolmark-certification",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:air-canada-rondelle",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:airbnb-belo",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:amazon-smile",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:apple",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:bbc-blocks",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:bell-system-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:bmw-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:canada-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:cbc-gem",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:cbs-eye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:channel-4-blocks",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:deutsche-bank",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:expo-67-symbol",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:girl-scouts-trefoil",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:guinness-harp",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:hydro-quebec",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:i-love-ny",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:instagram-glyph",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:lacoste-crocodile",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:london-underground-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:lufthansa-crane",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:mastercard-circles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:mcdonalds-golden-arches",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:mercedes-star",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:michelin-bibendum",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:microsoft-four-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:mit-press-colophon",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:montreal-1976-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:mtv",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:national-geographic-frame",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:nfb-man-seeing",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:nike-swoosh",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:olympic-rings",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:parks-canada-beaver",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:pbs-profiles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:shell-pecten",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:slack-octothorpe",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:spotify-waves",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:starbucks-siren",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:target-bullseye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:toyota-ellipses",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:volkswagen-vw-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:woolmark-certification",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:wwf-panda",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:symbol",
+      "target": "brand:youtube-play",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:aeg-corporate-identity",
+      "target": "pattern:ecosysteme multi actifs",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:aeg-corporate-identity",
+      "target": "asset:wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:aeg-corporate-identity",
+      "target": "asset:typography",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:ecosysteme multi actifs",
+      "target": "brand:bell-system-identity",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:ecosysteme multi actifs",
+      "target": "brand:braun-design-system",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:ecosysteme multi actifs",
+      "target": "brand:google-identity",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:ecosysteme multi actifs",
+      "target": "brand:montreal-1976-system",
+      "relation": "utilise"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:amazon-smile",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:bbc-blocks",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:canada-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:cn-continuous-line",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:coca-cola-script",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:fedex",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:google-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:i-love-ny",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:ibm-8-bar",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:lego-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:nasa-worm",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:nintendo-racetrack",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:sony-wordmark-motion",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wordmark",
+      "target": "brand:uniqlo-bilingual-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:braun-design-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:canada-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:coca-cola-script",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:deutsche-bank",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:fedex",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:i-love-ny",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:ibm-8-bar",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:london-underground-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:lufthansa-crane",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:mit-press-colophon",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:mta-subway-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:nasa-worm",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:pbs-profiles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:penguin-books-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:uniqlo-bilingual-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:typography",
+      "target": "brand:wwf-panda",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:air-canada-rondelle",
+      "target": "pattern:embleme patrimonial",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:air-canada-rondelle",
+      "target": "region:canada",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:air-canada-rondelle",
+      "target": "asset:color",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:bmw-roundel",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:guinness-harp",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:lufthansa-crane",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:mercedes-star",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:parks-canada-beaver",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:embleme patrimonial",
+      "target": "brand:shell-pecten",
+      "relation": "utilise"
+    },
+    {
+      "source": "region:canada",
+      "target": "brand:canada-wordmark",
+      "relation": "origine"
+    },
+    {
+      "source": "region:canada",
+      "target": "brand:cbc-gem",
+      "relation": "origine"
+    },
+    {
+      "source": "region:canada",
+      "target": "brand:cn-continuous-line",
+      "relation": "origine"
+    },
+    {
+      "source": "region:canada",
+      "target": "brand:nfb-man-seeing",
+      "relation": "origine"
+    },
+    {
+      "source": "region:canada",
+      "target": "brand:parks-canada-beaver",
+      "relation": "origine"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:bmw-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:google-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:instagram-glyph",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:lego-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:mastercard-circles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:mcdonalds-golden-arches",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:microsoft-four-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:mta-subway-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:national-geographic-frame",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:olympic-rings",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:shell-pecten",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:slack-octothorpe",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:sony-wordmark-motion",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:target-bullseye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:color",
+      "target": "brand:tiffany-blue-box",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:airbnb-belo",
+      "target": "pattern:symbole relationnel",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:airbnb-belo",
+      "target": "region:amerique du nord",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:airbnb-belo",
+      "target": "asset:interface",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:airbnb-belo",
+      "target": "asset:motion",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:girl-scouts-trefoil",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:mastercard-circles",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:nfb-man-seeing",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:olympic-rings",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:pbs-profiles",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:symbole relationnel",
+      "target": "brand:spotify-waves",
+      "relation": "utilise"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:amazon-smile",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:apple",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:bell-system-identity",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:cbs-eye",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:coca-cola-script",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:fedex",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:girl-scouts-trefoil",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:google-identity",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:i-love-ny",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:ibm-8-bar",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:instagram-glyph",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:mastercard-circles",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:mcdonalds-golden-arches",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:microsoft-four-squares",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:mit-press-colophon",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:mta-subway-identity",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:mtv",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:nasa-worm",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:national-geographic-frame",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:nike-swoosh",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:pbs-profiles",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:slack-octothorpe",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:starbucks-siren",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:target-bullseye",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:tiffany-blue-box",
+      "relation": "origine"
+    },
+    {
+      "source": "region:amerique du nord",
+      "target": "brand:youtube-play",
+      "relation": "origine"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:apple",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:braun-design-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:cbc-gem",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:cbs-eye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:instagram-glyph",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:microsoft-four-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:national-geographic-frame",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:slack-octothorpe",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:spotify-waves",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:interface",
+      "target": "brand:youtube-play",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:bbc-blocks",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:cbc-gem",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:cbs-eye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:channel-4-blocks",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:google-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:mastercard-circles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:michelin-bibendum",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:mtv",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:nfb-man-seeing",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:nike-swoosh",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:olympic-rings",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:pbs-profiles",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:sony-wordmark-motion",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:spotify-waves",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:motion",
+      "target": "brand:youtube-play",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:amazon-smile",
+      "target": "pattern:contreforme semantique",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:amazon-smile",
+      "target": "asset:packaging",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:contreforme semantique",
+      "target": "brand:fedex",
+      "relation": "utilise"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:coca-cola-script",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:guinness-harp",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:lego-wordmark",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:nintendo-racetrack",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:penguin-books-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:starbucks-siren",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:tiffany-blue-box",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:packaging",
+      "target": "brand:unilever-u",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:apple",
+      "target": "pattern:silhouette autonome",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:silhouette autonome",
+      "target": "brand:cbs-eye",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:silhouette autonome",
+      "target": "brand:nike-swoosh",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:silhouette autonome",
+      "target": "brand:target-bullseye",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:silhouette autonome",
+      "target": "brand:wwf-panda",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:bbc-blocks",
+      "target": "pattern:systeme modulaire",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:systeme modulaire",
+      "target": "brand:cbc-gem",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:systeme modulaire",
+      "target": "brand:ibm-8-bar",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:systeme modulaire",
+      "target": "brand:microsoft-four-squares",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:systeme modulaire",
+      "target": "brand:slack-octothorpe",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:systeme modulaire",
+      "target": "brand:uniqlo-bilingual-squares",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:bell-system-identity",
+      "target": "asset:wayfinding",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:bell-system-identity",
+      "target": "asset:architecture",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:cn-continuous-line",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:london-underground-roundel",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:lufthansa-crane",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:montreal-1976-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:mta-subway-identity",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:wayfinding",
+      "target": "brand:parks-canada-beaver",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:deutsche-bank",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:expo-67-symbol",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:guinness-harp",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:hydro-quebec",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:mcdonalds-golden-arches",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:mercedes-star",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:nfb-man-seeing",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:shell-pecten",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:target-bullseye",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:architecture",
+      "target": "brand:uniqlo-bilingual-squares",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:canada-wordmark",
+      "target": "pattern:mot marque proprietaire",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mot marque proprietaire",
+      "target": "brand:cn-continuous-line",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mot marque proprietaire",
+      "target": "brand:coca-cola-script",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mot marque proprietaire",
+      "target": "brand:i-love-ny",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mot marque proprietaire",
+      "target": "brand:nasa-worm",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mot marque proprietaire",
+      "target": "brand:nintendo-racetrack",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:chanel-double-c",
+      "target": "pattern:monogramme geometrique",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:chanel-double-c",
+      "target": "asset:monogram",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:monogramme geometrique",
+      "target": "brand:deutsche-bank",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:monogramme geometrique",
+      "target": "brand:hydro-quebec",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:monogramme geometrique",
+      "target": "brand:mit-press-colophon",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:monogramme geometrique",
+      "target": "brand:toyota-ellipses",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:monogramme geometrique",
+      "target": "brand:volkswagen-vw-system",
+      "relation": "utilise"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:cn-continuous-line",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:hydro-quebec",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:louis-vuitton-monogram",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:mit-press-colophon",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:montreal-1976-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:toyota-ellipses",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:unilever-u",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:monogram",
+      "target": "brand:volkswagen-vw-system",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:channel-4-blocks",
+      "target": "pattern:identite en mouvement",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:channel-4-blocks",
+      "target": "asset:sound",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:identite en mouvement",
+      "target": "brand:sony-wordmark-motion",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:identite en mouvement",
+      "target": "brand:youtube-play",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:expo-67-symbol",
+      "target": "region:quebec",
+      "relation": "origine"
+    },
+    {
+      "source": "region:quebec",
+      "target": "brand:hydro-quebec",
+      "relation": "origine"
+    },
+    {
+      "source": "region:quebec",
+      "target": "brand:montreal-1976-system",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:girl-scouts-trefoil",
+      "target": "asset:embroidery",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:ibm-8-bar",
+      "target": "library:ibm-design-language",
+      "relation": "projet"
+    },
+    {
+      "source": "brand:instagram-glyph",
+      "target": "pattern:interface devenue signe",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:lacoste-crocodile",
+      "target": "pattern:mascotte evolutive",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:lacoste-crocodile",
+      "target": "asset:mascot",
+      "relation": "actif"
+    },
+    {
+      "source": "pattern:mascotte evolutive",
+      "target": "brand:michelin-bibendum",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:mascotte evolutive",
+      "target": "brand:starbucks-siren",
+      "relation": "utilise"
+    },
+    {
+      "source": "asset:mascot",
+      "target": "brand:michelin-bibendum",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:mascot",
+      "target": "brand:parks-canada-beaver",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:mascot",
+      "target": "brand:penguin-books-system",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:mascot",
+      "target": "brand:starbucks-siren",
+      "relation": "actif"
+    },
+    {
+      "source": "asset:mascot",
+      "target": "brand:wwf-panda",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:lego-wordmark",
+      "target": "pattern:packaging rituel",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:packaging rituel",
+      "target": "brand:penguin-books-system",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:packaging rituel",
+      "target": "brand:tiffany-blue-box",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:london-underground-roundel",
+      "target": "pattern:signaletique de reseau",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:signaletique de reseau",
+      "target": "brand:mta-subway-identity",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:mastercard-circles",
+      "target": "library:pentagram-practice",
+      "relation": "projet"
+    },
+    {
+      "source": "brand:mcdonalds-golden-arches",
+      "target": "pattern:architecture devenue signe",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:mtv",
+      "target": "pattern:conteneur mutable",
+      "relation": "utilise"
+    },
+    {
+      "source": "pattern:conteneur mutable",
+      "target": "brand:unilever-u",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:nasa-worm",
+      "target": "library:nasa-graphics-standards-manual",
+      "relation": "projet"
+    },
+    {
+      "source": "brand:national-geographic-frame",
+      "target": "pattern:cadre proprietaire",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:national-geographic-frame",
+      "target": "library:chermayeff-geismar-haviv",
+      "relation": "projet"
+    },
+    {
+      "source": "brand:nintendo-racetrack",
+      "target": "region:asie",
+      "relation": "origine"
+    },
+    {
+      "source": "region:asie",
+      "target": "brand:sony-wordmark-motion",
+      "relation": "origine"
+    },
+    {
+      "source": "region:asie",
+      "target": "brand:toyota-ellipses",
+      "relation": "origine"
+    },
+    {
+      "source": "region:asie",
+      "target": "brand:uniqlo-bilingual-squares",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:olympic-rings",
+      "target": "region:international",
+      "relation": "origine"
+    },
+    {
+      "source": "region:international",
+      "target": "brand:woolmark-certification",
+      "relation": "origine"
+    },
+    {
+      "source": "region:international",
+      "target": "brand:wwf-panda",
+      "relation": "origine"
+    },
+    {
+      "source": "brand:tiffany-blue-box",
+      "target": "asset:material",
+      "relation": "actif"
+    },
+    {
+      "source": "brand:woolmark-certification",
+      "target": "pattern:certification de qualite",
+      "relation": "utilise"
+    },
+    {
+      "source": "brand:woolmark-certification",
+      "target": "asset:certification",
+      "relation": "actif"
+    },
+    {
+      "source": "library:pentagram-practice",
+      "target": "principle:identite",
+      "relation": "principe"
+    },
+    {
+      "source": "library:pentagram-practice",
+      "target": "principle:strategie",
+      "relation": "principe"
+    },
+    {
+      "source": "library:pentagram-practice",
+      "target": "principle:edition",
+      "relation": "principe"
+    },
+    {
+      "source": "library:pentagram-practice",
+      "target": "principle:exposition",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:vignelli-associates",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:ibm-design-language",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:paul-rand",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:saul-bass",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:lella-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:massimo-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:otl-aicher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:lance-wyman",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:milton-glaser",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:ivan-chermayeff",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:tom-geismar",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:sagi-haviv",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:michael-bierut",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:paula-scher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:marina-willer",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:harry-pearce",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:domenic-lippa",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:alan-fletcher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:colin-forbes",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:theo-crosby",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:wim-crouwel",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:benno-wissing",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:total-design",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:unimark-international",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:landor",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:wolff-olins",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:identite",
+      "target": "library:interbrand",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:edition",
+      "target": "library:vignelli-associates",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:edition",
+      "target": "library:ibm-design-language",
+      "relation": "principe"
+    },
+    {
+      "source": "library:chermayeff-geismar-haviv",
+      "target": "principle:symboles autonomes",
+      "relation": "principe"
+    },
+    {
+      "source": "library:chermayeff-geismar-haviv",
+      "target": "principle:identites institutionnelles",
+      "relation": "principe"
+    },
+    {
+      "source": "library:chermayeff-geismar-haviv",
+      "target": "principle:simplification",
+      "relation": "principe"
+    },
+    {
+      "source": "library:vignelli-associates",
+      "target": "principle:signaletique",
+      "relation": "principe"
+    },
+    {
+      "source": "library:vignelli-associates",
+      "target": "principle:produit",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:signaletique",
+      "target": "library:nasa-graphics-standards-manual",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:produit",
+      "target": "library:ibm-design-language",
+      "relation": "principe"
+    },
+    {
+      "source": "library:muller-brockmann",
+      "target": "principle:grille",
+      "relation": "principe"
+    },
+    {
+      "source": "library:muller-brockmann",
+      "target": "principle:affiche",
+      "relation": "principe"
+    },
+    {
+      "source": "library:muller-brockmann",
+      "target": "principle:typographie",
+      "relation": "principe"
+    },
+    {
+      "source": "library:muller-brockmann",
+      "target": "principle:information",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:typographie",
+      "target": "library:braun-design-system",
+      "relation": "principe"
+    },
+    {
+      "source": "library:nasa-graphics-standards-manual",
+      "target": "principle:identite institutionnelle",
+      "relation": "principe"
+    },
+    {
+      "source": "library:nasa-graphics-standards-manual",
+      "target": "principle:vehicules",
+      "relation": "principe"
+    },
+    {
+      "source": "library:nasa-graphics-standards-manual",
+      "target": "principle:documentation",
+      "relation": "principe"
+    },
+    {
+      "source": "library:braun-design-system",
+      "target": "principle:design industriel",
+      "relation": "principe"
+    },
+    {
+      "source": "library:braun-design-system",
+      "target": "principle:interface",
+      "relation": "principe"
+    },
+    {
+      "source": "library:braun-design-system",
+      "target": "principle:photographie",
+      "relation": "principe"
+    },
+    {
+      "source": "library:ibm-design-language",
+      "target": "principle:numerique",
+      "relation": "principe"
+    },
+    {
+      "source": "library:paul-rand",
+      "target": "principle:systeme graphique",
+      "relation": "principe"
+    },
+    {
+      "source": "library:paul-rand",
+      "target": "principle:methode",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:saul-bass",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:lella-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:massimo-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:otl-aicher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:lance-wyman",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:milton-glaser",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:ivan-chermayeff",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:tom-geismar",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:sagi-haviv",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:michael-bierut",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:paula-scher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:marina-willer",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:harry-pearce",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:domenic-lippa",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:alan-fletcher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:colin-forbes",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:theo-crosby",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:wim-crouwel",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:benno-wissing",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:total-design",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:unimark-international",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:landor",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:wolff-olins",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:systeme graphique",
+      "target": "library:interbrand",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:saul-bass",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:lella-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:massimo-vignelli",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:otl-aicher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:lance-wyman",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:milton-glaser",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:ivan-chermayeff",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:tom-geismar",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:sagi-haviv",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:michael-bierut",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:paula-scher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:marina-willer",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:harry-pearce",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:domenic-lippa",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:alan-fletcher",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:colin-forbes",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:theo-crosby",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:wim-crouwel",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:benno-wissing",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:total-design",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:unimark-international",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:landor",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:wolff-olins",
+      "relation": "principe"
+    },
+    {
+      "source": "principle:methode",
+      "target": "library:interbrand",
+      "relation": "principe"
+    }
+  ],
+  "meta": {
+    "count": 159,
+    "edge_count": 425,
+    "types": {
+      "brand": 64,
+      "pattern": 18,
+      "region": 6,
+      "asset": 17,
+      "library": 32,
+      "principle": 22
+    },
+    "query": ""
+  }
+}

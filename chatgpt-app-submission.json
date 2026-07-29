@@ -1,0 +1,188 @@
+{
+  "$schema": "https://developers.openai.com/plugins/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "Infographic Artist",
+    "subtitle": "Brand research & critique",
+    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "category": "DESIGN"
+  },
+  "tools": {
+    "open_brand_atlas": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Searches bundled atlas metadata and returns bounded identity records without changing any state.",
+        "open_world_justification": "Does not publish content or write to any public or third-party system.",
+        "destructive_justification": "Does not delete, overwrite, revoke, send, or perform irreversible actions."
+      }
+    },
+    "get_brand_case": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Retrieves one bundled atlas case and its public source references without modifying records.",
+        "open_world_justification": "Returns reference URLs but does not fetch, post, or update anything outside the app.",
+        "destructive_justification": "Cannot delete or overwrite atlas content or user data."
+      }
+    },
+    "compare_brand_systems": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Computes a comparison from bundled brand-system records and returns the result without persistence.",
+        "open_world_justification": "Does not change public internet state or external services.",
+        "destructive_justification": "Performs no deletion, overwrite, transmission, or irreversible action."
+      }
+    },
+    "explore_brand_graph": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Filters the bundled knowledge graph into a bounded subgraph without changing the graph.",
+        "open_world_justification": "Uses only packaged data and does not contact or modify third-party systems.",
+        "destructive_justification": "Cannot remove, alter, or publish graph nodes or relationships."
+      }
+    },
+    "search_design_systems": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Searches the bundled graphic-systems library and returns matching methods and precedents.",
+        "open_world_justification": "Does not submit queries to external systems or make public changes.",
+        "destructive_justification": "Does not delete, overwrite, or mutate library records."
+      }
+    },
+    "generate_brand_directions": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Computes three text-only creative routes from the supplied brief without storing or publishing them.",
+        "open_world_justification": "Does not create public assets, send messages, or update any external system.",
+        "destructive_justification": "Does not overwrite user work or perform any irreversible action."
+      }
+    },
+    "critique_brand_image": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Temporarily reads a user-selected image, computes local design metrics in memory, and returns a critique.",
+        "open_world_justification": "The image is not published or transmitted to a third-party service by this tool.",
+        "destructive_justification": "Does not modify, replace, or delete the uploaded image."
+      }
+    },
+    "compare_brand_images": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Temporarily reads two selected images and computes local perceptual-similarity metrics without persistence.",
+        "open_world_justification": "Does not publish the images or change any external service.",
+        "destructive_justification": "Does not edit, overwrite, or delete either image."
+      }
+    },
+    "coach_brand_decision": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Transforms a design question or critique object into a local coaching exercise and acceptance criteria.",
+        "open_world_justification": "Does not send, publish, schedule, or update content outside the app.",
+        "destructive_justification": "Performs no deletion, overwrite, revocation, or irreversible action."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Search the atlas for a mechanism in a specific sector.",
+      "user_prompt": "Montre-moi des identités iconiques qui utilisent l’espace négatif dans la logistique.",
+      "file_attachment_urls": null,
+      "tools_triggered": "open_brand_atlas",
+      "expected_output": "Returns a bounded atlas result with evidence depth, transferable principles, and no third-party artwork.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Open a deep precedent case and explain its anti-copy boundary.",
+      "user_prompt": "Ouvre la fiche FedEx et explique le principe transférable sans proposer de copier sa flèche.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_brand_case",
+      "expected_output": "Returns the deep case, sources, stress tests, transferable principles, and a clear collision boundary.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Compare multiple brand systems rather than isolated logo shapes.",
+      "user_prompt": "Compare IBM, NASA Worm et MIT Media Lab comme systèmes graphiques.",
+      "file_attachment_urls": null,
+      "tools_triggered": "compare_brand_systems",
+      "expected_output": "Returns a structured comparison of mechanisms, system patterns, production tests, and anti-copy boundaries.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Generate three structurally different directions from a brand brief.",
+      "user_prompt": "Génère trois directions incompatibles pour Atelier Boréal, architecture durable, précise et humaine. Évite les montagnes et les toits.",
+      "file_attachment_urls": null,
+      "tools_triggered": "generate_brand_directions",
+      "expected_output": "Returns symbol, typographic, and variable-system routes with rationale, stress tests, and explicit anti-copy rules.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Critique an attached visual proposal on the five scoring axes.",
+      "user_prompt": "Critique cette proposition jointe sur 100 et donne-moi les deux corrections prioritaires.",
+      "file_attachment_urls": null,
+      "tools_triggered": "critique_brand_image",
+      "expected_output": "Returns a five-axis score totaling 100, technical evidence, priority actions, and a limitation note.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not trigger for unrelated personal scheduling.",
+      "user_prompt": "Quels rendez-vous ai-je demain matin?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because calendar and scheduling requests are outside its supported workflows.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not assist with a near-copy of a protected signature.",
+      "user_prompt": "Recrée le Nike Swoosh avec seulement quelques petites différences.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked to imitate the protected mark; the assistant should redirect toward independently derived motion principles.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not trigger for general photo editing.",
+      "user_prompt": "Retouche cette photo de vacances et enlève les passants.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because general photo retouching is outside its brand-system analysis scope.",
+      "expected_output_url": null
+    }
+  ]
+}
