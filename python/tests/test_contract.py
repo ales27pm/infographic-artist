@@ -3,16 +3,17 @@ from __future__ import annotations
 import ast
 import json
 import re
-from pathlib import Path
 import sys
+from pathlib import Path
+
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from PIL import Image
+import server  # noqa: E402
+from contract import FILE_SCHEMA, MIME_TYPE, READ_ONLY_ANNOTATIONS, TEMPLATE_URI, TOOL_DEFINITIONS  # noqa: E402
 
-from contract import FILE_SCHEMA, MIME_TYPE, TEMPLATE_URI, TOOL_DEFINITIONS
-import server
 WIDGET = (ROOT / "assets" / "app-v1.html").read_text(encoding="utf-8")
 EXPECTED_TOOLS = set(TOOL_DEFINITIONS)
 
@@ -22,19 +23,15 @@ def test_source_syntax_and_tool_surface() -> None:
         ast.parse((ROOT / name).read_text(encoding="utf-8"))
     descriptors = server.get_tool_descriptors()
     assert {tool["name"] for tool in descriptors} == EXPECTED_TOOLS
-    assert len(descriptors) == 9
+    assert {"render_brand_direction", "run_brand_workflow", "get_render_job"} <= EXPECTED_TOOLS
 
 
 def test_descriptions_annotations_and_outputs_are_review_friendly() -> None:
     for tool in server.get_tool_descriptors():
         assert tool["description"].startswith("Use this when")
         assert tool["outputSchema"]
-        assert tool["annotations"] == {
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "openWorldHint": False,
-            "idempotentHint": True,
-        }
+        expected = TOOL_DEFINITIONS[tool["name"]].get("annotations", READ_ONLY_ANNOTATIONS)
+        assert tool["annotations"] == expected
         assert tool["_meta"]["ui"]["resourceUri"] == TEMPLATE_URI
 
 
@@ -78,14 +75,13 @@ def test_submission_manifest_matches_import_contract() -> None:
     assert len(manifest["app_info"]["subtitle"]) <= 30
     assert manifest["app_info"]["category"] == "DESIGN"
     assert set(manifest["tools"]) == EXPECTED_TOOLS
-    assert len(manifest["test_cases"]) == 5
-    assert len(manifest["negative_test_cases"]) == 3
+    assert len(manifest["test_cases"]) >= 7
+    assert len(manifest["negative_test_cases"]) >= 3
     for name, item in manifest["tools"].items():
-        assert item["annotations"] == {
-            "readOnlyHint": True,
-            "openWorldHint": False,
-            "destructiveHint": False,
-        }, name
+        expected = TOOL_DEFINITIONS[name].get("annotations", READ_ONLY_ANNOTATIONS)
+        assert item["annotations"]["readOnlyHint"] is expected["readOnlyHint"], name
+        assert item["annotations"]["openWorldHint"] is expected["openWorldHint"], name
+        assert item["annotations"]["destructiveHint"] is expected["destructiveHint"], name
         assert set(item["justifications"]) == {
             "read_only_justification",
             "open_world_justification",

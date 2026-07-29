@@ -1,17 +1,15 @@
 from __future__ import annotations
 
-import json
-
-import jsonschema
 import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from fastapi import FastAPI, Request
+import jsonschema
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 
 import core
 from contract import MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
@@ -54,7 +52,8 @@ def _widget_html() -> str:
 
 
 def _resource_meta() -> dict[str, Any]:
-    csp = {"connectDomains": [], "resourceDomains": [], "frameDomains": []}
+    resource_domains = [_app_base_url()] if _app_base_url() else []
+    csp = {"connectDomains": [], "resourceDomains": resource_domains, "frameDomains": []}
     ui: dict[str, Any] = {
         "prefersBorder": True,
         "csp": csp,
@@ -69,7 +68,7 @@ def _resource_meta() -> dict[str, Any]:
         "openai/widgetPrefersBorder": True,
         "openai/widgetCSP": {
             "connect_domains": [],
-            "resource_domains": [],
+            "resource_domains": resource_domains,
             "frame_domains": [],
         },
         **({"openai/widgetDomain": _app_base_url()} if _app_base_url() else {}),
@@ -91,8 +90,11 @@ def _tool_meta(name: str) -> dict[str, Any]:
     return meta
 
 
-def _annotations() -> dict[str, bool]:
-    return {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False, "idempotentHint": True}
+def _annotations(name: str) -> dict[str, bool]:
+    return dict(TOOL_DEFINITIONS[name].get(
+        "annotations",
+        {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False, "idempotentHint": True},
+    ))
 
 
 def _allowed_origins() -> set[str]:
@@ -122,7 +124,7 @@ def get_tool_descriptors() -> list[dict[str, Any]]:
                     "required": ["view", "data"],
                     "additionalProperties": False,
                 },
-                "annotations": _annotations(),
+                "annotations": _annotations(name),
                 "_meta": _tool_meta(name),
             }
         )
@@ -186,6 +188,12 @@ async def _execute_tool(name: str, args: dict[str, Any]) -> dict[str, Any]:
         )
     if name == "generate_brand_directions":
         return _payload("directions", core.generate_directions(args))
+    if name == "render_brand_direction":
+        return _payload("render_job", await core.render_brand_direction(args))
+    if name == "run_brand_workflow":
+        return _payload("render_workflow", await core.run_brand_workflow(args))
+    if name == "get_render_job":
+        return _payload("render_job", core.get_render_job(str(args.get("job_id", ""))))
     if name == "critique_brand_image":
         image = await core.download_image(args["image"])
         reference = await core.download_image(args["reference"]) if args.get("reference") else None
@@ -305,7 +313,26 @@ async def openai_apps_challenge() -> Response:
 
 @app.get("/health")
 async def health() -> JSONResponse:
-    return JSONResponse({"status": "ok", "app": APP_NAME, "version": APP_VERSION, "transport": "restricted-build-fallback", "mcp_path": "/mcp", **core.atlas_summary()})
+    return JSONResponse(
+        {
+            "status": "ok",
+            "app": APP_NAME,
+            "version": APP_VERSION,
+            "transport": "restricted-build-fallback",
+            "mcp_path": "/mcp",
+            "image_generation": core.generation_runtime_summary(),
+            **core.atlas_summary(),
+        }
+    )
+
+
+@app.get("/generated-assets/{job_id}/{filename}")
+async def generated_asset(job_id: str, filename: str) -> FileResponse:
+    try:
+        path, media_type = core.resolve_generated_asset_path(job_id, filename)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return FileResponse(path, media_type=media_type, headers={"Cache-Control": "private, max-age=300"})
 
 
 @app.get("/privacy")
@@ -433,6 +460,8 @@ async def mcp_post(request: Request) -> Response:
             "graph": "Built the requested brand knowledge graph.",
             "library": "Searched the graphic-systems library.",
             "directions": "Generated three original creative directions.",
+            "render_job": "Started or checked a plugin-side image render job.",
+            "render_workflow": "Started the full plugin-side brand workflow.",
             "critique": "Scored the visual proposal on five design axes.",
             "similarity": "Completed perceptual similarity triage.",
             "coach": "Converted the design question into a measurable coaching exercise.",

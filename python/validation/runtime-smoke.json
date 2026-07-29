@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "base_url": "http://127.0.0.1:39825",
+  "base_url": "http://127.0.0.1:52967",
   "checks": {
     "health": {
       "status_code": 200,
@@ -13,7 +13,7 @@
       "server_name": "infographic-artist"
     },
     "tools_list": {
-      "count": 9,
+      "count": 12,
       "names": [
         "open_brand_atlas",
         "get_brand_case",
@@ -21,12 +21,19 @@
         "explore_brand_graph",
         "search_design_systems",
         "generate_brand_directions",
+        "render_brand_direction",
+        "run_brand_workflow",
+        "get_render_job",
         "critique_brand_image",
         "compare_brand_images",
         "coach_brand_decision"
       ],
       "all_have_output_schema": true,
-      "all_read_only": true
+      "mutable_tools": [
+        "render_brand_direction",
+        "run_brand_workflow"
+      ],
+      "render_tools_present": true
     },
     "tool_call": {
       "view": "atlas",
@@ -34,10 +41,18 @@
       "first_result": "FedEx",
       "is_error": false
     },
+    "render_job": {
+      "job_id": "render-98feeed274b54209be23e60a1b28ad28",
+      "status": "succeeded",
+      "asset_count": 1,
+      "asset_status_code": 200,
+      "asset_content_type": "image/png",
+      "evaluation_count": 1
+    },
     "widget_resource": {
       "uri": "ui://infographic-artist/app-v1.html",
       "mime_type": "text/html;profile=mcp-app",
-      "bytes": 22665,
+      "bytes": 27259,
       "has_mcp_bridge": true
     },
     "website": {
@@ -58,5 +73,5 @@
   },
   "runtime": "official-mcp-sdk",
   "failures": [],
-  "server_log_tail": "INFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:55130 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2198887]"
+  "server_log_tail": "INFO:     127.0.0.1:36142 - \"GET /generated-assets/render-98feeed274b54209be23e60a1b28ad28/symbol-e832fe9f76.png HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"POST /mcp HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET / HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /.well-known/openai-apps-challenge HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /privacy HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /terms HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:36142 - \"GET /support HTTP/1.1\" 200 OK\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [2635165]"
 }

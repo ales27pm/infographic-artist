@@ -11,8 +11,9 @@ from mcp.server.lowlevel.helper_types import ReadResourceContents
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from mcp.server.transport_security import TransportSecuritySettings
 from starlette.applications import Starlette
+from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
-from starlette.responses import HTMLResponse, JSONResponse, Response
+from starlette.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from starlette.routing import Route
 from starlette.types import Receive, Scope, Send
 
@@ -28,7 +29,6 @@ from fallback_server import (
     _resource_meta,
     _simple_doc,
     _split_env_list,
-    _tool_meta,
     _widget_html,
     get_resource_templates,
     get_resources,
@@ -115,6 +115,8 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> types.CallToolResul
         "graph": "Built the requested brand knowledge graph.",
         "library": "Searched the graphic-systems library.",
         "directions": "Generated three original creative directions.",
+        "render_job": "Started or checked a plugin-side image render job.",
+        "render_workflow": "Started the full plugin-side brand workflow.",
         "critique": "Scored the visual proposal on five design axes.",
         "similarity": "Completed perceptual similarity triage.",
         "coach": "Converted the design question into a measurable coaching exercise.",
@@ -153,6 +155,7 @@ async def health(_request) -> JSONResponse:
             "app": APP_NAME,
             "version": APP_VERSION,
             "transport": "official-mcp-sdk",
+            "image_generation": core.generation_runtime_summary(),
             **core.atlas_summary(),
         }
     )
@@ -170,6 +173,17 @@ async def support(_request) -> HTMLResponse:
     return HTMLResponse(_simple_doc("Support", (DOCS_DIR / "support.md").read_text(encoding="utf-8")))
 
 
+async def generated_asset(request) -> FileResponse:
+    try:
+        path, media_type = core.resolve_generated_asset_path(
+            str(request.path_params.get("job_id") or ""),
+            str(request.path_params.get("filename") or ""),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return FileResponse(path, media_type=media_type, headers={"Cache-Control": "private, max-age=300"})
+
+
 @contextlib.asynccontextmanager
 async def lifespan(_app: Starlette):
     async with session_manager.run():
@@ -184,6 +198,7 @@ site = Starlette(
         Route("/privacy", privacy, methods=["GET"]),
         Route("/terms", terms, methods=["GET"]),
         Route("/support", support, methods=["GET"]),
+        Route("/generated-assets/{job_id}/{filename}", generated_asset, methods=["GET"]),
     ],
     lifespan=lifespan,
 )

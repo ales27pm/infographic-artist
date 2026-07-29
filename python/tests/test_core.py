@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import sys
 from pathlib import Path
 
-import numpy as np
 import pytest
 from PIL import Image, ImageDraw
 
@@ -11,6 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import core  # noqa: E402
+
+
+async def wait_for_job(job_id: str, *, timeout: float = 5.0) -> dict:
+    deadline = asyncio.get_running_loop().time() + timeout
+    while asyncio.get_running_loop().time() < deadline:
+        job = core.get_render_job(job_id)
+        if job["status"] in {"succeeded", "failed"}:
+            return job
+        await asyncio.sleep(0.05)
+    raise AssertionError(f"render job {job_id} did not finish")
 
 
 def synthetic_mark(offset: int = 0) -> Image.Image:
@@ -63,7 +73,62 @@ def test_directions_are_structurally_incompatible_and_french() -> None:
     assert [route["id"] for route in result["routes"]] == ["symbol", "type", "system"]
     assert len({route["architecture"] for route in result["routes"]}) == 3
     assert all("Ne pas emprunter" in route["anti_copy_rule"] for route in result["routes"])
+    assert result["image_generation_handoff"]["mode"] == "plugin_rendering_available"
+    assert "run_brand_workflow" in result["image_generation_handoff"]["instructions"]
+    assert "168 heures" in result["image_generation_handoff"]["storage_note"]
+    assert all("concept board" in route["concept_board_prompt"] for route in result["routes"])
+    assert all("Do not reproduce existing marks" in route["concept_board_prompt"] for route in result["routes"])
+    assert all(len(route["board_evaluation_focus"]) == 3 for route in result["routes"])
     assert "Prototyper" in result["decision_rule"]
+
+
+@pytest.mark.asyncio
+async def test_render_brand_direction_mock_provider(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("IMAGE_GENERATION_PROVIDER", "mock")
+    monkeypatch.setenv("GENERATED_ASSET_DIR", str(tmp_path))
+    monkeypatch.setenv("APP_BASE_URL", "https://brand.example")
+    directions = core.generate_directions(
+        {
+            "name": "Atelier Boréal",
+            "sector": "architecture durable",
+            "promise": "rendre la précision humaine et crédible",
+        }
+    )
+    started = await core.render_brand_direction({"route": directions["routes"][0], "brief": directions["brief"], "quality": "low"})
+    assert started["kind"] == "render"
+    assert started["status"] == "queued"
+    done = await wait_for_job(started["job_id"])
+    assert done["status"] == "succeeded"
+    assert done["provider_note"].startswith("mock provider")
+    assert len(done["assets"]) == 1
+    assert done["assets"][0]["asset_url"].startswith("https://brand.example/generated-assets/")
+    assert done["evaluations"][0]["critique"]["score"] >= 0
+    path, media_type = core.resolve_generated_asset_path(done["job_id"], done["assets"][0]["filename"])
+    assert path.is_file()
+    assert media_type == "image/png"
+
+
+@pytest.mark.asyncio
+async def test_run_brand_workflow_mock_provider(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("IMAGE_GENERATION_PROVIDER", "mock")
+    monkeypatch.setenv("GENERATED_ASSET_DIR", str(tmp_path))
+    monkeypatch.delenv("APP_BASE_URL", raising=False)
+    started = await core.run_brand_workflow(
+        {
+            "name": "Civic Loom",
+            "sector": "public data infrastructure",
+            "promise": "make complex civic signals trustworthy at a glance",
+            "traits": ["precise", "public-minded"],
+            "must_avoid": ["government seals"],
+        }
+    )
+    assert started["kind"] == "workflow"
+    assert started["progress"]["total"] == 3
+    done = await wait_for_job(started["job_id"])
+    assert done["status"] == "succeeded"
+    assert done["progress"] == {"completed": 3, "total": 3}
+    assert [asset["route_id"] for asset in done["assets"]] == ["symbol", "type", "system"]
+    assert len(done["evaluations"]) == 3
 
 
 def test_image_metrics_and_critique() -> None:

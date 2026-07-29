@@ -7,13 +7,38 @@
     },
     {
       "path": ".env.example",
-      "bytes": 428,
-      "sha256": "a72822fdae198af23b0f5e6ec636d4cb0cbd6063446b036bbdd0f5332f9c9c0a"
+      "bytes": 741,
+      "sha256": "823c29a05dac19e0c15f6c56039cc94d1cfb1986f459dfbce5738d04a4b10415"
     },
     {
       "path": ".gitignore",
-      "bytes": 127,
-      "sha256": "824047d0874978994d4fe1534b25e3e1161b3dc190baa513e481639d8aee2e05"
+      "bytes": 182,
+      "sha256": "6368103455b7a5614de128d535cad89acf13aa7a419129b65542438f4e3551bf"
+    },
+    {
+      "path": ".ruff_cache/.gitignore",
+      "bytes": 35,
+      "sha256": "9e3a60f1e6ec4ae60215c11d54b171392745ec25e9dded433d5bd921363af316"
+    },
+    {
+      "path": ".ruff_cache/0.16.0/4260857078655126015",
+      "bytes": 340,
+      "sha256": "c92952d1249bbaf1d39684b63b6ab55e542cf3b6e6386e4d90331f4842678f8b"
+    },
+    {
+      "path": ".ruff_cache/0.16.0/4750848494687813887",
+      "bytes": 284,
+      "sha256": "fe984fc87edc0a2b68b0ca61a0fd29e09da0955b3c1ed3e24547f91c29dfe25d"
+    },
+    {
+      "path": ".ruff_cache/0.16.0/708517665292599945",
+      "bytes": 332,
+      "sha256": "b8e8f19d911e5636fbe1ed44821fad1ad69f68dc214e374e939850fe75816e50"
+    },
+    {
+      "path": ".ruff_cache/CACHEDIR.TAG",
+      "bytes": 43,
+      "sha256": "5953156d7e0c564a427251316eaf26f8870e6483ae2197f916b630e4f93e31ae"
     },
     {
       "path": "Dockerfile",
@@ -32,13 +57,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 3524,
-      "sha256": "2f070fcea4535463b09ff1352097f40c35d642bd567e2c5ef79b72563715975f"
+      "bytes": 4384,
+      "sha256": "272be2b51ab6d3307226e998f9534c44f2700a3e38e9c0719b33ee0877a2adad"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 2458,
-      "sha256": "4995d6e14e4b21d97e5f702103f20e5ba3d4bdfd0da0d4d8696de107c7b4e908"
+      "bytes": 2810,
+      "sha256": "11c69a9ee935145a3ea388b1ef6c7829702fc1117726fb196fa82fd2aee29037"
     },
     {
       "path": "SOURCE_MANIFEST.md",
@@ -57,23 +82,23 @@
     },
     {
       "path": "assets/app-v1.html",
-      "bytes": 22665,
-      "sha256": "4bab4ad76ec7966aa8709e533e4abcbfe10952a55d36ab0276ee520b20ffda66"
+      "bytes": 27259,
+      "sha256": "279f048b6f3c14d4bfc2c3c78c55c13cd2aef16d7ad324b8867d570c2ecdc0b2"
     },
     {
       "path": "assets/preview-atlas.html",
-      "bytes": 32357,
-      "sha256": "07d67a7853a2a0e0820e5f5e23c4bd6ef92ad7d52e7abd62fa1d4a32c63bd6f8"
+      "bytes": 34418,
+      "sha256": "7b2ef79666ce0cf9444619302cf6945b341322525d95c8877f8825816d70620d"
     },
     {
       "path": "assets/preview-critique.html",
-      "bytes": 22549,
-      "sha256": "f674563a503e69616a14e850167f7779e713e6bb165b9879689def81669dfa0d"
+      "bytes": 24610,
+      "sha256": "7fe063eb9423c3937b429c14e702dc8beeefc6a555057ce9d66a45e8700cc1c9"
     },
     {
       "path": "assets/preview-directions.html",
-      "bytes": 27923,
-      "sha256": "5798e1d6be31f74549a191cdda5ce6c3cb576ec819ecba76c03f7c60cb90dd4b"
+      "bytes": 35510,
+      "sha256": "c68c8bfa9e2f6b1be7403bad20340129c72608bec2d3fbacc2de09279a297d89"
     },
     {
       "path": "assets/submission-atlas.png",
@@ -92,18 +117,18 @@
     },
     {
       "path": "chatgpt-app-submission.json",
-      "bytes": 9300,
-      "sha256": "496b8f01053d7a64aa744c2ebd136d4b71c3f72ed087bfdce17bd035380df238"
+      "bytes": 13614,
+      "sha256": "5cda53a3f51d2ad45e43e358e0390562293f8a2644a3b51e5f17fcf3e8ed4bfd"
     },
     {
       "path": "contract.py",
-      "bytes": 10142,
-      "sha256": "8a5a2117a40d2e8a53468dd2b91b15e2e31828d08acd51dbe5c786d10107821b"
+      "bytes": 15603,
+      "sha256": "b10d42152de1300d526bdde45898820d651dedd31c82b221c4d57092a6d35d57"
     },
     {
       "path": "core.py",
-      "bytes": 37907,
-      "sha256": "80d05d7dd3f729574598809949c5d3a50df5331102d0de70fe7a3b39a4848246"
+      "bytes": 61178,
+      "sha256": "8b7ffe5e2b3d7ac950f194825fba2c2b05a2d1e91536e935508b1f1a6295a4ba"
     },
     {
       "path": "data/design_system_library.json",
@@ -122,43 +147,43 @@
     },
     {
       "path": "docs/PUBLISH_TO_CHATGPT.md",
-      "bytes": 6063,
-      "sha256": "5b341ed7028fd0d1f4efcc13a16cba7b1f340804b5162f169cadb91522dbd880"
+      "bytes": 6530,
+      "sha256": "552e241d4603e1d1a0d6658ed0edc3f479e4292114782f022271c78769caa977"
     },
     {
       "path": "docs/architecture.md",
-      "bytes": 2040,
-      "sha256": "58dbcd095a07c9ad9ade22ccc1b5f8b38e7e7564a7fed4089d2df5a4b7ae3b68"
+      "bytes": 2541,
+      "sha256": "1ec89dbfc9fafc8803478e8055c0cd94d535e06691b52f8c7e82f1614fd39a0e"
     },
     {
       "path": "docs/deployment.md",
-      "bytes": 2099,
-      "sha256": "88008a011e8995eee09cfee7779a8162818fddd2f57c98b9db6ba8a8821f4a80"
+      "bytes": 2726,
+      "sha256": "e2ba38068e095cdc7b5a29095c3f9016650b7b43a36e9ec69eed2f0a1a675979"
     },
     {
       "path": "docs/privacy-policy.md",
-      "bytes": 1382,
-      "sha256": "6e85cec1e43164264bb55e7dd5f0354e0ce2b1fd39176dc18cee6205d378c308"
+      "bytes": 2248,
+      "sha256": "7ac33a1f51b529cf8fbe9fcbfd42dc6b0a2691e8623ca5474f41b71879ef04c0"
     },
     {
       "path": "docs/review-readiness.md",
-      "bytes": 2734,
-      "sha256": "18e954562e0fee89fd8e3b9d474e8f2ae8267e554818c0aa5a0a1ec637f73b4e"
+      "bytes": 3755,
+      "sha256": "369c82f678501b8ffad9c4a085d408a0550c0e345293073193916e1732c05a13"
     },
     {
       "path": "docs/security.md",
-      "bytes": 1054,
-      "sha256": "0b132f4c4107f35078631b0d61021d93bd0ea344a1bcee37f52a738b6a167cbf"
+      "bytes": 1657,
+      "sha256": "09ba40b3da3fdfbe0e791f9e3b113ec3a52a522410319793acdbc39767a53534"
     },
     {
       "path": "docs/support.md",
-      "bytes": 802,
-      "sha256": "2ee1c64956cf0e5fca5c7cdc2f284c6a6d4aaed5977758492550e5863ae381c2"
+      "bytes": 979,
+      "sha256": "dbea6729c30fb249a60bf5b16200df1d69c5c6b43934980576c7be4cd953b916"
     },
     {
       "path": "docs/terms.md",
-      "bytes": 711,
-      "sha256": "44ea950ca54172d06774007f53007982ca36f812cf5260260809afa6f3ba975b"
+      "bytes": 1168,
+      "sha256": "36222916bd107ad647b83a9462ac273f46038f12444cc2adc0cede5c3a3f5286"
     },
     {
       "path": "docs/test-prompts.md",
@@ -167,18 +192,18 @@
     },
     {
       "path": "docs/website.md",
-      "bytes": 1196,
-      "sha256": "b948eb68ac8e85a0a587f42904063bf96ecb4dfea25a7097c5fb75dc2e294142"
+      "bytes": 1574,
+      "sha256": "fefe3fc149b97da6acea14bcbb03969f06c7e1cf7cd0ef2a6f10d99281873450"
     },
     {
       "path": "fallback_server.py",
-      "bytes": 17850,
-      "sha256": "1d45c680edeb2d906377f2fb8f6f6bcc87063bb6848580ba1926ce02ac101934"
+      "bytes": 19125,
+      "sha256": "8ebc085885b0725eb6935f2092097a6c6b1065e138f66726315ed36294a97274"
     },
     {
       "path": "official_server.py",
-      "bytes": 7173,
-      "sha256": "e200ffde6f0e9a686b4c1a11f3a70820ea45bc3cefae32f6306116fd15262ae2"
+      "bytes": 7984,
+      "sha256": "7f9cb5559c09d4000029370680b97e27fbc1678294894deb52e7a1a397e99a2b"
     },
     {
       "path": "pyproject.toml",
@@ -212,23 +237,23 @@
     },
     {
       "path": "scripts/smoke_mcp.py",
-      "bytes": 8662,
-      "sha256": "831c8689d64238ecdb07d89b30cdfffc4c82078be47599c028ae3b9306d4f7c7"
+      "bytes": 11697,
+      "sha256": "4607dfe0482af7e9c2a90e053cd9af98a836be80fc9e6031e0f7befa9c798257"
     },
     {
       "path": "scripts/validate_submission.py",
-      "bytes": 6149,
-      "sha256": "909a67a5f737b6b04c6367b8a4cf532984414df40b2eb16ddec540a16910904d"
+      "bytes": 6209,
+      "sha256": "0a77969736c32a1133ba84211f5b465145103bcd10167dc71f728434c487a1d4"
     },
     {
       "path": "server.py",
-      "bytes": 735,
-      "sha256": "a5be9733f6a599f7d80a294bf0a541adabda9160ba0ff1679cc97fb73249cf53"
+      "bytes": 1069,
+      "sha256": "df3a482d9f273968ac6e72b859cd9d75f7574545d3313e3a0c399949ca8c1192"
     },
     {
       "path": "submission/app-directory-fields.md",
-      "bytes": 2499,
-      "sha256": "818b2897198516afbff11d1d285353eac4880fdc501e5fff3dabfbce2d41fbab"
+      "bytes": 2824,
+      "sha256": "4aa99f156a67a4fcd5f0fd2ca89f57f4c079cb2b5c328c1b806fc1a74942c8a5"
     },
     {
       "path": "submission/app-info.md",
@@ -237,18 +262,18 @@
     },
     {
       "path": "submission/publish-checklist.md",
-      "bytes": 1655,
-      "sha256": "4d2a907a753d2c62e51851870434cbb03cdbd8108f430fc4e227dae960255385"
+      "bytes": 1910,
+      "sha256": "217069ff7d929840b3eda317a09c5b62b2128f64c1195c56f4b92ff5727c960a"
     },
     {
       "path": "submission/review-notes.md",
-      "bytes": 674,
-      "sha256": "0aa7c2ae1330dcca1f0bb667f5f005521b5d09dff2002afec1414eb8e5b92ccc"
+      "bytes": 1252,
+      "sha256": "232a75b904cb4f4c7069259be867bfd50fc023a63096ab4c7994d12001beda11"
     },
     {
       "path": "submission/review-report.md",
-      "bytes": 2431,
-      "sha256": "5b37ee4e65be4b70e9f881018bdc234f993da54fd49508c2c41b5c8e58754365"
+      "bytes": 2643,
+      "sha256": "98b4c742100fb5d5a5395c371e831d7670360c99a7c73edc933904fa63d3cac2"
     },
     {
       "path": "submission/test-prompts.md",
@@ -257,18 +282,18 @@
     },
     {
       "path": "tests/test_contract.py",
-      "bytes": 4988,
-      "sha256": "db42894b1b4cb6508e359b0a0d950552091493bc3a04deaec6ca6b742b1dfa92"
+      "bytes": 5231,
+      "sha256": "db6376c717dce68c152f23ab4fa0c19d09eab7a064b276a451a08ffb33c110a5"
     },
     {
       "path": "tests/test_core.py",
-      "bytes": 3724,
-      "sha256": "6db198b9b17113ad4006e038d145cda0de07a845c58574194da82411e84ecd85"
+      "bytes": 6885,
+      "sha256": "417829a870a9ea0583299c4e8869794e8aadb3def328c2f4cae8ed0c124bc3d4"
     },
     {
       "path": "tests/test_server_contract.py",
-      "bytes": 7403,
-      "sha256": "ee95d877fd591c1d7b766ba67566e07097e8ec514f37bbb0bf1120e8c4da5203"
+      "bytes": 9629,
+      "sha256": "be16d3482e2c2f500631966a4df447033e9d67e08e5d263b6884474253e1b293"
     }
   ]
 }

@@ -4,7 +4,7 @@
   "app_info": {
     "display_name": "Infographic Artist",
     "subtitle": "Brand research & critique",
-    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, critique uploaded proposals on five visual axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, render plugin-side concept boards, critique visual proposals on five axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
     "category": "DESIGN"
   },
   "mcp_server": {
@@ -13,7 +13,15 @@
   },
   "default_csp_metadata": {
     "connect_domains": [],
-    "resource_domains": []
+    "resource_domains": [
+      "https://infographic-artist-1w7v.hatchable.site"
+    ]
+  },
+  "privacy_costs_retention": {
+    "image_generation_provider": "OpenAI Images API by default when IMAGE_GENERATION_PROVIDER=openai",
+    "operator_cost_note": "render_brand_direction and run_brand_workflow may incur image-generation provider costs for the app operator.",
+    "generated_asset_retention": "Generated render-job metadata and generated images are stored only through GENERATED_ASSET_RETENTION_HOURS, 168 hours by default.",
+    "uploaded_image_retention": "Uploaded images used for critique/similarity are accessed temporarily from ChatGPT short-lived URLs and are not persisted by the app."
   },
   "tools": {
     "open_brand_atlas": {
@@ -25,7 +33,9 @@
       "destructive_justification": "Does not delete, overwrite, revoke, send, or perform irreversible actions.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "get_brand_case": {
@@ -37,7 +47,9 @@
       "destructive_justification": "Cannot delete or overwrite atlas content or user data.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "compare_brand_systems": {
@@ -49,7 +61,9 @@
       "destructive_justification": "Performs no deletion, overwrite, transmission, or irreversible action.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "explore_brand_graph": {
@@ -61,7 +75,9 @@
       "destructive_justification": "Cannot remove, alter, or publish graph nodes or relationships.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "search_design_systems": {
@@ -73,19 +89,65 @@
       "destructive_justification": "Does not delete, overwrite, or mutate library records.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "generate_brand_directions": {
       "readOnlyHint": true,
-      "read_only_justification": "Computes three text-only creative routes from the supplied brief without storing or publishing them.",
+      "read_only_justification": "Computes three text creative routes and plugin-ready concept-board prompts from the supplied brief without storing, rendering, or publishing them.",
       "openWorldHint": false,
-      "open_world_justification": "Does not create public assets, send messages, or update any external system.",
+      "open_world_justification": "Does not create public assets, call an image-generation API, send messages, or update any external system.",
       "destructiveHint": false,
       "destructive_justification": "Does not overwrite user work or perform any irreversible action.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
+      }
+    },
+    "render_brand_direction": {
+      "readOnlyHint": false,
+      "read_only_justification": "Not read-only: starts an asynchronous generation job and stores a generated concept-board asset plus job metadata.",
+      "openWorldHint": true,
+      "open_world_justification": "May call the configured image-generation provider, including OpenAI Images, and may incur provider cost for the operator. It does not publish or post user content publicly.",
+      "destructiveHint": false,
+      "destructive_justification": "Creates new generated assets only; it does not edit, overwrite, delete, revoke, purchase, or submit user-owned external content.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
+      }
+    },
+    "run_brand_workflow": {
+      "readOnlyHint": false,
+      "read_only_justification": "Not read-only: generates directions, starts three asynchronous concept-board renders, stores generated assets, and records evaluations.",
+      "openWorldHint": true,
+      "open_world_justification": "May call the configured image-generation provider for up to three generated boards and may incur provider cost for the operator. It does not publish or post user content publicly.",
+      "destructiveHint": false,
+      "destructive_justification": "Creates new generated assets and job metadata only; it does not delete, overwrite, purchase, send email, or modify third-party user systems.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
+      }
+    },
+    "get_render_job": {
+      "readOnlyHint": true,
+      "read_only_justification": "Reads existing render-job metadata and generated-asset links without starting a new render or changing state.",
+      "openWorldHint": false,
+      "open_world_justification": "Does not call the image-generation provider or change external systems; it only returns stored job status.",
+      "destructiveHint": false,
+      "destructive_justification": "Does not delete or alter generated assets, prompts, images, or user data.",
+      "csp_metadata": {
+        "connect_domains": [],
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "critique_brand_image": {
@@ -97,7 +159,9 @@
       "destructive_justification": "Does not modify, replace, or delete the uploaded image.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "compare_brand_images": {
@@ -109,7 +173,9 @@
       "destructive_justification": "Does not edit, overwrite, or delete either image.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     },
     "coach_brand_decision": {
@@ -121,7 +187,9 @@
       "destructive_justification": "Performs no deletion, overwrite, revocation, or irreversible action.",
       "csp_metadata": {
         "connect_domains": [],
-        "resource_domains": []
+        "resource_domains": [
+          "https://infographic-artist-1w7v.hatchable.site"
+        ]
       }
     }
   }

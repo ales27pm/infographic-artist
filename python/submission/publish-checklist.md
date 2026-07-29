@@ -2,13 +2,15 @@
 
 - [ ] Deploy the Docker service to a stable public HTTPS origin.
 - [ ] Set `APP_BASE_URL` to the exact HTTPS origin.
+- [ ] Set `OPENAI_API_KEY` for live rendering, or set `IMAGE_GENERATION_PROVIDER=mock` only for non-production validation.
+- [ ] Set `GENERATED_ASSET_DIR` and `GENERATED_ASSET_RETENTION_HOURS`.
 - [ ] Set `MCP_ALLOWED_HOSTS` to the production host only.
 - [ ] Verify `GET /`, `/health`, `/privacy`, `/terms`, and `/support`.
-- [ ] Verify MCP `initialize`, `tools/list`, `resources/read`, and all nine `tools/call` flows.
+- [ ] Verify MCP `initialize`, `tools/list`, `resources/read`, and all twelve `tools/call` flows.
 - [ ] Confirm `/health` reports `official-mcp-sdk` in production.
 - [ ] Connect `https://<origin>/mcp` in ChatGPT Developer Mode.
 - [ ] Confirm the widget renders in compact and fullscreen modes.
-- [ ] Test the five positive and three negative submission cases.
+- [ ] Test the positive and negative submission cases, including render start, workflow start, and `get_render_job` polling.
 - [ ] Use the final owning OpenAI organization and project.
 - [ ] Complete publisher identity verification under the intended public name.
 - [ ] Confirm Apps Management: Write plus draft/status read permission.

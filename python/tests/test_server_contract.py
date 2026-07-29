@@ -1,15 +1,15 @@
+import asyncio
 import sys
 from pathlib import Path
-import asyncio
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-import server
-from contract import MIME_TYPE, TEMPLATE_URI, TOOL_DEFINITIONS
+import server  # noqa: E402
+from contract import MIME_TYPE, READ_ONLY_ANNOTATIONS, TEMPLATE_URI, TOOL_DEFINITIONS  # noqa: E402
 
 
 @pytest.fixture(scope="module")
@@ -20,14 +20,13 @@ def mcp_client():
 
 def test_all_tools_have_required_annotations_and_output_schema():
     tools = server.get_tool_descriptors()
-    assert len(tools) == 9
     for tool in tools:
         assert tool["outputSchema"]
-        assert tool["annotations"]["readOnlyHint"] is True
-        assert tool["annotations"]["openWorldHint"] is False
-        assert tool["annotations"]["destructiveHint"] is False
-        assert tool["annotations"]["idempotentHint"] is True
+        expected = TOOL_DEFINITIONS[tool["name"]].get("annotations", READ_ONLY_ANNOTATIONS)
+        assert tool["annotations"] == expected
         assert tool["_meta"]["ui"]["resourceUri"] == TEMPLATE_URI
+    mutable = {tool["name"] for tool in tools if tool["annotations"]["readOnlyHint"] is False}
+    assert mutable == {"render_brand_direction", "run_brand_workflow"}
 
 
 def test_file_schemas_are_submission_valid():
@@ -50,6 +49,13 @@ def test_widget_resource_contract():
     assert resource["_meta"]["ui"]["csp"]["connectDomains"] == []
     assert resource["_meta"]["ui"]["csp"]["resourceDomains"] == []
     assert resource["_meta"]["ui"]["csp"]["frameDomains"] == []
+
+
+def test_widget_resource_includes_asset_origin_when_configured(monkeypatch):
+    monkeypatch.setenv("APP_BASE_URL", "https://brand.example")
+    resource = server.get_resources()[0]
+    assert resource["_meta"]["ui"]["csp"]["resourceDomains"] == ["https://brand.example"]
+    assert resource["_meta"]["openai/widgetCSP"]["resource_domains"] == ["https://brand.example"]
 
 
 def test_public_website_is_available():
@@ -99,7 +105,7 @@ def test_mcp_initialize_list_and_call(mcp_client):
     assert init.status_code == 200
     assert init.json()["result"]["protocolVersion"] == "2025-06-18"
     listed = mcp_client.post("/mcp", headers=_mcp_headers(), json={"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
-    assert len(listed.json()["result"]["tools"]) == 9
+    assert {tool["name"] for tool in listed.json()["result"]["tools"]} == set(TOOL_DEFINITIONS)
     called = mcp_client.post(
         "/mcp",
         headers=_mcp_headers(),
@@ -136,6 +142,52 @@ def test_mcp_rejects_invalid_tool_arguments(mcp_client):
     result = response.json()["result"]
     assert result["isError"] is True
     assert "validation" in result["content"][0]["text"].lower()
+
+
+def test_mcp_render_job_mock_provider(mcp_client, monkeypatch, tmp_path):
+    monkeypatch.setenv("IMAGE_GENERATION_PROVIDER", "mock")
+    monkeypatch.setenv("GENERATED_ASSET_DIR", str(tmp_path))
+    started = mcp_client.post(
+        "/mcp",
+        headers=_mcp_headers(),
+        json={
+            "jsonrpc": "2.0",
+            "id": 6,
+            "method": "tools/call",
+            "params": {
+                "name": "render_brand_direction",
+                "arguments": {
+                    "route_id": "symbol",
+                    "route_name": "Signal autonome",
+                    "concept_board_prompt": "Create one square concept board for a structurally original symbol direction with reduction tests and no existing logos.",
+                },
+            },
+        },
+    )
+    payload = started.json()["result"]["structuredContent"]
+    assert payload["view"] == "render_job"
+    job_id = payload["data"]["job_id"]
+    data = payload["data"]
+    for _ in range(80):
+        checked = mcp_client.post(
+            "/mcp",
+            headers=_mcp_headers(),
+            json={
+                "jsonrpc": "2.0",
+                "id": 7,
+                "method": "tools/call",
+                "params": {"name": "get_render_job", "arguments": {"job_id": job_id}},
+            },
+        )
+        data = checked.json()["result"]["structuredContent"]["data"]
+        if data["status"] == "succeeded":
+            break
+        asyncio.run(asyncio.sleep(0.05))
+    assert data["status"] == "succeeded"
+    asset = data["assets"][0]
+    asset_response = mcp_client.get(asset["asset_url"])
+    assert asset_response.status_code == 200
+    assert asset_response.headers["content-type"].startswith("image/png")
 
 
 def test_production_origin_is_injected_into_resource_metadata(monkeypatch):

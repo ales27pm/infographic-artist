@@ -21,7 +21,7 @@ export default async function (_req, res) {
   </div>
   <div>
     <h1 class="page-title">Terms of Service</h1>
-    <p class="lede">These terms govern use of ${esc(SITE.productName)}, a read-only MCP design research and critique app published by ${esc(
+    <p class="lede">These terms govern use of ${esc(SITE.productName)}, an MCP design research, rendering, and critique app published by ${esc(
         SITE.publisherName,
       )}.</p>
   </div>

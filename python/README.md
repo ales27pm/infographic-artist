@@ -1,12 +1,12 @@
 # Infographic Artist — ChatGPT App 1.0.1
 
-Infographic Artist is an MCP-backed ChatGPT App for brand-system research and design decisions. It exposes an interactive atlas, a knowledge graph, a graphic-systems library, original direction generation, visual critique, perceptual-similarity triage, and a coach that converts feedback into measurable experiments.
+Infographic Artist is an MCP-backed ChatGPT App for brand-system research and design decisions. It exposes an interactive atlas, a knowledge graph, a graphic-systems library, original direction generation with plugin-ready concept-board prompts, plugin-side image rendering, visual critique, perceptual-similarity triage, and a coach that converts feedback into measurable experiments.
 
-The app is deliberately **read-only**. It does not publish, send, delete, purchase, or modify external records. Iconic identities are treated as precedents of method; the app does not distribute third-party logo artwork and does not provide trademark clearance.
+Most tools are read-only analysis tools. `render_brand_direction` and `run_brand_workflow` are non-destructive generation tools: they can call the configured image-generation provider, incur provider costs for the app operator, create generated image assets, and store render-job metadata until the configured retention window expires. The app still does not publish, send email, purchase anything for the user, or modify external user records. Iconic identities are treated as precedents of method; the app does not distribute third-party logo artwork and does not provide trademark clearance.
 
 ## App archetype
 
-`submission-ready`: Python Streamable HTTP MCP server plus one self-contained vanilla HTML widget. All nine tools return concise `structuredContent`, explicit output schemas, explicit safety annotations, and the same versioned MCP App resource.
+`submission-ready`: Python Streamable HTTP MCP server plus one self-contained vanilla HTML widget. All twelve tools return concise `structuredContent`, explicit output schemas, explicit safety annotations, and the same versioned MCP App resource.
 
 ## Tools
 
@@ -16,6 +16,9 @@ The app is deliberately **read-only**. It does not publish, send, delete, purcha
 - `explore_brand_graph`
 - `search_design_systems`
 - `generate_brand_directions`
+- `render_brand_direction`
+- `run_brand_workflow`
+- `get_render_job`
 - `critique_brand_image`
 - `compare_brand_images`
 - `coach_brand_decision`
@@ -60,11 +63,18 @@ MCP_ALLOWED_HOSTS=your-production-origin.example
 MCP_ALLOWED_ORIGINS=https://chatgpt.com,https://platform.openai.com
 CORS_ALLOW_ORIGINS=https://chatgpt.com,https://platform.openai.com
 OPENAI_APPS_CHALLENGE_TOKEN=
+OPENAI_API_KEY=<set-in-deployment-for-live-rendering>
+IMAGE_GENERATION_PROVIDER=openai
+IMAGE_GENERATION_MODEL=gpt-image-2
+GENERATED_ASSET_DIR=generated_assets
+GENERATED_ASSET_RETENTION_HOURS=168
 ```
 
-`APP_BASE_URL` must be an HTTPS origin with no path, query, or fragment. It is injected into `_meta.ui.domain` and the compatibility `openai/widgetDomain` field. The widget CSP has empty connect, resource, and frame allowlists because the component is self-contained.
+`APP_BASE_URL` must be an HTTPS origin with no path, query, or fragment. It is injected into `_meta.ui.domain`, the compatibility `openai/widgetDomain` field, and the widget resource allowlist so generated image assets can load from the app origin.
 
 Keep `OPENAI_APPS_CHALLENGE_TOKEN` empty until the OpenAI portal issues a verification token. Once set, the well-known route returns exactly that token; while unset, it returns HTTP 404.
+
+`OPENAI_API_KEY` is required only for live plugin-side rendering with `IMAGE_GENERATION_PROVIDER=openai`. Local tests and smoke checks use `IMAGE_GENERATION_PROVIDER=mock` to avoid paid image-generation calls.
 
 A `Dockerfile`, `Procfile`, and `render.yaml` are included.
 
