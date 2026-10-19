@@ -1,3 +1,4 @@
+import WIDGET_HTML from "./widget.js";
 import P0 from "./data-part00.js";
 import P1 from "./data-part01.js";
 import P2 from "./data-part02.js";
@@ -21,4 +22,4 @@ function brand(strings,row){const d=row[14]||[];return{id:textAt(strings,row[0])
 export async function loadAtlas(){const data=await inflate();return{deep_case_count:data.m[0],index_case_count:data.m[1],case_count:data.b.length,brands:data.b.map(row=>brand(data.s,row))};}
 export async function loadLibrary(){const data=await inflate();return{entry_count:data.l.length,entries:data.l.map(row=>({name:textAt(data.s,row[0]),type:textAt(data.s,row[1]),region:textAt(data.s,row[2]),era:textAt(data.s,row[3]),focus:listAt(data.s,row[4]),principles:listAt(data.s,row[5]),key_works:listAt(data.s,row[6]),source_url:textAt(data.s,row[7]),source_status:textAt(data.s,row[8])}))};}
 export async function loadGraph(){const data=await inflate();return{nodes:data.n.map(row=>({id:textAt(data.s,row[0]),label:textAt(data.s,row[1]),node_type:textAt(data.s,row[2]),ref:textAt(data.s,row[3]),x:row[4],y:row[5],degree:row[6]})),edges:data.e.map(row=>({source:textAt(data.s,row[0]),target:textAt(data.s,row[1]),relation:textAt(data.s,row[2])})),meta:{node_count:data.n.length,edge_count:data.e.length}};}
-export async function loadWidgetHtml(){return (await inflate()).w||'';}
+export async function loadWidgetHtml(){return WIDGET_HTML;}

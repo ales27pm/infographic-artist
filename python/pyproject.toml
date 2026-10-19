@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "infographic-artist-chatgpt-app"
-version = "1.0.1"
+version = "1.1.0"
 description = "A submission-ready ChatGPT App for brand-system research, visual critique, similarity triage, and creative direction."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -32,7 +32,7 @@ dev = [
 infographic-artist-app = "server:main"
 
 [tool.hatch.build.targets.wheel]
-include = ["server.py", "official_server.py", "fallback_server.py", "contract.py", "core.py", "assets/**", "data/**", "docs/**"]
+include = ["server.py", "official_server.py", "fallback_server.py", "contract.py", "core.py", "runtime_capabilities.py", "assets/**", "data/**", "docs/**"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

@@ -1,0 +1,32 @@
+{
+  "release": {
+    "version": "1.1.0",
+    "profile": "public-readonly-native-images",
+    "source_sha256": "24cb66f6a32f288290775b58a5cce77bf5009bfe61e2a2ce2b8b566e1c70bf05",
+    "widget_sha256": "f77e6d18740e789295e5e323437e0a5e29e172ff25a634384f7de6ae0394d113",
+    "tool_count": 9
+  },
+  "sources": {
+    "python/assets/app-v1.html": "f77e6d18740e789295e5e323437e0a5e29e172ff25a634384f7de6ae0394d113",
+    "hatchable/api/chatgpt-mcp.js": "a69b22023e11b86b9ab2bb11e8eace954737c1635351f0b51fe9789fe0e190c2",
+    "hatchable/lib/contract.js": "24170720c22df1165316f6f205b73b6e5620623a5796a67c11db4c330cb618f1",
+    "hatchable/lib/core.js": "e76f577c600f89e55cc85c55df47584c5285710464950f3cbbd11e633764551d",
+    "hatchable/lib/data.js": "cafb28070c5630feec89ae051e91bcbf066ba19f8ef38c9fffcac78b93e4ab28",
+    "hatchable/lib/runtime.js": "7077b4cf3c374723e93a1f3ef73d00881bd2258d15978cf4c663d165b07d1663",
+    "hatchable/lib/schema.js": "3d17098d4282cea756dd9cc5e2339198f82f0a95a9feb5cf10f339c0bfc51322",
+    "hatchable/lib/site-config.js": "c3a54b53470dfec18b1ebe6148230f86b54b8fe82e2bd35d3e08b3c31830a48b",
+    "hatchable/pages/health.js": "0b7f972f1b180cbe3a44296c655a9d059dc61d3c0aee97f37da005bf7c36a0b2"
+  },
+  "files": {
+    "api/chatgpt-mcp.js": "8bef477affa3e149e24cba727605f419ac5ce4ce643d99be50287c1d961aa52c",
+    "lib/contract.js": "8ccf81e05eae54392e25ddb5f00a949c1c29edeffb236e16cd537c34801fad0a",
+    "lib/core.js": "8c9c2165b7434c369d0b2d0697bf92c35ebb5187c34dfa68a5001c28c9d03174",
+    "lib/data.js": "60216d8ee32bc33aa8cb51c8067870cdbc531b441da17a6ebad558efd0e3bf40",
+    "lib/runtime.js": "7077b4cf3c374723e93a1f3ef73d00881bd2258d15978cf4c663d165b07d1663",
+    "lib/schema.js": "3d17098d4282cea756dd9cc5e2339198f82f0a95a9feb5cf10f339c0bfc51322",
+    "lib/site-config.js": "c3a54b53470dfec18b1ebe6148230f86b54b8fe82e2bd35d3e08b3c31830a48b",
+    "pages/health.js": "9595d6618c8af943a8c826f5280e21ff079a23b3d6e3136c0b9ac15f689730aa",
+    "lib/widget.js": "f246899bb5bf93d3f3ed204ed4dadd5612ac1a2b284c6782c5a3068b55b43b1c",
+    "lib/release.js": "c7c35dd5dcfc7fb9b407516fd5ec997dcc3dde6caf5a6d1317465ec7a78740b1"
+  }
+}

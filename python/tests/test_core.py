@@ -60,7 +60,8 @@ def test_graph_and_library_are_bounded() -> None:
     assert library["items"][0]["name"] == "NASA Graphics Standards Program"
 
 
-def test_directions_are_structurally_incompatible_and_french() -> None:
+def test_directions_are_structurally_incompatible_and_french(monkeypatch) -> None:
+    monkeypatch.setenv("IMAGE_GENERATION_PROVIDER", "mock")
     configured_retention = core._retention_hours()
     result = core.generate_directions(
         {

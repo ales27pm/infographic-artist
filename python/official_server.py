@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import json
 import os
 from typing import Any
 from urllib.parse import urlparse
@@ -108,21 +109,8 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> types.CallToolResul
         )
 
     spec = TOOL_DEFINITIONS[name]
-    summaries = {
-        "atlas": "Opened the brand atlas.",
-        "case": "Opened the requested brand case.",
-        "comparison": "Compared the requested brand systems.",
-        "graph": "Built the requested brand knowledge graph.",
-        "library": "Searched the graphic-systems library.",
-        "directions": "Generated three original creative directions.",
-        "render_job": "Started or checked a plugin-side image render job.",
-        "render_workflow": "Started the full plugin-side brand workflow.",
-        "critique": "Scored the visual proposal on five design axes.",
-        "similarity": "Completed perceptual similarity triage.",
-        "coach": "Converted the design question into a measurable coaching exercise.",
-    }
     return types.CallToolResult(
-        content=[types.TextContent(type="text", text=summaries[spec["view"]])],
+        content=[types.TextContent(type="text", text=json.dumps(structured, ensure_ascii=False))],
         structuredContent=structured,
         _meta={"openai/toolInvocation/invoked": spec["invoked"]},
         isError=False,

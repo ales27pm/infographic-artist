@@ -54,23 +54,21 @@
     });
   }
   async function callTool(name,args){
-    let lastError=null;
-    try{
-      const result=await bridgeRequest('tools/call',{name,arguments:args});
-      accept(result);
-      return result;
-    }catch(err){lastError=err;}
-    try{
-      if(window.openai?.callTool){const result=await window.openai.callTool(name,args);accept(result);return result;}
-      if(window.openai?.app?.callServerTool){const result=await window.openai.app.callServerTool({name,arguments:args});accept(result);return result;}
-    }catch(err){lastError=err;}
-    const prompt=name==='get_brand_case'?`Ouvre la fiche de marque ${args.item_id} dans Infographic Artist.`:`Utilise Infographic Artist avec l’outil ${name}.`;
-    try{
-      if(window.openai?.sendFollowUpMessage)return await window.openai.sendFollowUpMessage({prompt});
-      if(window.openai?.app?.sendMessage)return await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
-      await bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
-      return null;
-    }catch(err){showError(err||lastError);return null;}
+    try {
+      // Prefer an injected host API. Waiting on another bridge first adds 8 seconds in ChatGPT.
+      let result;
+      if(window.openai?.callTool)result=await window.openai.callTool(name,args);
+      else if(window.openai?.app?.callServerTool)result=await window.openai.app.callServerTool({name,arguments:args});
+      else result=await bridgeRequest('tools/call',{name,arguments:args});
+      if(result?.isError){
+        const message=arr(result.content).filter(x=>x.type==='text').map(x=>x.text).join(' ')||'Le serveur a refusé cette demande.';
+        showError(new Error(message));return result;
+      }
+      accept(result);return result;
+    }catch(error){
+      // Do not repeat an uncertain server call or claim that a follow-up is a completed action.
+      showError(error);return null;
+    }
   }
   function showError(err){root.innerHTML=`<section class="empty error"><div><h2>Analyse interrompue</h2><p>${esc(err?.message||err)}</p></div></section>`;}
   function setLoading(label='Analyse en cours'){root.innerHTML=`<section class="empty"><div><div class="spinner"></div><h2>${esc(label)}</h2></div></section>`;}
@@ -111,7 +109,7 @@
   function renderDirections(d){
     const b=d.brief||{};
     const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Rendu plugin.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn render-route" data-route="${esc(r.id)}">Rendre</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn ${h.plugin_rendering_available===true?'render-route':'native-render-route'}" data-route="${esc(r.id)}">${h.plugin_rendering_available===true?'Rendre':'Créer dans la conversation'}</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
   let renderPollTimer = null;
   let renderPollJob = '';
@@ -184,6 +182,19 @@
   root.addEventListener('click',async e=>{
     const refresh=e.target.closest?.('.refresh-render');
     if(refresh){setLoading('Actualisation du rendu');await callTool('get_render_job',{job_id:refresh.dataset.job});return;}
+    const nativeBtn=e.target.closest?.('.native-render-route');
+    if(nativeBtn){
+      const route=arr(current?.data?.routes).find(x=>String(x.id)===String(nativeBtn.dataset.route));
+      if(!route?.concept_board_prompt){showError(new Error('Aucun brief de rendu disponible. Relancer les directions.'));return;}
+      const prompt='Crée une image à partir de cette direction Infographic Artist avec ton outil natif de génération d’images, s’il est disponible. Ne prétends pas avoir lancé un rendu sans appel réel.\n\n'+route.concept_board_prompt;
+      try {
+        if(window.openai?.sendFollowUpMessage)await window.openai.sendFollowUpMessage({prompt});
+        else if(window.openai?.app?.sendMessage)await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
+        else await bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
+        nativeBtn.textContent='Demande transmise à la conversation';nativeBtn.disabled=true;
+      } catch(error){showError(error);}
+      return;
+    }
     const renderBtn=e.target.closest?.('.render-route');
     if(renderBtn){
       const routes=arr(current?.data?.routes);

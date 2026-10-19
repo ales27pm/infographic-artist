@@ -26,7 +26,7 @@ def test_all_tools_have_required_annotations_and_output_schema():
         assert tool["annotations"] == expected
         assert tool["_meta"]["ui"]["resourceUri"] == TEMPLATE_URI
     mutable = {tool["name"] for tool in tools if tool["annotations"]["readOnlyHint"] is False}
-    assert mutable == {"render_brand_direction", "run_brand_workflow"}
+    assert mutable == set()  # Default public profile; render fixtures are opt-in.
 
 
 def test_file_schemas_are_submission_valid():
@@ -105,7 +105,7 @@ def test_mcp_initialize_list_and_call(mcp_client):
     assert init.status_code == 200
     assert init.json()["result"]["protocolVersion"] == "2025-06-18"
     listed = mcp_client.post("/mcp", headers=_mcp_headers(), json={"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
-    assert {tool["name"] for tool in listed.json()["result"]["tools"]} == set(TOOL_DEFINITIONS)
+    assert {tool["name"] for tool in listed.json()["result"]["tools"]} == {t["name"] for t in server.get_tool_descriptors()}
     called = mcp_client.post(
         "/mcp",
         headers=_mcp_headers(),
