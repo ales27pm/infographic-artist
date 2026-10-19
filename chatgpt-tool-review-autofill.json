@@ -1,10 +1,15 @@
 {
-  "$schema": "https://27pm.org/internal/chatgpt-tool-review-autofill.v1.json",
-  "generated_from": "python/chatgpt-app-submission.json",
+  "format": "27pm-review-autofill-v2",
+  "generated_from": [
+    "python/chatgpt-app-submission.json",
+    "plugins/infographic-artist/plugin.json",
+    "plugins/infographic-artist/mcp.json"
+  ],
+  "version": "1.1.1",
   "app_info": {
     "display_name": "Infographic Artist",
     "subtitle": "Brand research & critique",
-    "description": "Infographic Artist helps designers study iconic brand systems, navigate a mechanism graph, compare precedents, generate original creative directions, render plugin-side concept boards, critique visual proposals on five axes, triage perceptual similarity, and turn feedback into measurable design exercises.",
+    "description": "Infographic Artist helps designers research brand systems, compare precedents, critique supplied images, explore a mechanism graph, develop three original creative directions and prepare precise image-generation briefs. Image creation uses the host conversation’s native tools when available; this public MCP service does not run paid image-generation jobs.",
     "category": "DESIGN"
   },
   "mcp_server": {
@@ -18,18 +23,19 @@
     ]
   },
   "privacy_costs_retention": {
-    "image_generation_provider": "OpenAI Images API by default when IMAGE_GENERATION_PROVIDER=openai",
-    "operator_cost_note": "render_brand_direction and run_brand_workflow may incur image-generation provider costs for the app operator.",
-    "generated_asset_retention": "Generated render-job metadata and generated images are stored only through GENERATED_ASSET_RETENTION_HOURS, 168 hours by default.",
-    "uploaded_image_retention": "Uploaded images used for critique/similarity are accessed temporarily from ChatGPT short-lived URLs and are not persisted by the app."
+    "image_generation_mode": "host_native",
+    "plugin_rendering_available": false,
+    "operator_cost_note": "The public MCP server does not call a paid image-generation provider.",
+    "generated_asset_retention": "The public MCP server does not generate or retain rendered concept boards.",
+    "uploaded_image_retention": "Selected images are accessed temporarily for the requested critique or comparison and are not persisted by the application."
   },
   "tools": {
     "open_brand_atlas": {
       "readOnlyHint": true,
-      "read_only_justification": "Searches bundled atlas metadata and returns bounded identity records without changing any state.",
       "openWorldHint": false,
-      "open_world_justification": "Does not publish content or write to any public or third-party system.",
       "destructiveHint": false,
+      "read_only_justification": "Searches bundled atlas metadata and returns bounded identity records without changing any state.",
+      "open_world_justification": "Does not publish content or write to any public or third-party system.",
       "destructive_justification": "Does not delete, overwrite, revoke, send, or perform irreversible actions.",
       "csp_metadata": {
         "connect_domains": [],
@@ -40,10 +46,10 @@
     },
     "get_brand_case": {
       "readOnlyHint": true,
-      "read_only_justification": "Retrieves one bundled atlas case and its public source references without modifying records.",
       "openWorldHint": false,
-      "open_world_justification": "Returns reference URLs but does not fetch, post, or update anything outside the app.",
       "destructiveHint": false,
+      "read_only_justification": "Retrieves one bundled atlas case and its public source references without modifying records.",
+      "open_world_justification": "Returns reference URLs but does not fetch, post, or update anything outside the app.",
       "destructive_justification": "Cannot delete or overwrite atlas content or user data.",
       "csp_metadata": {
         "connect_domains": [],
@@ -54,10 +60,10 @@
     },
     "compare_brand_systems": {
       "readOnlyHint": true,
-      "read_only_justification": "Computes a comparison from bundled brand-system records and returns the result without persistence.",
       "openWorldHint": false,
-      "open_world_justification": "Does not change public internet state or external services.",
       "destructiveHint": false,
+      "read_only_justification": "Computes a comparison from bundled brand-system records and returns the result without persistence.",
+      "open_world_justification": "Does not change public internet state or external services.",
       "destructive_justification": "Performs no deletion, overwrite, transmission, or irreversible action.",
       "csp_metadata": {
         "connect_domains": [],
@@ -68,10 +74,10 @@
     },
     "explore_brand_graph": {
       "readOnlyHint": true,
-      "read_only_justification": "Filters the bundled knowledge graph into a bounded subgraph without changing the graph.",
       "openWorldHint": false,
-      "open_world_justification": "Uses only packaged data and does not contact or modify third-party systems.",
       "destructiveHint": false,
+      "read_only_justification": "Filters the bundled knowledge graph into a bounded subgraph without changing the graph.",
+      "open_world_justification": "Uses only packaged data and does not contact or modify third-party systems.",
       "destructive_justification": "Cannot remove, alter, or publish graph nodes or relationships.",
       "csp_metadata": {
         "connect_domains": [],
@@ -82,10 +88,10 @@
     },
     "search_design_systems": {
       "readOnlyHint": true,
-      "read_only_justification": "Searches the bundled graphic-systems library and returns matching methods and precedents.",
       "openWorldHint": false,
-      "open_world_justification": "Does not submit queries to external systems or make public changes.",
       "destructiveHint": false,
+      "read_only_justification": "Searches the bundled graphic-systems library and returns matching methods and precedents.",
+      "open_world_justification": "Does not submit queries to external systems or make public changes.",
       "destructive_justification": "Does not delete, overwrite, or mutate library records.",
       "csp_metadata": {
         "connect_domains": [],
@@ -96,53 +102,11 @@
     },
     "generate_brand_directions": {
       "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false,
       "read_only_justification": "Computes three text creative routes and plugin-ready concept-board prompts from the supplied brief without storing, rendering, or publishing them.",
-      "openWorldHint": false,
       "open_world_justification": "Does not create public assets, call an image-generation API, send messages, or update any external system.",
-      "destructiveHint": false,
       "destructive_justification": "Does not overwrite user work or perform any irreversible action.",
-      "csp_metadata": {
-        "connect_domains": [],
-        "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
-        ]
-      }
-    },
-    "render_brand_direction": {
-      "readOnlyHint": false,
-      "read_only_justification": "Not read-only: starts an asynchronous generation job and stores a generated concept-board asset plus job metadata.",
-      "openWorldHint": true,
-      "open_world_justification": "May call the configured image-generation provider, including OpenAI Images, and may incur provider cost for the operator. It does not publish or post user content publicly.",
-      "destructiveHint": false,
-      "destructive_justification": "Creates new generated assets only; it does not edit, overwrite, delete, revoke, purchase, or submit user-owned external content.",
-      "csp_metadata": {
-        "connect_domains": [],
-        "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
-        ]
-      }
-    },
-    "run_brand_workflow": {
-      "readOnlyHint": false,
-      "read_only_justification": "Not read-only: generates directions, starts three asynchronous concept-board renders, stores generated assets, and records evaluations.",
-      "openWorldHint": true,
-      "open_world_justification": "May call the configured image-generation provider for up to three generated boards and may incur provider cost for the operator. It does not publish or post user content publicly.",
-      "destructiveHint": false,
-      "destructive_justification": "Creates new generated assets and job metadata only; it does not delete, overwrite, purchase, send email, or modify third-party user systems.",
-      "csp_metadata": {
-        "connect_domains": [],
-        "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
-        ]
-      }
-    },
-    "get_render_job": {
-      "readOnlyHint": true,
-      "read_only_justification": "Reads existing render-job metadata and generated-asset links without starting a new render or changing state.",
-      "openWorldHint": false,
-      "open_world_justification": "Does not call the image-generation provider or change external systems; it only returns stored job status.",
-      "destructiveHint": false,
-      "destructive_justification": "Does not delete or alter generated assets, prompts, images, or user data.",
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
@@ -152,10 +116,10 @@
     },
     "critique_brand_image": {
       "readOnlyHint": true,
-      "read_only_justification": "Temporarily reads a user-selected image, computes local design metrics in memory, and returns a critique.",
       "openWorldHint": false,
-      "open_world_justification": "The image is not published or transmitted to a third-party service by this tool.",
       "destructiveHint": false,
+      "read_only_justification": "Temporarily reads a user-selected image, computes local design metrics in memory, and returns a critique.",
+      "open_world_justification": "The image is not published or transmitted to a third-party service by this tool.",
       "destructive_justification": "Does not modify, replace, or delete the uploaded image.",
       "csp_metadata": {
         "connect_domains": [],
@@ -166,10 +130,10 @@
     },
     "compare_brand_images": {
       "readOnlyHint": true,
-      "read_only_justification": "Temporarily reads two selected images and computes local perceptual-similarity metrics without persistence.",
       "openWorldHint": false,
-      "open_world_justification": "Does not publish the images or change any external service.",
       "destructiveHint": false,
+      "read_only_justification": "Temporarily reads two selected images and computes local perceptual-similarity metrics without persistence.",
+      "open_world_justification": "Does not publish the images or change any external service.",
       "destructive_justification": "Does not edit, overwrite, or delete either image.",
       "csp_metadata": {
         "connect_domains": [],
@@ -180,10 +144,10 @@
     },
     "coach_brand_decision": {
       "readOnlyHint": true,
-      "read_only_justification": "Transforms a design question or critique object into a local coaching exercise and acceptance criteria.",
       "openWorldHint": false,
-      "open_world_justification": "Does not send, publish, schedule, or update content outside the app.",
       "destructiveHint": false,
+      "read_only_justification": "Transforms a design question or critique object into a local coaching exercise and acceptance criteria.",
+      "open_world_justification": "Does not send, publish, schedule, or update content outside the app.",
       "destructive_justification": "Performs no deletion, overwrite, revocation, or irreversible action.",
       "csp_metadata": {
         "connect_domains": [],
@@ -192,5 +156,64 @@
         ]
       }
     }
-  }
+  },
+  "review": {
+    "test_cases": {
+      "positive": [
+        {
+          "description": "Search and read a sourced case",
+          "prompt": "Find NASA Worm in the brand atlas, then open its detailed case.",
+          "tools_triggered": "open_brand_atlas, get_brand_case",
+          "expected_behavior": "NASA Worm is returned, with its source URLs and evidence depth."
+        },
+        {
+          "description": "Compare visual mechanisms and explore the graph",
+          "prompt": "Compare NASA Worm with IBM 8-bar, then explore the typography graph with at most 20 nodes.",
+          "tools_triggered": "compare_brand_systems, explore_brand_graph",
+          "expected_behavior": "Returns two precedent cases and a bounded graph of at most 20 nodes."
+        },
+        {
+          "description": "Find a graphic system and coach a design decision",
+          "prompt": "Find the NASA Graphics Standards Program, then propose a test for readable counterforms at 24 pixels.",
+          "tools_triggered": "search_design_systems, coach_brand_decision",
+          "expected_behavior": "Returns the library entry and a proposed exercise without claiming that user tests were performed."
+        },
+        {
+          "description": "Prepare three complete creative routes",
+          "prompt": "Develop three original identity directions for Atelier Boréal, an architecture practice promising human precision. Avoid roofs and mountains.",
+          "tools_triggered": "generate_brand_directions",
+          "expected_behavior": "Returns three distinct routes with concept-board prompts and an honest host-native image handoff. No image job or artwork is falsely reported."
+        },
+        {
+          "description": "No-match search is not replaced by unrelated examples",
+          "prompt": "Search the brand atlas for qxzvnjk987654321.",
+          "tools_triggered": "open_brand_atlas",
+          "expected_behavior": "Returns zero matching records and no unrelated deep cases."
+        }
+      ],
+      "negative": [
+        {
+          "description": "Unrelated scheduling is out of scope",
+          "prompt": "What meetings do I have tomorrow?",
+          "expected_behavior": "Does not invoke this plugin for calendar data."
+        },
+        {
+          "description": "Do not invent missing image access",
+          "prompt": "Critique the already approved image file_opaque_not_supplied.",
+          "expected_behavior": "Asks for a real supplied image; does not claim a critique or invent a file URL."
+        },
+        {
+          "description": "Unsupported publishing and paid actions",
+          "prompt": "Publish these concepts to all my accounts and start paid image jobs on the server.",
+          "expected_behavior": "Explains that public publishing and server-side paid rendering are not supported by the nine-tool public service."
+        }
+      ]
+    },
+    "commerce": false,
+    "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
+  },
+  "publication": {
+    "release_notes": "Infographic Artist 1.1.1 fixes duplicate native image handoffs, preserves briefs on host refusal or uncertain delivery, versions the UI resource, and aligns public review metadata with the nine supported read-only tools. Images use the host-native tool when available; no server-side paid rendering is enabled."
+  },
+  "portal_note": "Apply to the existing Infographic Artist record after reading its current state. Explicitly replace old release notes. This file does not assert compliance, developer identity, review approval or public publication."
 }

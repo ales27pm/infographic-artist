@@ -1,6 +1,6 @@
 # Infographic Artist
 
-## Current delivery: ChatGPT and Codex plugin (1.1.0)
+## Current delivery: ChatGPT and Codex plugin (1.1.1)
 
 The canonical installable package is `plugins/infographic-artist/`. The public service exposes nine working read-only MCP tools at `https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp`. Image-generation prompts are handed to the host conversation; experimental paid server rendering is not enabled in production.
 
@@ -9,9 +9,9 @@ See [the consolidation and distribution guide](docs/PLUGIN_CONSOLIDATION.md). Ge
 This repository is the canonical source for the two Infographic Artist implementations:
 
 - `python/` contains the standalone Python ChatGPT/MCP package, submission material, validation scripts, and deployment files.
-- `hatchable/` contains the byte-for-byte source export of the live Hatchable project currently serving `https://infographic-artist-1w7v.hatchable.site`.
+- `hatchable/` contains the editable source used to build the Hatchable project serving `https://infographic-artist-1w7v.hatchable.site`.
 
-The Hatchable export is a backup only. No production Hatchable deployment is triggered by committing these files.
+`hatchable/` is the editable source; `deployment/public-manifest.json` identifies the exact generated files deployed to Hatchable. A Git commit alone does not deploy them.
 
 ## Workflows
 

@@ -26,6 +26,54 @@
   const badge = document.getElementById('viewBadge');
   const palette = ['#c9ff39','#ff6238','#586cff','#e6c94d','#7fd1b9','#e98bd1'];
   let current = null;
+  // Keep delivery state across same-result renders. A delivered brief is not rendered artwork.
+  const nativeHandoffs = new Map();
+  const HANDOFF_TIMEOUT_MS = 12000;
+  function updateNativeHandoffs(){
+    for(const button of root.querySelectorAll('.native-render-route')){
+      const route=arr(current?.data?.routes).find(item=>String(item.id)===String(button.dataset.route));
+      const state=nativeHandoffs.get(route?.concept_board_prompt);
+      const phase=state?.phase||'idle';
+      button.dataset.handoffState=phase;
+      button.disabled=['pending','sent','uncertain','unavailable'].includes(phase);
+      button.setAttribute('aria-busy',String(phase==='pending'));
+      const labels={idle:'Créer dans la conversation',pending:'Transmission en cours…',sent:'Demande transmise à la conversation',refused:'Réessayer la transmission',uncertain:'Transmission à vérifier',unavailable:'Transmission indisponible'};
+      button.textContent=labels[phase];
+      let notice=button.parentElement.querySelector('[data-handoff-status]');
+      if(!notice){notice=document.createElement('p');notice.className='meta';notice.dataset.handoffStatus='';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');button.insertAdjacentElement('afterend',notice);}
+      notice.textContent=state?.message||'';
+    }
+  }
+  function nativeHandoffState(key,phase,message){
+    nativeHandoffs.set(key,{phase,message});updateNativeHandoffs();
+  }
+  async function deliverNativeBrief(route){
+    const key=route.concept_board_prompt;
+    const previous=nativeHandoffs.get(key)?.phase;
+    if(['pending','sent','uncertain','unavailable'].includes(previous))return;
+    if(!window.openai?.sendFollowUpMessage && !window.openai?.app?.sendMessage && window.parent===window){
+      nativeHandoffState(key,'unavailable','Transmission indisponible dans cet hôte. Le brief reste visible ci-dessous; aucune image ni demande de génération n’a été créée.');return;
+    }
+    nativeHandoffState(key,'pending','Transmission du brief sélectionné. Aucune image n’est encore confirmée.');
+    const prompt='Crée une image à partir de cette direction Infographic Artist avec ton outil natif de génération d’images, s’il est disponible. Ne prétends pas avoir lancé un rendu sans appel réel.\n\n'+key;
+    let timer;
+    try{
+      // Choose one transport, once. Never retry a delivery whose outcome is uncertain.
+      const request=window.openai?.sendFollowUpMessage
+        ?window.openai.sendFollowUpMessage({prompt})
+        :window.openai?.app?.sendMessage
+          ?window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]})
+          :bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
+      const reply=await Promise.race([Promise.resolve(request),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Handoff confirmation timeout')),HANDOFF_TIMEOUT_MS);})]);
+      if(reply?.isError===true || reply?.error || reply?.success===false || reply?.accepted===false){
+        nativeHandoffState(key,'refused','Transmission refusée par l’hôte. Le brief est conservé. Aucun succès ni aucune image ne sont annoncés.');
+      }else{
+        nativeHandoffState(key,'sent','Le brief a été transmis. La création effective de l’image doit être confirmée dans la conversation.');
+      }
+    }catch(_error){
+      nativeHandoffState(key,'uncertain','Résultat de transmission incertain : aucune confirmation reçue. Vérifie la conversation avant tout nouvel envoi. Le brief est conservé; aucune nouvelle tentative automatique.');
+    }finally{clearTimeout(timer);}
+  }
   const esc = (v='') => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const arr = v => Array.isArray(v) ? v : [];
   const pct = v => Math.max(0, Math.min(100, Number(v)||0));
@@ -156,6 +204,7 @@
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
     const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,render_job:renderRenderJob,render_workflow:renderWorkflow,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
     if(f) f(d); else root.innerHTML=`<section class="empty"><div><h2>Résultat reçu</h2><pre>${esc(JSON.stringify(payload,null,2))}</pre></div></section>`;
+    if(view==='directions')updateNativeHandoffs();
   }
   function extract(x){
     if(!x)return null;
@@ -185,14 +234,8 @@
     const nativeBtn=e.target.closest?.('.native-render-route');
     if(nativeBtn){
       const route=arr(current?.data?.routes).find(x=>String(x.id)===String(nativeBtn.dataset.route));
-      if(!route?.concept_board_prompt){showError(new Error('Aucun brief de rendu disponible. Relancer les directions.'));return;}
-      const prompt='Crée une image à partir de cette direction Infographic Artist avec ton outil natif de génération d’images, s’il est disponible. Ne prétends pas avoir lancé un rendu sans appel réel.\n\n'+route.concept_board_prompt;
-      try {
-        if(window.openai?.sendFollowUpMessage)await window.openai.sendFollowUpMessage({prompt});
-        else if(window.openai?.app?.sendMessage)await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
-        else await bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
-        nativeBtn.textContent='Demande transmise à la conversation';nativeBtn.disabled=true;
-      } catch(error){showError(error);}
+      if(!route?.concept_board_prompt)return;
+      await deliverNativeBrief(route);
       return;
     }
     const renderBtn=e.target.closest?.('.render-route');

@@ -10,3 +10,6 @@ __pycache__/
 submission/screenshots/*.tmp.png
 python/generated_assets/
 generated_assets/
+
+# Local JavaScript build and browser-test dependencies
+node_modules/

@@ -35,3 +35,12 @@ test('successful responses work for text-only MCP clients',async()=>{
 test('invalid JSON-RPC params is a protocol error',async()=>{
  const r=await rpc('tools/call',[]);assert.equal(r.body.error.code,-32602);
 });
+
+test('versioned and legacy widget resource IDs both resolve',async()=>{
+ const listed=await rpc('resources/list',{});const canonical=listed.body.result.resources[0].uri;
+ assert.equal(canonical,'ui://infographic-artist/app-v1.1.1.html');
+ for(const uri of [canonical,'ui://infographic-artist/app-v1.html']){
+  const r=await rpc('resources/read',{uri});assert.equal(r.body.result.contents[0].uri,uri);
+  assert.match(r.body.result.contents[0].text,/Résultat de transmission incertain/);
+ }
+});

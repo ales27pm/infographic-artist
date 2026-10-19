@@ -1,4 +1,4 @@
-# Infographic Artist — consolidated plugin, 1.1.0
+# Infographic Artist — consolidated plugin, 1.1.1
 
 The deliverable is a working plugin in ChatGPT and Codex. The Vercel 70-reference catalogue is a research artifact, not the plugin or a replacement MCP server.
 
@@ -19,7 +19,7 @@ ChatGPT supplies real selected-file references for image tools. A local Codex pa
 
 ## Reproducible source and deploy
 
-`python/assets/app-v1.html` is the widget master. `scripts/build_plugin.py` generates `hatchable/lib/widget.js`, release fingerprints and the exact `deployment/hatchable/` sources. Relative imports are adapted for Hatchable's module resolver. The production MCP file is bundled by `scripts/bundle_public_mcp.mjs` using pinned esbuild 0.27.3. Deploy `deployment/public-mcp.bundle.js` as `api/chatgpt-mcp.js` and `deployment/public-health.js` as `pages/health.js`; verify their hashes against `deployment/public-manifest.json`. This two-file surface avoids partial shared-pool updates. Supporting site modules and data stay intact. Existing challenge, public pages and video routes are preserved.
+`python/assets/app-v1.html` is the widget master. `scripts/build_plugin.py` also regenerates `chatgpt-tool-review-autofill.json` from the public submission and portable manifest, preventing a twelve-tool/private-renderer description from reaching public review. It generates `hatchable/lib/widget.js`, release fingerprints and the exact `deployment/hatchable/` sources. Relative imports are adapted for Hatchable's module resolver. The production MCP file is bundled by `scripts/bundle_public_mcp.mjs` using pinned esbuild 0.27.3. Deploy `deployment/public-mcp.bundle.js` as `api/chatgpt-mcp.js` and `deployment/public-health.js` as `pages/health.js`; verify their hashes against `deployment/public-manifest.json`. This two-file surface avoids partial shared-pool updates. Supporting site modules and data stay intact. Existing challenge, public pages and video routes are preserved.
 
 ```
 python3 scripts/build_plugin.py
@@ -45,3 +45,11 @@ For public review, submit the ZIP with the real remote MCP URL using the current
 ## Recovery rule
 
 Verify source, package, installed Codex state and live Hatchable separately. A passing local suite or health status is not proof of host tool invocation. Preserve original untracked files, inspect authoritative deploy state before retrying, and rerun the original failing case after each fix.
+
+## Release 1.1.1 regression protection
+
+Native handoff disables the selected action before awaiting the host. State survives same-result rerenders. A returned refusal, interrupted connection or confirmation timeout does not become a success message and never destroys the visible brief. Only a definite refusal enables an explicit manual retry; uncertain deliveries are not retransmitted automatically. The new UI resource is versioned, and the old `app-v1.html` resource remains readable for existing connections.
+
+The archived 1.0.0 portal export contained release notes for an unrelated audio project and obsolete support URLs. It is historical evidence, not current portal state. The new ZIP supplies explicit Infographic Artist release notes and canonical URLs. Apply it to the existing portal record; never import historical attestations or claim a public publication based on a local test.
+
+Run `npm ci --ignore-scripts` to install the pinned build/test dependencies and `npm run test:ui` for host-API regression tests. Existing browser installations may be used through `INFOGRAPHIC_PLAYWRIGHT_PATH`; no connected user browser session or credentials are required by that isolated test.
