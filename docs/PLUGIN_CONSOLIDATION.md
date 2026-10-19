@@ -53,3 +53,7 @@ Native handoff disables the selected action before awaiting the host. State surv
 The archived 1.0.0 portal export contained release notes for an unrelated audio project and obsolete support URLs. It is historical evidence, not current portal state. The new ZIP supplies explicit Infographic Artist release notes and canonical URLs. Apply it to the existing portal record; never import historical attestations or claim a public publication based on a local test.
 
 Run `npm ci --ignore-scripts` to install the pinned build/test dependencies and `npm run test:ui` for host-API regression tests. Existing browser installations may be used through `INFOGRAPHIC_PLAYWRIGHT_PATH`; no connected user browser session or credentials are required by that isolated test.
+
+## Native image action — 1.1.2
+
+The single ChatGPT image-generation action is **`@Créer une image`**. The widget displays this exact name and sends a follow-up beginning with this exact string. It does **not** invoke an Images API or assert that the tool was called: the ChatGPT host must actually choose and execute its native image-generation tool. The public plugin does not expose server-side rendering. Codex uses a native equivalent only if supported; otherwise it returns the prompt without faking a result.

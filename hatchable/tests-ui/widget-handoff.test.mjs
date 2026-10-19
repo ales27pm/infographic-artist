@@ -35,6 +35,8 @@ test('double click and host rerender do not send the same brief twice',async()=>
  const {page}=await fixture();try{
   await page.evaluate(()=>{const b=document.querySelector('.native-render-route');b.click();b.click();});
   assert.equal(await page.evaluate(()=>window.__sent.length),1,'second click must not send another request');
+  assert.ok((await page.evaluate(()=>window.__sent[0].prompt)).startsWith('@Créer une image\n\n'));
+  assert.match(await page.evaluate(()=>window.__sent[0].prompt),/exclusivement/);
   await page.evaluate(()=>window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{toolOutput:window.__data}})));
   assert.equal(await page.locator('.native-render-route').first().isDisabled(),true,'rerender must retain pending lock');
   await page.evaluate(()=>window.__complete());
@@ -100,5 +102,13 @@ test('an explicit refusal permits one deliberate retry, not an automatic retry',
   await page.locator('.native-render-route').first().click();
   await page.waitForFunction(()=>document.querySelector('.native-render-route').textContent.includes('transmise'));
   assert.equal(await page.evaluate(()=>window.__sent.length),2);
+ }finally{await page.close();}
+});
+
+test('every direction offers exactly the named native image action',async()=>{
+ const {page}=await fixture('success');try{
+  const labels=await page.locator('.native-render-route').allTextContents();
+  assert.deepEqual(labels,['@Créer une image','@Créer une image','@Créer une image']);
+  assert.equal(await page.locator('.render-route').count(),0);
  }finally{await page.close();}
 });

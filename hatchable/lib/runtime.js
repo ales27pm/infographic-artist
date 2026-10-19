@@ -5,8 +5,10 @@ export function renderingAvailable() { return false; }
 export function generationHandoff() {
   return {
     mode: 'host_native',
+    native_tool: '@Créer une image',
+    invocation: 'conversation_follow_up',
     plugin_rendering_available: false,
-    instructions: 'Les trois briefs de rendu sont prêts. Pour créer une image, utiliser l’outil natif de génération d’images de ChatGPT ou de Codex lorsqu’il est disponible. Un prompt seul n’est pas une image; ne pas annoncer de rendu démarré sans appel réel.',
+    instructions: 'Les trois briefs de rendu sont prêts. Pour créer une image dans ChatGPT, utiliser exclusivement « @Créer une image » (outil natif de la conversation), lorsqu’il est disponible. Dans Codex, préparer le même brief et utiliser seulement une capacité native équivalente si elle est réellement exposée. Un prompt seul n’est pas une image; ne pas annoncer de rendu démarré sans appel réel.',
     storage_note: 'Ce serveur ne génère ni ne conserve de planches. La création d’images dépend des capacités de la conversation hôte.'
   };
 }

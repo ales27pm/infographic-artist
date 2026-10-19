@@ -15,8 +15,8 @@ def generation_handoff(retention_hours=168):
         return {"mode":"plugin_rendering_available", "plugin_rendering_available":True,
                 "instructions":"Utiliser render_brand_direction pour une route ou run_brand_workflow pour les trois planches, puis consulter get_render_job. Un fournisseur mock produit uniquement une fixture de test.",
                 "storage_note":f"Rétention configurée : {retention_hours:g} heures."}
-    return {"mode":"host_native", "plugin_rendering_available":False,
-            "instructions":"Utiliser les briefs de rendu avec l’outil natif de génération d’images de ChatGPT ou de Codex lorsqu’il est disponible. Ne pas annoncer une image ni un rendu sans appel réel.",
+    return {"mode":"host_native", "plugin_rendering_available":False, "native_tool":"@Créer une image", "invocation":"conversation_follow_up",
+            "instructions":"Dans ChatGPT, utiliser exclusivement « @Créer une image » avec le brief. Dans Codex, utiliser une capacité native seulement si elle est réellement disponible. Ne pas annoncer une image ni un rendu sans appel réel.",
             "storage_note":"Aucun rendu serveur actif. Les prompts ne sont pas des images générées."}
 
 def require_rendering():

@@ -38,9 +38,16 @@ test('invalid JSON-RPC params is a protocol error',async()=>{
 
 test('versioned and legacy widget resource IDs both resolve',async()=>{
  const listed=await rpc('resources/list',{});const canonical=listed.body.result.resources[0].uri;
- assert.equal(canonical,'ui://infographic-artist/app-v1.1.1.html');
- for(const uri of [canonical,'ui://infographic-artist/app-v1.html']){
+ assert.equal(canonical,'ui://infographic-artist/app-v1.1.2.html');
+ for(const uri of [canonical,'ui://infographic-artist/app-v1.1.1.html','ui://infographic-artist/app-v1.html']){
   const r=await rpc('resources/read',{uri});assert.equal(r.body.result.contents[0].uri,uri);
   assert.match(r.body.result.contents[0].text,/Résultat de transmission incertain/);
  }
+});
+
+test('native generation contract designates only @Créer une image',async()=>{
+ const d=await generateDirections({name:'Atelier',sector:'architecture',promise:'précision humaine'});
+ assert.equal(d.image_generation_handoff.native_tool,'@Créer une image');
+ assert.equal(d.image_generation_handoff.invocation,'conversation_follow_up');
+ assert.equal(d.image_generation_handoff.plugin_rendering_available,false);
 });

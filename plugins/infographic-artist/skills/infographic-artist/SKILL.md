@@ -22,9 +22,9 @@ Use the bundled `infographic_artist` MCP server. Its canonical HTTPS endpoint en
 
 `generate_brand_directions` returns art-directed prompts, not rendered images. Read `image_generation_handoff`.
 
-When its mode is `host_native`, use the current host's real image-generation tool when available and the user has requested an image. Carry the chosen route, original reference and exact text into that tool. Never paste tool JSON as the finished artwork; never say an image is generating unless a real generation call was made.
+When its mode is `host_native`, the only designated ChatGPT image-generation action is **`@Créer une image`**. The widget button must display that exact label and send a follow-up starting with `@Créer une image` to request the real native tool. This is a conversation handoff, not a direct API call or a guarantee of tool execution. In Codex, use a native image-generation capability only when actually available; do not substitute a separate provider. If the user requests an image and the host provides the native tool, invoke that real tool. Carry the chosen route, original reference and exact text into that tool. Never paste tool JSON as the finished artwork; never say an image is generating unless a real generation call was made.
 
-When the host has no image tool, return the selected production brief and say that no image was rendered in that execution. Do not invent a render job, a completed image, a download URL, a provider key or a paid API request. The public server does not run the experimental renderer. A mock provider proves plumbing only, not artwork quality.
+When the host has no image tool, return the selected production brief and say that no image was rendered in that execution. Do not invent a render job, a completed image, a download URL, a provider key or a paid API request. The public server does not run the experimental renderer. Do not enable the old `render_brand_direction`, `run_brand_workflow`, or paid Images API as a fallback for this native workflow. A mock provider proves plumbing only, not artwork quality.
 
 For edits, a real image target is required. Do not treat an opaque ID or a claim of an approved image as an available file. Avoid requesting new uploads when the actual file is already supplied and readable.
 

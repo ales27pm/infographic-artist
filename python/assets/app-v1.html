@@ -37,7 +37,7 @@
       button.dataset.handoffState=phase;
       button.disabled=['pending','sent','uncertain','unavailable'].includes(phase);
       button.setAttribute('aria-busy',String(phase==='pending'));
-      const labels={idle:'Créer dans la conversation',pending:'Transmission en cours…',sent:'Demande transmise à la conversation',refused:'Réessayer la transmission',uncertain:'Transmission à vérifier',unavailable:'Transmission indisponible'};
+      const labels={idle:'@Créer une image',pending:'Transmission en cours…',sent:'Demande transmise à la conversation',refused:'Réessayer @Créer une image',uncertain:'Transmission à vérifier',unavailable:'Transmission indisponible'};
       button.textContent=labels[phase];
       let notice=button.parentElement.querySelector('[data-handoff-status]');
       if(!notice){notice=document.createElement('p');notice.className='meta';notice.dataset.handoffStatus='';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');button.insertAdjacentElement('afterend',notice);}
@@ -55,7 +55,7 @@
       nativeHandoffState(key,'unavailable','Transmission indisponible dans cet hôte. Le brief reste visible ci-dessous; aucune image ni demande de génération n’a été créée.');return;
     }
     nativeHandoffState(key,'pending','Transmission du brief sélectionné. Aucune image n’est encore confirmée.');
-    const prompt='Crée une image à partir de cette direction Infographic Artist avec ton outil natif de génération d’images, s’il est disponible. Ne prétends pas avoir lancé un rendu sans appel réel.\n\n'+key;
+    const prompt='@Créer une image\n\nUtilise exclusivement l’outil natif « @Créer une image » de ChatGPT pour produire une image à partir de cette direction Infographic Artist. Ne lance aucun moteur externe, aucune API payante ni aucun rendu serveur. Si l’outil natif n’est pas disponible dans cette conversation, explique-le et conserve le brief sans prétendre avoir généré une image. Ne présente pas la transmission du brief comme un rendu terminé.\n\n'+key;
     let timer;
     try{
       // Choose one transport, once. Never retry a delivery whose outcome is uncertain.
@@ -157,7 +157,7 @@
   function renderDirections(d){
     const b=d.brief||{};
     const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn ${h.plugin_rendering_available===true?'render-route':'native-render-route'}" data-route="${esc(r.id)}">${h.plugin_rendering_available===true?'Rendre':'Créer dans la conversation'}</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
   let renderPollTimer = null;
   let renderPollJob = '';

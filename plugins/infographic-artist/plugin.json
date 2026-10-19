@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "infographic-artist",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Research brand systems, critique supplied visuals, and develop original art-directed concepts with source-aware MCP tools.",
   "author": {
     "name": "27PM",
@@ -85,7 +85,7 @@
         "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
       },
       "publication": {
-        "release_notes": "Infographic Artist 1.1.1 fixes duplicate native image handoffs, preserves briefs on host refusal or uncertain delivery, versions the UI resource, and aligns public review metadata with the nine supported read-only tools. Images use the host-native tool when available; no server-side paid rendering is enabled."
+        "release_notes": "Infographic Artist 1.1.2 makes @Créer une image the exclusive ChatGPT native image-generation action, labels the widget button exactly, and routes concept-board briefs to the host conversation without using a paid image API or claiming that a handoff generated an image."
       }
     }
   },

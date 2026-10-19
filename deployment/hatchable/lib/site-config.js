@@ -4,7 +4,7 @@ export const SITE = {
   subtitle: "Brand research & critique",
   siteUrl: "https://infographic-artist-1w7v.hatchable.site",
   mcpUrl: "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
-  versionLabel: "v1.1.1",
+  versionLabel: "v1.1.2",
   toolCount: 9,
   copyrightYear: "2026",
   effectiveDate: "October 19, 2026",

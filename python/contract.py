@@ -3,8 +3,9 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.1.1.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.1.2.html"
 LEGACY_TEMPLATE_URI = "ui://infographic-artist/app-v1.html"
+PREVIOUS_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.1.html"
 MIME_TYPE = "text/html;profile=mcp-app"
 
 SERVER_INSTRUCTIONS = (
