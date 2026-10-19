@@ -1,0 +1,12 @@
+{
+  "name": "infographic-artist-plugin-build",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test hatchable/tests/*.test.mjs",
+    "bundle:mcp": "node scripts/bundle_public_mcp.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.3"
+  }
+}

@@ -19,11 +19,12 @@ ChatGPT supplies real selected-file references for image tools. A local Codex pa
 
 ## Reproducible source and deploy
 
-`python/assets/app-v1.html` is the widget master. `scripts/build_plugin.py` generates `hatchable/lib/widget.js`, release fingerprints and the exact `deployment/hatchable/` sources. Relative imports are adapted for Hatchable's module resolver. Only the generated allowlisted files are deployed. Existing challenge, public pages and video routes are preserved.
+`python/assets/app-v1.html` is the widget master. `scripts/build_plugin.py` generates `hatchable/lib/widget.js`, release fingerprints and the exact `deployment/hatchable/` sources. Relative imports are adapted for Hatchable's module resolver. The production MCP file is bundled by `scripts/bundle_public_mcp.mjs` using pinned esbuild 0.27.3. Deploy `deployment/public-mcp.bundle.js` as `api/chatgpt-mcp.js` and `deployment/public-health.js` as `pages/health.js`; verify their hashes against `deployment/public-manifest.json`. This two-file surface avoids partial shared-pool updates. Supporting site modules and data stay intact. Existing challenge, public pages and video routes are preserved.
 
 ```
 python3 scripts/build_plugin.py
 python3 scripts/build_plugin.py --check --output /tmp/infographic-plugin-release
+node scripts/bundle_public_mcp.mjs --check
 node --test hatchable/tests/*.test.mjs
 cd python
 pytest
