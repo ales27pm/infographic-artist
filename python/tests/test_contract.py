@@ -15,7 +15,9 @@ import server  # noqa: E402
 from contract import FILE_SCHEMA, MIME_TYPE, READ_ONLY_ANNOTATIONS, TEMPLATE_URI, TOOL_DEFINITIONS  # noqa: E402
 
 WIDGET = (ROOT / "assets" / "app-v1.html").read_text(encoding="utf-8")
-EXPECTED_TOOLS = set(TOOL_DEFINITIONS)
+from runtime_capabilities import RENDER_TOOL_NAMES
+
+EXPECTED_TOOLS = set(TOOL_DEFINITIONS) - RENDER_TOOL_NAMES
 
 
 def test_source_syntax_and_tool_surface() -> None:
@@ -23,7 +25,7 @@ def test_source_syntax_and_tool_surface() -> None:
         ast.parse((ROOT / name).read_text(encoding="utf-8"))
     descriptors = server.get_tool_descriptors()
     assert {tool["name"] for tool in descriptors} == EXPECTED_TOOLS
-    assert {"render_brand_direction", "run_brand_workflow", "get_render_job"} <= EXPECTED_TOOLS
+    assert len(EXPECTED_TOOLS) == 9
 
 
 def test_descriptions_annotations_and_outputs_are_review_friendly() -> None:

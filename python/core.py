@@ -28,6 +28,8 @@ import httpx
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
+from runtime_capabilities import generation_handoff, require_rendering
+
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 MAX_RESULTS = 25
@@ -118,7 +120,7 @@ def _score_brand(item: dict[str, Any], query: str) -> float:
             score += weight * 2.2
         matched = sum(1 for token in q_tokens if token in text)
         score += weight * matched / max(len(q_tokens), 1)
-    if item.get("depth") == "deep":
+    if score > 0 and item.get("depth") == "deep":
         score += 0.75
     return score
 
@@ -514,11 +516,7 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
     return {
         "brief": {"name": name, "sector": sector, "promise": promise, "audience": audience, "traits": traits, "must_avoid": avoid, "risk_tolerance": risk},
         "routes": routes,
-        "image_generation_handoff": {
-            "mode": "plugin_rendering_available",
-            "instructions": "Utiliser render_brand_direction pour une route ou run_brand_workflow pour générer les trois planches dans le plugin, puis consulter get_render_job pendant l’exécution.",
-            "storage_note": f"Les planches rendues par le plugin sont conservées comme actifs générés jusqu’à expiration de la rétention configurée, {_retention_hours():g} heures.",
-        },
+        "image_generation_handoff": generation_handoff(_retention_hours()),
         "decision_rule": "Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.",
     }
 
@@ -1197,6 +1195,7 @@ async def _run_workflow_job(job_id: str) -> None:
 
 
 async def render_brand_direction(args: dict[str, Any]) -> dict[str, Any]:
+    require_rendering()
     _cleanup_expired_assets()
     provider = _provider()
     options = _render_options(args)
@@ -1214,6 +1213,7 @@ async def render_brand_direction(args: dict[str, Any]) -> dict[str, Any]:
 
 
 async def run_brand_workflow(args: dict[str, Any]) -> dict[str, Any]:
+    require_rendering()
     _cleanup_expired_assets()
     provider = _provider()
     options = _render_options(args)

@@ -26,6 +26,54 @@
   const badge = document.getElementById('viewBadge');
   const palette = ['#c9ff39','#ff6238','#586cff','#e6c94d','#7fd1b9','#e98bd1'];
   let current = null;
+  // Keep delivery state across same-result renders. A delivered brief is not rendered artwork.
+  const nativeHandoffs = new Map();
+  const HANDOFF_TIMEOUT_MS = 12000;
+  function updateNativeHandoffs(){
+    for(const button of root.querySelectorAll('.native-render-route')){
+      const route=arr(current?.data?.routes).find(item=>String(item.id)===String(button.dataset.route));
+      const state=nativeHandoffs.get(route?.concept_board_prompt);
+      const phase=state?.phase||'idle';
+      button.dataset.handoffState=phase;
+      button.disabled=['pending','sent','uncertain','unavailable'].includes(phase);
+      button.setAttribute('aria-busy',String(phase==='pending'));
+      const labels={idle:'@Créer une image',pending:'Transmission en cours…',sent:'Demande transmise à la conversation',refused:'Réessayer @Créer une image',uncertain:'Transmission à vérifier',unavailable:'Transmission indisponible'};
+      button.textContent=labels[phase];
+      let notice=button.parentElement.querySelector('[data-handoff-status]');
+      if(!notice){notice=document.createElement('p');notice.className='meta';notice.dataset.handoffStatus='';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');button.insertAdjacentElement('afterend',notice);}
+      notice.textContent=state?.message||'';
+    }
+  }
+  function nativeHandoffState(key,phase,message){
+    nativeHandoffs.set(key,{phase,message});updateNativeHandoffs();
+  }
+  async function deliverNativeBrief(route){
+    const key=route.concept_board_prompt;
+    const previous=nativeHandoffs.get(key)?.phase;
+    if(['pending','sent','uncertain','unavailable'].includes(previous))return;
+    if(!window.openai?.sendFollowUpMessage && !window.openai?.app?.sendMessage && window.parent===window){
+      nativeHandoffState(key,'unavailable','Transmission indisponible dans cet hôte. Le brief reste visible ci-dessous; aucune image ni demande de génération n’a été créée.');return;
+    }
+    nativeHandoffState(key,'pending','Transmission du brief sélectionné. Aucune image n’est encore confirmée.');
+    const prompt='@Créer une image\n\nUtilise exclusivement l’outil natif « @Créer une image » de ChatGPT pour produire une image à partir de cette direction Infographic Artist. Ne lance aucun moteur externe, aucune API payante ni aucun rendu serveur. Si l’outil natif n’est pas disponible dans cette conversation, explique-le et conserve le brief sans prétendre avoir généré une image. Ne présente pas la transmission du brief comme un rendu terminé.\n\n'+key;
+    let timer;
+    try{
+      // Choose one transport, once. Never retry a delivery whose outcome is uncertain.
+      const request=window.openai?.sendFollowUpMessage
+        ?window.openai.sendFollowUpMessage({prompt})
+        :window.openai?.app?.sendMessage
+          ?window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]})
+          :bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
+      const reply=await Promise.race([Promise.resolve(request),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Handoff confirmation timeout')),HANDOFF_TIMEOUT_MS);})]);
+      if(reply?.isError===true || reply?.error || reply?.success===false || reply?.accepted===false){
+        nativeHandoffState(key,'refused','Transmission refusée par l’hôte. Le brief est conservé. Aucun succès ni aucune image ne sont annoncés.');
+      }else{
+        nativeHandoffState(key,'sent','Le brief a été transmis. La création effective de l’image doit être confirmée dans la conversation.');
+      }
+    }catch(_error){
+      nativeHandoffState(key,'uncertain','Résultat de transmission incertain : aucune confirmation reçue. Vérifie la conversation avant tout nouvel envoi. Le brief est conservé; aucune nouvelle tentative automatique.');
+    }finally{clearTimeout(timer);}
+  }
   const esc = (v='') => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const arr = v => Array.isArray(v) ? v : [];
   const pct = v => Math.max(0, Math.min(100, Number(v)||0));
@@ -54,23 +102,21 @@
     });
   }
   async function callTool(name,args){
-    let lastError=null;
-    try{
-      const result=await bridgeRequest('tools/call',{name,arguments:args});
-      accept(result);
-      return result;
-    }catch(err){lastError=err;}
-    try{
-      if(window.openai?.callTool){const result=await window.openai.callTool(name,args);accept(result);return result;}
-      if(window.openai?.app?.callServerTool){const result=await window.openai.app.callServerTool({name,arguments:args});accept(result);return result;}
-    }catch(err){lastError=err;}
-    const prompt=name==='get_brand_case'?`Ouvre la fiche de marque ${args.item_id} dans Infographic Artist.`:`Utilise Infographic Artist avec l’outil ${name}.`;
-    try{
-      if(window.openai?.sendFollowUpMessage)return await window.openai.sendFollowUpMessage({prompt});
-      if(window.openai?.app?.sendMessage)return await window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]});
-      await bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
-      return null;
-    }catch(err){showError(err||lastError);return null;}
+    try {
+      // Prefer an injected host API. Waiting on another bridge first adds 8 seconds in ChatGPT.
+      let result;
+      if(window.openai?.callTool)result=await window.openai.callTool(name,args);
+      else if(window.openai?.app?.callServerTool)result=await window.openai.app.callServerTool({name,arguments:args});
+      else result=await bridgeRequest('tools/call',{name,arguments:args});
+      if(result?.isError){
+        const message=arr(result.content).filter(x=>x.type==='text').map(x=>x.text).join(' ')||'Le serveur a refusé cette demande.';
+        showError(new Error(message));return result;
+      }
+      accept(result);return result;
+    }catch(error){
+      // Do not repeat an uncertain server call or claim that a follow-up is a completed action.
+      showError(error);return null;
+    }
   }
   function showError(err){root.innerHTML=`<section class="empty error"><div><h2>Analyse interrompue</h2><p>${esc(err?.message||err)}</p></div></section>`;}
   function setLoading(label='Analyse en cours'){root.innerHTML=`<section class="empty"><div><div class="spinner"></div><h2>${esc(label)}</h2></div></section>`;}
@@ -111,7 +157,7 @@
   function renderDirections(d){
     const b=d.brief||{};
     const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Rendu plugin.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn render-route" data-route="${esc(r.id)}">Rendre</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
   let renderPollTimer = null;
   let renderPollJob = '';
@@ -158,6 +204,7 @@
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
     const f={atlas:renderAtlas,case:renderCase,comparison:renderComparison,graph:renderGraph,library:renderLibrary,directions:renderDirections,render_job:renderRenderJob,render_workflow:renderWorkflow,critique:renderCritique,similarity:renderSimilarity,coach:renderCoach}[view];
     if(f) f(d); else root.innerHTML=`<section class="empty"><div><h2>Résultat reçu</h2><pre>${esc(JSON.stringify(payload,null,2))}</pre></div></section>`;
+    if(view==='directions')updateNativeHandoffs();
   }
   function extract(x){
     if(!x)return null;
@@ -184,6 +231,13 @@
   root.addEventListener('click',async e=>{
     const refresh=e.target.closest?.('.refresh-render');
     if(refresh){setLoading('Actualisation du rendu');await callTool('get_render_job',{job_id:refresh.dataset.job});return;}
+    const nativeBtn=e.target.closest?.('.native-render-route');
+    if(nativeBtn){
+      const route=arr(current?.data?.routes).find(x=>String(x.id)===String(nativeBtn.dataset.route));
+      if(!route?.concept_board_prompt)return;
+      await deliverNativeBrief(route);
+      return;
+    }
     const renderBtn=e.target.closest?.('.render-route');
     if(renderBtn){
       const routes=arr(current?.data?.routes);

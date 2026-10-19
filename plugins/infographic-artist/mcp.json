@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "infographic_artist": {
+      "type": "streamable-http",
+      "url": "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp"
+    }
+  }
+}

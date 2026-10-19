@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import json
 import os
 from functools import lru_cache
 from pathlib import Path
@@ -13,13 +14,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 
 import core
-from contract import MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
+from contract import LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
+from runtime_capabilities import RENDER_TOOL_NAMES, rendering_available, require_rendering
 
 ROOT = Path(__file__).resolve().parent
 ASSETS_DIR = ROOT / "assets"
 DOCS_DIR = ROOT / "docs"
 APP_NAME = "Infographic Artist"
-APP_VERSION = "1.0.1"
+APP_VERSION = "1.1.2"
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26")
 MAX_RPC_BYTES = 1_000_000
 
@@ -110,6 +112,8 @@ def _allowed_origins() -> set[str]:
 def get_tool_descriptors() -> list[dict[str, Any]]:
     descriptors: list[dict[str, Any]] = []
     for name, spec in TOOL_DEFINITIONS.items():
+        if name in RENDER_TOOL_NAMES and not rendering_available():
+            continue
         descriptors.append(
             {
                 "name": name,
@@ -163,6 +167,8 @@ def _payload(view: str, data: dict[str, Any]) -> dict[str, Any]:
 
 
 async def _execute_tool(name: str, args: dict[str, Any]) -> dict[str, Any]:
+    if name in RENDER_TOOL_NAMES:
+        require_rendering()
     if name == "open_brand_atlas":
         results = core.search_atlas(
             args.get("query", ""),
@@ -413,14 +419,14 @@ async def mcp_post(request: Request) -> Response:
     if method == "resources/templates/list":
         return _jsonrpc_result(request_id, {"resourceTemplates": get_resource_templates()})
     if method == "resources/read":
-        if str(params.get("uri") or "") != TEMPLATE_URI:
+        if str(params.get("uri") or "") not in {TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI}:
             return _jsonrpc_error(request_id, -32002, "Resource not found")
         return _jsonrpc_result(
             request_id,
             {
                 "contents": [
                     {
-                        "uri": TEMPLATE_URI,
+                        "uri": str(params.get("uri")),
                         "mimeType": MIME_TYPE,
                         "text": _widget_html(),
                         "_meta": _resource_meta(),
@@ -461,23 +467,10 @@ async def mcp_post(request: Request) -> Response:
                 },
             )
         spec = TOOL_DEFINITIONS[name]
-        summaries = {
-            "atlas": "Opened the brand atlas.",
-            "case": "Opened the requested brand case.",
-            "comparison": "Compared the requested brand systems.",
-            "graph": "Built the requested brand knowledge graph.",
-            "library": "Searched the graphic-systems library.",
-            "directions": "Generated three original creative directions.",
-            "render_job": "Started or checked a plugin-side image render job.",
-            "render_workflow": "Started the full plugin-side brand workflow.",
-            "critique": "Scored the visual proposal on five design axes.",
-            "similarity": "Completed perceptual similarity triage.",
-            "coach": "Converted the design question into a measurable coaching exercise.",
-        }
         return _jsonrpc_result(
             request_id,
             {
-                "content": [{"type": "text", "text": summaries[spec["view"]]}],
+                "content": [{"type": "text", "text": json.dumps(structured, ensure_ascii=False)}],
                 "structuredContent": structured,
                 "_meta": {"openai/toolInvocation/invoked": spec["invoked"]},
                 "isError": False,

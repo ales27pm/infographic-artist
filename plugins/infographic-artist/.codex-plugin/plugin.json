@@ -1,0 +1,93 @@
+{
+  "name": "infographic-artist",
+  "version": "1.1.2",
+  "description": "Research brand systems, critique supplied visuals, and develop original art-directed concepts with source-aware MCP tools.",
+  "author": {
+    "name": "27PM",
+    "email": "support@27pm.org"
+  },
+  "homepage": "https://infographic-artist-1w7v.hatchable.site",
+  "repository": "https://github.com/ales27pm/infographic-artist",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Infographic Artist",
+    "shortDescription": "Recherche de marques, critique visuelle et directions originales.",
+    "longDescription": "Étudie les systèmes de marque et les propositions fournies, consulte un atlas documenté, compare les mécanismes graphiques et prépare trois directions de création. Les images sont créées avec les capacités de la conversation hôte lorsqu’elles sont disponibles.",
+    "composerIcon": "./assets/app-icon-64.png",
+    "logo": "./assets/app-icon-512.png",
+    "developerName": "27PM",
+    "category": "Design",
+    "websiteURL": "https://infographic-artist-1w7v.hatchable.site",
+    "supportURL": "https://infographic-artist-1w7v.hatchable.site/support",
+    "privacyPolicyURL": "https://infographic-artist-1w7v.hatchable.site/privacy",
+    "termsOfServiceURL": "https://infographic-artist-1w7v.hatchable.site/terms",
+    "defaultPrompt": [
+      "Compare IBM et NASA comme systèmes graphiques.",
+      "Propose trois directions originales pour un atelier de menuiserie.",
+      "Critique ce logo fourni et propose deux corrections concrètes."
+    ]
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Search and read a sourced case",
+              "prompt": "Find NASA Worm in the brand atlas, then open its detailed case.",
+              "tools_triggered": "open_brand_atlas, get_brand_case",
+              "expected_behavior": "NASA Worm is returned, with its source URLs and evidence depth."
+            },
+            {
+              "description": "Compare visual mechanisms and explore the graph",
+              "prompt": "Compare NASA Worm with IBM 8-bar, then explore the typography graph with at most 20 nodes.",
+              "tools_triggered": "compare_brand_systems, explore_brand_graph",
+              "expected_behavior": "Returns two precedent cases and a bounded graph of at most 20 nodes."
+            },
+            {
+              "description": "Find a graphic system and coach a design decision",
+              "prompt": "Find the NASA Graphics Standards Program, then propose a test for readable counterforms at 24 pixels.",
+              "tools_triggered": "search_design_systems, coach_brand_decision",
+              "expected_behavior": "Returns the library entry and a proposed exercise without claiming that user tests were performed."
+            },
+            {
+              "description": "Prepare three complete creative routes",
+              "prompt": "Develop three original identity directions for Atelier Boréal, an architecture practice promising human precision. Avoid roofs and mountains.",
+              "tools_triggered": "generate_brand_directions",
+              "expected_behavior": "Returns three distinct routes with concept-board prompts and an honest host-native image handoff. No image job or artwork is falsely reported."
+            },
+            {
+              "description": "No-match search is not replaced by unrelated examples",
+              "prompt": "Search the brand atlas for qxzvnjk987654321.",
+              "tools_triggered": "open_brand_atlas",
+              "expected_behavior": "Returns zero matching records and no unrelated deep cases."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Unrelated scheduling is out of scope",
+              "prompt": "What meetings do I have tomorrow?",
+              "expected_behavior": "Does not invoke this plugin for calendar data."
+            },
+            {
+              "description": "Do not invent missing image access",
+              "prompt": "Critique the already approved image file_opaque_not_supplied.",
+              "expected_behavior": "Asks for a real supplied image; does not claim a critique or invent a file URL."
+            },
+            {
+              "description": "Unsupported publishing and paid actions",
+              "prompt": "Publish these concepts to all my accounts and start paid image jobs on the server.",
+              "expected_behavior": "Explains that public publishing and server-side paid rendering are not supported by the nine-tool public service."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
+      },
+      "publication": {
+        "release_notes": "Infographic Artist 1.1.2 makes @Créer une image the exclusive ChatGPT native image-generation action, labels the widget button exactly, and routes concept-board briefs to the host conversation without using a paid image API or claiming that a handoff generated an image."
+      }
+    }
+  }
+}

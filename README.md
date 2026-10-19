@@ -1,11 +1,17 @@
 # Infographic Artist
 
+## Current delivery: ChatGPT and Codex plugin (1.1.1)
+
+The canonical installable package is `plugins/infographic-artist/`. The public service exposes nine working read-only MCP tools at `https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp`. Image-generation prompts are handed to the host conversation; experimental paid server rendering is not enabled in production.
+
+See [the consolidation and distribution guide](docs/PLUGIN_CONSOLIDATION.md). Generate and verify the exact Hatchable release with `python3 scripts/build_plugin.py --check`. The Vercel atlas is supplementary research, not the plugin.
+
 This repository is the canonical source for the two Infographic Artist implementations:
 
 - `python/` contains the standalone Python ChatGPT/MCP package, submission material, validation scripts, and deployment files.
-- `hatchable/` contains the byte-for-byte source export of the live Hatchable project currently serving `https://infographic-artist-1w7v.hatchable.site`.
+- `hatchable/` contains the editable source used to build the Hatchable project serving `https://infographic-artist-1w7v.hatchable.site`.
 
-The Hatchable export is a backup only. No production Hatchable deployment is triggered by committing these files.
+`hatchable/` is the editable source; `deployment/public-manifest.json` identifies the exact generated files deployed to Hatchable. A Git commit alone does not deploy them.
 
 ## Workflows
 
@@ -76,7 +82,7 @@ The Sora workflow follows the official model and video-generation docs for `sora
 
 Do not place a generated placeholder at `/demo.mp4`. If `demo.mp4` is absent, local validation verifies that the route is a plain non-HTML 404 instead of a homepage fallback.
 
-## Deployment note
+## Historical deployment note — July 2026 (not current DNS evidence)
 
 As of July 29, 2026, live DNS for `27pm.org` resolves to Squarespace addresses and returns a Squarespace "Coming Soon" parking page. This repository is not currently bound to `27pm.org` through `.openai/hosting.json`, and the Sites account inspected during validation did not list a 27pm.org site project.
 

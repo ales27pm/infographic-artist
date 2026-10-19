@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import argparse
 import hashlib
 import json
 import re
@@ -12,7 +13,12 @@ errors: list[str] = []
 sys.path.insert(0, str(ROOT))
 from contract import READ_ONLY_ANNOTATIONS, TOOL_DEFINITIONS  # noqa: E402
 
-EXPECTED_TOOLS = set(TOOL_DEFINITIONS)
+from runtime_capabilities import RENDER_TOOL_NAMES
+
+EXPECTED_TOOLS = set(TOOL_DEFINITIONS) - RENDER_TOOL_NAMES
+parser = argparse.ArgumentParser()
+parser.add_argument("--output-dir", type=Path, default=ROOT / "validation")
+OUTPUT_DIR = parser.parse_args().output_dir
 
 
 def check(condition: bool, message: str) -> None:
@@ -53,7 +59,7 @@ except Exception as exc:
     manifest = {}
     errors.append(f"submission JSON: {exc}")
 
-check(manifest.get("$schema") == "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json", "invalid submission schema URI")
+check(manifest.get("$schema") == "https://developers.openai.com/plugins/schemas/chatgpt-app-submission.v1.json", "invalid submission schema URI")
 check(manifest.get("schema_version") == 1, "schema_version must be integer 1")
 check(manifest.get("app_info", {}).get("display_name") == "Infographic Artist", "missing app display name")
 check(len(manifest.get("app_info", {}).get("subtitle", "")) <= 30, "subtitle exceeds 30 characters")
@@ -117,9 +123,9 @@ for path in sorted(ROOT.rglob("*")):
         continue
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     files.append({"path": str(path.relative_to(ROOT)), "bytes": path.stat().st_size, "sha256": digest})
-(ROOT / "validation").mkdir(exist_ok=True)
-(ROOT / "validation/manifest.json").write_text(json.dumps({"files": files}, indent=2), encoding="utf-8")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+(OUTPUT_DIR / "manifest.json").write_text(json.dumps({"files": files}, indent=2), encoding="utf-8")
 report = {"status": "failed" if errors else "passed", "errors": errors, "file_count": len(files)}
-(ROOT / "validation/report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+(OUTPUT_DIR / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 print(json.dumps(report, indent=2))
 sys.exit(1 if errors else 0)

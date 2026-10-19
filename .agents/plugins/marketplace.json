@@ -1,0 +1,20 @@
+{
+  "name": "27pm-plugins",
+  "interface": {
+    "displayName": "27PM — plugins"
+  },
+  "plugins": [
+    {
+      "name": "infographic-artist",
+      "source": {
+        "source": "local",
+        "path": "./plugins/infographic-artist"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}

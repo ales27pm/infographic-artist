@@ -1,0 +1,247 @@
+{
+  "verified_at": "2026-10-19T23:16:37.454091+00:00",
+  "implementation_commit": "6cc4282187624f520afaca2cbfabaf03e4711297",
+  "hatchable_deployment": 23,
+  "release": {
+    "version": "1.1.0",
+    "profile": "public-readonly-native-images",
+    "source_sha256": "7a7e02bfafbd142eb59f5535e7940ba02d0298488ed8184f8c6562cafe3a7a9e",
+    "widget_sha256": "f77e6d18740e789295e5e323437e0a5e29e172ff25a634384f7de6ae0394d113",
+    "tool_count": 9
+  },
+  "endpoint": "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
+  "runtime": {
+    "endpoint": "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
+    "checks": {
+      "health": {
+        "passed": true,
+        "version": "1.1.0-hatchable.1",
+        "release": {
+          "version": "1.1.0",
+          "profile": "public-readonly-native-images",
+          "source_sha256": "7a7e02bfafbd142eb59f5535e7940ba02d0298488ed8184f8c6562cafe3a7a9e",
+          "widget_sha256": "f77e6d18740e789295e5e323437e0a5e29e172ff25a634384f7de6ae0394d113",
+          "tool_count": 9
+        },
+        "brands": 934
+      },
+      "initialize": {
+        "passed": true,
+        "name": "infographic-artist",
+        "title": "Infographic Artist",
+        "version": "1.1.0-hatchable.1"
+      },
+      "descriptors": {
+        "passed": true,
+        "names": [
+          "open_brand_atlas",
+          "get_brand_case",
+          "compare_brand_systems",
+          "explore_brand_graph",
+          "search_design_systems",
+          "generate_brand_directions",
+          "critique_brand_image",
+          "compare_brand_images",
+          "coach_brand_decision"
+        ]
+      },
+      "open_brand_atlas": {
+        "passed": true,
+        "view": "atlas"
+      },
+      "get_brand_case": {
+        "passed": true,
+        "view": "case"
+      },
+      "compare_brand_systems": {
+        "passed": true,
+        "view": "comparison"
+      },
+      "explore_brand_graph": {
+        "passed": true,
+        "view": "graph"
+      },
+      "search_design_systems": {
+        "passed": true,
+        "view": "library"
+      },
+      "generate_brand_directions": {
+        "passed": true,
+        "view": "directions"
+      },
+      "coach_brand_decision": {
+        "passed": true,
+        "view": "coach"
+      },
+      "unmatched_zero": {
+        "passed": true,
+        "matches": 0
+      },
+      "invalid_limit_rejected": {
+        "passed": true,
+        "rejected": true
+      },
+      "widget_exact": {
+        "passed": true,
+        "bytes": 29524,
+        "sha256": "f77e6d18740e789295e5e323437e0a5e29e172ff25a634384f7de6ae0394d113"
+      },
+      "/": {
+        "passed": true,
+        "http": 200,
+        "content_type": "text/html; charset=utf-8"
+      },
+      "/privacy": {
+        "passed": true,
+        "http": 200,
+        "content_type": "text/html; charset=utf-8"
+      },
+      "/terms": {
+        "passed": true,
+        "http": 200,
+        "content_type": "text/html; charset=utf-8"
+      },
+      "/support": {
+        "passed": true,
+        "http": 200,
+        "content_type": "text/html; charset=utf-8"
+      },
+      "/demo.mp4": {
+        "passed": true,
+        "http": 200,
+        "content_type": "video/mp4"
+      },
+      "/.well-known/openai-apps-challenge": {
+        "passed": true,
+        "http": 200,
+        "content_type": "text/plain; charset=utf-8"
+      }
+    },
+    "passed": true,
+    "image_file_checks": {
+      "method": "Actual ChatGPT connected-tool calls after deployment",
+      "critique_brand_image": "passed with supplied Boulet JPEG",
+      "compare_brand_images": "passed with supplied JPEG and generated PNG",
+      "note": "These file-bridge calls were executed in the conversation, not synthesized by this HTTP script."
+    }
+  },
+  "local_tests": {
+    "python": 38,
+    "node": 11,
+    "checks": [
+      {
+        "name": "python-tests",
+        "passed": true
+      },
+      {
+        "name": "node-tests",
+        "passed": true
+      },
+      {
+        "name": "source-build-check",
+        "passed": true
+      },
+      {
+        "name": "widget-js",
+        "passed": true
+      },
+      {
+        "name": "diff-check",
+        "passed": true
+      }
+    ]
+  },
+  "chatgpt_calls_this_continuation": {
+    "unmatched_query_zero": true,
+    "directions_three_routes_host_native": true,
+    "critique_real_file": true,
+    "comparison_two_real_files": true
+  },
+  "codex": {
+    "version": "0.163.0",
+    "plugin_id": "infographic-artist@27pm-plugins",
+    "installed": true,
+    "enabled": true,
+    "package_matches_source": true,
+    "model_verification": {
+      "scope": "Earlier isolated diagnostic, evidence reread in this continuation; not rerun",
+      "model": "gpt-6.1-sol",
+      "status": "completed",
+      "calls": [
+        {
+          "server": "infographic_artist",
+          "tool": "open_brand_atlas",
+          "status": "completed",
+          "error": null,
+          "is_error": null
+        },
+        {
+          "server": "infographic_artist",
+          "tool": "get_brand_case",
+          "status": "completed",
+          "error": null,
+          "is_error": null
+        }
+      ],
+      "passed": true
+    }
+  },
+  "widget_harness": {
+    "mode": "Playwright host-API harness, not native ChatGPT UI",
+    "browser_fallback": "Browser tool requires originating browser context; no connected control runtime in this chat",
+    "checks": [
+      {
+        "name": "atlas_initial",
+        "pass": true
+      },
+      {
+        "name": "native_host_call_latency",
+        "pass": true,
+        "milliseconds": 95
+      },
+      {
+        "name": "native_image_handoff",
+        "pass": true,
+        "prompt_length": 1426
+      },
+      {
+        "name": "mobile_no_horizontal_overflow",
+        "pass": true,
+        "width": 390,
+        "scroll": 390,
+        "cards": 3,
+        "blank": false
+      },
+      {
+        "name": "page_errors",
+        "pass": true,
+        "errors": []
+      }
+    ],
+    "passed": true
+  },
+  "archive": {
+    "path": "distribution/infographic-artist-1.1.0.zip",
+    "bytes": 28663,
+    "sha256": "74dee8af8686684050099f27d62bdfc24d2967632259d03591e0dec5a09af7d1",
+    "file_count": 9
+  },
+  "preservation": {
+    "original_untracked_files_unchanged": 9,
+    "original_branch_unchanged": true,
+    "redeployed_in_this_continuation": false
+  },
+  "publication": {
+    "universal_directory": "not_verified",
+    "portal_attestations": "not_verified",
+    "demo_of_current_handoff": "not_verified",
+    "browser_portal_access": "No originating browser context available"
+  },
+  "limitations": [
+    "A working connection and a local Codex install do not prove public directory approval.",
+    "Widget visual tests use a simulated host bridge, not an end-to-end native ChatGPT screenshot.",
+    "No final image was generated in this continuation; the real file-input analysis tools were tested.",
+    "The 70 supplemental references may overlap the 934-record atlas.",
+    "Image scores are heuristics, not user studies, WCAG certification or legal clearance."
+  ]
+}

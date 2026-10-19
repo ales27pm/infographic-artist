@@ -1,0 +1,20 @@
+{
+  "release": {
+    "version": "1.1.2",
+    "profile": "public-readonly-native-images",
+    "source_sha256": "a4baad05b73f27472ed73c22125641f1ed35b0b046d91e1bc6cb078511b71f7c",
+    "widget_sha256": "e0270a3468bd83111267a1dfa770eacb3ffd2dd3541b531171bc67f2bf8b21e6",
+    "tool_count": 9
+  },
+  "compiler": "esbuild 0.27.3",
+  "mapping": {
+    "api/chatgpt-mcp.js": {
+      "source": "deployment/public-mcp.bundle.js",
+      "sha256": "6bce213725fe6e7156d78afa14d7aa039de8f541d947bb826459c18664720243"
+    },
+    "pages/health.js": {
+      "source": "deployment/public-health.js",
+      "sha256": "86bb34b531530aa8dae68aacff9d74d2a644032fcb525cf1efb9be8ef38f4c0a"
+    }
+  }
+}

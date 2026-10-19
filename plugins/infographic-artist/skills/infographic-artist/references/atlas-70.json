@@ -1,0 +1,707 @@
+{
+  "source": "https://atlas-identites-27pm.vercel.app/",
+  "retrieved_at": "2026-10-19",
+  "note": "70 research-reference cards; not 70 additional distinct brands, not a redistribution of third-party artwork or fonts. Independent of the 934-entry mechanism atlas.",
+  "references": [
+    {
+      "id": "R01",
+      "family": "Boulet",
+      "name": "Nown",
+      "source_url": "https://brandbrothers.studio/en/nown-visual-identity-branding-typography/",
+      "credits": "Brand Brothers",
+      "study": "Étudier comment une même coupe angulaire relie le mot-signe, les composants graphiques et les produits architecturaux.",
+      "tags": "Lettrage · Géométrie · Système modulaire",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R02",
+      "family": "Boulet",
+      "name": "FRONT Materials",
+      "source_url": "https://www.apetozebra.com/work/front",
+      "credits": "Ape to Zebra",
+      "study": "Examiner le passage de la brique isométrique à une grille capable de porter photographie, textes et textures.",
+      "tags": "Matière · Grille · Système modulaire",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R03",
+      "family": "Boulet",
+      "name": "DYFA",
+      "source_url": "https://www.fuhrstudio.com/work/dyfa",
+      "credits": "Fuhr Studio",
+      "study": "Observer la modularité des fenêtres traduite en identité : une logique issue du produit plutôt qu’un pictogramme ajouté.",
+      "tags": "Architecture · Géométrie · Système modulaire",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R04",
+      "family": "Boulet",
+      "name": "Orama Minimal Frames",
+      "source_url": "https://www.mgu.design/case-studies/orama-minimal-frames",
+      "credits": "MGU",
+      "study": "Comparer catalogue, échantillons et présentations architecturales : l’identité accompagne les documents qui aident à spécifier un produit.",
+      "tags": "Architecture · Édition · Matière",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R05",
+      "family": "Boulet",
+      "name": "BoldStep",
+      "source_url": "https://capsule.us/work/boldstep-2",
+      "credits": "Capsule",
+      "study": "Étudier les couches et biseaux du B, puis leur continuité dans les emballages; ne pas reprendre sa silhouette.",
+      "tags": "Monogramme · Géométrie · Emballage",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R06",
+      "family": "Boulet",
+      "name": "OKNO-POL",
+      "source_url": "https://webtom.pl/en/case-studies/okno-pol/",
+      "credits": "Webtom",
+      "study": "Comparer logo, présentation des gammes et plateforme B2B pour une entreprise de portes et fenêtres.",
+      "tags": "Architecture · Numérique · Catalogue",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R07",
+      "family": "Boulet",
+      "name": "Belvedere / BWD",
+      "source_url": "https://crushingcreative.co.uk/work/belvedere-brand-positioning/",
+      "credits": "Crushing Creative",
+      "study": "Observer comment les coupes de fabrication deviennent un monogramme au pochoir et des formes secondaires.",
+      "tags": "Monogramme · Pochoir · Fabrication",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R08",
+      "family": "Boulet",
+      "name": "Enerblock",
+      "source_url": "https://workoholics.es/en/work/enerblock/",
+      "credits": "Worköholics",
+      "study": "Étudier la hiérarchie entre marque mère, technologies et services pour rendre une offre de construction technique compréhensible.",
+      "tags": "Industrie · Architecture de marque · Numérique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R09",
+      "family": "Boulet",
+      "name": "Fedrigoni",
+      "source_url": "https://www.pentagram.com/work/fedrigoni",
+      "credits": "Pentagram / Harry Pearce; antécédent typographique GTF",
+      "study": "Observer le cadre principalement monochrome qui laisse les papiers, textures et couleurs des produits occuper le premier plan.",
+      "tags": "Typographie · Matière · Architecture de marque",
+      "provenance": "Analogie industrielle — Portfolio du concepteur"
+    },
+    {
+      "id": "R10",
+      "family": "Boulet",
+      "name": "Mobil",
+      "source_url": "https://cghnyc.com/work/project/mobil",
+      "credits": "Chermayeff & Geismar & Haviv",
+      "study": "Étudier la concentration de l’accent rouge sur une seule lettre, puis la cohérence de l’ensemble sur bâtiments et véhicules.",
+      "tags": "Couleur · Typographie · Signalétique",
+      "provenance": "Analogie de couleur et de déploiement — Portfolio du concepteur"
+    },
+    {
+      "id": "R11",
+      "family": "Maisons S. Turner",
+      "name": "Hyphen",
+      "source_url": "https://www.pentagram.com/work/hyphen",
+      "credits": "Pentagram / Angus Hyland",
+      "study": "Examiner comment la traverse du H devient une unité graphique utilisée dans les lettres, les compositions et le site.",
+      "tags": "Pochoir · Typographie · Numérique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R12",
+      "family": "Maisons S. Turner",
+      "name": "Apt",
+      "source_url": "https://thegreenspace.com/create/apt/",
+      "credits": "Greenspace; Apt Sans avec Fatype",
+      "study": "Étudier le lien entre dessin architectural, mot-signe et supports matériels; consulter la planche de charte et les applications numériques.",
+      "tags": "Architecture · Typographie · Signalétique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R13",
+      "family": "Maisons S. Turner",
+      "name": "Automated Architecture / AUAR",
+      "source_url": "https://ascendstudio.com/work/automated-architecture/",
+      "credits": "Ascend Studio",
+      "study": "Observer les blocs et la grille mobile dérivés du processus de construction; une piste structurelle sans ajouter un toit décoratif.",
+      "tags": "Système modulaire · Mouvement · Architecture",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R14",
+      "family": "Maisons S. Turner",
+      "name": "Favre+Guth",
+      "source_url": "https://twks.ch/en/projects/favre-guth",
+      "credits": "TWKS",
+      "study": "Étudier le signe plus comme règle d’assemblage pour les mises en page, et non comme simple décoration autour du nom.",
+      "tags": "Assemblage · Grille · Typographie",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R15",
+      "family": "Maisons S. Turner",
+      "name": "Focus on Design",
+      "source_url": "https://www.meetbob.co.uk/portfolio/focus-on-design/",
+      "credits": "Bob",
+      "study": "Comparer la place du monogramme FD sur dessins, documents et interfaces; distinguer taille du logo et hiérarchie du contenu.",
+      "tags": "Monogramme · Numérique · Documents",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R16",
+      "family": "Maisons S. Turner",
+      "name": "Redrow",
+      "source_url": "https://absolute.agency/client/redrow/a-better-way-to-brand",
+      "credits": "Absolute",
+      "study": "Examiner la rationalisation de la marque mère et de ses gammes, jusque dans les centres de vente et la signalétique de chantier.",
+      "tags": "Architecture de marque · Signalétique · Vente",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R17",
+      "family": "Maisons S. Turner",
+      "name": "ARCUS",
+      "source_url": "https://poloko.com/project/arcus/",
+      "credits": "Poloko",
+      "study": "Observer le rapport entre un mot-signe affirmé et des supports plus discrets : chantier, papeterie et documentation de projet.",
+      "tags": "Lettrage · Architecture · Documents",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R18",
+      "family": "Maisons S. Turner",
+      "name": "Akasabi",
+      "source_url": "https://www.pallavinopany.com/projects/akasabi",
+      "credits": "Pallavi Nopany",
+      "study": "Étudier la ponctuation du monogramme, les blancs et le dialogue entre plans architecturaux et illustrations botaniques.",
+      "tags": "Monogramme · Espace · Illustration",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R19",
+      "family": "Maisons S. Turner",
+      "name": "Anchor Place",
+      "source_url": "https://selftitled.com.au/project/anchor-place/",
+      "credits": "Self-titled",
+      "study": "Observer comment le raccourci AP et les messages composent un système pour une offre résidentielle modulable.",
+      "tags": "Monogramme · Système modulaire · Mouvement",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R20",
+      "family": "Maisons S. Turner",
+      "name": "CBRE",
+      "source_url": "https://cghnyc.com/work/project/cb-richard-ellis",
+      "credits": "Chermayeff & Geismar & Haviv",
+      "study": "Comparer les lettres étendues et les ouvertures du sigle sur enseignes; une référence de robustesse, pas un style à calquer.",
+      "tags": "Lettrage · Signalétique · Monochrome",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R21",
+      "family": "Gosier",
+      "name": "Tony Iommi",
+      "source_url": "https://thecreativecorporation.com/work/tony-iommi-music-branding-website-design/",
+      "credits": "The Creative Corporation; lettrage avec Samuel Baker",
+      "study": "Étudier un lettrage gothique principal associé à une typographie d’accompagnement et à des symboles employés avec retenue.",
+      "tags": "Blackletter · Typographie · Numérique",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R22",
+      "family": "Gosier",
+      "name": "Pitch Festival",
+      "source_url": "https://somehow.nl/cases/pitch-festival/",
+      "credits": "Somehow",
+      "study": "Observer la construction d’une voix typographique angulaire; distinguer ses références culturelles des formes librement transférables.",
+      "tags": "Lettrage · Culture · Campagne",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R23",
+      "family": "Gosier",
+      "name": "Strange Sounds From Beyond",
+      "source_url": "https://mainstudio.com/identity/ssfb/",
+      "credits": "Mainstudio",
+      "study": "Étudier le dialogue entre caractères, lignes et formes dans une identité de musique expérimentale.",
+      "tags": "Géométrie · Typographie · Campagne",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R24",
+      "family": "Gosier",
+      "name": "Elbriot Festival 2025",
+      "source_url": "https://tilogo.com/project/elbriot-2025",
+      "credits": "Tilo Göbel / Tilogo",
+      "study": "Examiner le rôle de l’illustration dans une campagne métal; ne pas confondre affiche saisonnière et logo permanent.",
+      "tags": "Illustration · Campagne · Marchandise",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R25",
+      "family": "Gosier",
+      "name": "Green Island",
+      "source_url": "https://questionmarque.studio/portfolio/green-island-festival",
+      "credits": "Question Marque",
+      "study": "Observer comment textures d’impression, couleurs et icônes donnent de l’énergie à un système suffisamment organisé pour un site.",
+      "tags": "Texture · Lettrage · Numérique",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R26",
+      "family": "Gosier",
+      "name": "Rock Werchter",
+      "source_url": "https://tin.studio/work/rock-werchter",
+      "credits": "TIN; typographie Edgar Walthert; motion Devon Moodley",
+      "study": "Étudier les titres condensés empilés et les motifs variables; garder la hiérarchie lisible malgré une expression très énergique.",
+      "tags": "Typographie · Campagne · Mouvement",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R27",
+      "family": "Gosier",
+      "name": "San Francisco Symphony",
+      "source_url": "https://wearecollins.com/case-studies/san-francisco-symphony/",
+      "credits": "COLLINS",
+      "study": "Explorer la typographie expressive liée à la musique comme couche vivante autour d’une identité reconnaissable.",
+      "tags": "Typographie · Mouvement · Culture",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R28",
+      "family": "Gosier",
+      "name": "Nordoff and Robbins",
+      "source_url": "https://www.pentagram.com/work/nordoff-and-robbins",
+      "credits": "Pentagram / Marina Willer",
+      "study": "Étudier comment le langage musical et l’esperluette donnent une voix au système, sans rendre chaque ligne de texte expressive.",
+      "tags": "Typographie · Mouvement · Culture",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R29",
+      "family": "Gosier",
+      "name": "The Public Theater",
+      "source_url": "https://www.behance.net/gallery/8043101/The-Public-Theater",
+      "credits": "Pentagram; portfolio Pentagram Design / Kurt Koepfle",
+      "study": "Comparer densité typographique, contraste d’échelles et grammaire d’affiche; préserver une signature forte sans uniformiser toutes les campagnes.",
+      "tags": "Typographie · Campagne · Édition",
+      "provenance": "Analogie graphique — Portfolio du concepteur sur Behance"
+    },
+    {
+      "id": "R30",
+      "family": "Gosier",
+      "name": "Amsterdam Sinfonietta",
+      "source_url": "https://studiodumbar.com/work/amsterdam-sinfonietta-identity",
+      "credits": "Studio Dumbar",
+      "study": "Observer un mot-signe stable accompagné de motifs variables issus de l’acronyme AS et de la musique.",
+      "tags": "Mouvement · Système génératif · Typographie",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R31",
+      "family": "Vert Passion",
+      "name": "Kew",
+      "source_url": "https://www.pentagram.com/work/the-royal-botanical-gardens-kew",
+      "credits": "Pentagram / Harry Pearce",
+      "study": "Comparer identité institutionnelle, communication et collections botaniques; chercher une voix spécifique plutôt qu’une feuille générique.",
+      "tags": "Nature · Typographie · Système de marque",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R32",
+      "family": "Vert Passion",
+      "name": "New York Botanical Garden",
+      "source_url": "https://wolffolins.com/work/nybg",
+      "credits": "Wolff Olins",
+      "study": "Étudier la coexistence de lettres inspirées du vivant et d’une grille liée à l’architecture de la serre.",
+      "tags": "Nature · Typographie · Grille",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R33",
+      "family": "Vert Passion",
+      "name": "Chicago Botanic Garden",
+      "source_url": "https://www.pono.design/projects/chicago-botanic-garden",
+      "credits": "Pono; stratégie The Scratch Collective",
+      "study": "Examiner la simplification d’une fleur locale et les versions adaptées aux tailles; géométrie botanique ne signifie pas détail maximal.",
+      "tags": "Nature · Géométrie · Réduction",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R34",
+      "family": "Vert Passion",
+      "name": "Santa Barbara Botanic Garden",
+      "source_url": "https://j2made.com/projects/santa-barbara-botanic-garden/",
+      "credits": "J2",
+      "study": "Étudier un signe à plusieurs lectures et son déploiement en cartes, supports et expérience numérique.",
+      "tags": "Nature · Symbole · Numérique",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R35",
+      "family": "Vert Passion",
+      "name": "Longwood Gardens",
+      "source_url": "https://2x4.org/work/longwood-gardens/",
+      "credits": "2x4",
+      "study": "Observer une identité pensée avec l’expérience de visite, l’interprétation, le commerce et la programmation.",
+      "tags": "Nature · Signalétique · Édition",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R36",
+      "family": "Vert Passion",
+      "name": "Gardens of Golden Gate Park",
+      "source_url": "https://visitoffice.com/work/gardens-of-golden-gate-park",
+      "credits": "Office / Jason Schulte Design",
+      "study": "Examiner comment plusieurs jardins restent distincts dans une famille commune; utile pour organiser plusieurs services paysagers.",
+      "tags": "Architecture de marque · Couleur · Numérique",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R37",
+      "family": "Vert Passion",
+      "name": "Royal Botanic Garden Edinburgh",
+      "source_url": "https://www.johnsonbanks.co.uk/templates/work/royal-botanic-garden-edinburgh",
+      "credits": "Johnson Banks; stratégie Winster Marsh",
+      "study": "Étudier le redessin progressif de la Sibbaldia et son usage comme encadrement actif, avec une famille de quatre jardins.",
+      "tags": "Nature · Réduction · Architecture de marque",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R38",
+      "family": "Vert Passion",
+      "name": "Botanic Gardens of Sydney",
+      "source_url": "https://swell.au/work/botanic-gardens-of-sydney",
+      "credits": "SWELL",
+      "study": "Observer le lien entre marque, peintures botaniques, formes kaléidoscopiques et pictogrammes. Séparer symbole et richesse illustrative.",
+      "tags": "Nature · Illustration · Typographie",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R39",
+      "family": "Vert Passion",
+      "name": "São Paulo Botanical Garden",
+      "source_url": "https://www.hardy.design/en/projects/sao-paulo-botanical-garden",
+      "credits": "Hardy",
+      "study": "Comparer formes végétales, plan du lieu et signalétique modulaire; faire du paysage un système d’orientation.",
+      "tags": "Nature · Signalétique · Système modulaire",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R40",
+      "family": "Vert Passion",
+      "name": "Mandai",
+      "source_url": "https://withanak.com/project/mandai/",
+      "credits": "Anak; illustrations et typographie avec collaborateurs crédités",
+      "study": "Étudier les formes de feuillage comme cadrage et la cohérence d’une famille de lieux; ne pas reprendre les espèces ou emblèmes comme décoration interchangeable.",
+      "tags": "Nature · Illustration · Architecture de marque",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R41",
+      "family": "TechTrendy Store",
+      "name": "Nothing",
+      "source_url": "https://www.seventyagency.com/project/nothing/",
+      "credits": "Seventy Agency",
+      "study": "Étudier la voix typographique et la direction de produit sans ajouter de pistes électroniques autour de chaque mot.",
+      "tags": "Typographie · Produit · Technologie",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R42",
+      "family": "TechTrendy Store",
+      "name": "Sonos",
+      "source_url": "https://www.brucemaudesign.com/work/sonos",
+      "credits": "Bruce Mau Design; extension numérique documentée par Instrument",
+      "study": "Comparer rythme visuel, son et objets. La référence BMD et l’évolution numérique Instrument correspondent à des interventions distinctes.",
+      "tags": "Géométrie · Mouvement · Produit",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R43",
+      "family": "TechTrendy Store",
+      "name": "Logitech / Logi",
+      "source_url": "https://www.further.group/work/logitech",
+      "credits": "DesignStudio et équipe Logitech; portfolio hébergé par Further",
+      "study": "Observer comment un fabricant technique devient plus humain par le mot-signe, la couleur et la photographie, sans tout uniformiser en noir.",
+      "tags": "Couleur · Typographie · Produit",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R44",
+      "family": "TechTrendy Store",
+      "name": "Back Market",
+      "source_url": "https://www.behance.net/gallery/208334257/Back-Market",
+      "credits": "Studio Herrström et équipe Back Market; motion Vucko",
+      "study": "Étudier le mouvement circulaire et la séparation du signe et du mot. Ne pas confondre cette version avec les interventions antérieures de Koto.",
+      "tags": "Mouvement · Circularité · Commerce",
+      "provenance": "Secteur voisin — Portfolio des concepteurs sur Behance"
+    },
+    {
+      "id": "R45",
+      "family": "TechTrendy Store",
+      "name": "Wise",
+      "source_url": "https://raggededge.com/partnerships/wise",
+      "credits": "Ragged Edge et équipe Wise",
+      "study": "Comparer un accent couleur fort, une typographie propre et leur cohérence du produit à la campagne. Les déclarations de performance ne sont pas reprises comme preuves.",
+      "tags": "Couleur · Typographie · Numérique",
+      "provenance": "Analogie de système numérique — Portfolio du concepteur"
+    },
+    {
+      "id": "R46",
+      "family": "TechTrendy Store",
+      "name": "Lightmatter",
+      "source_url": "https://www.pentagram.com/work/lightmatter/story",
+      "credits": "Pentagram",
+      "study": "Étudier le monogramme LM et les caractères alternatifs d’Inference Sans; une logique technique qui organise les lettres au lieu d’ajouter un décor.",
+      "tags": "Monogramme · Typographie · Technologie",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R47",
+      "family": "TechTrendy Store",
+      "name": "Splice",
+      "source_url": "https://www.instrument.com/work/splice",
+      "credits": "Instrument",
+      "study": "Observer comment le traitement graphique de l’image reprend des opérations liées au son et se décline dans une plateforme.",
+      "tags": "Typographie · Mouvement · Numérique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R48",
+      "family": "TechTrendy Store",
+      "name": "Practo",
+      "source_url": "https://cghnyc.com/work/project/practo",
+      "credits": "Chermayeff & Geismar & Haviv",
+      "study": "Examiner les points de connexion et les règles de couleur pour distinguer les offres dans une architecture de marque.",
+      "tags": "Connexion · Typographie · Architecture de marque",
+      "provenance": "Analogie de système numérique — Portfolio du concepteur"
+    },
+    {
+      "id": "R49",
+      "family": "TechTrendy Store",
+      "name": "INTO",
+      "source_url": "https://studiodumbar.com/work/into",
+      "credits": "Studio Dumbar / DEPT",
+      "study": "Étudier la transition et la transformation comme langage d’une expérience numérique; une alternative à l’iconographie technologique attendue.",
+      "tags": "Mouvement · Typographie · Numérique",
+      "provenance": "Analogie de système numérique — Portfolio du concepteur"
+    },
+    {
+      "id": "R50",
+      "family": "TechTrendy Store",
+      "name": "Platform",
+      "source_url": "https://www.pentagram.com/work/platform",
+      "credits": "Pentagram / Eddie Opara",
+      "study": "Observer la ligne issue du mot-signe qui devient parcours, animation, repère de lieu et organisation de contenu.",
+      "tags": "Ligne · Mouvement · Numérique",
+      "provenance": "Analogie de système numérique — Portfolio du concepteur"
+    },
+    {
+      "id": "R51",
+      "family": "Vanlife",
+      "name": "Lightship",
+      "source_url": "https://manual.studio/work/lightship",
+      "credits": "Manual; site par Locomotive",
+      "study": "Comparer précision du véhicule, palette naturelle et encadrements inspirés des fenêtres; une direction plein air sans badge surchargé.",
+      "tags": "Voyage · Produit · Cadrage",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R52",
+      "family": "Vanlife",
+      "name": "REI Co-op",
+      "source_url": "https://www.damienbertels.com/rei-co-op",
+      "credits": "Hornall Anderson; designer Damien Bertels",
+      "study": "Étudier l’évolution documentée du système coopératif et son esprit d’aventure. Ce cas historique n’affirme pas l’état actuel de toute la marque.",
+      "tags": "Patrimoine · Plein air · Système de marque",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R53",
+      "family": "Vanlife",
+      "name": "The Dyrt",
+      "source_url": "https://www.nicolebelcher.com/the-dyrt",
+      "credits": "Nicole Belcher et équipe interne",
+      "study": "Observer le feu de camp comme point de rassemblement, puis ses liens avec badges, illustration et interface.",
+      "tags": "Symbole · Badge · Numérique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R54",
+      "family": "Vanlife",
+      "name": "SylvanSport GO",
+      "source_url": "https://windhamdesigns.com/case-study/sylvan-sport-go-2/",
+      "credits": "Windham Designs",
+      "study": "Comparer identité, catalogues et explication des fonctions d’un équipement de camping; faire comprendre le produit avant de décorer.",
+      "tags": "Produit · Catalogue · Plein air",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R55",
+      "family": "Vanlife",
+      "name": "Entrada Camps & Conservation",
+      "source_url": "https://www.stature.design/portfolio/entrada",
+      "credits": "Stature",
+      "study": "Étudier la tension entre aventure et retenue visuelle dans une proposition d’hébergement; distinguer identité et photographies de tiers créditées.",
+      "tags": "Voyage · Nature · Édition",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R56",
+      "family": "Vanlife",
+      "name": "National Parks Ireland",
+      "source_url": "https://imagenow.ie/work/national-parks/",
+      "credits": "Image Now",
+      "study": "Examiner le lien entre écriture Ogham, emblèmes et orientation. Étudier le principe d’ancrage territorial, pas reprendre ce langage culturel.",
+      "tags": "Territoire · Typographie · Signalétique",
+      "provenance": "Secteur voisin — Portfolio du concepteur"
+    },
+    {
+      "id": "R57",
+      "family": "Vanlife",
+      "name": "YETI — expérience numérique",
+      "source_url": "https://yml.co/project/yeti",
+      "credits": "YML",
+      "study": "Comparer modules de récit, détails de fabrication et comparaison de produits. Cas d’application de marque, pas attribution du logo YETI.",
+      "tags": "Numérique · Produit · Commerce",
+      "provenance": "Application numérique — Portfolio du concepteur — déploiement numérique"
+    },
+    {
+      "id": "R58",
+      "family": "Vanlife",
+      "name": "National Park Service — Unigrid",
+      "source_url": "https://www.nps.gov/subjects/hfc/publications.htm",
+      "credits": "Massimo Vignelli et NPS / Harpers Ferry Center",
+      "study": "Étudier le bandeau, les formats et la grille de brochures comme système cohérent de cartes et d’information de terrain.",
+      "tags": "Cartographie · Grille · Édition",
+      "provenance": "Système éditorial — Documentation de l’organisation"
+    },
+    {
+      "id": "R59",
+      "family": "Vanlife",
+      "name": "MEC — retour à la montagne",
+      "source_url": "https://www.newswire.ca/fr/news-releases/mec-se-recentre-sur-ses-valeurs-fondamentales-et-devoile-un-nouveau-logo-marquant-le-retour-a-la-montagne-876583518.html",
+      "credits": "Hulse & Durrell avec MEC",
+      "study": "Observer la réinterprétation documentée d’un emblème de montagne. Référence de l’évolution annoncée en 2021, non audit de la marque actuelle.",
+      "tags": "Patrimoine · Montagne · Réduction",
+      "provenance": "Secteur voisin — Communiqué de la marque distribué par Newswire"
+    },
+    {
+      "id": "R60",
+      "family": "Vanlife",
+      "name": "AllTrails — expérience 2024",
+      "source_url": "https://www.alltrails.com/press/alltrails-reveals-major-update",
+      "credits": "Publication AllTrails; attribution graphique détaillée non précisée",
+      "study": "Comparer pages de parcs, collections et pages de sentiers. Référence d’organisation numérique, pas étude de conception du logo.",
+      "tags": "Numérique · Cartographie · Plein air",
+      "provenance": "Application numérique — Publication de la marque — déploiement numérique"
+    },
+    {
+      "id": "R61",
+      "family": "Monogramme AB — à confirmer",
+      "name": "Barwis",
+      "source_url": "https://www.pentagram.com/work/barwis",
+      "credits": "Pentagram",
+      "study": "Étudier la seconde lecture dans le B et la dérivation d’icônes; vérifier qu’une métaphore intégrée ne déforme pas inutilement l’initiale.",
+      "tags": "Monogramme · Contreforme · Géométrie",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R62",
+      "family": "Monogramme AB — à confirmer",
+      "name": "Museum of Arts and Design / MAD",
+      "source_url": "https://www.pentagram.com/work/museum-of-arts-and-design/story",
+      "credits": "Pentagram",
+      "study": "Comparer cercle, carré et lettres dans un alphabet cohérent; la grille est une règle de construction, pas un décor explicatif.",
+      "tags": "Monogramme · Géométrie · Système modulaire",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R63",
+      "family": "Monogramme AB — à confirmer",
+      "name": "The Joslyn",
+      "source_url": "https://www.pentagram.com/work/the-joslyn",
+      "credits": "Pentagram; collaboration ABC Dinamo",
+      "study": "Étudier plusieurs voix typographiques reliées à une même structure. Analogie de famille de lettres plutôt que monogramme à deux initiales.",
+      "tags": "Typographie · Architecture · Variantes",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R64",
+      "family": "Monogramme AB — à confirmer",
+      "name": "Young V&A",
+      "source_url": "https://www.pentagram.com/work/young-v-and-a",
+      "credits": "Pentagram",
+      "study": "Observer comment des caractères expressifs cohabitent avec un signe institutionnel hérité, sans réinventer celui-ci dans chaque application.",
+      "tags": "Typographie · Variantes · Architecture de marque",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R65",
+      "family": "Monogramme AB — à confirmer",
+      "name": "MoMA",
+      "source_url": "https://cghnyc.com/work/project/moma",
+      "credits": "Chermayeff & Geismar & Haviv",
+      "study": "Étudier la simplicité d’un nom abrégé et la discipline d’application qui lui donne sa présence, du document à l’espace physique.",
+      "tags": "Typographie · Édition · Signalétique",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R66",
+      "family": "Monogramme AB — à confirmer",
+      "name": "GOAS",
+      "source_url": "https://studiojugi.com/projects/visual-identity-monogram-design-goas-architecture/",
+      "credits": "StudioJugi",
+      "study": "Examiner la fusion de plusieurs initiales et l’équilibre des pleins et des vides; tester la lecture plutôt que compter les lettres cachées.",
+      "tags": "Monogramme · Architecture · Géométrie",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R67",
+      "family": "Monogramme AB — à confirmer",
+      "name": "Fabriano",
+      "source_url": "https://www.pentagram.com/work/fabriano/story",
+      "credits": "Pentagram",
+      "study": "Étudier le raccourci « fa » et les variations adaptées aux petits usages; une leçon de hiérarchie entre nom complet et signe compact.",
+      "tags": "Monogramme · Réduction · Édition",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    },
+    {
+      "id": "R68",
+      "family": "Monogramme AB — à confirmer",
+      "name": "V&A — monogramme",
+      "source_url": "https://a-g-i.org/design/victoria-albert-museum",
+      "credits": "Alan Fletcher; collaboration Quentin Newark",
+      "study": "Observer comment l’esperluette complète une partie du A manquante. Transférer le principe de partage d’un trait, jamais cette composition.",
+      "tags": "Monogramme · Contreforme · Lettrage",
+      "provenance": "Analogie graphique — Archive professionnelle AGI, crédits à Alan Fletcher Archive"
+    },
+    {
+      "id": "R69",
+      "family": "Monogramme AB — à confirmer",
+      "name": "CN",
+      "source_url": "https://ecprod.cn.ca/corp/fr/histoires/20210204-allan-fleming/",
+      "credits": "Allan Fleming; programme avec James Valkus",
+      "study": "Étudier le tracé continu qui relie lettres et déplacement; pour AB, chercher un geste propre aux initiales et à l’usage confirmé.",
+      "tags": "Monogramme · Ligne · Signalétique",
+      "provenance": "Analogie graphique — Histoire publiée par la marque"
+    },
+    {
+      "id": "R70",
+      "family": "Monogramme AB — à confirmer",
+      "name": "MIT Media Lab",
+      "source_url": "https://www.pentagram.com/work/mit-media-lab",
+      "credits": "Pentagram / Michael Bierut et Aron Fay",
+      "study": "Comparer le ML et les signes des groupes de recherche sur une grille commune; la variété fonctionne parce que la règle reste stable.",
+      "tags": "Monogramme · Grille · Système modulaire",
+      "provenance": "Analogie graphique — Portfolio du concepteur"
+    }
+  ]
+}
