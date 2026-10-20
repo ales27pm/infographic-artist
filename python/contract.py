@@ -3,9 +3,10 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.1.2.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0.html"
 LEGACY_TEMPLATE_URI = "ui://infographic-artist/app-v1.html"
 PREVIOUS_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.1.html"
+RECENT_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.2.html"
 MIME_TYPE = "text/html;profile=mcp-app"
 
 SERVER_INSTRUCTIONS = (
@@ -27,6 +28,20 @@ FILE_SCHEMA: dict[str, Any] = {
         "file_name": {"type": "string", "description": "Original file name when available."},
     },
     "required": ["download_url", "file_id"],
+    "additionalProperties": False,
+}
+
+DESIGN_CONTEXT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "description": "Optional declared design context for the eight-stage plan. Omitted facts remain unknown; no defaults or test evidence are inferred.",
+    "properties": {
+        "task": {"type": "string", "maxLength": 800, "description": "What the reader or user must accomplish."},
+        "message": {"type": "string", "maxLength": 1000, "description": "The message or relationship to communicate."},
+        "medium": {"type": "string", "maxLength": 160, "description": "Final medium and relevant interaction, if any."},
+        "final_size": {"type": "string", "maxLength": 160, "description": "Final dimensions with units and relevant reproduction conditions."},
+        "audience": {"type": "string", "maxLength": 400, "description": "Declared intended audience."},
+        "cultural_context": {"type": "string", "maxLength": 600, "description": "Relevant cultural context and references, when known."},
+    },
     "additionalProperties": False,
 }
 
@@ -235,12 +250,13 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "title": "Search the graphic-systems library",
         "description": (
             "Use this when the user wants methods, manuals, studios, designers, schools, or system precedents such as "
-            "NASA, Braun, IBM, Pentagram, Chermayeff & Geismar, Vignelli, or Müller-Brockmann."
+            "NASA, Braun, IBM, Pentagram, Chermayeff & Geismar, Vignelli, or Müller-Brockmann. "
+            "Set kind='principle' to search 150 documented design principles by ID or topic, including mathematics, perception, physics, accessibility and symbolic traditions, with their limits and source reading scope."
         ),
         "input": _object_schema(
             {
                 "query": {"type": "string", "default": "", "description": "Name, method, project, or design principle."},
-                "kind": {"type": "string", "default": "", "description": "Optional type filter, such as studio, manual, designer, or school."},
+                "kind": {"type": "string", "default": "", "description": "Use principle for the documented design-principles catalogue; otherwise optional studio, manual, designer, or school filter."},
                 "limit": {"type": "integer", "minimum": 1, "maximum": 25, "default": 12},
             }
         ),
@@ -253,14 +269,15 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "description": (
             "Use this when the user provides a brand brief and wants three structurally incompatible creative routes. "
             "The tool transfers principles, never protected forms, and includes stress tests, anti-copy rules, and "
-            "plugin-ready image-generation prompts for concept boards."
+            "plugin-ready image-generation prompts for concept boards. Includes an eight-stage design plan with untested checks; no user-study result or accessibility conformance is inferred."
         ),
         "input": _object_schema(
             {
                 "name": {"type": "string", "minLength": 1, "description": "Brand or project name."},
                 "sector": {"type": "string", "minLength": 1, "description": "Sector or operating context."},
                 "promise": {"type": "string", "minLength": 3, "description": "What the identity must make credible or perceptible."},
-                "audience": {"type": "string", "default": "public général"},
+                "audience": {"type": "string", "description": "Declared intended audience, if known."},
+                "design_context": deepcopy(DESIGN_CONTEXT_SCHEMA),
                 "traits": {"type": "array", "items": {"type": "string"}, "maxItems": 8, "default": []},
                 "must_avoid": {"type": "array", "items": {"type": "string"}, "maxItems": 8, "default": []},
                 "risk_tolerance": {"type": "string", "default": "équilibrée"},
@@ -325,8 +342,8 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
     "critique_brand_image": {
         "title": "Critique a visual proposal",
         "description": (
-            "Use this when the user supplies a logo, mark, layout, or brand proposal and wants a scored critique of "
-            "composition, hierarchy, legibility, memorability, and differentiation. An optional reference improves the differentiation score."
+            "Use this when the user supplies a logo, mark, layout, or brand proposal and wants technical heuristics for "
+            "composition, hierarchy, reduction, complexity, salience, and differentiation. Scores are heuristic proxies, not measurements of beauty, memorization, comprehension, or preference. Human evaluations remain untested."
         ),
         "input": _object_schema(
             {
@@ -360,13 +377,14 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "title": "Coach a design decision",
         "description": (
             "Use this when the user wants to understand why one graphic decision is stronger, convert critique into a "
-            "45–90 minute exercise, or define measurable acceptance criteria for the next iteration."
+            "45–90 minute exercise, or define measurable acceptance criteria for the next iteration. Includes the eight-stage design workflow with declared context, missing facts and separate untested human evaluations."
         ),
         "input": _object_schema(
             {
                 "question": {"type": "string", "minLength": 1, "description": "The concrete design decision or uncertainty."},
                 "goal": {"type": "string", "default": "improve the next iteration"},
                 "critique": {"type": "object", "description": "Optional critique result previously returned by critique_brand_image."},
+                "design_context": deepcopy(DESIGN_CONTEXT_SCHEMA),
             },
             ["question"],
         ),

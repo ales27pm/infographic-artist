@@ -1,11 +1,30 @@
 ---
 name: infographic-artist
-description: Research and improve visual identities, logos, brand systems, infographics and their UI applications with Infographic Artist. Use for source-aware precedents, concrete critique, distinct creative directions and a verified concept-to-image workflow. Not for unrelated calendars, email or deployment of a separate showcase site.
+description: Research and improve visual identities, art, infographics and UI applications with documented principles of proportion, geometry, perception, aesthetics, physics and information design. Use for sourced precedents, concrete critique, an eight-step design workflow, distinct creative directions and native concept-to-image creation with Infographic Artist.
 ---
 
 # Infographic Artist
 
 The product is this plugin in ChatGPT and Codex. A showcase website or an HTML atlas is a supporting artifact, not a replacement for working plugin tools.
+
+## Eight-step design workflow
+
+Follow [the design workflow](references/design-workflow.md) in this order, adapting the depth to the task and reusing the user's confirmed context:
+
+1. Définir la tâche, le public, le message, le support et la taille finale.
+2. Déterminer ce que le visuel doit représenter correctement.
+3. Appliquer les contraintes de reproduction et d’accessibilité pertinentes.
+4. Choisir les principes perceptifs qui clarifient la structure.
+5. Explorer plusieurs systèmes de proportion et de composition.
+6. Développer la direction artistique et les références symboliques.
+7. Effectuer les corrections optiques et les déclinaisons.
+8. Évaluer séparément reconnaissance, compréhension et préférence.
+
+Retrieve relevant principles on demand with `search_design_systems` and `kind='principle'`, searching by ID, name or domain. The bundled [design-principles.json](references/design-principles.json) contains 150 concepts, 69 references and 14 domains; it is an extended map, not an exhaustive or systematic review. Read each selected record's `basis`, `application`, `limits` and `source_ids`, then the cited source's scope. Applications are proposed translations into design, not experimentally validated instructions for every image. Load only relevant records; never apply all 150 rules to every brief.
+
+When supported by the discovered tool schema, pass optional `design_context` (`task`, `message`, `medium`, `final_size`, `audience`, `cultural_context`) to `coach_brand_decision` or `generate_brand_directions`. Their `data.design_workflow` is an eight-step plan initialized as `non_testé`, not a performed audit. The Principes/library view exposes the same research; a visible step, returned plan or heuristic score is not evidence of completion. If the installed tools lack these fields, state that limitation and use the reference to prepare the plan without inventing a successful API call.
+
+For actual checks, distinguish `calcul`, `inspection` and `essai`. Record only supported states: `non_testé`, `satisfait`, `écart`, `indéterminé`, `non_applicable`; attach the actual target, criterion and evidence. Keep recognition, comprehension and preference separate. Never produce an aggregate beauty score or imply that the server performed user studies, computed compliance or validated a proposed check.
 
 ## Tools and evidence
 

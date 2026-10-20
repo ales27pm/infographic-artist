@@ -1,0 +1,308 @@
+{
+  "schema_version": "1.0",
+  "title": "Huit étapes de conception documentée",
+  "language": "fr-CA",
+  "scope_note": "Plan de travail proposé : aucun contrôle de rendu ni essai auprès de personnes n’a été exécuté par ce plan. Les références fondent les notions; elles ne constituent pas des preuves sur le projet.",
+  "context_fields": {
+    "task": {
+      "label": "Tâche",
+      "max_length": 800
+    },
+    "message": {
+      "label": "Message",
+      "max_length": 1000
+    },
+    "medium": {
+      "label": "Support",
+      "max_length": 160
+    },
+    "final_size": {
+      "label": "Taille finale et unités",
+      "max_length": 160
+    },
+    "audience": {
+      "label": "Public",
+      "max_length": 400
+    },
+    "cultural_context": {
+      "label": "Contexte culturel",
+      "max_length": 600
+    }
+  },
+  "search_aliases": [
+    {
+      "from": "phi",
+      "to": "section d or"
+    },
+    {
+      "from": "fibonaci",
+      "to": "fibonacci"
+    },
+    {
+      "from": "golden ratio",
+      "to": "section d or"
+    },
+    {
+      "from": "golden section",
+      "to": "section d or"
+    },
+    {
+      "from": "nombre d or",
+      "to": "section d or"
+    },
+    {
+      "from": "nombre dor",
+      "to": "section d or"
+    },
+    {
+      "from": "section doree",
+      "to": "section d or"
+    },
+    {
+      "from": "sacred geometry",
+      "to": "geometrie symbolique"
+    },
+    {
+      "from": "geometrie sacree",
+      "to": "geometrie symbolique"
+    },
+    {
+      "from": "fractales",
+      "to": "fractal"
+    },
+    {
+      "from": "fractale",
+      "to": "fractal"
+    }
+  ],
+  "stages": [
+    {
+      "id": "DW-01",
+      "title": "Définir la tâche, le public, le message, le support et la taille finale.",
+      "objective": "Définir ce que le visuel doit permettre, pour qui et dans quelles conditions.",
+      "deliverables": [
+        "Brief déclaré et contraintes du support.",
+        "Liste des informations manquantes, sans valeurs inventées."
+      ],
+      "checks": [
+        "Renseigner la tâche, le message, le public, le support, la taille avec unités et le contexte culturel.",
+        "Distinguer les informations déclarées des hypothèses; ne pas assigner des préférences à une personne selon son origine."
+      ],
+      "principle_ids": [
+        "GEO-01",
+        "INF-07",
+        "INF-17",
+        "PER-33"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-02",
+      "title": "Déterminer ce que le visuel doit représenter correctement.",
+      "objective": "Préserver les quantités et la signification avant de choisir la composition.",
+      "deliverables": [
+        "Correspondance entre données, canaux visuels et relations.",
+        "Unités, sources, périmètres et incertitudes documentés."
+      ],
+      "checks": [
+        "Vérifier les rapports de longueurs ou d’aires, les origines pertinentes et les bases de comparaison.",
+        "Distinguer association, succession, flux et causalité; une flèche ne démontre pas une relation causale."
+      ],
+      "principle_ids": [
+        "INF-01",
+        "INF-04",
+        "INF-05",
+        "INF-07",
+        "INF-08",
+        "INF-09"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-03",
+      "title": "Appliquer les contraintes de reproduction et d’accessibilité pertinentes.",
+      "objective": "Choisir les critères selon le support, les fonctions et le niveau visé.",
+      "deliverables": [
+        "Critères applicables, exceptions justifiées et mesures à effectuer.",
+        "Conditions de reproduction et rendus à inspecter."
+      ],
+      "checks": [
+        "Mesurer les contrastes concernés sur le fond réel, conserver les exceptions de chaque critère et vérifier les informations portées par la couleur seule.",
+        "Selon les fonctions : vérifier clavier, focus, redimensionnement et contrôle des changements automatiques; distinguer exigences A, AA et AAA.",
+        "Inspecter le résultat après export ou conversion colorimétrique; aucune conformité globale ne découle de ce plan."
+      ],
+      "principle_ids": [
+        "INF-13",
+        "INF-14",
+        "INF-15",
+        "INF-17",
+        "INF-24",
+        "INF-25",
+        "INF-29",
+        "INF-30",
+        "INF-31",
+        "INF-32"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-04",
+      "title": "Choisir les principes perceptifs qui clarifient la structure.",
+      "objective": "Relier les groupes et la hiérarchie visuelle à la tâche du lecteur.",
+      "deliverables": [
+        "Groupes sémantiques et hiérarchie éditoriale explicites.",
+        "Règles de proximité, alignement, connexion et étiquetage."
+      ],
+      "checks": [
+        "Inspecter les relations spatiales et la proximité des étiquettes avec ce qu’elles expliquent.",
+        "Vérifier l’ordre de lecture auprès du public visé : une mesure de saillance ne prouve pas la compréhension."
+      ],
+      "principle_ids": [
+        "PER-01",
+        "PER-03",
+        "PER-04",
+        "PER-06",
+        "PER-14",
+        "INF-10",
+        "INF-37"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-05",
+      "title": "Explorer plusieurs systèmes de proportion et de composition.",
+      "objective": "Produire des variantes utiles à l’intention avec un contenu constant.",
+      "deliverables": [
+        "Variantes de format, grille, rapports, espacements ou cadrage.",
+        "Paramètres et raisons des choix de composition."
+      ],
+      "checks": [
+        "Conserver les textes, valeurs et relations pendant la comparaison des variantes.",
+        "Traiter le nombre d’or et les tiers comme des options; ne pas déplacer ou déformer les données pour satisfaire une géométrie décorative."
+      ],
+      "principle_ids": [
+        "GEO-01",
+        "GEO-04",
+        "GEO-05",
+        "GEO-09",
+        "INF-19",
+        "INF-44"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-06",
+      "title": "Développer la direction artistique et les références symboliques.",
+      "objective": "Donner une intention cohérente et attribuer les références culturelles utilisées.",
+      "deliverables": [
+        "Direction artistique et vocabulaire graphique retenus.",
+        "Origine et contexte des références symboliques réellement utilisées."
+      ],
+      "checks": [
+        "Vérifier la cohérence des choix avec le brief et documenter les références.",
+        "Distinguer tradition symbolique, propriété mathématique et effet empirique; ne pas convertir un sens rituel en preuve scientifique."
+      ],
+      "principle_ids": [
+        "PER-29",
+        "PER-33",
+        "GEO-37",
+        "GEO-39",
+        "GEO-40",
+        "THE-07"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-07",
+      "title": "Effectuer les corrections optiques et les déclinaisons.",
+      "objective": "Adapter le dessin à ses tailles d’usage et à ses conditions de sortie.",
+      "deliverables": [
+        "Déclinaisons aux tailles finales et corrections annotées.",
+        "Rendus de contrôle conservés avec leur contexte."
+      ],
+      "checks": [
+        "Inspecter espacements, contreformes, débordements, traits fins, aliasing et reproduction des couleurs.",
+        "Recontrôler la fidélité des valeurs après transformation; une correction optique ne justifie pas de modifier des proportions quantitatives."
+      ],
+      "principle_ids": [
+        "INF-17",
+        "INF-23",
+        "INF-43",
+        "PHY-18",
+        "PHY-21"
+      ],
+      "status": "non_testé"
+    },
+    {
+      "id": "DW-08",
+      "title": "Évaluer séparément reconnaissance, compréhension et préférence.",
+      "objective": "Observer les résultats auprès du public sans les confondre avec les propriétés du dessin.",
+      "deliverables": [
+        "Protocole, tâches et réponses attendues définis avant l’essai.",
+        "Résultats séparés, effectif, variantes et limites de l’observation."
+      ],
+      "checks": [
+        "Observer séparément ce qui est identifié, ce qui est compris correctement et ce qui est préféré.",
+        "Comparer à contenu constant; sans essai, conserver non_testé. Une préférence ne compense pas une erreur factuelle."
+      ],
+      "principle_ids": [
+        "INF-42",
+        "PER-27",
+        "PER-32",
+        "THE-03"
+      ],
+      "status": "non_testé"
+    }
+  ],
+  "evaluations": {
+    "recognition": {
+      "label": "Reconnaissance",
+      "status": "non_testé",
+      "method": "Faire identifier le signe, l’objet ou l’action; préciser si la réponse est libre ou guidée.",
+      "observations": [],
+      "evidence": []
+    },
+    "comprehension": {
+      "label": "Compréhension",
+      "status": "non_testé",
+      "method": "Faire interpréter les valeurs ou expliquer le mécanisme, puis comparer aux réponses attendues.",
+      "observations": [],
+      "evidence": []
+    },
+    "preference": {
+      "label": "Préférence",
+      "status": "non_testé",
+      "method": "Recueillir le jugement exprimé selon une question définie, distincte des tâches de compréhension.",
+      "observations": [],
+      "evidence": []
+    }
+  },
+  "evidence_contract": {
+    "mode": "planning_only",
+    "accepts_evidence": false,
+    "automatic_validation": false,
+    "statuses": [
+      "non_testé",
+      "satisfait",
+      "écart",
+      "indéterminé",
+      "non_applicable"
+    ],
+    "required_fields": [
+      "principle_id",
+      "target",
+      "revision",
+      "render_context",
+      "expected",
+      "observed",
+      "method",
+      "evidence_reference"
+    ],
+    "methods": [
+      "calculation",
+      "inspection",
+      "user_study"
+    ],
+    "note": "Ces outils préparent le travail et n’enregistrent pas de preuves d’exécution. Une source bibliographique n’est pas une preuve sur le rendu. Une exception nécessite une justification; l’absence d’observation ne signifie pas satisfait. Aucun indice de beauté ni agrégation des évaluations humaines."
+  }
+}

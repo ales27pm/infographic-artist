@@ -5,7 +5,7 @@
     "plugins/infographic-artist/plugin.json",
     "plugins/infographic-artist/mcp.json"
   ],
-  "version": "1.1.2",
+  "version": "1.2.0",
   "app_info": {
     "display_name": "Infographic Artist",
     "subtitle": "Brand research & critique",
@@ -189,6 +189,18 @@
           "prompt": "Search the brand atlas for qxzvnjk987654321.",
           "tools_triggered": "open_brand_atlas",
           "expected_behavior": "Returns zero matching records and no unrelated deep cases."
+        },
+        {
+          "description": "Search golden-ratio principles with complete limits and sources",
+          "prompt": "Search the documented design-principles catalogue for golden ratio using search_design_systems with kind='principle' and limit=25. Return complete matching cards, their limits, and the supporting sources with their reading scope.",
+          "tools_triggered": "search_design_systems",
+          "expected_behavior": "Returns design_principles results with catalogue counts of 150 concepts, 69 sources and 14 domains. Matching cards include definition, basis, application, limits, formula when applicable, source_ids and resolved source records with supports and documented or explicitly unrecorded reading scope. Preserves total_matches and distinguishes exact geometry from context-dependent aesthetic evidence; no universal beauty guarantee or physical-energy claim."
+        },
+        {
+          "description": "Plan eight design stages with three untested human evaluations",
+          "prompt": "Prepare a design plan for a museum poster measuring 420 × 594 mm for visitors aged 12 and older, with the exact message “Comparer les quantités”. Use coach_brand_decision and design_context: task “Comparer trois quantités : 1, 4 et 9”, message “Comparer les quantités”, medium “Affiche de musée imprimée”, final_size “420 × 594 mm”, audience “Visiteurs de 12 ans et plus”. No user-test results are supplied.",
+          "tools_triggered": "coach_brand_decision",
+          "expected_behavior": "Returns data.design_workflow with the supplied context preserved, missing facts identified and these eight stages in this exact order: Définir la tâche, le public, le message, le support et la taille finale. ; Déterminer ce que le visuel doit représenter correctement. ; Appliquer les contraintes de reproduction et d’accessibilité pertinentes. ; Choisir les principes perceptifs qui clarifient la structure. ; Explorer plusieurs systèmes de proportion et de composition. ; Développer la direction artistique et les références symboliques. ; Effectuer les corrections optiques et les déclinaisons. ; Évaluer séparément reconnaissance, compréhension et préférence. Recognition, comprehension and preference are three separate evaluations, each with status non_testé and empty observations and evidence. The plan and heuristic scores are not reported as performed checks, measured human outcomes or an aggregate beauty score."
         }
       ],
       "negative": [
@@ -213,7 +225,7 @@
     "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
   },
   "publication": {
-    "release_notes": "Infographic Artist 1.1.2 makes @Créer une image the exclusive ChatGPT native image-generation action, labels the widget button exactly, and routes concept-board briefs to the host conversation without using a paid image API or claiming that a handoff generated an image."
+    "release_notes": "Infographic Artist 1.2.0 adds a documented catalogue of 150 design principles, 69 sources and 14 domains through search_design_systems with kind=principle. Coaching and creative directions accept optional design_context and return the eight-stage design plan with recognition, comprehension and preference separately marked non_testé. Visual-critique scores remain technical heuristics, not measured human outcomes or a beauty score. Full principle cards retain their limits and source reading scope. The exclusive @Créer une image native handoff is preserved; no server-side paid image API or fabricated generation result is introduced."
   },
   "portal_note": "Apply to the existing Infographic Artist record after reading its current state. Explicitly replace old release notes. This file does not assert compliance, developer identity, review approval or public publication."
 }

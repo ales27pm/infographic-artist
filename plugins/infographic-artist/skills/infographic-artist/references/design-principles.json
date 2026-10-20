@@ -1,0 +1,3194 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Infographic Artist — Référentiel de géométrie, perception et design",
+  "language": "fr-CA",
+  "research_date": "2026-10-19",
+  "scope": "150 notions dans 14 domaines, avec applications et limites. Cartographie étendue, non inventaire fermé de toutes les traditions ni revue systématique exhaustive.",
+  "interpretation": {
+    "basis": "Nature du fondement, pas note de qualité ni échelle linéaire de certitude.",
+    "mathematics_vs_aesthetics": "Une vérité mathématique ou un mécanisme physique ne prouve pas une supériorité esthétique.",
+    "applications": "Les applications constituent notre synthèse; les sources soutiennent uniquement les éléments précisés dans supports.",
+    "empty_sources": "Certaines fiches sont des dérivations élémentaires ou recommandations explicites; elles ne sont pas attribuées à une expérience fictive."
+  },
+  "basis_labels": {
+    "mathematical": "Propriété mathématique",
+    "physical": "Modèle physique ou naturel",
+    "empirical": "Résultat empirique contextualisé",
+    "heuristic": "Pratique ou heuristique",
+    "historical_symbolic": "Tradition historique ou symbolique",
+    "hypothesis": "Théorie ou hypothèse",
+    "standard": "Exigence normative conditionnelle"
+  },
+  "domains": [
+    {
+      "id": "proportions",
+      "label": "Proportions et formats",
+      "count": 18
+    },
+    {
+      "id": "symetries",
+      "label": "Symétries, réseaux et pavages",
+      "count": 11
+    },
+    {
+      "id": "fractales",
+      "label": "Fractales et croissance",
+      "count": 7
+    },
+    {
+      "id": "symbolique",
+      "label": "Géométrie symbolique et traditions",
+      "count": 10
+    },
+    {
+      "id": "perception",
+      "label": "Perception et organisation",
+      "count": 19
+    },
+    {
+      "id": "equilibre",
+      "label": "Équilibre, attention et esthétique",
+      "count": 17
+    },
+    {
+      "id": "donnees",
+      "label": "Données, logique et incertitude",
+      "count": 10
+    },
+    {
+      "id": "couleur",
+      "label": "Couleur et contraste",
+      "count": 7
+    },
+    {
+      "id": "typographie",
+      "label": "Typographie et composition",
+      "count": 10
+    },
+    {
+      "id": "interaction",
+      "label": "Interaction et accessibilité",
+      "count": 7
+    },
+    {
+      "id": "pedagogie",
+      "label": "Cognition et explication",
+      "count": 10
+    },
+    {
+      "id": "physique",
+      "label": "Lumière, projection et mouvement",
+      "count": 14
+    },
+    {
+      "id": "generation",
+      "label": "Génération et construction vectorielle",
+      "count": 7
+    },
+    {
+      "id": "theories",
+      "label": "Information et mesures esthétiques",
+      "count": 3
+    }
+  ],
+  "concepts": [
+    {
+      "id": "GEO-01",
+      "name": "Rapport de format",
+      "definition": "Le rapport largeur/hauteur décrit un format, indépendamment de sa taille. Deux formats ayant le même rapport sont semblables.",
+      "application": "Choisir le rapport selon le contenu, le cadrage, le support et la place du texte; comparer plusieurs variantes à aire constante.",
+      "limits": "Un nombre seul ne prédit ni lisibilité ni beauté. Préciser largeur/hauteur ou grand côté/petit côté pour éviter les inversions.",
+      "basis": "mathematical",
+      "formula": "r = L/H",
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-02",
+      "name": "Changement d’échelle, aire et volume",
+      "definition": "Une homothétie conserve les proportions linéaires; une multiplication des longueurs par k multiplie les aires par k² et les volumes par k³.",
+      "application": "Dimensionner pictogrammes et bulles quantitatives avec une échelle d’aire correcte; conserver des tailles de texte lisibles indépendamment du décor.",
+      "limits": "Une longueur doublée donne une aire quadruplée. La similitude géométrique ne conserve pas automatiquement le poids visuel ni la finesse perceptible.",
+      "basis": "mathematical",
+      "formula": "L′=kL ; A′=k²A ; V′=k³V, avec k>0",
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-03",
+      "name": "Rapports simples et harmoniques",
+      "definition": "Des rapports rationnels tels que 1:1, 2:3, 3:4 et 3:5 organisent les relations entre dimensions.",
+      "application": "Créer une famille de cartes, cadres, panneaux ou marges avec peu de rapports récurrents; comparer des variantes selon leur fonction.",
+      "limits": "L’analogie avec les intervalles musicaux ne prouve aucune supériorité visuelle. Le choix du rapport relève ici d’une convention de composition.",
+      "basis": "heuristic",
+      "formula": "a:b, avec a et b entiers positifs",
+      "source_ids": [],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "GEO-04",
+      "name": "Échelle arithmétique et module",
+      "definition": "Une progression arithmétique ajoute un incrément constant; une grille modulaire contraint les espacements à des multiples d’une unité.",
+      "application": "Aligner marges, espacements, dimensions d’icônes et détails de fabrication; choisir le module selon résolution et densité du contenu.",
+      "limits": "La cohérence peut demander des exceptions optiques. Une grille mathématiquement régulière n’est pas une obligation de rendre tous les intervalles identiques.",
+      "basis": "heuristic",
+      "formula": "s_n=s_0+n·d",
+      "source_ids": [],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "GEO-05",
+      "name": "Échelle géométrique",
+      "definition": "Une progression géométrique multiplie chaque niveau par un rapport constant; φ est un rapport possible parmi une infinité.",
+      "application": "Explorer une hiérarchie de titres, surfaces et espacements; utiliser peu de niveaux, puis corriger selon la longueur des libellés.",
+      "limits": "Un grand rapport crée vite des écarts excessifs. Aucune valeur, y compris φ, ne dispense de tester les tailles finales et les retours à la ligne.",
+      "basis": "heuristic",
+      "formula": "s_n=s_0·r^n",
+      "source_ids": [],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "GEO-06",
+      "name": "Rectangle racine de deux",
+      "definition": "Le rectangle de rapport √2 conserve ce rapport quand on le partage en deux perpendiculairement à son grand côté, puis qu’on tourne une moitié.",
+      "application": "Organiser formats divisibles et compositions imprimées réutilisables; produire des panneaux proportionnellement cohérents.",
+      "limits": "Propriété exacte sous la division précisée; elle n’est pas partagée par tous les rectangles racines. Elle ne constitue pas une preuve esthétique.",
+      "basis": "mathematical",
+      "formula": "r=√2; r=2/r",
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-07",
+      "name": "Rectangles racines et diagonales",
+      "definition": "Les rapports √3, √5 et autres racines se construisent par triangles rectangles; ils fournissent des familles de rectangles et sous-divisions.",
+      "application": "Générer des trames, formats et relations de diagonales; exploiter la géométrie quand elle simplifie réellement la composition ou la fabrication.",
+      "limits": "Les racines sont des constructions, non une échelle universelle de beauté. Les traits de construction doivent pouvoir disparaître sans détruire le sens.",
+      "basis": "mathematical",
+      "formula": "c²=a²+b²; r=√n",
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-08",
+      "name": "Diagonales, réciproques et symétrie dynamique",
+      "definition": "Une composition peut utiliser diagonales, perpendiculaires et rectangles semblables ou réciproques comme réseau de placements.",
+      "application": "Aligner quelques masses, horizons ou directions dominantes; comparer le résultat avec une composition libre et une grille plus simple.",
+      "limits": "Méthode de construction artistique. Une grille superposée après coup ne démontre ni intention historique ni cause de beauté; éviter de tout faire coïncider artificiellement.",
+      "basis": "heuristic",
+      "formula": "r et 1/r",
+      "source_ids": [
+        "G12"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-09",
+      "name": "Section d’or",
+      "definition": "Un segment est partagé en extrême et moyenne raison quand le tout/grande partie égale grande/petite partie.",
+      "application": "Essayer un partage majeur/mineur cohérent pour deux zones; conserver la propriété exacte si le propos est pédagogique ou mathématique.",
+      "limits": "Vérité algébrique certaine; préférence esthétique universelle non établie. La division normalisée est environ 61,8 %/38,2 %, non 62 %/38 % exactement.",
+      "basis": "mathematical",
+      "formula": "(a+b)/a=a/b=φ=(1+√5)/2≈1,6180339887",
+      "source_ids": [
+        "G01",
+        "G02"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-10",
+      "name": "Rectangle d’or",
+      "definition": "Un rectangle de rapport φ se décompose en un carré et un autre rectangle d’or, après rotation de ce dernier.",
+      "application": "Composer un système de sous-cadres ou illustrer l’autosimilarité de cette construction.",
+      "limits": "Ne pas imposer le format aux images ou au texte. Les rectangles préférés dépendent des personnes et du contexte; un rectangle d’or n’est pas une garantie.",
+      "basis": "mathematical",
+      "formula": "φ=1+1/φ",
+      "source_ids": [
+        "G01",
+        "G02"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-11",
+      "name": "Suite de Fibonacci",
+      "definition": "Chaque terme est la somme des deux précédents; le rapport de deux termes consécutifs converge vers φ.",
+      "application": "Employer 1, 2, 3, 5, 8, 13 comme série discrète de modules ou pour une explication botanique correctement contextualisée.",
+      "limits": "Les rapports finis ne sont pas exactement φ. La suite n’est pas une loi générale de croissance naturelle ni une règle obligatoire de composition.",
+      "basis": "mathematical",
+      "formula": "F_0=0; F_1=1; F_(n+2)=F_(n+1)+F_n; F_(n+1)/F_n→φ",
+      "source_ids": [
+        "G04"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-12",
+      "name": "Spirale de Fibonacci à quarts de cercle",
+      "definition": "Le dessin courant assemble des arcs de cercle inscrits dans des carrés dont les côtés suivent Fibonacci.",
+      "application": "Créer un guide de geste ou montrer une approximation construite au compas; nommer honnêtement le type de courbe.",
+      "limits": "Ce n’est pas une spirale logarithmique exacte: chaque morceau a une courbure circulaire. Même des arcs dans des carrés de rapports φ restent une approximation.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G11",
+        "G12"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-13",
+      "name": "Spirale logarithmique et spirale d’or",
+      "definition": "Une spirale logarithmique multiplie son rayon par un facteur constant pour un angle fixé. La spirale d’or impose un facteur φ par quart de tour.",
+      "application": "Dessiner une croissance auto-similaire, une trajectoire narrative ou une géométrie précise; annoncer quel facteur correspond à quel angle.",
+      "limits": "Toutes les spirales logarithmiques ne sont pas d’or. L’usage comme trajectoire de lecture est une proposition à tester, pas un comportement automatique de l’œil.",
+      "basis": "mathematical",
+      "formula": "r=a·exp(bθ) ; θ en radians ; spirale d’or : b=2 ln(φ)/π ; r(θ+π/2)=φr(θ)",
+      "source_ids": [
+        "G11",
+        "G12"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-14",
+      "name": "Spirale d’Archimède",
+      "definition": "Le rayon croît linéairement avec l’angle; l’écart radial entre tours successifs reste constant.",
+      "application": "Construire volutes régulières, rubans et séquences dont on veut garder un espacement radial uniforme.",
+      "limits": "Elle représente une autre géométrie que la spirale logarithmique. L’espace de texte disponible varie; des contenus de longueur constante peuvent exiger d’autres placements.",
+      "basis": "mathematical",
+      "formula": "r=a+bθ; Δr par tour=2πb",
+      "source_ids": [],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "GEO-15",
+      "name": "Spirale de Fermat et disque de points",
+      "definition": "La loi en racine carrée peut distribuer des points avec une densité surfacique approximativement constante lorsqu’on l’associe à un angle de divergence.",
+      "application": "Créer champs de points, semis visuels et compositions botaniques génératives avec une densité contrôlée.",
+      "limits": "Distinguer courbe continue et placement discret. La régularité utile dépend aussi de l’angle, du nombre de points, de leur taille et des bords.",
+      "basis": "mathematical",
+      "formula": "r_n=c√n; θ_n=nα",
+      "source_ids": [
+        "G04"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-16",
+      "name": "Angle d’or et phyllotaxie",
+      "definition": "L’angle d’or, environ 137,508°, est central dans certains modèles d’organisation des organes végétaux et de leurs parastiches.",
+      "application": "Construire une disposition radiale de graines ou de marques; comparer les motifs obtenus en variant angle et densité.",
+      "limits": "Toutes les plantes ne suivent pas une seule règle: des modes verticillés, décussés et multijugués existent. Les mécanismes et conditions comptent autant que les nombres.",
+      "basis": "physical",
+      "formula": "α=360°/φ²≈137,507764°",
+      "source_ids": [
+        "G03",
+        "G04"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-17",
+      "name": "Croissance des coquilles et nautiles",
+      "definition": "Des formes de coquille peuvent être approchées par une croissance logarithmique, avec un taux d’expansion à mesurer sur les spécimens.",
+      "application": "Dessiner une coquille crédible à partir d’un modèle adapté ou mesurer la courbe avant d’attribuer un rapport précis.",
+      "limits": "Le nautile n’est pas l’illustration fiable d’une spirale d’or. Ne pas remplacer ce mythe par un autre ratio universel 4:3 ou χ; variabilité et méthode de mesure subsistent.",
+      "basis": "physical",
+      "formula": null,
+      "source_ids": [
+        "G11",
+        "G12"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-18",
+      "name": "Homothétie et croissance différentielle",
+      "definition": "L’agrandissement proportionnel conserve la forme; des taux différents selon dimensions ou zones modifient la forme.",
+      "application": "Paramétrer croissance, épaisseur, longueur et ramification séparément; distinguer une icône agrandie d’une structure qui se développe.",
+      "limits": "Un modèle géométrique cohérent ne prouve pas que l’organisme ou le matériau réel suit ce mécanisme. Les modèles doivent être confrontés à l’objet visé.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G01",
+        "G04"
+      ],
+      "domain": "proportions",
+      "domain_label": "Proportions et formats",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-19",
+      "name": "Symétrie bilatérale",
+      "definition": "Une réflexion conserve la figure de part et d’autre d’un axe.",
+      "application": "Créer signes reconnaissables, emblèmes et structures calmes; introduire au besoin une différence localisée pour guider l’attention.",
+      "limits": "La symétrie géométrique n’assure pas l’équilibre perceptif si couleurs, texte, orientation ou densités diffèrent. La préférence n’est ni constante ni obligatoire.",
+      "basis": "mathematical",
+      "formula": "réflexion autour d’un axe",
+      "source_ids": [
+        "G01",
+        "G05",
+        "G09"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-20",
+      "name": "Symétrie de rotation et composition radiale",
+      "definition": "Une figure d’ordre n se retrouve après une rotation de 360°/n; une composition radiale organise ses éléments autour d’un centre.",
+      "application": "Concevoir sceaux, rosaces et diagrammes de cycles réellement cycliques; donner une entrée de lecture lorsque l’ordre est nécessaire.",
+      "limits": "L’égalité angulaire peut masquer une hiérarchie, suggérer des relations égales ou rendre l’ordre ambigu. La radialité ne garantit pas une lecture intuitive.",
+      "basis": "mathematical",
+      "formula": "θ=360°/n",
+      "source_ids": [
+        "G09",
+        "G10"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-21",
+      "name": "Translation, réflexion glissée et rythmes",
+      "definition": "Les répétitions par translation peuvent s’associer à réflexion et rotation pour construire des motifs continus.",
+      "application": "Générer bordures, textiles, ornements et repères récurrents avec des raccords explicites.",
+      "limits": "Une répétition décorative ne doit pas être confondue avec une mesure de fréquence dans les données. Les effets de moiré et de densité demandent une vérification au format final.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G09"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-22",
+      "name": "Rosaces, frises et réseaux périodiques",
+      "definition": "Les motifs peuvent se classer selon qu’ils restent centrés, se répètent dans une direction ou se répètent dans deux directions indépendantes.",
+      "application": "Choisir le système de symétrie correspondant au support: emblème, bande, surface; conserver les invariants utiles.",
+      "limits": "Une petite découpe d’image peut cacher la période véritable. Les nombres de symétries locales ne disent pas seuls quel groupe global possède le motif.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G08",
+        "G09"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-23",
+      "name": "Pavages et tessellations",
+      "definition": "Un pavage couvre un domaine par cellules sans lacunes ni chevauchements, selon des règles de voisinage.",
+      "application": "Construire grilles hexagonales, mosaïques et répétitions; faire porter aux limites des cellules une fonction réelle.",
+      "limits": "Des formes égales ne produisent pas toujours un pavage; respecter angles et raccords. Les cellules non égales ne doivent pas suggérer involontairement des valeurs différentes.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G09"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-24",
+      "name": "Pavages quasipériodiques et Penrose",
+      "definition": "Une structure peut présenter un ordre à grande échelle sans répéter une maille par translations. Les règles d’assemblage contraignent les motifs locaux.",
+      "application": "Créer des systèmes visuels dont la cohérence persiste malgré l’absence de répétition simple; expliquer ordre et complexité.",
+      "limits": "Toute mosaïque irrégulière n’est pas quasipériodique. Un motif fini ou historique demande une analyse propre; éviter d’y projeter automatiquement toutes les propriétés d’un pavage infini.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G08"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-25",
+      "name": "Diagramme de Voronoï",
+      "definition": "Chaque cellule regroupe les positions plus proches d’un site que des autres, selon la distance choisie.",
+      "application": "Construire zones de proximité, textures cellulaires ou cartes d’influence explicitement définies.",
+      "limits": "Préciser métrique, frontières et éventuels poids. Des cellules de proximité ne représentent pas automatiquement zones commerciales réelles, mécanisme biologique ou importance quantitative.",
+      "basis": "mathematical",
+      "formula": "V_i={x : d(x,p_i)≤d(x,p_j), pour tout j}",
+      "source_ids": [
+        "G13"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-26",
+      "name": "Triangulation de Delaunay",
+      "definition": "La triangulation de Delaunay relie des sites selon une construction duale de Voronoï; dans le cas euclidien planaire général, aucun site n’est strictement à l’intérieur du cercle circonscrit d’un triangle.",
+      "application": "Créer maillages, interpolation et formes facettées contrôlables.",
+      "limits": "Les cas cocirculaires peuvent donner plusieurs triangulations valides; traiter dégénérescences et précision numérique. Une arête géométrique n’établit pas une causalité entre données.",
+      "basis": "mathematical",
+      "formula": "cercle circonscrit vide de sites en son intérieur",
+      "source_ids": [
+        "G13"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-27",
+      "name": "Empilement et voisinage",
+      "definition": "Les contraintes de contact, taille et frontière peuvent faire émerger une organisation régulière ou irrégulière.",
+      "application": "Composer des collections de pastilles sans chevauchement, comparer densité et espace libre, générer des textures organiques.",
+      "limits": "Distinguer problème mathématique d’empilement, modèle physique et image décorative. Le meilleur arrangement dépend des tailles, contraintes, frontières et critères; aucun motif ne gagne partout.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G03",
+        "G04"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-35",
+      "name": "Polygones réguliers, pentagone et pentagramme",
+      "definition": "Dans un polygone régulier, angles et côtés sont égaux; la géométrie du pentagone et de ses diagonales contient exactement φ.",
+      "application": "Concevoir étoiles et emblèmes à géométrie exacte; expliquer un véritable cas de présence mathématique du nombre d’or.",
+      "limits": "La présence de φ découle ici de la construction. Elle ne démontre pas que la figure est plus belle, plus naturelle ou physiquement énergisante.",
+      "basis": "mathematical",
+      "formula": "pentagone régulier: diagonale/côté=φ",
+      "source_ids": [
+        "G01",
+        "G09"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-38",
+      "name": "Polyèdres réguliers et solides platoniciens",
+      "definition": "Il existe cinq polyèdres réguliers convexes: tétraèdre, cube, octaèdre, dodécaèdre et icosaèdre.",
+      "application": "Construire objets, maquettes, emblèmes et explications spatiales; préciser projection et dimensions réelles.",
+      "limits": "La classification est mathématique. Les associations avec éléments, cosmologie ou spiritualité sont des interprétations historiques distinctes; elles ne valident aucun champ physique supplémentaire.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "symetries",
+      "domain_label": "Symétries, réseaux et pavages",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-28",
+      "name": "Autosimilarité et fractales",
+      "definition": "Une structure fractale peut présenter des détails semblables ou statistiquement apparentés à différentes échelles; la répétition exacte n’est qu’un cas.",
+      "application": "Créer une cohérence entre niveaux de détail, textures et motifs; fixer une profondeur de génération adaptée au support.",
+      "limits": "Les objets naturels sont généralement fractals sur une plage limitée d’échelles. Une récursion quelconque ne prouve pas une fractalité mesurée.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G04",
+        "G05",
+        "G06"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-29",
+      "name": "Dimension fractale",
+      "definition": "Une dimension décrit comment le détail ou la couverture change avec l’échelle, selon une méthode définie.",
+      "application": "Mesurer la complexité d’un motif sur une plage documentée; comparer des variantes avec le même protocole.",
+      "limits": "Préciser méthode, seuils, résolution et plage d’échelles; la limite mathématique peut ne pas exister. La dimension n’est ni une note de beauté ni une mesure exhaustive de la structure visuelle.",
+      "basis": "mathematical",
+      "formula": "D_box=lim(ε→0) log N(ε)/log(1/ε) ; pour N copies de même contraction 0<s<1, sous condition de séparation appropriée : D=log N/log(1/s)",
+      "source_ids": [
+        "G05",
+        "G06"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-30",
+      "name": "Fractales exactes et récursion",
+      "definition": "Des règles comme celles de Koch ou de Sierpiński produisent une répétition géométrique exacte lorsqu’elles sont itérées.",
+      "application": "Générer motifs, découpes et illustrations de récursion; contrôler symétrie, profondeur, nombre de segments et détail minimal.",
+      "limits": "À faible résolution les détails disparaissent. Les résultats esthétiques de fractales statistiques ne se transposent pas automatiquement aux fractales exactes.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G04",
+        "G05"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-31",
+      "name": "Fractales statistiques et spectres 1/f",
+      "definition": "Des images peuvent garder des propriétés statistiques comparables entre échelles, sans répéter exactement les mêmes formes.",
+      "application": "Créer bruit, textures naturelles et niveaux de rugosité; paramétrer la pente spectrale plutôt qu’un adjectif vague.",
+      "limits": "Distinguer spectre d’amplitude et spectre de puissance: leurs exposants diffèrent. La transformation en noir/blanc ou contours change les stimuli et peut changer la perception.",
+      "basis": "mathematical",
+      "formula": "A(f)∝f^(−α); P(f)∝f^(−2α)",
+      "source_ids": [
+        "G06"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-32",
+      "name": "Préférences pour les fractales",
+      "definition": "Des expériences trouvent des préférences moyennes pour certaines complexités; d’autres mettent en évidence l’effet de symétrie, récursion et différences individuelles.",
+      "application": "Proposer plusieurs niveaux de détail et comparer auprès des utilisateurs; considérer une complexité intermédiaire comme point de départ possible.",
+      "limits": "Le slogan «D=1,3–1,5 plaît à tous» est excessif. Certaines fractales exactes suscitent une préférence croissante avec D; aucune dimension optimale universelle n’est établie.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "G05",
+        "G06",
+        "G07"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-33",
+      "name": "Systèmes de Lindenmayer",
+      "definition": "Un L-system utilise un alphabet, un axiome et des règles de réécriture parallèle, souvent interprétés comme instructions de dessin.",
+      "application": "Produire arbres, feuillages, embranchements et motifs procéduraux; garder paramètres et règles reproductibles.",
+      "limits": "Une plante visuellement plausible n’est pas une simulation physiologique validée. Contrôler croissance combinatoire, collisions, densité et limites de récursion.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "G04"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-34",
+      "name": "Ramification et grammaire de formes",
+      "definition": "Une hiérarchie de branches peut être décrite par des règles de production et des paramètres de longueur, angle et ordre.",
+      "application": "Construire diagrammes d’arbre lorsque les relations sont hiérarchiques; générer un vocabulaire de formes apparentées.",
+      "limits": "Ne pas dessiner une hiérarchie si les données sont un réseau avec boucles. Les ramifications naturelles résultent de contraintes supplémentaires, absentes d’une simple grammaire graphique.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "G04"
+      ],
+      "domain": "fractales",
+      "domain_label": "Fractales et croissance",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-36",
+      "name": "Vesica piscis et lentilles de cercles",
+      "definition": "Deux disques égaux dont chaque centre appartient au cercle de l’autre forment une intersection en lentille particulièrement régulière.",
+      "application": "Construire raccords, pétales, silhouettes et trames au compas; préciser les centres et rayons pour une reproduction fidèle.",
+      "limits": "La construction géométrique et ses emplois symboliques doivent être décrits séparément. Les interprétations historiques ou religieuses exigent des sources spécifiques à l’objet concerné.",
+      "basis": "mathematical",
+      "formula": "Distance des centres=R ; dimension parallèle à cet axe=R ; dimension perpendiculaire=√3 R",
+      "source_ids": [
+        "G01"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-37",
+      "name": "Réseaux de cercles et «fleur de vie»",
+      "definition": "Des cercles congruents placés selon un réseau produisent rosettes et lentilles; «fleur de vie» est un nom employé pour certains de ces arrangements.",
+      "application": "Utiliser la construction comme motif paramétrique, en choisissant nombre de cercles, maille, épaisseur et espace négatif.",
+      "limits": "Ne pas attribuer automatiquement une origine unique, ancienne ou universelle au nom ou au sens. La géométrie seule n’établit aucun effet d’énergie physique ou thérapeutique.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "GEO-39",
+      "name": "Mandalas et géométrie symbolique",
+      "definition": "Des mandalas bouddhiques organisent une cosmologie et une pratique de visualisation par des palais, centres, directions et formes géométriques.",
+      "application": "Étudier centre, enceintes et niveaux d’accès comme système spatial; documenter tradition et œuvre lorsqu’on cite ou adapte un exemple.",
+      "limits": "Un mandala n’est pas seulement une rosace décorative. Sa signification vient d’un contexte culturel précis; l’analyse formelle ne prouve pas un effet universel sur le spectateur.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "G10"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "GEO-40",
+      "name": "Girih et traditions géométriques de l’art islamique",
+      "definition": "Des motifs associent polygones, réseaux, entrelacs et symétries; certaines constructions girih utilisent des tuiles décorées et des changements d’échelle.",
+      "application": "Créer des ornements cohérents par règles de raccord; étudier des œuvres documentées et distinguer forme, technique et contexte.",
+      "limits": "Ne pas réduire des siècles de traditions à un style unique ni qualifier toute étoile de géométrie sacrée. La thèse historique de construction doit rester attribuée à ses auteurs.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "G08",
+        "G09"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-04",
+      "name": "Modulor",
+      "definition": "Système historique de proportions architecturales combinant un corps humain de référence et des rapports liés à φ.",
+      "application": "Étudier un système cohérent de dimensions et ses réalisations documentées.",
+      "limits": "Son ambition universelle ne justifie pas d’imposer un gabarit humain unique aux utilisateurs contemporains.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "R11"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-05",
+      "name": "Pédagogies du Bauhaus",
+      "definition": "Les cours de forme, couleur et matériau développent observation, expérimentation et construction selon différents enseignants.",
+      "application": "Tester variations de contraste, rapport figure–fond, matériau, couleur et rythme.",
+      "limits": "Bauhaus n’est pas un algorithme unique; les doctrines de ses artistes ne deviennent pas toutes des lois expérimentales.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "R12"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-06",
+      "name": "Analogies entre musique et composition",
+      "definition": "Rythme, répétition, variation et rapports simples peuvent être transposés d’un médium à un autre comme outils de création.",
+      "application": "Construire une série visuelle cohérente, une cadence ou un dialogue image–son.",
+      "limits": "Une correspondance sonore ou un ratio consonant ne démontre pas une préférence visuelle équivalente.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "R12",
+        "R07"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-07",
+      "name": "Yantras et Shri Yantra",
+      "definition": "Les yantras sont des diagrammes ou objets rituels; certaines formes combinent triangles et organisation centrée avec une signification religieuse précise.",
+      "application": "Étudier l’emboîtement, le centre et les directions en indiquant le contexte culturel de la forme utilisée.",
+      "limits": "Les interprétations dépendent de la tradition et de l’objet. Le sens rituel documenté ne constitue pas une preuve d’effet énergétique mesurable.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "R19"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-08",
+      "name": "Ma : intervalle, espace et pause",
+      "definition": "Ma est mobilisé dans certaines interprétations japonaises de l’espace et du temps pour penser les intervalles et relations entre éléments.",
+      "application": "Travailler respiration, succession, silence et espacement comme composantes actives d’une composition.",
+      "limits": "Il s’agit d’une tradition interprétative située. Le réduire à « ajouter du blanc » ou à une proportion chiffrée appauvrit son sens.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "R20"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-09",
+      "name": "Wabi et sabi : sobriété, matière et temps",
+      "definition": "Des pratiques esthétiques valorisent des qualités de simplicité, de patine, de singularité matérielle et de transformation par le temps.",
+      "application": "Construire une direction artistique attentive aux matériaux, aux irrégularités expressives et à la retenue.",
+      "limits": "Ces termes ne résument pas tout l’art japonais. Une imperfection graphique accidentelle ou une information fausse ne devient pas pertinente du seul fait de cette référence.",
+      "basis": "historical_symbolic",
+      "formula": null,
+      "source_ids": [
+        "R20"
+      ],
+      "domain": "symbolique",
+      "domain_label": "Géométrie symbolique et traditions",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-01",
+      "name": "Proximité relative",
+      "definition": "Des éléments proches tendent à être perçus comme appartenant au même ensemble; c’est leur distance relative aux voisins qui compte.",
+      "application": "Rapprocher une légende de sa donnée, séparer davantage les sections que les lignes internes et vérifier le regroupement à la taille finale.",
+      "limits": "La couleur, les liens ou une enceinte peuvent concurrencer la proximité. Aucun espacement universel en pixels ne découle de ce principe.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-02",
+      "name": "Similarité visuelle",
+      "definition": "Des éléments partageant forme, couleur, taille, orientation ou texture tendent à être regroupés perceptivement.",
+      "application": "Attribuer des traitements cohérents aux objets de même fonction ou aux données de même catégorie; employer une différence visible pour une exception significative.",
+      "limits": "Une similarité décorative peut suggérer une fausse parenté. Plusieurs indices de similarité peuvent se contredire; le contexte détermine leur poids.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-03",
+      "name": "Région commune",
+      "definition": "Des éléments inclus dans une même enceinte ou surface délimitée tendent à former un groupe.",
+      "application": "Utiliser un fond commun, une bordure ou une zone structurée pour signaler une unité logique; conserver les titres avec les informations qu’ils gouvernent.",
+      "limits": "L’enfermement doit correspondre au sens. Une accumulation de cadres multiplie les groupes concurrents et peut perturber la hiérarchie.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-04",
+      "name": "Connexion entre éléments",
+      "definition": "Une liaison visible ou une frontière partagée tend à faire percevoir plusieurs éléments comme parties d’un même objet ou système.",
+      "application": "Relier explicitement une annotation à sa cible ou deux étapes réellement dépendantes. Donner au trait une signification stable dans une infographie.",
+      "limits": "Une ligne implique une relation que le contenu doit justifier. Les croisements et connexions purement décoratives rendent ambiguë la structure.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-05",
+      "name": "Continuité d’une surface",
+      "definition": "Une région connectée présentant des propriétés homogènes ou variant doucement peut être perçue comme une unité de base.",
+      "application": "Conserver la cohérence d’une surface, d’un composant ou d’un objet illustré; distinguer les groupes par une rupture intentionnelle de fond, texture ou contour.",
+      "limits": "La connexité uniforme est une explication proposée parmi d’autres. Son statut de première étape obligatoire de toute perception reste contesté.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-06",
+      "name": "Bonne continuation et alignement",
+      "definition": "Des fragments orientés selon une trajectoire régulière tendent à être intégrés en contour continu.",
+      "application": "Aligner titres, colonnes et points de repère; construire des courbes et liens faciles à suivre; éviter les changements arbitraires d’axe.",
+      "limits": "La règle aide à lire une trajectoire, sans rendre une composition automatiquement belle. L’alignement éditorial est une application pratique du mécanisme perceptif.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-07",
+      "name": "Fermeture et complétion",
+      "definition": "La vision peut compléter des contours interrompus et traiter un contour fermé comme délimitation d’une surface.",
+      "application": "Simplifier une icône ou un symbole en laissant au regard des indices suffisants pour reconstruire la forme; donner des limites claires aux zones importantes.",
+      "limits": "La fermeture n’agit pas indépendamment de la continuité, du contexte et de l’expérience. Un contour trop lacunaire devient ambigu, surtout en petite taille.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-08",
+      "name": "Destin commun",
+      "definition": "Des éléments qui se déplacent de façon cohérente ou changent ensemble dans la même direction sont souvent perçus comme un groupe.",
+      "application": "Animer ensemble les objets d’une même opération, faire suivre une annotation à sa cible et montrer la continuité d’un état à l’autre.",
+      "limits": "Le mouvement doit correspondre à la relation réelle. Une animation collective peut masquer des dépendances différentes ou induire un groupement faux.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-09",
+      "name": "Synchronie",
+      "definition": "Des changements simultanés peuvent grouper des éléments, même si leurs propriétés ne varient pas dans la même direction.",
+      "application": "Synchroniser l’apparition d’une étape et de ses informations liées; réserver les événements simultanés aux relations qu’on souhaite montrer.",
+      "limits": "La simultanéité attire et structure le regard, mais ne démontre ni causalité ni appartenance logique. Sa justification écologique est moins claire que celle du destin commun.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-10",
+      "name": "Figure et fond",
+      "definition": "La perception attribue certaines frontières à un objet et organise ce qui paraît figure par rapport à ce qui paraît arrière-plan.",
+      "application": "Assurer que le sujet, le texte ou la donnée prioritaire se détache du support; vérifier les silhouettes et les frontières entre zones.",
+      "limits": "Cette attribution dépend aussi de convexité, contexte, attention et familiarité. Elle ne se réduit pas à rendre l’objet plus lumineux.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-11",
+      "name": "Espace négatif actif",
+      "definition": "Les espaces laissés entre les formes déterminent eux-mêmes des contours et participent à la séparation des groupes.",
+      "application": "Dessiner les vides aussi consciemment que les objets : gouttières, marges, contreformes d’un signe et respirations autour des titres.",
+      "limits": "Il s’agit d’une pratique de composition appuyée sur la figure-fond et la proximité. Aucun pourcentage fixe d’espace vide ne garantit compréhension ou élégance.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-12",
+      "name": "Symétrie comme indice perceptif",
+      "definition": "La correspondance de parties autour d’un axe fournit un indice d’organisation et peut faciliter la détection d’une forme.",
+      "application": "Employer la symétrie pour rendre immédiatement lisibles un emblème, une structure radiale ou une comparaison à deux côtés.",
+      "limits": "Percevoir une symétrie et préférer une image sont deux mesures différentes. La symétrie peut être concurrencée par d’autres indices et n’est pas un impératif artistique.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P01",
+        "P02"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-13",
+      "name": "Prägnanz et organisation simple",
+      "definition": "Le principe de bonne forme propose que la perception privilégie certaines organisations cohérentes, régulières ou économiques parmi plusieurs interprétations.",
+      "application": "Réduire les ambiguïtés de lecture et les conventions inutiles; rendre la structure générale reconnaissable avant les détails.",
+      "limits": "« Simple » doit être défini pour être testable. La Prägnanz ne donne pas un algorithme universel de beauté ni une consigne d’éliminer toute complexité.",
+      "basis": "hypothesis",
+      "formula": null,
+      "source_ids": [
+        "P01"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-14",
+      "name": "Hiérarchie de priorité visuelle",
+      "definition": "La priorité attentionnelle résulte de plusieurs signaux combinés : propriétés visibles, objectifs, expérience, valeur et contexte.",
+      "application": "Donner au message principal plusieurs indices concordants, puis organiser les niveaux secondaires. Mesurer ce que la personne trouve et comprend en premier.",
+      "limits": "Une carte de saillance ne prédit pas seule le parcours des yeux ni la compréhension. Une hiérarchie éditoriale reste une décision liée au but.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "P11"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-15",
+      "name": "Contraste cible–distracteurs",
+      "definition": "Une cible est généralement plus facile à trouver quand elle diffère clairement d’éléments environnants qui se ressemblent entre eux.",
+      "application": "Réserver une couleur, une taille ou une orientation distincte au point à signaler et calmer les traitements concurrents.",
+      "limits": "Le contraste est relatif et dépend du type de trait, de la densité et de la position. Une petite différence détectable après inspection ne garantit pas un repérage rapide.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P11"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-16",
+      "name": "Attention guidée par un objectif",
+      "definition": "Ce qu’une personne cherche oriente sa sélection visuelle; les attentes pertinentes peuvent primer sur la saillance brute.",
+      "application": "Concevoir à partir de tâches concrètes : trouver une quantité, comparer deux options, repérer une exception. Employer les mots et codes attendus pour cette tâche.",
+      "limits": "L’élément le plus coloré ne gagne pas toujours. Les tests doivent préciser la question posée au lecteur, plutôt que mesurer seulement une préférence générale.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P11"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-17",
+      "name": "Contexte et structure de scène",
+      "definition": "La connaissance d’une scène ou d’un format permet d’anticiper où chercher et quels objets sont plausibles.",
+      "application": "Stabiliser les endroits où se trouvent titres, unités, légendes et actions; profiter des conventions déjà comprises lorsque la rapidité est importante.",
+      "limits": "La nouveauté peut être un objectif artistique, mais elle crée un coût d’apprentissage. Une convention familière à un public peut ne pas l’être à un autre.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P11",
+        "P09"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-18",
+      "name": "Histoire attentionnelle et apprentissage",
+      "definition": "Les sélections précédentes, les amorçages et les éléments associés à une valeur influencent les recherches suivantes.",
+      "application": "Conserver les codes importants d’une page à l’autre; introduire progressivement un nouveau vocabulaire visuel et limiter les changements de signification d’un accent.",
+      "limits": "L’apprentissage peut faciliter ou biaiser l’attention. Une couleur réservée aujourd’hui à une alerte peut continuer à attirer après modification de son rôle.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P11"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-19",
+      "name": "Encombrement et vision périphérique",
+      "definition": "Reconnaître de petits éléments entourés de voisins exige parfois une inspection locale; la vision n’a pas la même précision partout.",
+      "application": "Vérifier la lisibilité à distance et sur mobile; espacer les éléments fins que le lecteur doit distinguer, sans supposer qu’un agrandissement global résout tout.",
+      "limits": "Densité et saillance ne varient pas toujours dans le même sens : des éléments rapprochés peuvent aussi renforcer un contraste local.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P11"
+      ],
+      "domain": "perception",
+      "domain_label": "Perception et organisation",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-20",
+      "name": "Équilibre perceptif",
+      "definition": "L’équilibre est un jugement sur la distribution apparente des éléments et des forces d’une composition.",
+      "application": "Comparer plusieurs placements du sujet et des masses secondaires; évaluer l’image dans son ensemble, dans son orientation et à son format final.",
+      "limits": "Le terme peut renvoyer à des critères différents selon l’image. Une note d’équilibre élevée ne prédit pas nécessairement la préférence, la stabilité ou la compréhension.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P02",
+        "P03"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-21",
+      "name": "Équilibre asymétrique",
+      "definition": "Des parties différentes peuvent donner une impression d’équilibre sans correspondance miroir.",
+      "application": "Contrebalancer une grande zone par plusieurs petites unités, par le placement ou par une différence de présence visuelle; conserver une asymétrie utile au récit.",
+      "limits": "La compensation est une pratique de composition à juger visuellement. Aucun échange fixe entre taille, couleur, détail et distance ne reproduit toutes les perceptions.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "P02",
+        "P03"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-22",
+      "name": "Centre de masse visuelle",
+      "definition": "On peut calculer un barycentre en attribuant un poids à chaque élément ou pixel, puis mesurer son écart au centre du cadre.",
+      "application": "Employer ce calcul comme diagnostic de répartition pour motifs simples, puis confronter le résultat au jugement réel et au sens du contenu.",
+      "limits": "La formule mathématique est exacte; les poids visuels sont une hypothèse. Un centre parfaitement aligné ne constitue pas un certificat de beauté.",
+      "basis": "empirical",
+      "formula": "c = (Σwᵢxᵢ / Σwᵢ, Σwᵢyᵢ / Σwᵢ), avec Σwᵢ > 0",
+      "source_ids": [
+        "P02",
+        "P03"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-23",
+      "name": "Stabilité et tension dynamique",
+      "definition": "Une composition peut évoquer un appui solide, un basculement ou un mouvement imminent, selon l’organisation de ses éléments.",
+      "application": "Choisir si la scène doit rassurer, paraître immobile ou suggérer une énergie; tester le placement vertical, les appuis et les directions.",
+      "limits": "La stabilité perçue, l’équilibre mécanique et l’agrément ne sont pas interchangeables. Des motifs jugés instables peuvent être appréciés davantage.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P03"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-24",
+      "name": "Homogénéité de répartition",
+      "definition": "La manière dont les éléments se dispersent ou s’accumulent apporte une dimension distincte du simple barycentre.",
+      "application": "Contrôler les concentrations, les zones trop chargées et la distribution des respirations; tester une répartition régulière ou volontairement concentrée selon le message.",
+      "limits": "Les métriques d’équilibre peuvent confondre homogénéité et centrage. Remplir uniformément la surface n’est pas un objectif automatique ni une obligation esthétique.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P02"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-25",
+      "name": "Fluidité perceptive et cognitive",
+      "definition": "La facilité ressentie à traiter une forme ou à en comprendre le sens peut contribuer au plaisir esthétique.",
+      "application": "Clarifier les contours, les regroupements, les conventions et la relation texte-image; réduire les ambiguïtés accidentelles tout en gardant les détails signifiants.",
+      "limits": "La fluidité dépend du lecteur et de ses attentes. Facile à traiter ne signifie ni exact, ni vrai, ni nécessairement intéressant ou artistiquement précieux.",
+      "basis": "hypothesis",
+      "formula": null,
+      "source_ids": [
+        "P04"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-26",
+      "name": "Mere exposure : familiarité par répétition",
+      "definition": "La répétition peut rendre un stimulus plus facile à traiter et accroître son appréciation.",
+      "application": "Répéter les éléments d’identité et les conventions fonctionnelles d’une manière cohérente; laisser au public le temps d’apprendre un langage visuel.",
+      "limits": "L’effet n’est pas une garantie que toute répétition plaît. Le contenu, les associations négatives, les attentes et l’interprétation de la familiarité peuvent modifier l’évaluation.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P04"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-27",
+      "name": "Prototypicalité et reconnaissance",
+      "definition": "Une forme proche d’un exemple mental familier de sa catégorie peut être reconnue et traitée plus aisément.",
+      "application": "Garder les traits nécessaires à la reconnaissance d’un objet ou d’une action, puis introduire la singularité où elle apporte une intention claire.",
+      "limits": "Le prototype est appris et varie entre publics. Le familier peut aider l’usage sans rendre une œuvre remarquable; les experts ne préfèrent pas toujours les mêmes régularités.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P04",
+        "P09"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-28",
+      "name": "Complexité et courbe en U inversé",
+      "definition": "Le modèle classique prédit un agrément maximal pour une complexité intermédiaire, entre monotonie et surcharge.",
+      "application": "Explorer plusieurs densités et degrés de variation; juger séparément le plaisir, la compréhension et l’effort selon le public.",
+      "limits": "C’est une hypothèse contextuelle, pas une loi générale. Une expérience a montré qu’un optimum collectif masquait des personnes préférant, les unes le simple, les autres le complexe.",
+      "basis": "hypothesis",
+      "formula": null,
+      "source_ids": [
+        "P05"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-29",
+      "name": "Unité et variété",
+      "definition": "La composition peut maintenir des relations reconnaissables tout en introduisant des différences qui donnent rythme et intérêt.",
+      "application": "Choisir un vocabulaire restreint de formes, espacements et couleurs, puis varier des paramètres significatifs pour éviter monotonie et confusion.",
+      "limits": "Il s’agit d’une stratégie historique de composition, non d’un dosage démontré universel. L’effet de l’ordre dépend notamment de la complexité et du type d’image.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "P03",
+        "P05"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-30",
+      "name": "Préférence moyenne pour les courbes",
+      "definition": "Les contours lisses sont, en moyenne, préférés aux contours angulaires dans de nombreux dispositifs expérimentaux.",
+      "application": "Tester la courbure pour une impression accueillante ou une forme continue; comparer des variantes à contenu et complexité aussi proches que possible.",
+      "limits": "La méta-analyse trouve un effet moyen de g=0,39, modulé par exposition, tâche, stimuli et expertise. Une tendance collective ne prescrit ni tous les rayons ni toutes les identités.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P06"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-31",
+      "name": "Hypothèse de menace des angles",
+      "definition": "Une explication proposée attribue la préférence pour les courbes à une association entre angles et menace.",
+      "application": "Traiter les connotations de douceur, rigueur ou danger comme hypothèses à vérifier auprès du public, en contexte.",
+      "limits": "Des expériences trouvent une préférence pour les courbes même contre des lignes droites sans angle et sans évitement des formes angulaires. L’explication par la peur est insuffisante, et non une loi de design.",
+      "basis": "hypothesis",
+      "formula": null,
+      "source_ids": [
+        "P07"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-32",
+      "name": "Préférences individuelles fiables",
+      "definition": "Les personnes peuvent conserver des goûts cohérents tout en divergeant fortement entre elles, particulièrement pour l’abstrait.",
+      "application": "Comparer les réactions de plusieurs lecteurs réels et repérer des sous-groupes; garder une direction de marque cohérente avec le public visé.",
+      "limits": "L’accord moyen ne décrit pas chaque personne. Une faible entente collective ne signifie pas que les jugements sont aléatoires ou que toute décision est équivalente.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P10",
+        "P05"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-33",
+      "name": "Culture et sens partagé",
+      "definition": "L’expérience culturelle influence les associations, les attentes et certaines préférences; les effets diffèrent selon l’art étudié.",
+      "application": "Vérifier le sens des symboles et la familiarité des codes auprès des publics concernés; documenter l’origine des références employées.",
+      "limits": "Une comparaison entre groupes indiens et occidentaux ne couvre pas toutes les cultures. Les différences observées ne permettent pas d’assigner un goût à une personne selon son origine.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P09",
+        "P10"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-34",
+      "name": "Expertise et apprentissage esthétique",
+      "definition": "L’entraînement et l’expérience peuvent changer ce qui est reconnu, compris et apprécié dans une forme ou une œuvre.",
+      "application": "Adapter les explications et le degré d’abstraction au niveau du public; montrer progressivement la logique d’un système visuel inhabituel.",
+      "limits": "Les experts ne possèdent pas une préférence homogène ni universellement supérieure. L’effet de l’expertise varie selon culture, tâche et catégorie artistique.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "P06",
+        "P09"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PER-35",
+      "name": "Triade esthétique et pertinence personnelle",
+      "definition": "Un cadre neuroscientifique relie expérience sensorimotrice, émotion/évaluation et sens/connaissance; des œuvres émouvantes peuvent aussi engager le rapport à soi.",
+      "application": "Travailler conjointement la qualité perceptive, le contenu émotionnel et la signification du récit; relier les choix de forme à ce que le public doit vivre ou comprendre.",
+      "limits": "Ces modèles et corrélats cérébraux ne constituent pas une recette causale de beauté. L’étude IRMf citée porte sur 16 personnes et 109 œuvres.",
+      "basis": "hypothesis",
+      "formula": null,
+      "source_ids": [
+        "P08",
+        "P12"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-10",
+      "name": "Préférence esthétique pour le nombre d’or",
+      "definition": "Les recherches sur les rectangles, les œuvres modifiées et les associations implicites donnent des résultats variables selon les personnes et les méthodes.",
+      "application": "Proposer φ parmi plusieurs hypothèses de composition et comparer les variantes sur la même tâche avec le même contenu.",
+      "limits": "Une préférence dans une expérience n’établit ni universalité ni supériorité pour tous les formats. Les études positives et nulles doivent être conservées ensemble.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "G02",
+        "C01",
+        "C02"
+      ],
+      "domain": "equilibre",
+      "domain_label": "Équilibre, attention et esthétique",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-01",
+      "name": "Type de donnée avant canal visuel",
+      "definition": "Une variable nominale distingue des catégories; une variable ordinale possède un ordre; une quantité permet des comparaisons numériques.",
+      "application": "Choisir ensuite forme, position, longueur ou couleur compatibles avec la relation réellement présente dans les données.",
+      "limits": "Un dégradé impose un ordre apparent à des catégories sans ordre. Une taille quantitative doit avoir une signification explicite. La classification dépend de l’usage.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I01"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-02",
+      "name": "Expressivité et efficacité",
+      "definition": "L’expressivité demande qu’un graphique communique les faits voulus sans inventer de relations; l’efficacité concerne la facilité de leur lecture.",
+      "application": "Vérifier d’abord ce que chaque marque signifie, puis comparer plusieurs encodages adaptés au même message.",
+      "limits": "Une composition peut être séduisante mais exprimer une hiérarchie inexistante. L’efficacité dépend du lecteur, du support et de la tâche, pas d’un score universel de beauté.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I01"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-03",
+      "name": "Précision des encodages quantitatifs",
+      "definition": "Dans des tâches de comparaison de valeurs, les positions sur une échelle commune sont généralement plus précises que les aires.",
+      "application": "Préférer points alignés ou barres pour comparer finement; réserver les bulles aux compromis où densité ou structure spatiale importent davantage.",
+      "limits": "Les études ne valident pas un classement rigide de tous les canaux. Angle versus longueur, aspect des rectangles, taille et contexte modifient les résultats.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I02"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-04",
+      "name": "Longueur et origine cohérentes",
+      "definition": "Quand une longueur représente une quantité, son rapport à une autre doit conserver le rapport des quantités.",
+      "application": "Pour des barres comparant des montants absolus, utiliser une origine zéro; rendre explicite toute représentation de variation ou d’intervalle.",
+      "limits": "Cette contrainte géométrique ne signifie pas que tous les axes de courbes doivent commencer à zéro. Une origine tronquée change la signification des longueurs.",
+      "basis": "mathematical",
+      "formula": "l_i = k q_i ; l_i/l_j = q_i/q_j",
+      "source_ids": [],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "INF-05",
+      "name": "Aires et volumes proportionnels",
+      "definition": "Si une aire code la valeur, le rayon doit évoluer avec sa racine carrée; pour un volume semblable, la dimension linéaire suit la racine cubique.",
+      "application": "Dimensionner des bulles par leur aire, puis vérifier la légende et fournir les nombres utiles.",
+      "limits": "Doubler le rayon quadruple l’aire. Une valeur négative exige un autre dispositif. La conformité mathématique ne rend pas la comparaison d’aires perceptuellement précise.",
+      "basis": "mathematical",
+      "formula": "A_i=kq_i ; r_i=sqrt(kq_i/pi) ; longueur_volume ∝ q_i^(1/3)",
+      "source_ids": [],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "INF-06",
+      "name": "Échelles et rapport de forme",
+      "definition": "La perception d’une pente ou d’une variation change avec les limites d’axes et le rapport largeur/hauteur du graphique.",
+      "application": "Afficher transformations et unités; maintenir les mêmes échelles entre panneaux réellement destinés à être comparés.",
+      "limits": "Il n’existe pas de ratio d’or garantissant une lecture correcte d’une série. Une échelle logarithmique peut être pertinente, mais elle transforme les distances et exige une indication claire.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I02"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-07",
+      "name": "Unités, dénominateurs et périmètres",
+      "definition": "Deux valeurs ne sont directement comparables que si leur unité, leur population de référence, leur période et leur définition sont compatibles.",
+      "application": "Inscrire devise, année, base de pourcentage, valeurs par habitant et provenance près de l’encodage ou de sa légende.",
+      "limits": "Une normalisation doit être expliquée. Cette règle relève de la cohérence logique et statistique; une grille symétrique ne peut pas rendre comparables des mesures incompatibles.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "INF-08",
+      "name": "Sémantique des liens et causalité",
+      "definition": "Une arête peut signifier appartenance, succession, flux, dépendance ou causalité; ces relations sont différentes et doivent rester identifiables.",
+      "application": "Choisir flèches, traits et étiquettes cohérents; distinguer une hypothèse causale d’une association simplement observée.",
+      "limits": "La proximité de deux nœuds et une flèche décorative peuvent suggérer une relation non démontrée. Le dessin représente un modèle; il ne prouve jamais sa causalité.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I01"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-09",
+      "name": "Incertitude visible",
+      "definition": "Une estimation, une observation et une cible future n’ont pas le même statut; les confondre produit une assurance trompeuse.",
+      "application": "Étiqueter les hypothèses, dates et intervalles lorsqu’ils sont disponibles; donner aux projections un code explicite.",
+      "limits": "Ne pas inventer de précision ou d’intervalle pour embellir le graphique. Transparence, pointillés ou flou doivent recevoir une signification stable et rester lisibles.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "INF-10",
+      "name": "Légendes et étiquettes rapprochées",
+      "definition": "Une correspondance explicite entre un signe et son sens facilite l’intégration d’un texte et d’un graphique.",
+      "application": "Placer des étiquettes directes ou des légendes proches lorsque l’espace le permet; conserver un vocabulaire identique dans tout le document.",
+      "limits": "Une proximité excessive peut masquer les données. La contiguïté soutient une relation correcte; elle ne remplace pas l’ordre de lecture accessible ni une explication nécessaire.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I17"
+      ],
+      "domain": "donnees",
+      "domain_label": "Données, logique et incertitude",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-11",
+      "name": "Palette adaptée au type de données",
+      "definition": "Une palette séquentielle encode un ordre; une divergente organise deux directions autour d’un repère; une qualitative distingue des catégories.",
+      "application": "Utiliser un centre divergent seulement s’il signifie quelque chose, comme zéro changement; réserver les palettes cycliques aux grandeurs périodiques.",
+      "limits": "Le centre ne doit pas être choisi pour sa symétrie seule. Le nombre de couleurs dépend de la tâche, du support et de leur discriminabilité.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I03",
+        "I04"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-12",
+      "name": "Uniformité perceptuelle de couleur",
+      "definition": "Des intervalles numériques égaux devraient produire des différences visuelles comparables lorsqu’une progression continue encode une quantité.",
+      "application": "Choisir une carte scientifique appropriée, vérifier sa luminosité et sa lecture avec diverses visions des couleurs.",
+      "limits": "Une palette arc-en-ciel peut créer de faux contours. L’uniformité reste approximative, dépend des conditions d’observation et ne suffit pas à rendre une visualisation accessible ou sémantiquement correcte.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I03"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-13",
+      "name": "Codage redondant et vision des couleurs",
+      "definition": "La couleur seule ne doit pas être l’unique moyen visuel de communiquer une information significative dans WCAG 1.4.1, niveau A.",
+      "application": "Associer couleur à libellé, forme, motif ou position; vérifier les cas de déficience de vision des couleurs.",
+      "limits": "Cela n’interdit pas les couleurs décoratives. Simuler le daltonisme ne couvre ni toutes les déficiences visuelles ni les besoins d’accès non visuel.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I05",
+        "I03"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-14",
+      "name": "Contraste du texte",
+      "definition": "WCAG 1.4.3 AA demande 4.5:1 pour le texte et 3:1 pour le grand texte: au moins 18 pt, ou au moins 14 pt gras.",
+      "application": "Mesurer le texte contre son fond réel; conserver une marge pour polices fines et arrière-plans variables.",
+      "limits": "Exceptions: logos, texte incident, inactif ou décoratif selon le critère. Ne pas arrondir 4.499 à 4.5. Le respect du seuil ne garantit pas toute la lisibilité.",
+      "basis": "standard",
+      "formula": "CR=(L_clair+0.05)/(L_fonce+0.05)",
+      "source_ids": [
+        "I06"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-15",
+      "name": "Contraste des objets et commandes",
+      "definition": "WCAG 1.4.11 AA exige au moins 3:1 avec les couleurs adjacentes pour les repères identifiant commandes et états, ainsi que pour les parties des graphiques nécessaires à la compréhension du contenu.",
+      "application": "Vérifier contours, repères, états sélectionnés et parties des graphiques indispensables à la compréhension.",
+      "limits": "Exceptions: commandes inactives, apparence de l’agent utilisateur non modifiée, présentation graphique essentielle. Chaque pixel décoratif n’est pas concerné. Les contrastes doivent être testés aux frontières réellement nécessaires.",
+      "basis": "standard",
+      "formula": "CR >= 3:1 pour les informations visuelles visées",
+      "source_ids": [
+        "I07"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-16",
+      "name": "Coordonnées colorimétriques utiles",
+      "definition": "Oklab et OkLCh séparent approximativement clarté, chroma et teinte pour décrire ou interpoler des couleurs plus régulièrement que des coordonnées RGB brutes.",
+      "application": "Construire des variations de palette contrôlées puis tester le résultat affiché.",
+      "limits": "La composante L d’OkLCh n’est pas la luminance relative de la formule WCAG. L’égalité de L ou de chroma ne garantit ni contraste conforme ni harmonie.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I08"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-17",
+      "name": "Gamut et reproduction",
+      "definition": "Une couleur définie dans un espace peut être hors de la gamme reproductible d’un écran, d’un format ou d’une impression.",
+      "application": "Prévoir conversion et couleurs de repli; inspecter les gradients et les contrastes après transformation vers le support final.",
+      "limits": "Un rendu Display P3 ne sera pas identique en sRGB ou sur papier. Un code hexadécimal ne décrit pas à lui seul les conditions physiques de vision.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I08"
+      ],
+      "domain": "couleur",
+      "domain_label": "Couleur et contraste",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-18",
+      "name": "Échelle typographique modulaire",
+      "definition": "Une suite géométrique de corps crée des intervalles réguliers et un vocabulaire limité pour la hiérarchie.",
+      "application": "Choisir une base lisible et un ratio adapté au nombre de niveaux; arrondir les valeurs lorsque le rendu et l’usage l’exigent.",
+      "limits": "Le ratio est un choix de système, pas une preuve de beauté. Le contenu, les libellés longs et les petits écrans peuvent imposer des exceptions.",
+      "basis": "mathematical",
+      "formula": "s_n=s_0 r^n",
+      "source_ids": [],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Dérivation mathématique élémentaire ou proposition de composition; aucune étude expérimentale spécifique attribuée."
+    },
+    {
+      "id": "INF-19",
+      "name": "Grille comme contrainte de composition",
+      "definition": "Des colonnes, gouttières et marges donnent des repères communs aux textes, images et graphiques.",
+      "application": "Dériver la grille des formats utiles et de l’importance du contenu; employer les alignements pour établir des relations visibles.",
+      "limits": "La grille est une méthode de travail. Les affirmations historiques de son efficacité ne démontrent pas une supériorité universelle. Une grille rigide peut nuire au texte ou à la donnée.",
+      "basis": "heuristic",
+      "formula": "largeur_utile = colonnes × largeur_colonne + (colonnes−1) × gouttiere",
+      "source_ids": [
+        "I09"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-20",
+      "name": "Rythme, espacements et hiérarchie",
+      "definition": "Répéter certains intervalles stabilise la lecture; varier intentionnellement les écarts distingue niveaux et groupes.",
+      "application": "Définir quelques espacements liés aux relations sémantiques, puis harmoniser les retours de texte et les alignements.",
+      "limits": "Une unité de 4 ou 8 pixels est une convention technique. Les blancs ne doivent pas tous être égaux: séparer des groupes demande souvent plus d’espace qu’unir leurs éléments.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I09"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-21",
+      "name": "Longueur de ligne",
+      "definition": "La mesure en caractères aide à contrôler l’effort de suivi d’une ligne et de retour à la suivante.",
+      "application": "Pour un texte continu latin, la plage de 45–90 caractères, espaces compris, proposée par Butterick offre un point de départ à tester.",
+      "limits": "C’est un conseil de praticien, variable avec police, taille, langue et format. Titres, légendes et tableaux remplissent d’autres fonctions que la prose continue.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I10"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-22",
+      "name": "Interligne adapté à la police",
+      "definition": "L’interligne met en relation densité du texte, longueur des lignes et formes de la police.",
+      "application": "Le repère de praticien 120–145 % du corps, chez Butterick, peut amorcer un réglage pour beaucoup de textes; vérifier à taille réelle.",
+      "limits": "Les métriques varient. Cette plage n’est ni une loi ni la valeur WCAG obligatoire: l’interface doit aussi supporter les espacements choisis par l’utilisateur.",
+      "basis": "heuristic",
+      "formula": "interligne_initial ≈ corps × 1.20 à 1.45, à tester",
+      "source_ids": [
+        "I11",
+        "I21"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-23",
+      "name": "Taille optique des caractères",
+      "definition": "Un dessin de caractère peut changer de proportions, de graisse et de détail suivant la taille apparente à laquelle il sera lu.",
+      "application": "Utiliser l’axe OpenType opsz lorsqu’il existe; vérifier textes de légendes, titres et affiches à leur distance d’usage.",
+      "limits": "Agrandir géométriquement une même forme n’équivaut pas à l’optimiser optiquement. La taille perçue dépend aussi de la distance, du dispositif et des réglages de l’utilisateur.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I12"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-24",
+      "name": "Redimensionnement et adaptation",
+      "definition": "WCAG 1.4.4 AA prévoit le redimensionnement du texte à 200 % sans perte, sauf sous-titres et images de texte.",
+      "application": "Prévoir retours et reflow; 1.4.10 AA vérifie notamment une largeur équivalente à 320 pixels CSS pour le défilement vertical.",
+      "limits": "Les présentations exigeant deux dimensions, dont certains graphiques et tableaux, bénéficient d’exceptions précises. Cela ne justifie pas de couper le texte ordinaire ou les commandes.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I05"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-25",
+      "name": "Espacements personnalisables",
+      "definition": "WCAG 1.4.12 AA demande de supporter sans perte ligne 1.5×, après-paragraphe 2×, lettres 0.12× et mots 0.16× le corps.",
+      "application": "Tester ces changements simultanés sur les contenus en langage de balisage qui prennent en charge ces propriétés.",
+      "limits": "Ces valeurs ne sont pas des styles obligatoires par défaut. L’exception concerne les langues et écritures n’utilisant pas certaines de ces propriétés; les autres propriétés applicables restent à supporter.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I21"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-43",
+      "name": "Espacement optique",
+      "definition": "Des espaces mesurés identiques entre formes différentes ne paraissent pas nécessairement égaux à la lecture.",
+      "application": "Ajuster les approches de lettres et les intervalles des signes à leur taille d’usage, en observant suites, mots et ensembles.",
+      "limits": "Il s’agit d’un jugement de métier contrôlé par le rendu. Une correction optique des caractères n’autorise pas à déplacer des points de données ou à modifier leurs proportions.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I22"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-44",
+      "name": "Tiers, cadrage et point focal",
+      "definition": "La règle des tiers partage le cadre en neuf zones et propose lignes ou intersections comme emplacements possibles du sujet principal.",
+      "application": "Comparer plusieurs cadrages, dont centre et tiers; équilibrer sujet, regard et espace libre en fonction de l’intention.",
+      "limits": "C’est une convention d’atelier, pas une loi perceptuelle ni une garantie de beauté. Ne jamais déplacer des données mesurées pour les faire coïncider avec ces repères.",
+      "basis": "heuristic",
+      "formula": "x∈{W/3,2W/3} ; y∈{H/3,2H/3}",
+      "source_ids": [
+        "I23"
+      ],
+      "domain": "typographie",
+      "domain_label": "Typographie et composition",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-26",
+      "name": "Loi de Fitts",
+      "definition": "Le temps d’acquisition d’une cible dépend de sa distance et de sa largeur utile, avec des coefficients ajustés expérimentalement.",
+      "application": "Rendre une commande fréquente facile à atteindre et suffisamment grande; distinguer le dessin de l’icône de sa zone activable.",
+      "limits": "La formule de Shannon est une formulation usuelle, pas l’équation originale de 1954. Dispositif, précision, angle, pratique et erreurs affectent les paramètres; elle ne calcule pas la beauté.",
+      "basis": "empirical",
+      "formula": "MT=a+b log2(A/W+1)",
+      "source_ids": [
+        "I13"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-27",
+      "name": "Loi de Hick–Hyman",
+      "definition": "Dans des tâches de choix, le temps de réaction varie avec l’incertitude des alternatives plutôt qu’avec leur seul nombre brut.",
+      "application": "Clarifier catégories et libellés; comparer recherche, choix et navigation sur la tâche réelle.",
+      "limits": "Pour des alternatives équiprobables, H=log2(n); la forme historique n+1 existe aussi. Pratique, compatibilité et dépendances changent la relation. La loi ne prescrit ni sept éléments ni toujours moins d’options.",
+      "basis": "empirical",
+      "formula": "RT≈a+bH ; H=−Σ p_i log2(p_i)",
+      "source_ids": [
+        "I14",
+        "I15"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-28",
+      "name": "Loi de guidage",
+      "definition": "Parcourir une trajectoire contrainte devient plus lent lorsque son couloir est plus long ou plus étroit.",
+      "application": "Élargir les passages des menus en cascade et des gestes contraints; éviter les trajectoires inutilement délicates.",
+      "limits": "Ce modèle concerne le guidage le long d’un trajet, contrairement à l’acquisition d’une cible. Ses paramètres sont empiriques; il n’est pas une formule générale du temps de lecture d’une infographie.",
+      "basis": "empirical",
+      "formula": "T=a+b ∫_C ds/W(s) ; si W constant, T=a+b A/W",
+      "source_ids": [
+        "I16"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-29",
+      "name": "Taille minimale des cibles",
+      "definition": "WCAG 2.5.8 AA prévoit des cibles de pointeur d’au moins 24×24 pixels CSS, ou les conditions alternatives indiquées.",
+      "application": "Mesurer la zone activable et l’espacement effectif, y compris dans une légende interactive.",
+      "limits": "Exceptions: espacement des cibles sous-dimensionnées, contrôle équivalent, texte en ligne, agent utilisateur non modifié, présentation essentielle. L’espacement s’évalue avec des cercles de 24 pixels; le minimum n’est pas une taille idéale universelle.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I05"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-30",
+      "name": "Clavier et focus visibles",
+      "definition": "Une visualisation interactive doit permettre les opérations au clavier et rendre le point de navigation identifiable.",
+      "application": "Préserver un ordre logique, un focus visible et des alternatives aux actions uniquement au survol.",
+      "limits": "WCAG 2.1.1 A excepte une fonction exigeant un trajet d’entrée intrinsèque. 2.4.7 AA traite le focus visible; 2.4.11 AA interdit qu’il soit entièrement caché par du contenu créé par l’auteur.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I05"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-31",
+      "name": "Contrôle des changements automatiques",
+      "definition": "WCAG 2.2.2 A traite les informations animées ou actualisées automatiquement en parallèle d’un autre contenu.",
+      "application": "Donner pause, arrêt ou masquage pour un mouvement automatique dépassant cinq secondes; pour l’actualisation, proposer aussi le contrôle de fréquence.",
+      "limits": "Le critère comporte une exception d’activité essentielle. La condition de cinq secondes concerne mouvement, clignotement et défilement, pas l’actualisation automatique. Il ne fixe pas une durée universelle des transitions.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I20"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-32",
+      "name": "Réduction du mouvement d’interaction",
+      "definition": "WCAG 2.3.3 AAA prévoit de pouvoir désactiver l’animation de mouvement déclenchée par interaction, sauf si elle est essentielle.",
+      "application": "Respecter prefers-reduced-motion; fournir un état statique compréhensible et réduire les déplacements non nécessaires.",
+      "limits": "La technique CSS C39 est une voie de conformité, pas la seule. Cette exigence AAA n’est pas à présenter comme le critère AA général de toutes les animations.",
+      "basis": "standard",
+      "formula": null,
+      "source_ids": [
+        "I19"
+      ],
+      "domain": "interaction",
+      "domain_label": "Interaction et accessibilité",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-33",
+      "name": "Deux canaux et traitement actif",
+      "definition": "La théorie de l’apprentissage multimédia distingue traitement verbal et visuel, chacun limité, et construction active de liens.",
+      "application": "Combiner texte et dessin quand leur relation aide à comprendre le système expliqué.",
+      "limits": "Il ne s’agit ni de deux hémisphères spécialisés, ni de styles d’apprentissage individuels. Texte affiché et image peuvent solliciter ensemble la voie visuelle; les ressources ne s’additionnent pas sans limite.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I17",
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-34",
+      "name": "Capacité limitée et expertise",
+      "definition": "Un lecteur doit sélectionner, organiser et intégrer l’information avec des ressources cognitives limitées.",
+      "application": "Réduire les relations inutiles à maintenir mentalement; expliciter les notions nouvelles et tester avec le public visé.",
+      "limits": "Les connaissances existantes modifient ce qui constitue un bloc intelligible. Aucun seuil universel de trois couleurs, cinq groupes ou sept éléments ne découle de ce modèle.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I17",
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-35",
+      "name": "Cohérence du contenu",
+      "definition": "Les éléments étrangers à l’explication peuvent consommer des ressources nécessaires à la compréhension.",
+      "application": "Retirer anecdotes, motifs ou légendes qui entrent en concurrence avec le but pédagogique.",
+      "limits": "Une texture ou une illustration peut soutenir identification, intérêt ou sens. Le principe vise l’apprentissage dans un contexte donné; il n’oblige pas toute œuvre artistique à être minimaliste.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I17"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-36",
+      "name": "Signalisation de la structure",
+      "definition": "Des indices de structure peuvent orienter la sélection de l’information pertinente.",
+      "application": "Utiliser titres, repères, surlignage ou numérotation qui correspondent au raisonnement à suivre.",
+      "limits": "Multiplier les accents dilue leur rôle. Un indice doit signaler une priorité réelle et rester accessible. L’effet pédagogique dépend du matériel et des connaissances du lecteur, pas d’une formule fixe d’intensité.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-37",
+      "name": "Contiguïté spatiale",
+      "definition": "Rapprocher une explication verbale de la partie visuelle correspondante peut réduire l’effort d’association.",
+      "application": "Placer les annotations près des organes d’un mécanisme ou des étapes qu’elles expliquent.",
+      "limits": "Le rapprochement ne doit pas produire chevauchements ou surcharge. Une légende éloignée reste parfois nécessaire; le bénéfice dépend de la difficulté de l’association, et non d’un écart universel en pixels.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I17"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-38",
+      "name": "Contiguïté temporelle",
+      "definition": "Présenter ensemble les explications verbales et visuelles correspondantes peut soutenir leur intégration dans un contenu animé.",
+      "application": "Synchroniser une indication avec le changement qu’elle décrit plutôt que demander de mémoriser longtemps l’un avant l’autre.",
+      "limits": "Une animation complexe exige aussi du contrôle et parfois des pauses. Synchroniser ne signifie pas afficher toute l’information simultanément ni supprimer des transcriptions accessibles.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-39",
+      "name": "Segmentation",
+      "definition": "Découper une explication complexe en unités contrôlables peut aider à traiter successivement ses relations.",
+      "application": "Proposer étapes, pauses et retour à une vue d’ensemble lorsqu’une animation ou une infographie interactive l’exige.",
+      "limits": "Le découpage ajoute de la navigation et peut faire perdre la structure globale. Le bon nombre de segments dépend de la matière et du public, pas d’une suite numérique sacrée.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I17"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-40",
+      "name": "Préentraînement",
+      "definition": "Connaître préalablement le nom et le rôle des composants facilite l’apprentissage de leurs interactions complexes.",
+      "application": "Présenter une légende, un vocabulaire minimal ou une vue des pièces avant le déroulement d’un système.",
+      "limits": "Les experts peuvent trouver cette étape redondante; la rendre rapidement accessible. Ajouter beaucoup de définitions sans nécessité peut créer une surcharge supplémentaire au lieu d’aider.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-41",
+      "name": "Redondance maîtrisée",
+      "definition": "Répéter la même information par plusieurs canaux peut aider l’accès, mais aussi encombrer le traitement dans certaines présentations multimédias.",
+      "application": "Choisir sous-titres, narration, résumé et étiquettes selon le besoin; offrir des contrôles lorsque c’est possible.",
+      "limits": "Les effets de redondance pédagogique ne justifient pas de retirer sous-titres, textes alternatifs ou descriptions nécessaires. Distinguer duplication inutile et accès équivalent.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I17",
+        "I05"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "INF-42",
+      "name": "Validation par la compréhension",
+      "definition": "Une préférence esthétique et une compréhension correcte sont des résultats distincts qu’il faut évaluer séparément.",
+      "application": "Demander au lecteur d’interpréter les valeurs ou d’expliquer le mécanisme; mesurer erreurs, temps et capacité de transfert selon l’objectif.",
+      "limits": "Un test bref ne prouve pas une efficacité universelle. Éviter un score mélangeant beauté, vitesse et fidélité qui permettrait à une amélioration décorative de compenser une erreur factuelle.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "I02",
+        "I18"
+      ],
+      "domain": "pedagogie",
+      "domain_label": "Cognition et explication",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-01",
+      "name": "Perspective centrale",
+      "definition": "Projection avec division par la profondeur : les objets lointains occupent moins d’espace dans l’image.",
+      "application": "Organiser volume, profondeur et points de fuite dans une illustration.",
+      "limits": "La taille apparente ne conserve pas les mesures; préciser une convention de caméra et garder la perspective cohérente.",
+      "basis": "mathematical",
+      "formula": "x′ = f x/z ; y′ = f y/z (repère de caméra et plan image choisis ; z≠0)",
+      "source_ids": [
+        "R03"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-02",
+      "name": "Projection orthographique et axonométrie",
+      "definition": "Projection parallèle qui préserve les parallélismes; l’axonométrie est une orientation de la projection parallèle.",
+      "application": "Vues éclatées, schémas de produits, assemblages et schémas techniques.",
+      "limits": "L’isométrie ne rend pas toutes les longueurs 3D directement mesurables sans échelle; annoncer la convention.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "R03"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-03",
+      "name": "Lumière ponctuelle et distance",
+      "definition": "Une source ponctuelle isotrope distribue sa puissance sur des surfaces qui augmentent comme le carré de la distance.",
+      "application": "Créer une chute de lumière cohérente dans un rendu ou expliquer l’éclairement.",
+      "limits": "La relation suppose une source ponctuelle, un milieu sans atténuation et l’orientation de réception appropriée; elle ne décrit pas toute grande source étendue.",
+      "basis": "physical",
+      "formula": "E = I cos(θ)/r², pour une surface tournée vers la source ; I = intensité, r>0",
+      "source_ids": [
+        "R04"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-04",
+      "name": "Ombres et visibilité",
+      "definition": "Une ombre dépend de l’occultation de la source depuis une surface; la géométrie de la source détermine la pénombre.",
+      "application": "Rendre lisibles contact, profondeur et position relative des objets.",
+      "limits": "Une ombre stylisée reste possible, mais les contradictions de direction doivent être intentionnelles.",
+      "basis": "physical",
+      "formula": null,
+      "source_ids": [
+        "R04",
+        "R05"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-05",
+      "name": "Réflexion et rugosité",
+      "definition": "La distribution de la lumière réfléchie dépend du matériau, de ses microstructures et des directions d’éclairage et d’observation.",
+      "application": "Distinguer métal, verre, peinture mate et surface rugueuse dans une image de produit.",
+      "limits": "Un reflet décoratif ne démontre pas une propriété matérielle; les paramètres de rendu doivent correspondre à l’usage illustratif.",
+      "basis": "physical",
+      "formula": null,
+      "source_ids": [
+        "R05"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-06",
+      "name": "Réfraction et Fresnel",
+      "definition": "Le changement de milieu dévie les rayons; la part réfléchie varie notamment avec l’angle et le matériau.",
+      "application": "Illustrer lentilles, eau, verre et transparence avec une géométrie plausible.",
+      "limits": "L’optique géométrique est une approximation; les surfaces rugueuses et phénomènes ondulatoires exigent d’autres modèles.",
+      "basis": "physical",
+      "formula": "n₁ sin θ₁ = n₂ sin θ₂",
+      "source_ids": [
+        "R05"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-07",
+      "name": "Superposition et interférences",
+      "definition": "Dans un régime linéaire, les contributions d’ondes s’additionnent et peuvent se renforcer ou se réduire.",
+      "application": "Dessiner réseaux de lignes, motifs rythmiques, ondes et interférences pédagogiques.",
+      "limits": "La figure dépend des amplitudes, phases et conditions aux limites; aucune harmonie esthétique ou propriété thérapeutique n’en découle automatiquement.",
+      "basis": "physical",
+      "formula": "y(x,t) = Σᵢ Aᵢ sin(kᵢx − ωᵢt + δᵢ)",
+      "source_ids": [
+        "R07"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-08",
+      "name": "Modes stationnaires et figures nodales",
+      "definition": "Des conditions aux limites sélectionnent certains modes avec des zones immobiles et d’autres qui oscillent.",
+      "application": "Motifs inspirés de Chladni, visualisation du son et surfaces vibrantes.",
+      "limits": "Une image de motif ne permet pas d’identifier une fréquence sans connaître dimensions, matériau et contraintes.",
+      "basis": "physical",
+      "formula": null,
+      "source_ids": [
+        "R07"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-09",
+      "name": "Courbes de Lissajous et rapports de fréquences",
+      "definition": "Deux oscillations paramétriques composent une trajectoire plane; les rapports de fréquences contrôlent sa structure.",
+      "application": "Rosaces, signatures animées et motifs paramétriques reproductibles.",
+      "limits": "a et b sont les pulsations. Les trajectoires non dégénérées se ferment lorsque leur rapport est rationnel. Une analogie avec les intervalles musicaux ne garantit pas l’agrément visuel.",
+      "basis": "mathematical",
+      "formula": "x(t)=A sin(at+δ) ; y(t)=B sin(bt)",
+      "source_ids": [
+        "R17"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-10",
+      "name": "Ressort amorti",
+      "definition": "Un système masse–ressort avec frottement linéaire revient vers l’équilibre selon son amortissement.",
+      "application": "Transitions, rebonds et déplacements dotés d’un comportement cohérent.",
+      "limits": "Un mouvement physiquement plausible peut être trop lent ou distrayant; adapter durée et amplitude à la tâche.",
+      "basis": "physical",
+      "formula": "m x″ + c x′ + kx = 0 ; ζ = c/(2√(km))",
+      "source_ids": [
+        "R06"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-11",
+      "name": "Anticipation et mise en scène",
+      "definition": "Préparer une action et organiser ce qui doit être vu au moment utile sont des pratiques fondamentales d’animation.",
+      "application": "Annoncer une transition ou un changement d’état avant son déroulement.",
+      "limits": "Le mouvement n’est utile que s’il améliore compréhension ou expression; éviter les délais ajoutés sans fonction.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "R08"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-12",
+      "name": "Timing, accélération et décélération",
+      "definition": "La durée et l’espacement des positions influencent la perception du poids, de l’énergie et de l’intention.",
+      "application": "Hiérarchiser les événements d’une animation et rendre la lecture possible.",
+      "limits": "Aucune durée en millisecondes ne convient à tous les publics, distances ou contenus.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "R08"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-13",
+      "name": "Arcs, suivi et chevauchement",
+      "definition": "Les trajectoires et décalages entre parties d’un objet contribuent à la continuité d’une action.",
+      "application": "Mouvement organique de feuilles, câbles, membres ou éléments secondaires.",
+      "limits": "Les arcs constituent une pratique expressive; ils ne sont pas une loi universelle de toutes les trajectoires physiques.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "R08"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-14",
+      "name": "Exagération et déformation expressive",
+      "definition": "Amplifier une pose ou une variation peut faciliter la lecture d’un geste et construire un caractère.",
+      "application": "Illustration animée et identité de marque expressive.",
+      "limits": "Ne pas déformer silencieusement une valeur, une échelle ou un mécanisme présenté comme scientifique.",
+      "basis": "heuristic",
+      "formula": null,
+      "source_ids": [
+        "R08"
+      ],
+      "domain": "physique",
+      "domain_label": "Lumière, projection et mouvement",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-15",
+      "name": "Réaction-diffusion",
+      "definition": "Des substances ou champs réagissant localement et diffusant à des vitesses différentes peuvent faire émerger des motifs.",
+      "application": "Textures organiques, peaux, taches, labyrinthes et fonds génératifs.",
+      "limits": "Les paramètres et conditions de stabilité comptent; une texture ressemblante ne prouve pas le mécanisme biologique réel.",
+      "basis": "physical",
+      "formula": "∂u/∂t = Dᵤ∇²u + f(u,v) ; ∂v/∂t = Dᵥ∇²v + g(u,v)",
+      "source_ids": [
+        "R01"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-16",
+      "name": "Bruit procédural cohérent",
+      "definition": "Une fonction de bruit contrôlée spatialement produit des variations continues plutôt qu’un hasard indépendant à chaque pixel.",
+      "application": "Textures de bois, nuages, reliefs stylisés et variation organique.",
+      "limits": "Les détails génératifs doivent rester distincts du signal de données et être limités à la résolution utile.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "R15"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-17",
+      "name": "Interpolation douce",
+      "definition": "Une transition peut imposer la continuité des dérivées pour éviter cassures de pente et artefacts.",
+      "application": "Mélanger des états, construire un bruit régulier ou contrôler une animation.",
+      "limits": "La continuité mathématique ne suffit pas à choisir une durée ou une esthétique adaptée.",
+      "basis": "mathematical",
+      "formula": "s(t) = 6t⁵ − 15t⁴ + 10t³ ; 0 ≤ t ≤ 1",
+      "source_ids": [
+        "R15"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-18",
+      "name": "Échantillonnage et aliasing",
+      "definition": "Un motif trop fin pour la grille de sortie peut produire marches d’escalier, faux motifs ou scintillement.",
+      "application": "Vérifier trames, traits, textures et fractales à la taille d’export finale.",
+      "limits": "Une courbe vectorielle parfaite peut devenir illisible après rastérisation; filtrage et réduction de détail sont nécessaires.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "R16"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-19",
+      "name": "Courbes de Bézier",
+      "definition": "Des points de contrôle définissent une trajectoire paramétrique dont on peut contrôler les tangentes. La formule donnée est le cas quadratique.",
+      "application": "Dessiner lettres, logos, pictogrammes et contours fluides.",
+      "limits": "Ajouter des points ne garantit pas un meilleur contour; une forme volontairement anguleuse doit garder ses angles.",
+      "basis": "mathematical",
+      "formula": "B(t) = (1−t)²P₀ + 2t(1−t)P₁ + t²P₂",
+      "source_ids": [
+        "R13"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-20",
+      "name": "Continuité géométrique G0, G1 et G2",
+      "definition": "G0 : position commune. G1 : même tangente orientée, pour des courbes régulières. G2 : continuité du vecteur de courbure, ou de la courbure signée en 2D.",
+      "application": "Éliminer les cassures involontaires dans des contours lisses.",
+      "limits": "G1 n’exige pas l’égalité des vitesses paramétriques; un angle intentionnel relève de G0 et peut être parfaitement adapté.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "R18"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "PHY-21",
+      "name": "Contours et espaces internes",
+      "definition": "L’orientation et la combinaison des contours déterminent les zones remplies et les ouvertures d’une forme vectorielle.",
+      "application": "Préserver les contreformes de lettres et monogrammes; éviter une intersection accidentelle.",
+      "limits": "Vérifier le moteur de rendu et la règle de remplissage; les formats ne partagent pas toujours les mêmes conventions.",
+      "basis": "mathematical",
+      "formula": null,
+      "source_ids": [
+        "R13"
+      ],
+      "domain": "generation",
+      "domain_label": "Génération et construction vectorielle",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-01",
+      "name": "Entropie de Shannon",
+      "definition": "L’entropie mesure l’incertitude d’une distribution de probabilités.",
+      "application": "Décrire variété, répétition et complexité de sources symboliques ou de modèles génératifs.",
+      "limits": "Elle ne mesure directement ni la beauté, ni la vérité, ni la compréhension d’une infographie.",
+      "basis": "mathematical",
+      "formula": "H(X) = −Σᵢ pᵢ log₂ pᵢ ; 0 log 0 = 0",
+      "source_ids": [
+        "R09"
+      ],
+      "domain": "theories",
+      "domain_label": "Information et mesures esthétiques",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-02",
+      "name": "Mesure esthétique de Birkhoff",
+      "definition": "Tentative historique de relier une mesure esthétique à un rapport entre ordre et complexité.",
+      "application": "Référence pour comprendre les approches de notation automatique et comparer des hypothèses sur un corpus.",
+      "limits": "Le choix des mesures d’ordre et de complexité gouverne le résultat; ce n’est pas un barème universel validé.",
+      "basis": "hypothesis",
+      "formula": "M = O/C",
+      "source_ids": [
+        "R14",
+        "R10"
+      ],
+      "domain": "theories",
+      "domain_label": "Information et mesures esthétiques",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    },
+    {
+      "id": "THE-03",
+      "name": "Mesures computationnelles de qualité",
+      "definition": "Des mesures formelles peuvent corréler avec certains jugements sur un corpus donné.",
+      "application": "Repérer cohérence, complexité ou anomalies et assister une revue visuelle.",
+      "limits": "Valider chaque indicateur contre des jugements et tâches pertinents; une bonne note interne n’établit pas l’appréciation réelle.",
+      "basis": "empirical",
+      "formula": null,
+      "source_ids": [
+        "R10"
+      ],
+      "domain": "theories",
+      "domain_label": "Information et mesures esthétiques",
+      "application_status": "Synthèse opérationnelle proposée; valider selon le contexte.",
+      "verification_note": "Sources référencées pour le fondement; leur présence ne prouve pas l’efficacité de toute application."
+    }
+  ],
+  "sources": [
+    {
+      "id": "G01",
+      "title": "Éléments — Livre VI, définition 3; I.47; VI.19; IV.10; XIII.18",
+      "authors": "Euclide; édition et commentaires Web de David E. Joyce",
+      "year": "vers 300 av. n.è.; édition Web sans date indiquée",
+      "url": "https://mathcs.clarku.edu/~djoyce/elements/bookVI/defVI3.html",
+      "additional_urls": [
+        "https://mathcs.clarku.edu/~djoyce/elements/bookI/propI47.html",
+        "https://mathcs.clarku.edu/~djoyce/elements/bookVI/propVI19.html",
+        "https://mathcs.clarku.edu/~djoyce/elements/bookIV/propIV10.html",
+        "https://mathcs.clarku.edu/~djoyce/elements/bookXIII/propXIII18.html"
+      ],
+      "supports": "Définition de l’extrême et moyenne raison; Pythagore et constructions par racines; aire des figures semblables; triangle 36°–72°–72°; classification des cinq solides réguliers convexes. N’appuie aucune supériorité esthétique.",
+      "read_level": "Texte principal et commentaires des pages indiquées lus; I.47, IV.10 et XIII.18 extraits plafonnés à 5 500–7 000 caractères.",
+      "source_type": "primary_mathematics"
+    },
+    {
+      "id": "G02",
+      "title": "Beyond the Golden Section and normative aesthetics: Why do individuals differ so much in their aesthetic preferences for rectangles?",
+      "authors": "I. C. McManus, Richard Cook, Amy N. Hunt",
+      "year": "2010",
+      "url": "https://doi.org/10.1037/a0017316",
+      "supports": "Expérience auprès de 79 participants: préférences collectives faibles, préférences individuelles fortes et variables. Justifie de refuser une règle esthétique universelle fondée sur φ; n’exclut pas des préférences locales ou contextuelles.",
+      "read_level": "Abstract et métadonnées lus directement via la page DOI; texte intégral non lu.",
+      "source_type": "primary_empirical"
+    },
+    {
+      "id": "G03",
+      "title": "Phyllotaxis as a physical self-organized growth process",
+      "authors": "Stéphane Douady, Yves Couder",
+      "year": "1992",
+      "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.68.2098",
+      "doi": "10.1103/PhysRevLett.68.2098",
+      "additional_urls": [
+        "https://pdodds.w3.uvm.edu/files/papers/others/1996/douady1996b.pdf"
+      ],
+      "supports": "Des motifs phyllotactiques liés à Fibonacci émergent expérimentalement et numériquement d’un processus itératif sous conditions. L’article complémentaire de 1996, Part II, montre la coexistence de modes spiralés et verticillés et le rôle des conditions initiales: toutes les plantes ne suivent pas un angle unique.",
+      "read_level": "Abstract éditeur de 1992 lu; extrait de 6 000 caractères de l’article original de 1996, J. Theor. Biol. 178:275–294, lu.",
+      "source_type": "primary_physical"
+    },
+    {
+      "id": "G04",
+      "title": "The Algorithmic Beauty of Plants — notamment chapitre 4, Phyllotaxis",
+      "authors": "Przemysław Prusinkiewicz, Aristid Lindenmayer; avec James S. Hanan et collaborateurs",
+      "year": "1990; édition électronique 2004",
+      "url": "https://algorithmicbotany.org/papers/abop/abop.pdf",
+      "additional_urls": [
+        "https://algorithmicbotany.org/papers/abop/abop-ch4.pdf"
+      ],
+      "supports": "L-systems, modélisation du développement et autosimilarité; formule de Vogel r=c√n, θ=nα; différence entre description géométrique, mécanisme physiologique et validation. Le livre documente des méthodes de synthèse visuelle, pas une preuve que toute géométrie naturelle est belle.",
+      "read_level": "Préface et débuts du livre, puis extrait de 7 000 caractères du chapitre 4 lus; livre intégral non lu.",
+      "source_type": "primary_research_book",
+      "additional_reading": "Préface et extraits du livre numérique des auteurs."
+    },
+    {
+      "id": "G05",
+      "title": "Aesthetic Responses to Exact Fractals Driven by Physical Complexity",
+      "authors": "Alexander J. Bies, Daryn R. Blanc-Goldhammer, Cooper R. Boydston, Richard P. Taylor, Margaret E. Sereno",
+      "year": "2016",
+      "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2016.00210/full",
+      "doi": "10.3389/fnhum.2016.00210",
+      "supports": "Deux études de fractales exactes montrent notamment des préférences croissant avec D et une interaction entre symétrie, récursion et dimension. Réfute la transposition automatique d’un optimum de fractales statistiques à toute fractale.",
+      "read_level": "Abstract, introduction et extrait du texte de 15 000 caractères lus; article complet non lu.",
+      "source_type": "primary_empirical"
+    },
+    {
+      "id": "G06",
+      "title": "Taxonomy of Individual Variations in Aesthetic Responses to Fractal Patterns",
+      "authors": "Branka Spehar, Nicholas Walker, Richard P. Taylor",
+      "year": "2016",
+      "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2016.00350/full",
+      "doi": "10.3389/fnhum.2016.00350",
+      "supports": "Deux expériences sur images à spectres 1/f: malgré une moyenne de groupe favorisant des pentes intermédiaires, profils individuels stables distincts. Dans la première expérience: environ 50 % intermédiaire, 20 % lisse, 20 % net, 10 % autres; ne pas projeter ces proportions sur la population générale.",
+      "read_level": "Abstract et texte initial, 14 000 caractères, lus; article complet non lu.",
+      "source_type": "primary_empirical"
+    },
+    {
+      "id": "G07",
+      "title": "A Complex Story: Universal Preference vs. Individual Differences Shaping Aesthetic Response to Fractals Patterns",
+      "authors": "Nichola Street, Alexandra M. Forsythe, Ronan Reilly, Richard Taylor, Mai S. Helmy",
+      "year": "2016",
+      "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2016.00213/full",
+      "doi": "10.3389/fnhum.2016.00213",
+      "supports": "Deux études avec cohorte annoncée de 443 participants examinent dimensions fractales, complexité et différences d’âge, genre, culture. Les résultats soutiennent une certaine robustesse des préférences intermédiaires tout en limitant les affirmations universelles sur la complexité.",
+      "read_level": "Abstract, introduction et extrait de 15 000 caractères lus; texte complet non lu.",
+      "source_type": "primary_empirical"
+    },
+    {
+      "id": "G08",
+      "title": "Decagonal and Quasi-Crystalline Tilings in Medieval Islamic Architecture",
+      "authors": "Peter J. Lu, Paul J. Steinhardt",
+      "year": "2007",
+      "url": "https://peterlu.org/pdf/publications/2007/Science_315_1106_2007.pdf",
+      "doi": "10.1126/science.1135491",
+      "supports": "Analyse de constructions girih par cinq tuiles décorées, symétries et subdivisions; rapprochement documenté de certains motifs avec des pavages quasi-cristallins presque parfaits. Ne prouve pas que chaque artiste historique disposait de la théorie moderne complète.",
+      "read_level": "Abstract et texte initial du PDF auteur lus, environ 14 000 caractères; la thèse historique est attribuée aux auteurs.",
+      "source_type": "primary_research"
+    },
+    {
+      "id": "G09",
+      "title": "Islamic Art and Geometric Design: Activities for Learning",
+      "authors": "The Metropolitan Museum of Art; équipe Education et Department of Islamic Art",
+      "year": "2004",
+      "url": "https://www.metmuseum.org/-/media/files/learn/for-educators/publications-for-educators/islamic_art_and_geometric_design.pdf",
+      "additional_urls": [
+        "https://www.metmuseum.org/learn/educators/lesson-plans/geometric-design-in-islamic-art"
+      ],
+      "supports": "Construction de motifs au compas et à la règle; cercles, carrés, triangles, grilles, répétitions, symétries, tessellations et contexte d’œuvres de la collection. Appuie pratiques et histoire de ces objets, pas une propriété énergétique des motifs.",
+      "read_level": "Introduction et instructions générales du PDF lus (14 000 caractères); fiche de leçon lue séparément.",
+      "source_type": "institutional_primary_collection"
+    },
+    {
+      "id": "G10",
+      "title": "Mandala of Manjushri Dharmadhatu Vagishvara",
+      "authors": "Rubin Museum of Himalayan Art",
+      "year": "œuvre vers 1500; notice sans date",
+      "url": "https://rubinmuseum.org/collection/f1996-15-2/",
+      "supports": "Œuvre tibétaine précise avec palais carré dans un palais circulaire; rôle des mandalas dans la visualisation bouddhique et représentation cosmologique. L’interprétation culturelle est documentée; elle ne démontre pas un effet physique universel.",
+      "read_level": "Notice de collection complète lue.",
+      "source_type": "institutional_primary_collection"
+    },
+    {
+      "id": "G11",
+      "title": "Nautilus Spirals and the Meta-Golden Ratio Chi",
+      "authors": "Christopher Bartlett",
+      "year": "2018 en ligne; 2019 volume 21",
+      "url": "https://link.springer.com/article/10.1007/s00004-018-0419-3",
+      "doi": "10.1007/s00004-018-0419-3",
+      "supports": "Mesure de 80 coquilles de la collection Smithsonian; le résumé annonce une moyenne d’environ 1,310 pour Nautilus et une différence pour le nautile encroûté. Appuie la critique de l’attribution automatique à φ; n’établit pas de loi universelle χ. Définit explicitement φ par quart de tour et φ⁴ par tour pour la spirale d’or.",
+      "read_level": "Abstract et extrait de 15 000 caractères lus; tableau complet et méthodes finales non intégralement lus.",
+      "source_type": "primary_observational"
+    },
+    {
+      "id": "G12",
+      "title": "The Golden Spiral: The Genesis of a Misunderstanding",
+      "authors": "Paul Gailiunas",
+      "year": "2015",
+      "url": "https://archive.bridgesmathart.org/2015/bridges2015-159.pdf",
+      "supports": "Analyse historique et mathématique des confusions entre spirales logarithmiques, spirales d’or, approximations au compas et nautiles; critique des reconstructions visuelles rétrospectives. Le titre extrait dans certaines métadonnées diffère: le titre retenu ici est celui imprimé dans le PDF.",
+      "read_level": "Extrait de 15 000 caractères du PDF lu, incluant introduction et étude historique; article intégral non lu.",
+      "source_type": "primary_historical_analysis"
+    },
+    {
+      "id": "G13",
+      "title": "SciPy spatial — Voronoi et Delaunay",
+      "authors": "Équipe SciPy",
+      "year": "documentation consultée le 19 octobre 2026 (America/Toronto)",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Voronoi.html",
+      "additional_urls": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html"
+      ],
+      "supports": "Documentation officielle des constructions géométriques, paramètres, coordonnées, facettes et limites de précision; traitement des points coplanaires et cas dégénérés. Support d’implémentation, pas étude d’esthétique.",
+      "read_level": "Deux pages de documentation lues.",
+      "source_type": "primary_technical_documentation"
+    },
+    {
+      "id": "P01",
+      "title": "A Century of Gestalt Psychology in Visual Perception: I. Perceptual Grouping and Figure–Ground Organization",
+      "authors": "Johan Wagemans, James H. Elder, Michael Kubovy, Stephen E. Palmer, Mary A. Peterson, Manish Singh, Rüdiger von der Heydt",
+      "year": "2012",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3482144/",
+      "doi": "10.1037/a0029333",
+      "supports": "Revue de référence des principes de groupement, de contour et de figure-fond. Distingue des tendances perceptives mesurables de « lois » absolues; détaille conflits entre indices et effets d’attention/expérience. Source de synthèse de centaines d’expériences, sans nouvel échantillon unique.",
+      "reading": "Texte intégral obtenu; sections ciblées 3, 4, 5 et limites 7.3 lues.",
+      "quality": "Revue scientifique majeure par chercheurs de la perception; DOI vérifié aussi via Sider Scholar."
+    },
+    {
+      "id": "P02",
+      "title": "Comparison of Objective Measures for Predicting Perceptual Balance and Visual Aesthetic Preference",
+      "authors": "Ronald Hübner, Martin G. Fillinger",
+      "year": "2016",
+      "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2016.00335/full",
+      "doi": "10.3389/fpsyg.2016.00335",
+      "supports": "Trois expériences sur compositions simples de cercles/hexagones. La déviation du centre de masse rend mieux compte des jugements d’équilibre que le score APB; préférence et homogénéité ajoutent d’autres dimensions. Échantillons universitaires de Constance : n=16 après exclusions dans l’expérience 1, n=21 dans l’expérience 2; n=27 recrutés et 4 exclus dans l’expérience 3.",
+      "reading": "Texte principal obtenu jusqu’à la discussion générale; résumé, méthodes, résultats et discussion ciblés lus.",
+      "quality": "Recherche expérimentale originale; stimuli simples et échantillons modestes, généralisation limitée."
+    },
+    {
+      "id": "P03",
+      "title": "Perceptual Balance, Stability, and Aesthetic Appreciation: Their Relations Depend on the Picture Type",
+      "authors": "Ronald Hübner, Martin G. Fillinger",
+      "year": "2019",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6566492/",
+      "supports": "42 images abstraites du VAST; expérience 1 n=52, expérience 2 n=104. Les associations entre équilibre, stabilité et agrément varient entre figures à élément unique, éléments multiples et motifs dynamiques. Aucune relation globale fiable équilibre–agrément; les métriques mécaniques ne généralisent pas automatiquement. Le même mot « équilibre » peut désigner des évaluations différentes.",
+      "reading": "Texte complet récupéré; méthodes et discussions des deux expériences et discussion générale lues.",
+      "quality": "Recherche expérimentale originale; test direct des limites d’une métaphore mécanique."
+    },
+    {
+      "id": "P04",
+      "title": "Processing Fluency and Aesthetic Pleasure: Is Beauty in the Perceiver’s Processing Experience?",
+      "authors": "Rolf Reber, Norbert Schwarz, Piotr Winkielman",
+      "year": "2004",
+      "url": "https://pages.ucsd.edu/~pwinkielman/reber-schwarz-winkielman-beauty-PSPR-2004.pdf",
+      "doi": "10.1207/s15327957pspr0804_3",
+      "supports": "Modèle interactionniste reliant plaisir et facilité de traitement, synthétisant contraste, répétition, amorçage, symétrie, prototypicalité. La fluence n’est pas un score de beauté dans l’objet; attentes, attribution et contenu sémantique changent les effets. Le texte distingue plaisir esthétique et valeur artistique.",
+      "reading": "PDF ouvert; introduction, mécanisme, répétition/prototypicalité et limites sémantiques/attribution lues; extraction limitée à 70 000 caractères.",
+      "quality": "Revue théorique et empirique de référence; modèle explicatif, non loi universelle."
+    },
+    {
+      "id": "P05",
+      "title": "Liking versus Complexity: Decomposing the Inverted U-curve",
+      "authors": "Yağmur Güçlütürk, Richard H. A. H. Jacobs, Rob van Lier",
+      "year": "2016",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4796011/",
+      "doi": "10.3389/fnhum.2016.00112",
+      "supports": "30 participants, âge moyen 21,3 ans, images numériques abstraites en gris. Le U inversé agrégé recouvre deux sous-groupes : préférence décroissante ou croissante avec la complexité. Montre qu’un optimum moyen peut masquer les différences individuelles; ne démontre pas que chaque U inversé de la littérature est artificiel.",
+      "reading": "Résumé, méthode, analyse de regroupement, discussion et conclusion lus.",
+      "quality": "Expérience originale avec analyse des différences individuelles; petit échantillon et catégories spécifiques."
+    },
+    {
+      "id": "P06",
+      "title": "How universal is preference for visual curvature? A systematic review and meta-analysis",
+      "authors": "Erick G. Chuquichambi, Oshin Vartanian, Martin Skov, Guido B. Corradi, Marcos Nadal, Paul J. Silvia, Enric Munar",
+      "year": "2022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10091794/",
+      "doi": "10.1111/nyas.14919",
+      "supports": "61 études, 106 échantillons, 309 tailles d’effet, 11 023 participants. Modèle à trois niveaux : Hedges g=0,39, IC95% [0,25;0,52]. Préférence moyenne pour courbes fiable mais hétérogène, modulée par temps d’exposition, catégorie des stimuli, tâche et expertise. Recherche publiée en ligne le 26 octobre 2022, fascicule décembre 2022.",
+      "reading": "Résumé, stratégie, inclusion, résultats confirmatoires, modérateurs, limites et conclusion lus.",
+      "quality": "Méta-analyse avec données manquantes et hétérogénéité explicitement examinées; DOI vérifié via Sider Scholar."
+    },
+    {
+      "id": "P07",
+      "title": "Do observers like curvature or do they dislike angularity?",
+      "authors": "Marco Bertamini, Letizia Palumbo, Tamara Nicoleta Gheorghes, Mai Galatsidas",
+      "year": "2015 (publication en ligne)",
+      "url": "https://doi.org/10.1111/bjop.12132",
+      "doi": "10.1111/bjop.12132",
+      "supports": "Quatre expériences de n=20, 20, 14 et 36; formes abstraites, lignes et tâche approche/évitement. Les courbes plaisent aussi davantage que des lignes droites sans angles. La distance péripersonnelle ne renforce pas l’effet; l’approche des courbes est mieux soutenue que l’évitement des angles. La théorie de menace ne suffit pas à expliquer l’effet.",
+      "reading": "Résumé, méthodes des quatre expériences et conclusions lus; texte principal récupéré.",
+      "quality": "Expériences originales séparant plusieurs mécanismes candidats; DOI vérifié via Sider Scholar."
+    },
+    {
+      "id": "P08",
+      "title": "Neuroscience of aesthetics",
+      "authors": "Anjan Chatterjee, Oshin Vartanian",
+      "year": "2016",
+      "url": "https://neuroaesthetics.med.upenn.edu/assets/user-content/documents/publications/chatterjee-vartanian-2016-01.pdf",
+      "doi": "10.1111/nyas.13035",
+      "supports": "Revue sélective proposant une triade : traitement sensorimoteur, émotion/évaluation et sens/connaissance. Les interactions entre ces systèmes et le contexte éclairent l’expérience esthétique. Le modèle n’est ni un détecteur automatique de beauté, ni une preuve qu’une forme particulière cause une activation ou une émotion déterminée.",
+      "reading": "PDF ouvert; cadre de la triade, rôle du contexte et prudence d’interprétation lus; sections biométriques non utilisées.",
+      "quality": "Revue neuroscientifique de référence, cadre théorique intégrateur."
+    },
+    {
+      "id": "P09",
+      "title": "The role of expertise and culture in visual art appreciation",
+      "authors": "Kohinoor M. Darda, Emily S. Cross",
+      "year": "2022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9219380/",
+      "doi": "10.1038/s41598-022-14128-7",
+      "supports": "Deux expériences préenregistrées : 92 participants pour 120 peintures; 90 participants pour 38 vidéos de danse. Groupes indiens/occidentaux et experts/non-experts. La préférence pour les peintures figuratives existe dans ces deux populations; son atténuation par expertise ne se retrouve que dans le groupe occidental. Biais de groupe d’origine observé pour la danse, modulé par expertise. Les effets ne généralisent pas identiquement entre arts.",
+      "reading": "Résumé, populations, stimuli, analyses confirmatoires et début de discussion lus; fin de discussion non récupérée au plafond de 70 000 caractères.",
+      "quality": "Recherche primaire préenregistrée, comparaison interculturelle explicite; deux ensembles culturels ne représentent pas toute l’humanité."
+    },
+    {
+      "id": "P10",
+      "title": "Beauty and the beholder: Highly individual taste for abstract, but not real-world images",
+      "authors": "Edward A. Vessel, Nava Rubin",
+      "year": "2010",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3662030/",
+      "doi": "10.1167/10.2.18",
+      "supports": "35 observateurs répartis entre expériences, stimuli abstraits et images de scènes réelles, comparaisons par paires répétées. Préférences individuelles fiables mais accord interindividuel plus faible pour l’abstrait; le contexte de présentation réduit aussi l’accord pour les scènes réelles. Soutient le rôle des associations sémantiques partagées, sans établir un déterminisme culturel.",
+      "reading": "Résumé, observateurs, méthodes et conclusion lus; texte complet obtenu.",
+      "quality": "Recherche expérimentale originale sur la fiabilité intra-individuelle et l’accord entre personnes."
+    },
+    {
+      "id": "P11",
+      "title": "Guided Search 6.0: An updated model of visual search",
+      "authors": "Jeremy M. Wolfe",
+      "year": "2021",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8965574/",
+      "doi": "10.3758/s13423-020-01859-9",
+      "supports": "Modèle/synthèse de recherche visuelle réunissant guidage par stimulus, objectifs, histoire, récompense et structure/sens de la scène. Les différences cible–distracteurs et l’homogénéité des distracteurs influencent la recherche. Un contraste détectable n’est pas forcément suffisant pour guider l’attention; densité, position et tâche interviennent.",
+      "reading": "Résumé, cinq formes de guidage, contraste relatif, densité et limites de la préattention lus; extraction jusqu’aux sections de terminaison de recherche.",
+      "quality": "Revue et modèle computationnel par auteur des modèles Guided Search; application au design est une inférence."
+    },
+    {
+      "id": "P12",
+      "title": "The brain on art: intense aesthetic experience activates the default mode network",
+      "authors": "Edward A. Vessel, G. Gabrielle Starr, Nava Rubin",
+      "year": "2012",
+      "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2012.00066/full",
+      "doi": "10.3389/fnhum.2012.00066",
+      "supports": "16 observateurs NYU, 109 reproductions d’œuvres, évaluations et IRMf. Les œuvres les plus émouvantes pour une personne montrent une réponse particulière de régions incluant le réseau du mode par défaut. L’identité des œuvres marquantes varie entre personnes. La pertinence personnelle est une interprétation des auteurs, non une recette causale démontrée.",
+      "reading": "Résumé, observateurs, stimuli, discussion et conclusion lus.",
+      "quality": "Petite étude IRMf originale; corrélation et inférence de mécanisme, pas norme prescriptive."
+    },
+    {
+      "id": "I01",
+      "title": "Automating the Design of Graphical Presentations of Relational Information",
+      "authors": "Jock D. Mackinlay",
+      "year": "1986",
+      "url": "https://doi.org/10.1145/22949.22950",
+      "supports": "Expressivité et efficacité d’un langage graphique; distinction des données quantitatives, ordinales et nominales; synthèse de présentations graphiques. Texte original extrait et sections conceptuelles lues."
+    },
+    {
+      "id": "I02",
+      "title": "Crowdsourcing Graphical Perception: Using Mechanical Turk to Assess Visualization Design",
+      "authors": "Jeffrey Heer; Michael Bostock",
+      "year": "2010",
+      "url": "https://hci.stanford.edu/publications/2010/crowd-perception/heer-chi2010.pdf",
+      "doi": "10.1145/1753326.1753357",
+      "supports": "Réplication de Cleveland–McGill; précision de comparaisons de positions, longueurs, angles et aires; interactions, ratio de forme, taille et grille. Pas de classement universel indépendant de la tâche."
+    },
+    {
+      "id": "I03",
+      "title": "The misuse of colour in science communication",
+      "authors": "Fabio Crameri; Grace E. Shephard; Philip J. Heron",
+      "year": "2020",
+      "url": "https://www.nature.com/articles/s41467-020-19160-7",
+      "doi": "10.1038/s41467-020-19160-7",
+      "supports": "Distorsion des données par gradients non uniformes; cartes séquentielles, divergentes et cycliques; déficiences de vision des couleurs. Perspective scientifique, et non loi esthétique universelle."
+    },
+    {
+      "id": "I04",
+      "title": "Color scheme types",
+      "authors": "ColorBrewer; Cynthia A. Brewer et collaborateurs",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://colorbrewer2.org/learnmore/schemes_full.html",
+      "supports": "Classification séquentielle, divergente et qualitative; centralité sémantique d’une valeur critique; risques d’accentuation des catégories peu importantes."
+    },
+    {
+      "id": "I05",
+      "title": "Web Content Accessibility Guidelines (WCAG) 2.2",
+      "authors": "W3C Accessibility Guidelines Working Group",
+      "year": "Recommandation du 12 décembre 2024",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "supports": "Texte normatif: couleur seule 1.4.1 A, redimensionnement 1.4.4 AA, reflow 1.4.10 AA, clavier 2.1.1 A, focus 2.4.7/2.4.11 AA, cible 2.5.8 AA et leurs exceptions."
+    },
+    {
+      "id": "I06",
+      "title": "Understanding SC 1.4.3: Contrast (Minimum)",
+      "authors": "W3C WAI",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+      "supports": "4.5:1 texte normal; 3:1 grand texte; au moins 18 pt ou au moins 14 pt gras; exceptions; seuil sans arrondi; contraste nominal et finesse des caractères."
+    },
+    {
+      "id": "I07",
+      "title": "Understanding SC 1.4.11: Non-text Contrast",
+      "authors": "W3C WAI",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
+      "supports": "3:1 avec couleurs adjacentes pour informations graphiques nécessaires et composants/états identifiables; exceptions inactif, apparence agent utilisateur non modifiée, présentation essentielle."
+    },
+    {
+      "id": "I08",
+      "title": "CSS Color Module Level 4",
+      "authors": "W3C CSS Working Group",
+      "year": "Candidate Recommendation Draft du 9 octobre 2026",
+      "url": "https://www.w3.org/TR/css-color-4/",
+      "supports": "Espaces colorimétriques CSS, Oklab/OkLCh, interpolation et gamut. Travail normatif en cours, pas une preuve qu’une palette est accessible."
+    },
+    {
+      "id": "I09",
+      "title": "Grid Systems in Graphic Design — extrait « What is the Purpose of the Grid? »",
+      "authors": "Josef Müller-Brockmann; édition Art. Lebedev Studio",
+      "year": "Ouvrage original 1981; édition consultée 2018",
+      "url": "https://www.artlebedev.com/izdal/modulnye-sistemy-2018/",
+      "supports": "Grille comme instrument de conception/organisation, alignement des textes et images et hiérarchie. Témoignage doctrinal de praticien; ses affirmations de preuve scientifique ne sont pas retenues comme preuve expérimentale."
+    },
+    {
+      "id": "I10",
+      "title": "Line length — Practical Typography",
+      "authors": "Matthew Butterick",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://practicaltypography.com/line-length.html",
+      "supports": "Conseil de praticien de 45–90 caractères par ligne espaces compris; mesure en caractères et adaptation des retraits. Plage de départ, pas optimum universel."
+    },
+    {
+      "id": "I11",
+      "title": "Line spacing — Practical Typography",
+      "authors": "Matthew Butterick",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://practicaltypography.com/line-spacing.html",
+      "supports": "Conseil de praticien de 120–145 % du corps pour beaucoup de textes; différences entre polices et logiciels. Ne remplace pas le critère WCAG de support des espacements utilisateur."
+    },
+    {
+      "id": "I12",
+      "title": "OpenType opsz design-variation axis tag",
+      "authors": "Microsoft OpenType specification",
+      "year": "OpenType 1.9.1; consulté 2026-10-19",
+      "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxistag_opsz",
+      "supports": "Axe optique: proportions, graisses et détails adaptés à taille apparente, appareil et distance. Taille en points; possibilité de sélection automatique et de réglage utilisateur."
+    },
+    {
+      "id": "I13",
+      "title": "Fitts’ Law as a Research and Design Tool in Human-Computer Interaction",
+      "authors": "I. Scott MacKenzie",
+      "year": "1992",
+      "url": "https://www.yorku.ca/mack/hci1992.html",
+      "doi": "10.1207/s15327051hci0701_3",
+      "supports": "MT=a+b log2(A/W+1), formulation de Shannon distincte de l’originale log2(2A/W); paramètres empiriques, largeur effective, contexte expérimental. Texte auteur avec équations lu."
+    },
+    {
+      "id": "I14",
+      "title": "On the Rate of Gain of Information",
+      "authors": "W. E. Hick",
+      "year": "1952",
+      "url": "https://doi.org/10.1080/17470215208416600",
+      "supports": "Expériences de temps de choix et information. Métadonnées et résumé original consultés; les nuances et formes algébriques détaillées sont vérifiées dans I15."
+    },
+    {
+      "id": "I15",
+      "title": "Hick’s law for choice reaction time: A review",
+      "authors": "Robert W. Proctor; Darryl W. Schneider",
+      "year": "2018",
+      "url": "https://web.ics.purdue.edu/~dws/pubs/ProctorSchneider_2018_QJEP.pdf",
+      "doi": "10.1080/17470218.2017.1322622",
+      "supports": "RT=a+b log2(n) pour alternatives équiprobables, ou RT=a+bH; forme historique n+1; limites dues à compatibilité, pratique, grands ensembles et dépendances séquentielles."
+    },
+    {
+      "id": "I16",
+      "title": "Beyond Fitts’ Law: Models for Trajectory-Based HCI Tasks",
+      "authors": "Johnny Accot; Shumin Zhai",
+      "year": "1997",
+      "url": "https://research.cs.vt.edu/ns/cs5724papers/2.humanperf.fitts.accot.beyondfitts.pdf",
+      "doi": "10.1145/258549.258760",
+      "supports": "Steering law: temps proportionnel à l’intégrale ds/W(s), trajectoires contraintes et tunnels; distinction avec acquisition d’une cible."
+    },
+    {
+      "id": "I17",
+      "title": "Nine Ways to Reduce Cognitive Load in Multimedia Learning",
+      "authors": "Richard E. Mayer; Roxana Moreno",
+      "year": "2003",
+      "url": "https://faculty.washington.edu/farkas/WDFR/MayerMoreno9WaysToReduceCognitiveLoad.pdf",
+      "doi": "10.1207/S15326985EP3801_6",
+      "supports": "Modèle à deux canaux, capacité limitée, traitement actif; segmentation, préentraînement, contiguïté, cohérence, signalisation; apprentissage mesuré par transfert."
+    },
+    {
+      "id": "I18",
+      "title": "The Past, Present, and Future of the Cognitive Theory of Multimedia Learning",
+      "authors": "Richard E. Mayer",
+      "year": "2024",
+      "url": "https://link.springer.com/article/10.1007/s10648-023-09842-1",
+      "doi": "10.1007/s10648-023-09842-1",
+      "supports": "Revue par l’auteur du développement et du périmètre de la théorie; distinction sélection/organisation/intégration; 15 principes de conception et conditions d’application."
+    },
+    {
+      "id": "I19",
+      "title": "C39: Using the CSS prefers-reduced-motion query to prevent motion",
+      "authors": "W3C WAI",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.w3.org/WAI/WCAG22/Techniques/css/C39",
+      "supports": "Technique suffisante pour 2.3.3 AAA: prévenir animation de mouvement liée à interaction; technique non obligatoire si une autre satisfait la norme; exception animation essentielle."
+    },
+    {
+      "id": "I20",
+      "title": "Understanding SC 2.2.2: Pause, Stop, Hide",
+      "authors": "W3C WAI",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html",
+      "supports": "Niveau A: mouvement automatique >5 secondes et parallèle contrôlable, sauf essentiel; actualisation automatique parallèle contrôlable sans condition de cinq secondes."
+    },
+    {
+      "id": "I21",
+      "title": "Understanding SC 1.4.12: Text Spacing",
+      "authors": "W3C WAI",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+      "supports": "Support des changements utilisateur de ligne, paragraphes, lettres et mots sans perte; il ne s’agit pas de valeurs de mise en page obligatoires par défaut; exception des écritures concernées."
+    },
+    {
+      "id": "I22",
+      "title": "Spacing",
+      "authors": "Rainer Erich Scheichelbauer; Glyphs",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://glyphsapp.com/learn/spacing",
+      "supports": "Espacement des glyphes apprécié visuellement à taille de lecture; distances perceptuellement égales et latérales variables. Conseils primaires du métier, non loi physique."
+    },
+    {
+      "id": "I23",
+      "title": "How to use, and break, the rule of thirds",
+      "authors": "Adobe; témoignages de Khara Plicanic, Shawn Ingersoll, Alex Tan et autres praticiens",
+      "year": "s.d.; consulté 2026-10-19",
+      "url": "https://www.adobe.com/creativecloud/photography/discover/rule-of-thirds.html",
+      "supports": "Grille 3×3, intersections, espace négatif, choix du point focal et exceptions au cadrage. Source de pratique photographique, pas démonstration empirique d’un optimum."
+    },
+    {
+      "id": "R01",
+      "title": "The chemical basis of morphogenesis",
+      "authors": "Alan M. Turing",
+      "year": "1952",
+      "url": "https://doi.org/10.1098/rstb.1952.0012",
+      "supports": "Mécanisme de réaction-diffusion et instabilité d’un état homogène; modèles de formation de motifs.",
+      "access": "Résumé et extraits du texte original."
+    },
+    {
+      "id": "R03",
+      "title": "Physically Based Rendering, 4e éd. — Projective Camera Models",
+      "authors": "Matt Pharr, Wenzel Jakob et Greg Humphreys",
+      "year": "2023",
+      "url": "https://pbr-book.org/4ed/Cameras_and_Film/Projective_Camera_Models",
+      "supports": "Projections orthographique et perspective, transformation d’une scène 3D en image.",
+      "access": "Sections techniques consultées."
+    },
+    {
+      "id": "R04",
+      "title": "Physically Based Rendering, 4e éd. — Point Lights",
+      "authors": "Matt Pharr, Wenzel Jakob et Greg Humphreys",
+      "year": "2023",
+      "url": "https://pbr-book.org/4ed/Light_Sources/Point_Lights",
+      "supports": "Source lumineuse ponctuelle, ombre nette et décroissance avec le carré de la distance.",
+      "access": "Sections techniques et code de calcul consultés."
+    },
+    {
+      "id": "R05",
+      "title": "Physically Based Rendering, 4e éd. — Specular Reflection and Transmission",
+      "authors": "Matt Pharr, Wenzel Jakob et Greg Humphreys",
+      "year": "2023",
+      "url": "https://pbr-book.org/4ed/Reflection_Models/Specular_Reflection_and_Transmission",
+      "supports": "Optique géométrique, réflexion, réfraction et familles de matériaux.",
+      "access": "Extraits du chapitre consultés."
+    },
+    {
+      "id": "R06",
+      "title": "University Physics Volume 1 — Damped Oscillations",
+      "authors": "William Moebs, Samuel J. Ling et Jeff Sanny / OpenStax",
+      "year": "2016",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-5-damped-oscillations",
+      "supports": "Oscillateur linéaire amorti, équation différentielle et régimes d’amortissement.",
+      "access": "Texte consulté; notation mathématique vérifiée indépendamment car l’extraction omet certains radicaux."
+    },
+    {
+      "id": "R07",
+      "title": "University Physics Volume 1 — Standing Waves and Resonance",
+      "authors": "William Moebs, Samuel J. Ling et Jeff Sanny / OpenStax",
+      "year": "2016",
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/16-6-standing-waves-and-resonance",
+      "supports": "Superposition, interférences, nœuds, modes stationnaires et conditions aux limites.",
+      "access": "Texte consulté."
+    },
+    {
+      "id": "R08",
+      "title": "Principles of traditional animation applied to 3D computer animation",
+      "authors": "John Lasseter",
+      "year": "1987",
+      "url": "https://doi.org/10.1145/37401.37407",
+      "supports": "Pratiques d’animation : timing, mise en scène, anticipation, arcs, suivi et exagération.",
+      "access": "Passages étendus du texte original consultés."
+    },
+    {
+      "id": "R09",
+      "title": "A Mathematical Theory of Communication",
+      "authors": "Claude E. Shannon",
+      "year": "1948",
+      "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+      "supports": "Entropie, incertitude et cadre technique de transmission; la signification est une autre question.",
+      "access": "Introduction et passages sur l’entropie consultés."
+    },
+    {
+      "id": "R10",
+      "title": "Complexity and aesthetics in generative and evolutionary art",
+      "authors": "Jon McCormack et Camilo Cruz Gambardella",
+      "year": "2022",
+      "url": "https://doi.org/10.1007/s10710-022-09429-9",
+      "supports": "Mesures de complexité comparées; performance dépendante du corpus et du jugement étudié.",
+      "access": "Résumé et introduction consultés."
+    },
+    {
+      "id": "R11",
+      "title": "Le Corbusier — the Modulor",
+      "authors": "ETH Library, ETH Zürich",
+      "year": "s. d.",
+      "url": "https://library.ethz.ch/en/collections-and-archives/platforms/virtual-exhibitions/fibonacci-un-ponte-sul-mediterraneo/reception-of-fibonacci-numbers-and-the-golden-ratio/le-corbusier-the-modulor.html",
+      "supports": "Usage documenté du nombre d’or et d’un corps de référence dans le système Modulor.",
+      "access": "Page institutionnelle consultée."
+    },
+    {
+      "id": "R12",
+      "title": "Form and Color — Bauhaus",
+      "authors": "Maristella Casciato, Gary Fox et Katherine Rochester / Getty Research Institute",
+      "year": "2019",
+      "url": "https://www.getty.edu/research/exhibitions_events/exhibitions/bauhaus/new_artist/form_color/",
+      "supports": "Enseignement distinct de Klee, Kandinsky, Itten et Albers; exercices de forme, couleur et matériau.",
+      "access": "Page institutionnelle et références consultées."
+    },
+    {
+      "id": "R13",
+      "title": "Digitizing Letterform Designs — TrueType Reference Manual",
+      "authors": "Apple",
+      "year": "s. d.",
+      "url": "https://developer.apple.com/fonts/TrueType-Reference-Manual/RM01/Chap1.html",
+      "supports": "Courbes de Bézier quadratiques, tangentes, contours, points et fidélité du dessin numérisé.",
+      "access": "Sections techniques consultées."
+    },
+    {
+      "id": "R14",
+      "title": "Aesthetic Measure",
+      "authors": "George David Birkhoff",
+      "year": "1933",
+      "url": "https://doi.org/10.4159/harvard.9780674734470",
+      "supports": "Existence et portée historique de la tentative de mesure esthétique; formule également discutée par McCormack et Cruz Gambardella.",
+      "access": "Notice de l’éditeur et table des matières; texte complet non consulté."
+    },
+    {
+      "id": "R15",
+      "title": "Improving Noise",
+      "authors": "Ken Perlin",
+      "year": "2002",
+      "url": "https://doi.org/10.1145/566654.566636",
+      "supports": "Bruit procédural à gradients et interpolation quintique avec dérivées premières et secondes nulles aux extrémités.",
+      "access": "Texte original consulté via copie universitaire et notice ACM."
+    },
+    {
+      "id": "R16",
+      "title": "Physically Based Rendering, 4e éd. — Sampling Theory",
+      "authors": "Matt Pharr, Wenzel Jakob et Greg Humphreys",
+      "year": "2023",
+      "url": "https://pbr-book.org/4ed/Sampling_and_Reconstruction/Sampling_Theory",
+      "supports": "Échantillonnage, reconstruction, fréquences et aliasing des images.",
+      "access": "Sections techniques consultées."
+    },
+    {
+      "id": "R17",
+      "title": "Lissajous Curve",
+      "authors": "Eric W. Weisstein / Wolfram MathWorld",
+      "year": "s. d.",
+      "url": "https://mathworld.wolfram.com/LissajousCurve.html",
+      "supports": "Définition des courbes de Lissajous, paramétrisation et condition de fermeture.",
+      "access": "Page de référence mathématique consultée; notation vérifiée algébriquement."
+    },
+    {
+      "id": "R18",
+      "title": "Continuity G0 G1 G2 G3",
+      "authors": "Autodesk Alias documentation",
+      "year": "2026",
+      "url": "https://help.autodesk.com/cloudhelp/2026/ENU/Alias-Video-Tutorials/files/essential-concepts/continuity-g0-g1-g2-g3.html",
+      "supports": "Définition de continuité géométrique, distinction G1/C1 et contrôle pratique des raccords.",
+      "access": "Page officielle consultée; précision mathématique sur l’orientation de la courbure explicitée dans la fiche."
+    },
+    {
+      "id": "R19",
+      "title": "Shri Yantra on Kurma",
+      "authors": "Asian Civilisations Museum / National Heritage Board, Singapore",
+      "year": "Objet du XIXe siècle; notice s. d.",
+      "url": "https://www.roots.gov.sg/Collection-Landing/listing/1108581",
+      "supports": "Objet culturel spécifique, interprétation des triangles et forme Meru, contexte rituel.",
+      "access": "Notice complète consultée."
+    },
+    {
+      "id": "R20",
+      "title": "ORIGIN of SIMPLICITY. 20 Visions of Japanese Design",
+      "authors": "Rossella Menegazzo, Kenya Hara / ADI Design Museum",
+      "year": "2024",
+      "url": "https://www.adidesignmuseum.org/en/exhibition-categories/temporary-exhibition/origin-of-simplicity-20-visions-of-japanese-design/",
+      "supports": "Lecture curatoriale de ma, wabi, sabi, matériaux et simplicité dans une sélection de design japonais.",
+      "access": "Page d’exposition consultée; interprétation située, pas généralisation à toute une culture."
+    },
+    {
+      "id": "C01",
+      "title": "Time to let go? No automatic aesthetic preference for the golden ratio",
+      "authors": "Stefan Stieger et Viren Swami",
+      "year": "2015",
+      "url": "https://consensus.app/papers/time-to-let-go-no-automatic-aesthetic-preference-for-the-stieger-swami/71f59a93e31859baafef96f61acad1c2/",
+      "supports": "Trois études utilisant œuvres et tests implicites/explicites n’obtiennent pas de préférence claire et automatique pour φ.",
+      "access": "Notice complète et résumé récupérés par Consensus; texte intégral non consulté."
+    },
+    {
+      "id": "C02",
+      "title": "Implicit and Explicit Preferences for Golden Ratio",
+      "authors": "Claudia Salera, Camilla Vallebella, Marco Iosa et Anna Pecchinenda",
+      "year": "2024",
+      "url": "https://www.mdpi.com/2073-8994/16/3/333",
+      "doi": "10.3390/sym16030333",
+      "supports": "100 participants : association implicite positive dans cette tâche, évaluations explicites mixtes.",
+      "access": "Notice complète Consensus, puis résumé et introduction lus chez l’éditeur; date publiée vérifiée au 9 mars 2024."
+    }
+  ],
+  "provenance": {
+    "source_filename": "Infographic_Artist_Base_de_connaissances.json",
+    "source_sha256": "a195830068aa6b7bb034da9dcb9c43f111a696d230dd35f6ad534a93ed0299f9",
+    "note": "Catalogue documentaire; les applications sont des propositions à valider selon le contexte."
+  }
+}

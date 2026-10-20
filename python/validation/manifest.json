@@ -57,8 +57,8 @@
     },
     {
       "path": "assets/app-v1.html",
-      "bytes": 28578,
-      "sha256": "182f33c9721df3dcbbd18e77ca6c620a04cc6589b01e3a2fb26078b2642aee72"
+      "bytes": 40805,
+      "sha256": "cac97680972f10d35e5722980ee604b61e8030e308168b1ec7cd73d9fe395415"
     },
     {
       "path": "assets/preview-atlas.html",
@@ -92,23 +92,33 @@
     },
     {
       "path": "chatgpt-app-submission.json",
-      "bytes": 13681,
-      "sha256": "ba5c843748d491e9e5a53f554e67b2679970a20ab31fc88e68323d6a43400a7a"
+      "bytes": 11080,
+      "sha256": "e20c619ae1fd107a7736374e770ed7d4dd71bb03a43a74add7d2f4b680a38d62"
     },
     {
       "path": "contract.py",
-      "bytes": 16744,
-      "sha256": "26c76f8a2dd4ea899a843f24c74e867c0c5403cb1d3733eaa6057414f2c94ee6"
+      "bytes": 18730,
+      "sha256": "3573463b7449ff393c1f94a385c7ce3aaafcdfa0317b75b725fe8634f7035c87"
     },
     {
       "path": "core.py",
-      "bytes": 71014,
-      "sha256": "efe74d988f99ec0a522a34b9bed6e5e188024dc924efd529bb090d407c72666c"
+      "bytes": 71963,
+      "sha256": "34f723e1e2f47f79d75a7f1b862edf32a64c7e0adcc7894d7e9e91b603f1372c"
+    },
+    {
+      "path": "data/design_principles.json",
+      "bytes": 196108,
+      "sha256": "2dcf348c786231f0413a89e9d40642e10b1b44e5a74b26f338d3bf8c7bc72b75"
     },
     {
       "path": "data/design_system_library.json",
       "bytes": 48770,
       "sha256": "1a57d31066e47cd4de2bf544024c0f48989d104dafac9e7f4603bd1080ad0bb9"
+    },
+    {
+      "path": "data/design_workflow.json",
+      "bytes": 10173,
+      "sha256": "74b123caa2d12d8d6bf287b0424043c4ef7867bf50ec0466ab5ac84f749e92c2"
     },
     {
       "path": "data/identity_atlas.json",
@@ -119,6 +129,11 @@
       "path": "data/knowledge_graph.json",
       "bytes": 89049,
       "sha256": "f10394cf6a143942344037a4c8939bf96015149d094116a3595ce62edf4d7ef8"
+    },
+    {
+      "path": "design_workflow.py",
+      "bytes": 6645,
+      "sha256": "a4caa696bff3194653c8f5033d74574584f6b0cbbf6093246c71485787a2cf90"
     },
     {
       "path": "docs/PUBLISH_TO_CHATGPT.md",
@@ -172,18 +187,18 @@
     },
     {
       "path": "fallback_server.py",
-      "bytes": 19329,
-      "sha256": "b421b6d569d8ae58a9397dbc259b098c558af222a489f913e63bf2a6ab256d16"
+      "bytes": 18989,
+      "sha256": "8b36358b0b5a2799607ba097c86f3d8b560173e0c4af49b3a3c77cc41fabd389"
     },
     {
       "path": "official_server.py",
-      "bytes": 8072,
-      "sha256": "29d3307dedd5274ae625b0996ef1b35a86479a544113dad29e1d7b86ba4679ab"
+      "bytes": 7488,
+      "sha256": "641924d4173664e358607bfd859e384f46913c0f96fadd43b405724c1f7961d7"
     },
     {
       "path": "pyproject.toml",
-      "bytes": 1132,
-      "sha256": "104f7752e1f59e131c64332c67b444b8cb1f1a0af87085bf05017a0cd7175f29"
+      "bytes": 1181,
+      "sha256": "b48595ca771dd86c268cab3276ff96b17659259a690000106b079f27772b8a3d"
     },
     {
       "path": "render.yaml",
@@ -199,6 +214,11 @@
       "path": "requirements.txt",
       "bytes": 143,
       "sha256": "88ebcfa50a139317d94cf5588a421568459341caccc756464aeb996564467a29"
+    },
+    {
+      "path": "runtime_capabilities.py",
+      "bytes": 1720,
+      "sha256": "078679e3e823274d85cae5f3d4498681deb2c8dd3b95f256feff8724235feace"
     },
     {
       "path": "scripts/check_widget_js.py",
@@ -217,8 +237,8 @@
     },
     {
       "path": "scripts/validate_submission.py",
-      "bytes": 6354,
-      "sha256": "f7590416800dc1bbb14ef852e8e61ea0b845354081c37d857fc6528a2f4965c8"
+      "bytes": 6589,
+      "sha256": "1aa37f7694653460dc0af8305718304bbdf5a7cf67504e85aea7b5c2cf26a755"
     },
     {
       "path": "server.py",
@@ -257,18 +277,33 @@
     },
     {
       "path": "tests/test_contract.py",
-      "bytes": 5231,
-      "sha256": "db6376c717dce68c152f23ab4fa0c19d09eab7a064b276a451a08ffb33c110a5"
+      "bytes": 5243,
+      "sha256": "593195730e276697da9bc02ffed4fa576d4e9d4abedd617bb6e12670bea7327f"
     },
     {
       "path": "tests/test_core.py",
-      "bytes": 6958,
-      "sha256": "ed0ac5d60bdd09f8aa606c6f5e047146bf67779eb87669358485482fdf2c6c06"
+      "bytes": 7029,
+      "sha256": "d8a0b7b8dc84e171c9b65115596e154cbe568412ac18c87dd1b2cfdba1fd732a"
+    },
+    {
+      "path": "tests/test_design_workflow.py",
+      "bytes": 8578,
+      "sha256": "8746d10fc78c0e24d7078bcd45de727ada845917e2535eaae7f95ffab75b9ed6"
+    },
+    {
+      "path": "tests/test_design_workflow_integration.py",
+      "bytes": 4091,
+      "sha256": "46c8006236638cdfb9e2b998e47126815156fd585213427f07e3dfca801d4f0c"
+    },
+    {
+      "path": "tests/test_plugin_consolidation.py",
+      "bytes": 2508,
+      "sha256": "f8d1dc3323219dd32b0fab99ddedbfaec201bb2bb3198a3d4b550e4354b181f7"
     },
     {
       "path": "tests/test_server_contract.py",
-      "bytes": 9629,
-      "sha256": "be16d3482e2c2f500631966a4df447033e9d67e08e5d263b6884474253e1b293"
+      "bytes": 9670,
+      "sha256": "37e436801cb1d678773ed4ab2f42f25a645c79b3d2aecb0b8cec2468acb388a5"
     }
   ]
 }

@@ -21,7 +21,7 @@ test('portable and compatibility packages contain explicit product-specific rele
  assert.equal(compatibility.extensions['com.openai'].publication.release_notes,extension.publication.release_notes);
  assert.match(extension.publication.release_notes,/Infographic Artist/i);
  assert.doesNotMatch(extension.publication.release_notes,/Daft.?Citadel|daft_punk/i);
- assert.equal(extension.review.test_cases.positive.length,5);
+ assert.equal(extension.review.test_cases.positive.length,7);
  assert.equal(extension.review.test_cases.negative.length,3);
 });
 

@@ -1,6 +1,6 @@
-# Infographic Artist
+# Infographic Artist — 1.2.0
 
-## Current delivery: ChatGPT and Codex plugin (1.1.1)
+## Current plugin source: ChatGPT and Codex (1.2.0)
 
 The canonical installable package is `plugins/infographic-artist/`. The public service exposes nine working read-only MCP tools at `https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp`. Image-generation prompts are handed to the host conversation; experimental paid server rendering is not enabled in production.
 
@@ -12,6 +12,25 @@ This repository is the canonical source for the two Infographic Artist implement
 - `hatchable/` contains the editable source used to build the Hatchable project serving `https://infographic-artist-1w7v.hatchable.site`.
 
 `hatchable/` is the editable source; `deployment/public-manifest.json` identifies the exact generated files deployed to Hatchable. A Git commit alone does not deploy them.
+
+## Release 1.2.0 — documented design principles and workflow
+
+The local source adds **150 documented design principles, 69 sources and 14 domains**. This is an extended map, not an exhaustive or systematic review. Use `search_design_systems` with `kind='principle'` and a principle ID or topic, such as `golden ratio`, to retrieve full cards with their basis, applications, limits and supporting sources. Source reading scope is reported or explicitly marked as unrecorded; a citation does not imply that the full text was read.
+
+`coach_brand_decision` and `generate_brand_directions` accept optional `design_context` fields: `task`, `message`, `medium`, `final_size`, `audience` and `cultural_context`. They preserve declared context, identify missing facts and return `data.design_workflow` with these exact stages:
+
+1. Définir la tâche, le public, le message, le support et la taille finale.
+2. Déterminer ce que le visuel doit représenter correctement.
+3. Appliquer les contraintes de reproduction et d’accessibilité pertinentes.
+4. Choisir les principes perceptifs qui clarifient la structure.
+5. Explorer plusieurs systèmes de proportion et de composition.
+6. Développer la direction artistique et les références symboliques.
+7. Effectuer les corrections optiques et les déclinaisons.
+8. Évaluer séparément reconnaissance, compréhension et préférence.
+
+The returned plan is initially `non_testé`. Recognition, comprehension and preference remain three separate evaluations, each `non_testé` with no invented observations or evidence. Critique scores are technical heuristics, not measured human outcomes, accessibility certification or an aggregate beauty score. Record actual checks separately as `calcul`, `inspection` or `essai`; a displayed stage is not proof of completion.
+
+The exclusive native image action remains **`@Créer une image`**. This source update does not establish successful remote tests, installation, portal approval or publication of the showcase website. See the [design workflow](plugins/infographic-artist/skills/infographic-artist/references/design-workflow.md) for the complete protocol.
 
 ## Workflows
 

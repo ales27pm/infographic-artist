@@ -29,6 +29,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
 from runtime_capabilities import generation_handoff, require_rendering
+from design_workflow import build_design_workflow, search_principles, untested_evaluations
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
@@ -270,6 +271,8 @@ def _library_id(item: dict[str, Any]) -> str:
 
 
 def search_design_systems(query: str = "", kind: str = "", limit: int = 12) -> dict[str, Any]:
+    if normalize(kind) in {"principle", "principles", "principe", "principes"}:
+        return search_principles(query, limit)
     limit = max(1, min(int(limit), 25))
     q = normalize(query)
     kind_n = normalize(kind)
@@ -461,7 +464,8 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
     promise = compact_text(brief.get("promise"), 1000)
     if not name or not sector or len(promise) < 3:
         raise ValueError("name, sector, and a meaningful promise are required.")
-    audience = compact_text(brief.get("audience") or "public général", 400)
+    design_workflow = build_design_workflow(brief.get("design_context"), declared_brief=brief)
+    audience = compact_text(design_workflow["brief"].get("audience") or "public général", 400)
     traits = [compact_text(value, 100) for value in brief.get("traits", []) if compact_text(value, 100)][:8]
     avoid = [compact_text(value, 100) for value in brief.get("must_avoid", []) if compact_text(value, 100)][:8]
     risk = brief.get("risk_tolerance") or "équilibrée"
@@ -516,6 +520,7 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
     return {
         "brief": {"name": name, "sector": sector, "promise": promise, "audience": audience, "traits": traits, "must_avoid": avoid, "risk_tolerance": risk},
         "routes": routes,
+        "design_workflow": design_workflow,
         "image_generation_handoff": generation_handoff(_retention_hours()),
         "decision_rule": "Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.",
     }
@@ -1477,7 +1482,7 @@ def critique_image(image: Image.Image, *, reference: Image.Image | None = None, 
         "beaux_arts": {"label": "Beaux-arts / composition", "score": round(composition, 1)},
         "hierarchy": {"label": "Hiérarchie visuelle", "score": round(hierarchy, 1)},
         "legibility": {"label": "Lisibilité et réduction", "score": round(legibility, 1)},
-        "memorability": {"label": "Mémorisation", "score": round(memorability, 1)},
+        "memorability": {"label": "Complexité et saillance (proxy)", "score": round(memorability, 1), "basis": "heuristic", "measurement_note": "Indice calculé à partir de complexité, entropie et saillance; aucune mémorisation observée."},
         "differentiation": {"label": "Différenciation", "score": round(differentiation, 1), "confidence": diff_confidence},
     }
     total = round(sum(axis["score"] for axis in axes.values()), 1)
@@ -1495,12 +1500,15 @@ def critique_image(image: Image.Image, *, reference: Image.Image | None = None, 
     return {
         "context": compact_text(context, 500),
         "score": total,
+        "score_kind": "heuristic_proxy",
+        "score_label": "Indice technique heuristique",
+        "evaluations": untested_evaluations(),
         "grade": "A" if total >= 86 else "B" if total >= 72 else "C" if total >= 58 else "D",
         "axes": axes,
         "technical_metrics": {key: value for key, value in m.items() if key not in {"average_hash", "difference_hash", "colour_histogram"}},
         "priority_actions": actions,
         "reference_comparison": comparison,
-        "method_note": "Les mesures techniques soutiennent la critique; elles ne remplacent ni le jugement humain, ni les tests utilisateurs, ni la recherche de marques, ni l’examen juridique.",
+        "method_note": "Le total et les axes sont des proxies heuristiques conservés pour comparer les repères techniques. Ils ne mesurent ni beauté, ni mémorisation, ni compréhension réelle. Les évaluations humaines restent non testées sans essai; ces indices ne remplacent ni le jugement humain, ni la recherche de marques, ni l’examen juridique.",
     }
 
 
@@ -1549,7 +1557,8 @@ def compare_images(left: Image.Image, right: Image.Image | None) -> dict[str, An
     }
 
 
-def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration") -> dict[str, Any]:
+def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration", design_context: dict[str, Any] | None = None) -> dict[str, Any]:
+    design_workflow = build_design_workflow(design_context)
     question = compact_text(question, 1800)
     goal = compact_text(goal, 400)
     axes = (critique or {}).get("axes", {}) if isinstance(critique, dict) else {}
@@ -1567,9 +1576,9 @@ def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: 
     }
     criteria = {
         "beaux_arts": "La composition reste stable en aplats, avec un point d’entrée clair et une zone de repos volontaire.",
-        "hierarchy": "Trois personnes sur trois identifient le même premier élément sans explication.",
+        "hierarchy": "Définir le public et le critère attendu, puis consigner le premier élément identifié sans explication.",
         "legibility": "Le noyau reste identifiable à 24 px et en monochrome.",
-        "memorability": "Une personne peut rappeler le contour principal après deux secondes d’exposition.",
+        "memorability": "Consigner le contour effectivement rappelé selon un protocole défini; ne pas déduire ce résultat d’un indice technique.",
         "differentiation": "Aucune convergence cumulative forte ne subsiste entre silhouette, topologie, typographie, comportement chromatique et composition.",
     }
     if weakest:
@@ -1583,6 +1592,8 @@ def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: 
     return {
         "question": question,
         "goal": goal,
+        "design_workflow": design_workflow,
+        "critique_scope": "Les axes éventuels sont des repères heuristiques; ils ne constituent pas des preuves de reconnaissance, de compréhension ou de préférence.",
         "diagnosis": diagnosis,
         "why": "Une décision plus forte réduit l’ambiguïté du système visuel et rend le prochain test mesurable. La finition ne peut pas réparer une hiérarchie structurelle faible ni une topologie copiée.",
         "exercise": {"duration": "45–90 minutes", "steps": plan},
