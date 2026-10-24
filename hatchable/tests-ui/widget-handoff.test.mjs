@@ -112,3 +112,18 @@ test('every direction offers exactly the named native image action',async()=>{
   assert.equal(await page.locator('.render-route').count(),0);
  }finally{await page.close();}
 });
+
+test('manual native-generation brief can be copied even without host messaging',async()=>{
+ const {page,errors}=await fixture('unsupported',{width:390,height:844});
+ try{
+  const copied=[];await page.exposeFunction('recordCopy',text=>copied.push(text));
+  await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:text=>window.recordCopy(text)}});});
+  await page.locator('.copy-native-brief').first().click();
+  await page.waitForFunction(()=>document.querySelector('.copy-native-brief').textContent.includes('copié'));
+  assert.equal(copied.length,1);
+  assert.ok(copied[0].startsWith('@Créer une image\n\n'));
+  assert.match(copied[0],/Atelier Boréal/);
+  assert.equal(await page.evaluate(()=>window.__sent.length),0);
+  assert.deepEqual(errors,[]);
+ }finally{await page.close();}
+});

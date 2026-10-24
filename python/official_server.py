@@ -19,7 +19,7 @@ from starlette.routing import Route
 from starlette.types import Receive, Scope, Send
 
 import core
-from contract import BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
+from contract import R2_TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
 from fallback_server import (
     APP_NAME,
     APP_VERSION,
@@ -81,7 +81,7 @@ async def list_resource_templates() -> list[types.ResourceTemplate]:
 
 @mcp_server.read_resource()
 async def read_resource(uri) -> list[ReadResourceContents]:
-    if str(uri) not in {TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI}:
+    if str(uri) not in {TEMPLATE_URI, R2_TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI}:
         raise ValueError("Unknown resource")
     return [
         ReadResourceContents(
