@@ -204,7 +204,7 @@ export async function generateDirections(brief) {
   return {brief:{name,sector,promise,audience,traits,must_avoid:avoid,risk_tolerance:risk},routes,design_workflow:designWorkflow,image_generation_handoff:generationHandoff(),decision_rule:'Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.'};
 }
 // BEGIN_PUBLIC_IMAGE_INPUTS — retained by the public bundle builder.
-const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net']);
+const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net', 'oaisdmntprcentralus.blob.core.windows.net']);
 const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
 function validateImageInput(file) {
   if (!file?.download_url || !file?.file_id) throw new Error('File values must include download_url and file_id.');

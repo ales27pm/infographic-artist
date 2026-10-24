@@ -77,3 +77,10 @@ async def test_transparent_raster_is_composited_on_declared_white_background(mon
     monkeypatch.setattr(core.httpx, "AsyncClient", lambda **kwargs: original(transport=transport, **kwargs))
     result = await core.download_image({"download_url": "https://files.openai.com/image.png", "file_id": "qa"})
     assert result.getpixel((0, 0)) == (255, 255, 255)
+
+
+def test_observed_host_file_origin_is_allowed_without_azure_wildcard(monkeypatch):
+    monkeypatch.setattr(core.socket, "getaddrinfo", lambda *args, **kwargs: [(2, 1, 6, "", ("8.8.8.8", 443))])
+    core._validate_public_https_url("https://oaisdmntprcentralus.blob.core.windows.net/qa.png")
+    with pytest.raises(ValueError):
+        core._validate_public_https_url("https://untrusted-qa.blob.core.windows.net/qa.png")

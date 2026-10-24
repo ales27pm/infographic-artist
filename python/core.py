@@ -1277,7 +1277,7 @@ def _validate_public_https_url(url: str) -> None:
     if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
         raise ValueError("Seules les URL HTTPS sans identifiants intégrés sont acceptées.")
     host = parsed.hostname.casefold()
-    trusted = {"files.openai.com", "cdn.openai.com", "chatgpt.com", "oaiusercontent.blob.core.windows.net", "oaidalleapiprodscus.blob.core.windows.net"}
+    trusted = {"files.openai.com", "cdn.openai.com", "chatgpt.com", "oaiusercontent.blob.core.windows.net", "oaidalleapiprodscus.blob.core.windows.net", "oaisdmntprcentralus.blob.core.windows.net"}
     if parsed.port not in (None, 443) or not (host in trusted or host == "oaiusercontent.com" or host.endswith(".oaiusercontent.com")):
         raise ValueError("Hôte de fichier non autorisé. Joindre ou sélectionner cette image dans ChatGPT.")
     if host in {"localhost", "localhost.localdomain"} or host.endswith(".local"):

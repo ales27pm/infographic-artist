@@ -49,3 +49,9 @@ test('expired signed URLs never appear in a download error',async()=>{
  const sensitive={...file,download_url:'https://files.openai.com/a?sig=SECRET-QA'};
  await assert.rejects(()=>core.fetchImageBytes(sensitive,async()=>{throw new Error('Failure at '+sensitive.download_url);}),error=>!error.message.includes('SECRET-QA'));
 });
+
+test('observed ChatGPT temporary-file origin is supported without a blanket Azure wildcard',async()=>{
+ const origin='https://oaisdmntprcentralus.blob.core.windows.net/qa.png';
+ const result=await core.fetchImageBytes({...file,download_url:origin},async()=>new Response(PNG,{headers:{'content-type':'image/png'}}));assert.equal(result.width,1);
+ await assert.rejects(()=>core.imageMetrics({...file,download_url:'https://untrusted-qa.blob.core.windows.net/qa.png'}),/non autorisé/);
+});

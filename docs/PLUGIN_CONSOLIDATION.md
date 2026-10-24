@@ -151,3 +151,12 @@ initial page directly, verified in the live managed service. PNG/JPEG/WebP/GIF
 are decoded in Chromium in local tests; transparent and white-backed fixtures
 have equal descriptors. Test doubles for network/host delivery are labelled and
 must not be presented as a new real ChatGPT image-generation proof.
+
+
+Native file-transport regression: the actual connector uses the exact temporary
+origin `oaisdmntprcentralus.blob.core.windows.net` for the synthetic mounted-file
+fixture. Initial r4 deployment rejected it; a hostname-only diagnostic identified
+it without exposing signed paths or query parameters. The final policy admits
+that exact observed origin, not `*.blob.core.windows.net`, with a regression test
+in both runtimes. Deployment success is not file-transport success: always rerun
+an actual connector upload/read after changing the origin policy.

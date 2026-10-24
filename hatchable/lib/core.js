@@ -256,7 +256,7 @@ export async function runBrandWorkflow(args={}){requireRendering();cleanupExpire
 export function getRenderJob(jobId){cleanupExpired();const job=RENDER_JOBS.get(String(jobId||""));if(!job)throw new Error("Render job not found.");return publicJob(job);}
 export function getGeneratedAsset(jobId,filename){cleanupExpired();const asset=RENDER_ASSETS.get(`${jobId}/${filename}`);if(!asset)throw new Error("Generated asset not found.");return asset;}
 // BEGIN_PUBLIC_IMAGE_INPUTS — retained by the public bundle builder.
-const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net']);
+const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net', 'oaisdmntprcentralus.blob.core.windows.net']);
 const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
 function validateImageInput(file) {
   if (!file?.download_url || !file?.file_id) throw new Error('File values must include download_url and file_id.');
