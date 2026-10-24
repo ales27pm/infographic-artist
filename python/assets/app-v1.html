@@ -64,6 +64,23 @@
   function nativeHandoffState(key,phase,message){
     nativeHandoffs.set(key,{phase,message});updateNativeHandoffs();
   }
+  function nativeGenerationPrompt(route){
+    return '@Créer une image\n\nUtilise exclusivement l’outil natif « @Créer une image » de ChatGPT pour produire une image à partir de cette direction Infographic Artist. Ne lance aucun moteur externe, aucune API payante ni aucun rendu serveur. Si l’outil natif n’est pas disponible dans cette conversation, explique-le et conserve le brief sans prétendre avoir généré une image. Ne présente pas la transmission du brief comme un rendu terminé.\n\n'+route.concept_board_prompt;
+  }
+  async function copyNativeBrief(button,route){
+    const text=nativeGenerationPrompt(route);
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('Clipboard API unavailable');
+      await navigator.clipboard.writeText(text);
+      button.textContent='Brief copié — à coller dans ChatGPT';
+      const note=button.parentElement.querySelector('[data-copy-status]');
+      if(note)note.textContent='Le brief est copié. Colle-le dans une conversation ChatGPT pour demander la création avec l’outil natif. Aucune génération n’a été lancée.';
+    }catch(_error){
+      button.textContent='Copie indisponible';
+      const note=button.parentElement.querySelector('[data-copy-status]');
+      if(note)note.textContent='Copie non autorisée par cet hôte. Sélectionne et copie manuellement le prompt affiché ci-dessous; aucune demande n’a été envoyée.';
+    }
+  }
   async function deliverNativeBrief(route){
     const key=route.concept_board_prompt;
     const previous=nativeHandoffs.get(key)?.phase;
@@ -72,7 +89,7 @@
       nativeHandoffState(key,'unavailable','Transmission indisponible dans cet hôte. Le brief reste visible ci-dessous; aucune image ni demande de génération n’a été créée.');return;
     }
     nativeHandoffState(key,'pending','Transmission du brief sélectionné. Aucune image n’est encore confirmée.');
-    const prompt='@Créer une image\n\nUtilise exclusivement l’outil natif « @Créer une image » de ChatGPT pour produire une image à partir de cette direction Infographic Artist. Ne lance aucun moteur externe, aucune API payante ni aucun rendu serveur. Si l’outil natif n’est pas disponible dans cette conversation, explique-le et conserve le brief sans prétendre avoir généré une image. Ne présente pas la transmission du brief comme un rendu terminé.\n\n'+key;
+    const prompt=nativeGenerationPrompt(route);
     let timer;
     try{
       // Choose one transport, once. Never retry a delivery whose outcome is uncertain.
@@ -216,7 +233,7 @@
   function renderDirections(d){
     const b=d.brief||{};
     const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><button class="btn copy-native-brief" data-route="${esc(r.id)}" aria-label="Copier le brief complet pour la génération native">Copier le brief pour ChatGPT</button><p class="meta" role="status" aria-live="polite" data-copy-status></p><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
   }
   let renderPollTimer = null;
   let renderPollJob = '';
@@ -299,6 +316,12 @@
   root.addEventListener('click',async e=>{
     const refresh=e.target.closest?.('.refresh-render');
     if(refresh){setLoading('Actualisation du rendu');await callTool('get_render_job',{job_id:refresh.dataset.job});return;}
+    const copyBtn=e.target.closest?.('.copy-native-brief');
+    if(copyBtn){
+      const route=arr(current?.data?.routes).find(x=>String(x.id)===String(copyBtn.dataset.route));
+      if(route?.concept_board_prompt)await copyNativeBrief(copyBtn,route);
+      return;
+    }
     const nativeBtn=e.target.closest?.('.native-render-route');
     if(nativeBtn){
       const route=arr(current?.data?.routes).find(x=>String(x.id)===String(nativeBtn.dataset.route));

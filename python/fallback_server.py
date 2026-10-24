@@ -14,14 +14,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 
 import core
-from contract import BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
+from contract import R2_TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI, MIME_TYPE, SERVER_INSTRUCTIONS, TEMPLATE_URI, TOOL_DEFINITIONS
 from runtime_capabilities import RENDER_TOOL_NAMES, rendering_available, require_rendering
 
 ROOT = Path(__file__).resolve().parent
 ASSETS_DIR = ROOT / "assets"
 DOCS_DIR = ROOT / "docs"
 APP_NAME = "Infographic Artist"
-APP_VERSION = "1.2.0+reviewfix.2"
+APP_VERSION = "1.2.0+reviewfix.3"
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26")
 MAX_RPC_BYTES = 1_000_000
 
@@ -420,7 +420,7 @@ async def mcp_post(request: Request) -> Response:
     if method == "resources/templates/list":
         return _jsonrpc_result(request_id, {"resourceTemplates": get_resource_templates()})
     if method == "resources/read":
-        if str(params.get("uri") or "") not in {TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI}:
+        if str(params.get("uri") or "") not in {TEMPLATE_URI, R2_TEMPLATE_URI, BASE_TEMPLATE_URI, LEGACY_TEMPLATE_URI, PREVIOUS_TEMPLATE_URI, RECENT_TEMPLATE_URI}:
             return _jsonrpc_error(request_id, -32002, "Resource not found")
         return _jsonrpc_result(
             request_id,

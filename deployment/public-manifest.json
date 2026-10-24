@@ -1,10 +1,10 @@
 {
   "release": {
     "version": "1.2.0",
-    "runtime_revision": 2,
+    "runtime_revision": 3,
     "profile": "public-readonly-native-images",
-    "source_sha256": "6b154beba49faf89b4cd836b24f2807e4f135051fd9e8773ffba59a32541bb34",
-    "widget_sha256": "2f23dcca8217c4f277aae9f288b73b55371f8eaecb8d05ba9c9e7f11616ce99a",
+    "source_sha256": "3dde56e00f8f298b18750a95cc3b5b8115594762b36e1cf7eeb0cb181fca5f7f",
+    "widget_sha256": "2d3f432684b0cfb4f2bc1105be7471328ca5c691b628c59fd06e4b5fa503bbf9",
     "tool_count": 9,
     "design_principle_count": 150,
     "design_source_count": 69,
@@ -14,11 +14,11 @@
   "mapping": {
     "api/chatgpt-mcp.js": {
       "source": "deployment/public-mcp.bundle.js",
-      "sha256": "741f498208fa46978288b4fe38c1d440de2eebf41db687d0d04791e6e0af638f"
+      "sha256": "a765a5d847b21777a0b910b72682f28daaac1803461f167c9cc40d56f310aa92"
     },
     "pages/health.js": {
       "source": "deployment/public-health.js",
-      "sha256": "40e34ba972f2710eb296e9ec0e169e487f126f48a9bc2af4b11dfe9b877fa828"
+      "sha256": "63781d08a3dab939fcc63e8132466fd73977e47875f049a2d189394bcea8b125"
     }
   }
 }
