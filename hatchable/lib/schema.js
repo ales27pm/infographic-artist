@@ -3,7 +3,7 @@ const plain = value => value !== null && typeof value === 'object' && !Array.isA
 const canonical = value => JSON.stringify(plain(value) ? Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])) : Array.isArray(value) ? value.map(v=>JSON.parse(canonical(v))) : value);
 export function validateSchema(schema, value, path='arguments', depth=0) {
   if(depth>32)return `${path}: nesting limit exceeded`;
-  if(!schema || schema===true)return null;
+  if(schema===undefined || schema===null || schema===true)return null;
   if(schema===false)return `${path}: value is not allowed`;
   if(schema.type){
     const types=Array.isArray(schema.type)?schema.type:[schema.type];

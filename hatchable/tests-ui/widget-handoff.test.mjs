@@ -127,3 +127,74 @@ test('manual native-generation brief can be copied even without host messaging',
   assert.deepEqual(errors,[]);
  }finally{await page.close();}
 });
+
+for (const reply of [false, null, 'OK', [], 42]) test(`malformed native acknowledgement ${JSON.stringify(reply)} never becomes success`,async()=>{
+ const {page}=await fixture('success');try{
+  await page.evaluate(reply=>{window.openai.sendFollowUpMessage=x=>{window.__sent.push(x);return Promise.resolve(reply);};},reply);
+  await page.locator('.native-render-route').first().click();
+  await page.waitForTimeout(80);
+  assert.equal(await page.locator('.native-render-route').first().getAttribute('data-handoff-state'),'uncertain');
+  assert.equal(await page.evaluate(()=>window.__sent.length),1);
+ }finally{await page.close();}
+});
+test('late host capability becomes usable without automatic resend',async()=>{
+ const {page}=await fixture('unsupported');try{
+  await page.locator('.native-render-route').first().click();
+  assert.equal(await page.locator('.native-render-route').first().getAttribute('data-handoff-state'),'unavailable');
+  await page.evaluate(()=>{window.openai.sendFollowUpMessage=x=>{window.__sent.push(x);return Promise.resolve();};window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{toolOutput:window.__data}}));});
+  assert.equal(await page.locator('.native-render-route').first().isDisabled(),false);
+  assert.equal(await page.evaluate(()=>window.__sent.length),0);
+  await page.locator('.native-render-route').first().click();
+  await page.waitForFunction(()=>document.querySelector('.native-render-route').dataset.handoffState==='sent');
+ }finally{await page.close();}
+});
+test('denied clipboard offers the complete selectable native request without sending',async()=>{
+ const {page}=await fixture('unsupported',{width:390,height:844});try{
+  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('denied'))}}));
+  await page.locator('.copy-native-brief').first().click();
+  const fallback=page.locator('.manual-native-brief').first();
+  assert.ok((await fallback.inputValue()).startsWith('@Créer une image\n\n'));
+  assert.match(await fallback.inputValue(),/Atelier Boréal/);
+  assert.equal(await page.evaluate(()=>window.__sent.length),0);
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  if(process.env.INFOGRAPHIC_QA_DIR){fs.mkdirSync(process.env.INFOGRAPHIC_QA_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.INFOGRAPHIC_QA_DIR,'manual-fallback-390.png')});}
+ }finally{await page.close();}
+});
+test('older tool response cannot replace a newer user selection',async()=>{
+ const {page}=await fixture();try{
+  await page.evaluate(()=>{window.__toolRequests=[];window.openai.callTool=(name,args)=>new Promise(resolve=>window.__toolRequests.push({name,resolve}));});
+  await page.locator('#newSearch').click();await page.locator('#openPrinciples').click();
+  await page.evaluate(()=>{window.__toolRequests[1].resolve({structuredContent:{view:'library',data:{query:'NEW-SELECTION',items:[],total_matches:0}}});});
+  await page.waitForFunction(()=>document.querySelector('h1').textContent.includes('NEW-SELECTION'));
+  await page.evaluate(()=>{window.__toolRequests[0].resolve({structuredContent:{view:'atlas',data:{query:'STALE',items:[],total_matches:0}}});});
+  await page.waitForTimeout(50);
+  assert.match(await page.locator('h1').innerText(),/NEW-SELECTION/);
+ }finally{await page.close();}
+});
+test('a failed read keeps the visible directions and recovery controls',async()=>{
+ const {page}=await fixture();try{
+  await page.evaluate(()=>{window.openai.callTool=()=>Promise.reject(new Error('temporary failure'));});
+  await page.locator('#newSearch').click();
+  await page.waitForTimeout(50);
+  assert.equal(await page.locator('.route').count(),3);
+  assert.match(await page.locator('[role="alert"]').innerText(),/temporary failure/);
+ }finally{await page.close();}
+});
+test('host-persisted completed handoff survives iframe reload without dispatching twice',async()=>{
+ const {page}=await fixture('success');try{
+  await page.evaluate(()=>{window.openai.widgetState={privateContent:{keep:'existing'},modelContent:'keep model'};window.openai.setWidgetState=state=>{window.openai.widgetState=state;};});
+  await page.locator('.native-render-route').first().click();
+  await page.waitForFunction(()=>document.querySelector('.native-render-route').dataset.handoffState==='sent');
+  await page.waitForFunction(()=>window.openai.widgetState?.privateContent?.nativeHandoffs?.some(item=>item.phase==='sent'));
+  const state=await page.evaluate(()=>window.openai.widgetState);
+  assert.equal(state.privateContent.keep,'existing');assert.equal(state.modelContent,'keep model');
+  assert.ok(!JSON.stringify(state).includes('concept board for Atelier'));
+  await page.addInitScript(state=>{Object.defineProperty(window,'__RESTORED_HANDOFF_STATE',{value:state});},state);
+  await page.reload();
+  await page.evaluate(()=>{window.openai.widgetState=window.__RESTORED_HANDOFF_STATE;window.openai.setWidgetState=state=>{window.openai.widgetState=state;};});
+  await page.locator('.native-render-route').first().click();
+  await page.waitForTimeout(100);
+  assert.equal(await page.evaluate(()=>window.__sent.length),0);
+  assert.equal(await page.locator('.native-render-route').first().getAttribute('data-handoff-state'),'sent');
+ }finally{await page.close();}
+});

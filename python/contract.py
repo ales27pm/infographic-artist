@@ -3,7 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r3.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r4.html"
+R3_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r3.html"
 R2_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r2.html"
 BASE_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0.html"
 LEGACY_TEMPLATE_URI = "ui://infographic-artist/app-v1.html"
@@ -395,3 +396,20 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "invoked": "Coaching plan ready",
     },
 }
+
+
+# Public input budgets reject oversized briefs before any shortening or expansion.
+for _tool_name, _definition in TOOL_DEFINITIONS.items():
+    _properties = _definition["input"].get("properties", {})
+    for _key, _limit in {"query": 300, "region": 160, "pattern": 160, "category": 160, "era": 160, "item_id": 160,
+                         "name": 120, "sector": 160, "promise": 1000, "audience": 400, "risk_tolerance": 120,
+                         "question": 4000, "goal": 1000, "context": 2000}.items():
+        if _key in _properties and _properties[_key].get("type") == "string":
+            _properties[_key]["maxLength"] = _limit
+    for _key, _limit in {"traits": 100, "must_avoid": 1000, "item_ids": 160}.items():
+        if _key in _properties:
+            _properties[_key]["items"]["maxLength"] = _limit
+    for _key in _definition.get("files", []):
+        _file = _properties[_key]["properties"]
+        for _field, _limit in {"download_url": 16384, "file_id": 512, "mime_type": 128, "file_name": 1024}.items():
+            _file[_field]["maxLength"] = _limit

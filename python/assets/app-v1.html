@@ -11,6 +11,7 @@
 @media(max-width:560px){.wrap{padding:15px}.top{padding:11px 13px}.brand span:last-child{display:none}.grid,.route-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.actions #fullscreen{display:none}}
 @media(prefers-color-scheme:dark){:root{--bg:#171914;--panel:#20231c;--ink:#f2efe6;--muted:#b0b5a9;--line:#f2efe625;--dark:#0d0f0b}.scoreball b{color:#151712}.card:before{opacity:.25}.sources a{color:#aeb9ff}}
 .axis-unavailable{grid-column:2/-1;min-width:0;overflow-wrap:anywhere}.axis>strong{overflow-wrap:anywhere}
+.manual-native-brief{display:block;box-sizing:border-box;width:100%;max-width:100%;margin:10px 0;padding:10px;color:inherit;background:var(--bg);border:1px solid var(--line);font:12px/1.5 ui-monospace,monospace;resize:vertical}
 </style>
 <style>
 .status-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-weight:760}.status-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn)}.status-pill[data-status="succeeded"]:before{background:var(--good)}.status-pill[data-status="failed"]:before{background:var(--bad)}.asset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.asset{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}.asset img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}.asset-body{padding:12px}.job-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.job-meta .stat{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 76%,transparent)}@media(max-width:850px){.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.job-meta{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.asset-grid,.job-meta{grid-template-columns:1fr}}
@@ -46,10 +47,46 @@
   // Keep delivery state across same-result renders. A delivered brief is not rendered artwork.
   const nativeHandoffs = new Map();
   const HANDOFF_TIMEOUT_MS = 12000;
+  let handoffPersistence=Promise.resolve();
+  let savedWidgetState=null;
+  const persistentPhases=new Set(['pending','sent','uncertain','refused']);
+  function widgetSnapshot(){
+    const host=window.openai?.widgetState;
+    return host&&typeof host==='object'&&!Array.isArray(host)?host:(savedWidgetState||{});
+  }
+  async function handoffFingerprint(key){
+    if(!globalThis.crypto?.subtle)return null;
+    const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
+    return Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+  }
+  function handoffRecords(){
+    const safeRecords=value=>Array.isArray(value)?value:[];
+    const records=[...safeRecords(widgetSnapshot().privateContent?.nativeHandoffs),...safeRecords(savedWidgetState?.privateContent?.nativeHandoffs)];
+    return records.filter(item=>item&&typeof item.key==='string'&&/^[a-f0-9]{64}$/.test(item.key)&&persistentPhases.has(item.phase));
+  }
+  function persistNativeHandoff(key,phase){
+    if(!persistentPhases.has(phase)||typeof window.openai?.setWidgetState!=='function')return Promise.resolve();
+    handoffPersistence=handoffPersistence.catch(()=>{}).then(async()=>{
+      const fingerprint=await handoffFingerprint(key);if(!fingerprint)return;
+      const records=new Map(handoffRecords().map(item=>[item.key,item]));records.delete(fingerprint);records.set(fingerprint,{key:fingerprint,phase});
+      const previous=widgetSnapshot();
+      savedWidgetState={...previous,privateContent:{...(previous.privateContent||{}),nativeHandoffs:Array.from(records.values()).slice(-24)}};
+      const result=window.openai.setWidgetState(savedWidgetState);
+      if(result&&typeof result.catch==='function')result.catch(()=>{});
+    }).catch(()=>{});
+    return handoffPersistence;
+  }
+  async function restoreNativeHandoff(key){
+    try{
+      const fingerprint=await handoffFingerprint(key);if(!fingerprint)return null;
+      return handoffRecords().filter(item=>item.key===fingerprint).at(-1)||null;
+    }catch{return null;}
+  }
   function updateNativeHandoffs(){
     for(const button of root.querySelectorAll('.native-render-route')){
       const route=arr(current?.data?.routes).find(item=>String(item.id)===String(button.dataset.route));
-      const state=nativeHandoffs.get(route?.concept_board_prompt);
+      let state=nativeHandoffs.get(route?.concept_board_prompt);
+      if(state?.phase==='unavailable'&&(typeof window.openai?.sendFollowUpMessage==='function'||typeof window.openai?.app?.sendMessage==='function')){nativeHandoffs.delete(route?.concept_board_prompt);state=null;}
       const phase=state?.phase||'idle';
       button.dataset.handoffState=phase;
       button.disabled=['pending','sent','uncertain','unavailable'].includes(phase);
@@ -62,13 +99,15 @@
     }
   }
   function nativeHandoffState(key,phase,message){
-    nativeHandoffs.set(key,{phase,message});updateNativeHandoffs();
+    nativeHandoffs.set(key,{phase,message});updateNativeHandoffs();persistNativeHandoff(key,phase);
   }
   function nativeGenerationPrompt(route){
     return '@Créer une image\n\nUtilise exclusivement l’outil natif « @Créer une image » de ChatGPT pour produire une image à partir de cette direction Infographic Artist. Ne lance aucun moteur externe, aucune API payante ni aucun rendu serveur. Si l’outil natif n’est pas disponible dans cette conversation, explique-le et conserve le brief sans prétendre avoir généré une image. Ne présente pas la transmission du brief comme un rendu terminé.\n\n'+route.concept_board_prompt;
   }
   async function copyNativeBrief(button,route){
     const text=nativeGenerationPrompt(route);
+    const existing=button.parentElement.querySelector('.manual-native-brief');
+    if(existing){existing.focus();existing.select();return;}
     try{
       if(!navigator.clipboard?.writeText)throw new Error('Clipboard API unavailable');
       await navigator.clipboard.writeText(text);
@@ -76,29 +115,41 @@
       const note=button.parentElement.querySelector('[data-copy-status]');
       if(note)note.textContent='Le brief est copié. Colle-le dans une conversation ChatGPT pour demander la création avec l’outil natif. Aucune génération n’a été lancée.';
     }catch(_error){
-      button.textContent='Copie indisponible';
+      button.textContent='Sélectionner le brief complet';
+      const field=document.createElement('textarea');field.className='manual-native-brief';field.readOnly=true;field.rows=7;field.value=text;field.setAttribute('aria-label','Brief complet pour ChatGPT');
+      button.insertAdjacentElement('afterend',field);field.focus();field.select();
       const note=button.parentElement.querySelector('[data-copy-status]');
-      if(note)note.textContent='Copie non autorisée par cet hôte. Sélectionne et copie manuellement le prompt affiché ci-dessous; aucune demande n’a été envoyée.';
+      if(note)note.textContent='Copie non autorisée par cet hôte. Le champ sélectionnable contient la demande native complète. Copie-la manuellement; aucune demande n’a été envoyée.';
     }
   }
   async function deliverNativeBrief(route){
     const key=route.concept_board_prompt;
     const previous=nativeHandoffs.get(key)?.phase;
     if(['pending','sent','uncertain','unavailable'].includes(previous))return;
-    if(!window.openai?.sendFollowUpMessage && !window.openai?.app?.sendMessage && window.parent===window){
+    if(typeof window.openai?.sendFollowUpMessage!=='function' && typeof window.openai?.app?.sendMessage!=='function' && window.parent===window){
       nativeHandoffState(key,'unavailable','Transmission indisponible dans cet hôte. Le brief reste visible ci-dessous; aucune image ni demande de génération n’a été créée.');return;
     }
+    // Lock synchronously before awaiting persisted state, so two clicks cannot race.
+    nativeHandoffs.set(key,{phase:'pending',message:'Vérification de la transmission précédente.'});updateNativeHandoffs();
+    const saved=await restoreNativeHandoff(key);
+    if(saved&&['pending','sent','uncertain'].includes(saved.phase)){
+      nativeHandoffState(key,saved.phase==='sent'?'sent':'uncertain',saved.phase==='sent'?'Ce brief a déjà été transmis. Vérifie la conversation avant toute autre demande.':'Une transmission précédente reste incertaine. Aucun nouvel envoi automatique.');return;
+    }
     nativeHandoffState(key,'pending','Transmission du brief sélectionné. Aucune image n’est encore confirmée.');
+    await handoffPersistence;
     const prompt=nativeGenerationPrompt(route);
     let timer;
     try{
       // Choose one transport, once. Never retry a delivery whose outcome is uncertain.
-      const request=window.openai?.sendFollowUpMessage
+      const nativeTransport=typeof window.openai?.sendFollowUpMessage==='function';
+      const request=nativeTransport
         ?window.openai.sendFollowUpMessage({prompt})
-        :window.openai?.app?.sendMessage
+        :typeof window.openai?.app?.sendMessage==='function'
           ?window.openai.app.sendMessage({role:'user',content:[{type:'text',text:prompt}]})
           :bridgeRequest('ui/message',{role:'user',content:[{type:'text',text:prompt}]});
       const reply=await Promise.race([Promise.resolve(request),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Handoff confirmation timeout')),HANDOFF_TIMEOUT_MS);})]);
+      const validReply=(nativeTransport&&reply===undefined)||(reply!==null&&typeof reply==='object'&&!Array.isArray(reply));
+      if(!validReply)throw new Error('Unrecognized host acknowledgement');
       if(reply?.isError===true || reply?.error || reply?.success===false || reply?.accepted===false){
         nativeHandoffState(key,'refused','Transmission refusée par l’hôte. Le brief est conservé. Aucun succès ni aucune image ne sont annoncés.');
       }else{
@@ -135,13 +186,16 @@
       window.parent.postMessage({jsonrpc:'2.0',id,method,params},bridgeTargetOrigin());
     });
   }
+  let latestToolRead=0;
   async function callTool(name,args){
+    const sequence=++latestToolRead;
     try {
       // Prefer an injected host API. Waiting on another bridge first adds 8 seconds in ChatGPT.
       let result;
       if(window.openai?.callTool)result=await window.openai.callTool(name,args);
       else if(window.openai?.app?.callServerTool)result=await window.openai.app.callServerTool({name,arguments:args});
       else result=await bridgeRequest('tools/call',{name,arguments:args});
+      if(sequence!==latestToolRead)return result;
       if(result?.isError){
         const message=arr(result.content).filter(x=>x.type==='text').map(x=>x.text).join(' ')||'Le serveur a refusé cette demande.';
         showError(new Error(message));return result;
@@ -149,10 +203,13 @@
       accept(result);return result;
     }catch(error){
       // Do not repeat an uncertain server call or claim that a follow-up is a completed action.
-      showError(error);return null;
+      if(sequence===latestToolRead)showError(error);return null;
     }
   }
-  function showError(err){root.innerHTML=`<section class="empty error"><div><h2>Analyse interrompue</h2><p>${esc(err?.message||err)}</p></div></section>`;}
+  function showError(err){
+    const notice=`<div class="notice error" role="alert"><strong>Analyse interrompue.</strong> ${esc(err?.message||err)}</div>`;
+    if(current){render(current);root.insertAdjacentHTML('afterbegin',notice);}else root.innerHTML=notice;
+  }
   function setLoading(label='Analyse en cours'){root.innerHTML=`<section class="empty"><div><div class="spinner"></div><h2>${esc(label)}</h2></div></section>`;}
 
   function renderAtlas(d){

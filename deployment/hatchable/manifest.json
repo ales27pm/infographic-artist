@@ -1,27 +1,27 @@
 {
   "release": {
     "version": "1.2.0",
-    "runtime_revision": 3,
+    "runtime_revision": 4,
     "profile": "public-readonly-native-images",
-    "source_sha256": "3dde56e00f8f298b18750a95cc3b5b8115594762b36e1cf7eeb0cb181fca5f7f",
-    "widget_sha256": "2d3f432684b0cfb4f2bc1105be7471328ca5c691b628c59fd06e4b5fa503bbf9",
+    "source_sha256": "3c8a484b3db2f16caa5b56b45b5c004e30af7f810bed5e544d7c4114e021b4f7",
+    "widget_sha256": "b5b390d41f1a7545cdc599c206fe6790d904cb4f500a261200bef0cfaf47058a",
     "tool_count": 9,
     "design_principle_count": 150,
     "design_source_count": 69,
     "workflow_stage_count": 8
   },
   "sources": {
-    "python/assets/app-v1.html": "2d3f432684b0cfb4f2bc1105be7471328ca5c691b628c59fd06e4b5fa503bbf9",
-    "scripts/build_plugin.py": "dd93a2d1750613b037ecc468687e32a64ad15ec0bed5506a3f7dd691079302b0",
+    "python/assets/app-v1.html": "b5b390d41f1a7545cdc599c206fe6790d904cb4f500a261200bef0cfaf47058a",
+    "scripts/build_plugin.py": "1ae202e3d6689580c4f48077273aba3595d02253bb402eaa398905a1eb9d6d11",
     "scripts/bundle_public_mcp.mjs": "de094924a75decfacfd09be693be423b7bdb5ef818d5e66b4ba23c854cf9fd5a",
     "python/data/design_principles.json": "2dcf348c786231f0413a89e9d40642e10b1b44e5a74b26f338d3bf8c7bc72b75",
     "python/data/design_workflow.json": "74b123caa2d12d8d6bf287b0424043c4ef7867bf50ec0466ab5ac84f749e92c2",
-    "hatchable/api/chatgpt-mcp.js": "79c803aa81176b347f72dc60da8e6f6e351cb24cf3d1bbba7d4e233a324dae00",
-    "hatchable/lib/contract.js": "13972537a03d2df300349209ed06c3b6a1657adc87f3a0fcc05de5f80b6caaf1",
-    "hatchable/lib/core.js": "49153d893b434d6d77b4c275dcfbec78682950cc8f18d7872a5a8b3b28d294eb",
+    "hatchable/api/chatgpt-mcp.js": "bf4f67e45ca4d108478faf31ad8a898e34341753065097be4d305720c39dd650",
+    "hatchable/lib/contract.js": "558ae778f03e541f980dba85b33e2a89a3434c099300db0d440b6bcb83a21570",
+    "hatchable/lib/core.js": "cf755d77aa090051b127f493b442b83c711bc86238f7469a43da08b6428c837c",
     "hatchable/lib/data.js": "cafb28070c5630feec89ae051e91bcbf066ba19f8ef38c9fffcac78b93e4ab28",
     "hatchable/lib/runtime.js": "6b716704c7045a7c1188a8e86c60f3062f47a2c4d1070e75af37f968e08c08a0",
-    "hatchable/lib/schema.js": "3d17098d4282cea756dd9cc5e2339198f82f0a95a9feb5cf10f339c0bfc51322",
+    "hatchable/lib/schema.js": "33c75bb77f4c70db8e99f294814bbd058bd8043e9dcbc9dbbb54cc57201e8457",
     "hatchable/lib/site-config.js": "d1a78a74c8128d4be7cd8a5078eb3d3b4c313ec4b60541a5a0d534f4cd6c8eeb",
     "hatchable/lib/design-workflow.js": "69c02603eae1bf8f6c9bacab66d246dd6de1b99ad5b36deb5a016aaf7518912a",
     "hatchable/lib/design-principles-data.js": "d7d021248e15c75130659e67af67b30422cbab09ec521d64825b41089f361198",
@@ -41,17 +41,17 @@
     "hatchable/lib/data-part10b.js": "d67c8dbf86e4d05dffeeca49930a046f7b290182b7d6fff2752f245ad83cad31"
   },
   "files": {
-    "api/chatgpt-mcp.js": "994b72e8b49e79531e795dd7d178721aa89848eb183b8abb26db86a68a7d1446",
-    "lib/contract.js": "1f087a21aca17fcfda3a1fec10570a752e68456c47d39219e255610469a4bd54",
-    "lib/core.js": "f04f4391fd93f806dad7f745f57becd7a4a897df900f5681e32dea34040dc054",
+    "api/chatgpt-mcp.js": "b09ec89c7649d81d12bd68028e900ac186239ccece3d83eca03a7d82134fba9d",
+    "lib/contract.js": "4ff7a64de45028f3b307ef933bc05ceb702190f35ef2743e9902bc70b7ec79b9",
+    "lib/core.js": "39a807708d6302f728fd157b070b7112ca0749d799ed0271b95c51da68205059",
     "lib/data.js": "60216d8ee32bc33aa8cb51c8067870cdbc531b441da17a6ebad558efd0e3bf40",
     "lib/runtime.js": "6b716704c7045a7c1188a8e86c60f3062f47a2c4d1070e75af37f968e08c08a0",
-    "lib/schema.js": "3d17098d4282cea756dd9cc5e2339198f82f0a95a9feb5cf10f339c0bfc51322",
+    "lib/schema.js": "33c75bb77f4c70db8e99f294814bbd058bd8043e9dcbc9dbbb54cc57201e8457",
     "lib/site-config.js": "d1a78a74c8128d4be7cd8a5078eb3d3b4c313ec4b60541a5a0d534f4cd6c8eeb",
     "lib/design-workflow.js": "c8789f215026030ff184168bb20ea80f230056a76b11a74ae17336184f13fa98",
     "lib/design-principles-data.js": "d7d021248e15c75130659e67af67b30422cbab09ec521d64825b41089f361198",
     "pages/health.js": "9595d6618c8af943a8c826f5280e21ff079a23b3d6e3136c0b9ac15f689730aa",
-    "lib/widget.js": "257b3eb1aee88bcaff5c5f4ccf36d23222d73e64566b4061b044144546e2ebb1",
-    "lib/release.js": "93777e6625fec89caba4821d0951dab7fcca2542cf4cddcd43dbe377826f3eaa"
+    "lib/widget.js": "e0b9a9a3363012a84ba3fb945539a31797c7c8ad7cd0530d5bc043f993513a72",
+    "lib/release.js": "c4d200f6514afc32f959d3369f6ed07fa1b96477eea51de9b082d6847124bc53"
   }
 }
