@@ -265,7 +265,7 @@ function validateImageInput(file) {
   try { url = new URL(file.download_url); } catch { throw new Error('URL HTTPS de fichier invalide.'); }
   if (url.protocol !== 'https:' || url.username || url.password || (url.port && url.port !== '443')) throw new Error('Seules les URL HTTPS de fichiers autorisés, sans identifiants ni port alternatif, sont acceptées.');
   const host = url.hostname.toLowerCase();
-  if (!TRUSTED_IMAGE_HOSTS.has(host) && host !== 'oaiusercontent.com' && !host.endsWith('.oaiusercontent.com')) throw new Error('Hôte de fichier non autorisé. Joindre ou sélectionner cette image dans ChatGPT.');
+  if (!TRUSTED_IMAGE_HOSTS.has(host) && host !== 'oaiusercontent.com' && !host.endsWith('.oaiusercontent.com')) throw new Error(`Hôte de fichier non autorisé (${host}). Joindre ou sélectionner cette image dans ChatGPT.`);
   return url.toString();
 }
 function rasterMime(bytes) {
