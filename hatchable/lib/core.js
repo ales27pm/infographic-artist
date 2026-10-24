@@ -34,6 +34,7 @@ function fieldText(item, field) { return normalize(item?.[field] ?? ''); }
 function tokens(text) { return normalize(text).split(' ').filter((token) => token.length >= 2); }
 function scoreBrand(item, query) {
   const queryN = normalize(query);
+  if (!queryN && String(query).trim()) return 0;
   if (!queryN) {
     let base = item.depth === 'deep' ? 5 : 1;
     if (item.evidence_confidence === 'high') base += 0.8;
@@ -196,7 +197,7 @@ function boardEvaluationFocus(arch){return[`La planche exprime la promesse par l
 function seedFromText(text){let h=2166136261; for(let i=0;i<text.length;i++){h^=text.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0;}
 function seededShuffle(values, seed){const out=[...values]; let s=seed||1; const rand=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return (s>>>0)/4294967296;}; for(let i=out.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[out[i],out[j]]=[out[j],out[i]];} return out;}
 export async function generateDirections(brief) {
-  const name=String(brief?.name ?? '').trim(); if(name.length>120) throw new Error('The exact brand name must not exceed 120 characters; it is never silently truncated.'); const sector=compactText(brief?.sector,160), promise=compactText(brief?.promise,1000); if(!name||!sector||promise.length<3) throw new Error('name, sector, and a meaningful promise are required.');
+  const name=String(brief?.name ?? '').trim(); if([...name].length>120) throw new Error('The exact brand name must not exceed 120 characters; it is never silently truncated.'); const sector=compactText(brief?.sector,160), promise=compactText(brief?.promise,1000); if(!name||!sector||promise.length<3) throw new Error('name, sector, and a meaningful promise are required.');
   const designWorkflow=buildDesignWorkflow(brief.design_context,brief);
   const audience=compactText(designWorkflow.brief.audience||'public général',400), traits=(brief.traits||[]).map((v)=>compactText(v,100)).filter(Boolean).slice(0,8), avoid=(brief.must_avoid||[]).map((v)=>String(v).trim()).filter(Boolean).slice(0,8), risk=brief.risk_tolerance||'équilibrée';
   const seedMaterial=JSON.stringify({name,sector,promise,traits,avoid,risk}); let precedents=(await searchAtlas([sector,promise,...traits].join(' '),{limit:12})).items; precedents=seededShuffle(precedents,seedFromText(seedMaterial));
@@ -254,24 +255,112 @@ export async function renderBrandDirection(args={}){requireRendering();cleanupEx
 export async function runBrandWorkflow(args={}){requireRendering();cleanupExpired();const options=renderOptions(args),directions=await generateDirections(args),selectedProvider=provider();enforceRenderAbuseControls("workflow",selectedProvider);const job=newJob("workflow",options,workflowPayload(directions));job.provider=selectedProvider;RENDER_JOBS.set(job.job_id,job);setTimeout(()=>{void runWorkflowJob(job.job_id);},0);return publicJob(job);}
 export function getRenderJob(jobId){cleanupExpired();const job=RENDER_JOBS.get(String(jobId||""));if(!job)throw new Error("Render job not found.");return publicJob(job);}
 export function getGeneratedAsset(jobId,filename){cleanupExpired();const asset=RENDER_ASSETS.get(`${jobId}/${filename}`);if(!asset)throw new Error("Generated asset not found.");return asset;}
+// BEGIN_PUBLIC_IMAGE_INPUTS — retained by the public bundle builder.
+const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net', 'oaisdmntprcentralus.blob.core.windows.net']);
+const MAX_IMAGE_BYTES = 12 * 1024 * 1024;
 function validateImageInput(file) {
-  if(!file?.download_url||!file?.file_id) throw new Error('File values must include download_url and file_id.');
-  if(file.mime_type && !ALLOWED_IMAGE_MIME_TYPES.has(String(file.mime_type).toLowerCase())) throw new Error(`Unsupported image MIME type: ${file.mime_type}`);
-  let url; try{url=new URL(file.download_url);}catch{throw new Error('Seules les URL HTTPS sans identifiants intégrés sont acceptées.');}
-  if(url.protocol!=='https:'||url.username||url.password) throw new Error('Seules les URL HTTPS sans identifiants intégrés sont acceptées.');
-  const host=url.hostname.toLowerCase(); if(host==='localhost'||host.endsWith('.local')||host==='0.0.0.0'||host==='127.0.0.1'||host==='::1'||/^10\.|^192\.168\.|^169\.254\.|^172\.(1[6-9]|2\d|3[01])\./.test(host)) throw new Error('Les URL de fichiers locaux ne sont pas acceptées.');
+  if (!file?.download_url || !file?.file_id) throw new Error('File values must include download_url and file_id.');
+  if (file.mime_type && !ALLOWED_IMAGE_MIME_TYPES.has(String(file.mime_type).toLowerCase())) throw new Error('Type de fichier image non pris en charge.');
+  let url;
+  try { url = new URL(file.download_url); } catch { throw new Error('URL HTTPS de fichier invalide.'); }
+  if (url.protocol !== 'https:' || url.username || url.password || (url.port && url.port !== '443')) throw new Error('Seules les URL HTTPS de fichiers autorisés, sans identifiants ni port alternatif, sont acceptées.');
+  const host = url.hostname.toLowerCase();
+  if (!TRUSTED_IMAGE_HOSTS.has(host) && host !== 'oaiusercontent.com' && !host.endsWith('.oaiusercontent.com')) throw new Error(`Hôte de fichier non autorisé (${host}). Joindre ou sélectionner cette image dans ChatGPT.`);
   return url.toString();
 }
+function rasterMime(bytes) {
+  const starts = signature => signature.every((byte, i) => bytes[i] === byte);
+  if (starts([137,80,78,71,13,10,26,10])) return 'image/png';
+  if (starts([255,216,255])) return 'image/jpeg';
+  if (starts([71,73,70,56,55,97]) || starts([71,73,70,56,57,97])) return 'image/gif';
+  if (starts([82,73,70,70]) && bytes[8]===87 && bytes[9]===69 && bytes[10]===66 && bytes[11]===80) return 'image/webp';
+  throw new Error('Signature de fichier non reconnue : image raster requise.');
+}
+function validateRasterDimensions(bytes, mime) {
+  const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+  let width=0,height=0;
+  if(mime==='image/png' && bytes.length>=24){width=view.getUint32(16);height=view.getUint32(20);}
+  if(mime==='image/gif' && bytes.length>=10){width=view.getUint16(6,true);height=view.getUint16(8,true);}
+  if(mime==='image/jpeg'){
+    let offset=2;
+    while(offset+3<bytes.length){
+      if(bytes[offset++]!==255)continue;
+      while(bytes[offset]===255)offset++;
+      const marker=bytes[offset++];
+      if(marker===217||marker===218)break;
+      if(marker===1||(marker>=208&&marker<=215))continue;
+      if(offset+2>bytes.length)break;
+      const length=view.getUint16(offset);if(length<2||offset+length>bytes.length)break;
+      if([192,193,194,195,197,198,199,201,202,203,205,206,207].includes(marker)&&length>=7){height=view.getUint16(offset+3);width=view.getUint16(offset+5);break;}
+      offset+=length;
+    }
+  }
+  if(mime==='image/webp' && bytes.length>=25){
+    const kind=String.fromCharCode(...bytes.subarray(12,16));
+    if(kind==='VP8X'&&bytes.length>=30){width=1+bytes[24]+(bytes[25]<<8)+(bytes[26]<<16);height=1+bytes[27]+(bytes[28]<<8)+(bytes[29]<<16);}
+    else if(kind==='VP8L'&&bytes[20]===47){width=1+bytes[21]+((bytes[22]&63)<<8);height=1+((bytes[22]&192)>>6)+(bytes[23]<<2)+((bytes[24]&15)<<10);}
+    else if(kind==='VP8 '&&bytes.length>=30&&bytes[23]===157&&bytes[24]===1&&bytes[25]===42){width=view.getUint16(26,true)&16383;height=view.getUint16(28,true)&16383;}
+  }
+  if(!width||!height)throw new Error('En-tête ou dimensions de l’image illisibles.');
+  if(width>8192||height>8192||width*height>50000000)throw new Error('Les dimensions de l’image dépassent la limite de traitement.');
+  return {width,height};
+}
+export async function fetchImageBytes(file, fetcher = globalThis.fetch) {
+  let url = validateImageInput(file);
+  const controller = new AbortController();
+  let timer;
+  const work = async () => {
+    for (let redirects = 0; redirects <= 4; redirects++) {
+      let response;
+      try { response = await fetcher(url, { redirect:'manual', credentials:'omit', headers:{Accept:'image/png,image/jpeg,image/webp,image/gif'}, signal:controller.signal }); }
+      catch { throw new Error('Téléchargement du fichier impossible; sélectionner à nouveau le fichier pour renouveler son accès.'); }
+      if ([301,302,303,307,308].includes(response.status)) {
+        const location=response.headers.get('location');
+        if (!location) throw new Error('Redirection du fichier sans destination.');
+        url=validateImageInput({...file,download_url:new URL(location,url).toString()});
+        continue;
+      }
+      if (response.status < 200 || response.status >= 300) throw new Error(`Téléchargement du fichier refusé (HTTP ${response.status}). Sélectionner à nouveau le fichier.`);
+      const type=(response.headers.get('content-type')||'').split(';')[0].trim().toLowerCase();
+      if (type && type !== 'application/octet-stream' && !ALLOWED_IMAGE_MIME_TYPES.has(type)) throw new Error('Le fichier téléchargé n’est pas une image raster prise en charge.');
+      const declared=Number(response.headers.get('content-length'));
+      if (Number.isFinite(declared) && declared > MAX_IMAGE_BYTES) throw new Error('L’image dépasse la limite de traitement de 12 Mo.');
+      let bytes;
+      if (response.body?.getReader) {
+        const reader=response.body.getReader(), chunks=[]; let total=0;
+        try { for (;;) { const part=await reader.read(); if(part.done)break; total+=part.value.length; if(total>MAX_IMAGE_BYTES)throw new Error('L’image dépasse la limite de traitement de 12 Mo.'); chunks.push(part.value); } }
+        finally { await reader.cancel().catch(()=>{}); }
+        bytes=new Uint8Array(total); let offset=0; for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
+      } else {
+        // Hatchable's fetch buffers upstream; this is a processing cap, not a streaming transport guarantee.
+        bytes=new Uint8Array(await response.arrayBuffer());
+        if(bytes.length>MAX_IMAGE_BYTES)throw new Error('L’image dépasse la limite de traitement de 12 Mo.');
+      }
+      const mimeType=rasterMime(bytes);
+      if(type && type !== 'application/octet-stream' && type!==mimeType)throw new Error('Le type MIME ne correspond pas à la signature de l’image.');
+      const dimensions=validateRasterDimensions(bytes,mimeType);
+      return {bytes,mimeType,...dimensions};
+    }
+    throw new Error('Le fichier comporte trop de redirections.');
+  };
+  try { return await Promise.race([work(),new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(new Error('Le téléchargement de l’image a dépassé 20 secondes.'));},20000);})]); }
+  finally { clearTimeout(timer); }
+}
+function imageDataUrl({bytes,mimeType}) {
+  let binary='';for(let start=0;start<bytes.length;start+=16384)binary+=String.fromCharCode(...bytes.subarray(start,start+16384));
+  return `data:${mimeType};base64,${btoa(binary)}`;
+}
 export async function imageMetrics(file) {
-  const url=validateImageInput(file);
+  const dataUrl=imageDataUrl(await fetchImageBytes(file));
   const { browser } = await import("hatchable");
   return await browser.session(async (page)=>{
-    await page.goto(url,{waitUntil:'networkidle0',timeout:20000});
-    return await page.evaluate(async ()=>{
-      const img=document.querySelector('img'); if(!img) throw new Error('Le fichier téléchargé n’est pas une image lisible.');
-      try{await img.decode();}catch{}
+    // Managed browser sessions already start on a blank page; no external navigation.
+    return await page.evaluate(async (dataUrl)=>{
+      const img=new Image();img.src=dataUrl;
+      try{await img.decode();}catch{throw new Error('Le fichier téléchargé n’est pas une image lisible.');}
       const width=img.naturalWidth||img.width, height=img.naturalHeight||img.height; if(!width||!height) throw new Error('Le fichier téléchargé n’est pas une image lisible.'); if(width>8192||height>8192||width*height>50000000) throw new Error('Les dimensions de l’image dépassent la limite de traitement.');
-      const sample=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);const d=x.getImageData(0,0,w,h).data;const gray=new Float64Array(w*h);for(let i=0,p=0;i<d.length;i+=4,p++)gray[p]=(0.2126*d[i]+0.7152*d[i+1]+0.0722*d[i+2])/255;return{gray,data:d,w,h};};
+      const flattened=document.createElement('canvas');flattened.width=width;flattened.height=height;const flat=flattened.getContext('2d',{alpha:false});flat.fillStyle='#ffffff';flat.fillRect(0,0,width,height);flat.drawImage(img,0,0);
+      const sample=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(flattened,0,0,w,h);const d=x.getImageData(0,0,w,h).data;const gray=new Float64Array(w*h);for(let i=0,p=0;i<d.length;i+=4,p++)gray[p]=(0.2126*d[i]+0.7152*d[i+1]+0.0722*d[i+2])/255;return{gray,data:d,w,h};};
       const mean=(a)=>{let s=0;for(const v of a)s+=v;return s/a.length;};
       const median=(a)=>{const b=Array.from(a).sort((x,y)=>x-y);return b[Math.floor(b.length/2)];};
       const makeMask=(gray)=>{const t=median(gray), dark=new Uint8Array(gray.length), light=new Uint8Array(gray.length);let dc=0,lc=0;for(let i=0;i<gray.length;i++){if(gray[i]<t){dark[i]=1;dc++;}if(gray[i]>t){light[i]=1;lc++;}}let out=dc<=lc?dark:light, occ=Math.min(dc,lc)/gray.length;if(occ<.02||occ>.98){out=new Uint8Array(gray.length);const m=mean(gray);for(let i=0;i<gray.length;i++)out[i]=gray[i]<m?1:0;}return out;};
@@ -284,8 +373,8 @@ export async function imageMetrics(file) {
       const quadrants=[0,0,0,0],qcount=[0,0,0,0];for(let y=0;y<256;y++)for(let x=0;x<256;x++){const q=(y>=128?2:0)+(x>=128?1:0);quadrants[q]+=mask[y*256+x];qcount[q]++;}for(let i=0;i<4;i++)quadrants[i]/=qcount[i];const qm=quadrants.reduce((a,b)=>a+b,0)/4,qsd=Math.sqrt(quadrants.reduce((a,b)=>a+(b-qm)*(b-qm),0)/4),balance=1-Math.min(qsd*3.2,1);
       const hashSample=sample(16,16).gray,hm=mean(hashSample),average_hash=Array.from(hashSample,(v)=>v>=hm?1:0);const dhSample=sample(17,16).gray,difference_hash=[];for(let y=0;y<16;y++)for(let x=0;x<16;x++)difference_hash.push(dhSample[y*17+x+1]>=dhSample[y*17+x]?1:0);
       const histSample=sample(96,96).data,hist=new Float64Array(24);for(let i=0;i<histSample.length;i+=4){hist[Math.min(7,Math.floor(histSample[i]/32))]++;hist[8+Math.min(7,Math.floor(histSample[i+1]/32))]++;hist[16+Math.min(7,Math.floor(histSample[i+2]/32))]++;}let hs=0;for(const v of hist)hs+=v;const colour_histogram=Array.from(hist,(v)=>Math.round(v/hs*1e6)/1e6);
-      const r=(v)=>Math.round(v*10000)/10000;return{width,height,aspect_ratio:r(width/Math.max(height,1)),contrast:r(contrast),edge_density:r(edgeCount/edge.length),entropy:r(entropy),foreground_occupancy:r(occupancy),centroid:{x:r(cx),y:r(cy)},balance:r(balance),small_size_stability:r(inter/(union||1)),saliency_concentration:r(saliency),average_hash,difference_hash,colour_histogram};
-    });
+      const r=(v)=>Math.round(v*10000)/10000;return{width,height,alpha_background:'#ffffff',aspect_ratio:r(width/Math.max(height,1)),contrast:r(contrast),edge_density:r(edgeCount/edge.length),entropy:r(entropy),foreground_occupancy:r(occupancy),centroid:{x:r(cx),y:r(cy)},balance:r(balance),small_size_stability:r(inter/(union||1)),saliency_concentration:r(saliency),average_hash,difference_hash,colour_histogram};
+    },dataUrl);
   });
 }
 function clampScore(v){return Math.max(0,Math.min(20,v));}
@@ -299,17 +388,23 @@ const EXERCISE_NUMBERS = {
   huit: 8, eight: 8, neuf: 9, nine: 9, dix: 10, ten: 10, onze: 11,
   eleven: 11, douze: 12, twelve: 12
 };
+function normalizeExerciseTime(text) {
+  return text.replace(/(?<![\w.,])(\d{1,3})\s*(?:heures?|hours?|h)\s*(\d{1,2})(?:\s*(?:minutes?|mins?))?\b/gi,
+    (all, hours, minutes) => Number(minutes) < 60 ? `${Number(hours)*60+Number(minutes)} minutes` : all)
+    .replace(/(?<![\w.,])(\d{1,3}[.,]\d{1,2})\s*(?:heures?|hours?|h)\b/gi,
+    (all, hours) => { const minutes=Number(hours.replace(',','.'))*60; return Number.isInteger(Math.round(minutes*100000)/100000) ? `${Math.round(minutes)} minutes` : all; });
+}
 function exerciseConstraints(question, goal, context) {
   // Conservative FR/EN extraction: negative examples, conflicts and ranges
   // must never be silently converted into an invented exact constraint.
-  const texts = [question, goal, context.task || '', context.final_size || ''];
+  const texts = [question, goal, context.task || '', context.final_size || ''].map(normalizeExerciseTime);
   const number = String.raw`(?:\d{1,4}|${Object.keys(EXERCISE_NUMBERS).join('|')})`;
   const variantsRe = new RegExp(String.raw`(?<![\w.,])(${number})\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b`, 'gi');
   const minutesRe = new RegExp(String.raw`(?<![\w.,])(${number})\s*(minutes?|mins?|heures?|hours?|h)\b`, 'gi');
   const sizesRe = /(?<![\w.,])\d+(?:\s*(?:,|\/|\bet\b|\band\b)\s*\d+)*\s*(?:px|pixels?)\b/gi;
   const counts = new Set(), durations = new Set(), sizes = new Set(), unresolved = [];
   const negative = (text, start) => {
-    const clause = text.slice(0, start).split(/[.!?;\n,]|\b(?:mais|but|rather|plutôt)\b/i).at(-1);
+    const clause = text.slice(0, start).split(/[.!?;\n]|\b(?:mais|but|rather|plutôt|seulement|only|exactement|exactly)\b/i).at(-1);
     return /\b(?:pas|ni|sans|no|not|without|exclude|excluding|exclure|éviter|eviter|interdit)\b/i.test(clause);
   };
   const constrainedRange = (text, start) => {
@@ -352,11 +447,11 @@ export function coachDecision(question, critique = null, goal = 'improve the nex
   const designWorkflow = buildDesignWorkflow(designContext);
   const constraints = exerciseConstraints(String(question), String(goal), designWorkflow.brief);
   question = String(question).trim(); goal = String(goal).trim();
-  const axes = critique && typeof critique === 'object' ? (critique.axes || {}) : {};
+  const axes = critique && typeof critique === 'object' && critique.axes && typeof critique.axes==='object' && !Array.isArray(critique.axes) ? critique.axes : {};
   const known = new Set(['beaux_arts', 'hierarchy', 'legibility', 'memorability', 'differentiation']);
-  const ranked = Object.entries(axes).filter(([key, axis]) => known.has(key) && axis && Number.isFinite(axis.score)
+  const ranked = Object.entries(axes).filter(([key, axis]) => known.has(key) && axis && Number.isFinite(axis.score) && axis.score>=0 && axis.score<=20
     && !['non_evaluable', 'non_testé', 'indéterminé'].includes(axis.status)).sort((a, b) => a[1].score - b[1].score).slice(0, 2);
-  const focus = ranked.map(([key, axis]) => axis.label || key).join(' et ') || 'la décision formulée';
+  const focus = ranked.map(([key, axis]) => typeof axis.label==='string' && axis.label.trim() ? compactText(axis.label,100) : key).join(' et ') || 'la décision formulée';
   let diagnosis = `Isoler ${focus}, conserver le contenu constant et respecter les contraintes déclarées. Aucune mesure auprès du public n’est inférée.`;
   const count = constraints.variant_count, duration = constraints.duration_minutes, sizes = constraints.sizes_px;
   const variantStep = count !== null ? `Produire exactement ${count} variantes à contenu constant; ne faire varier que la décision étudiée.` : 'Fixer le nombre de variantes avant production; aucune quantité n’est présumée.';

@@ -105,6 +105,8 @@ def _tokens(text: str) -> list[str]:
 
 def _score_brand(item: dict[str, Any], query: str) -> float:
     query_n = normalize(query)
+    if not query_n and str(query).strip():
+        return 0.0
     if not query_n:
         base = 5.0 if item.get("depth") == "deep" else 1.0
         base += 0.8 if item.get("evidence_confidence") == "high" else 0.0
@@ -1275,6 +1277,9 @@ def _validate_public_https_url(url: str) -> None:
     if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
         raise ValueError("Seules les URL HTTPS sans identifiants intégrés sont acceptées.")
     host = parsed.hostname.casefold()
+    trusted = {"files.openai.com", "cdn.openai.com", "chatgpt.com", "oaiusercontent.blob.core.windows.net", "oaidalleapiprodscus.blob.core.windows.net", "oaisdmntprcentralus.blob.core.windows.net"}
+    if parsed.port not in (None, 443) or not (host in trusted or host == "oaiusercontent.com" or host.endswith(".oaiusercontent.com")):
+        raise ValueError("Hôte de fichier non autorisé. Joindre ou sélectionner cette image dans ChatGPT.")
     if host in {"localhost", "localhost.localdomain"} or host.endswith(".local"):
         raise ValueError("Les URL de fichiers locaux ne sont pas acceptées.")
     try:
@@ -1325,7 +1330,8 @@ async def download_image(file_value: dict[str, Any]) -> Image.Image:
                     current_url = urljoin(current_url, location)
                     _validate_public_https_url(current_url)
                     continue
-                response.raise_for_status()
+                if not 200 <= response.status_code < 300:
+                    raise ValueError(f"Téléchargement du fichier refusé (HTTP {response.status_code}). Sélectionner à nouveau le fichier.")
                 content_type = response.headers.get("content-type", "").split(";", 1)[0].casefold()
                 if content_type and content_type not in ALLOWED_IMAGE_MIME_TYPES:
                     raise ValueError(f"Le fichier téléchargé n’est pas une image prise en charge : {content_type}")
@@ -1349,7 +1355,9 @@ async def download_image(file_value: dict[str, Any]) -> Image.Image:
         if image.width > 8192 or image.height > 8192 or image.width * image.height > 50_000_000:
             raise ValueError("Les dimensions de l’image dépassent la limite de traitement.")
         image.load()
-        return ImageOps.exif_transpose(image).convert("RGB")
+        image = ImageOps.exif_transpose(image).convert("RGBA")
+        background = Image.new("RGBA", image.size, (255, 255, 255, 255))
+        return Image.alpha_composite(background, image).convert("RGB")
     except ValueError:
         raise
     except Exception as exc:
@@ -1416,6 +1424,7 @@ def _cosine(left: np.ndarray, right: np.ndarray) -> float:
 
 
 def image_metrics(image: Image.Image) -> dict[str, Any]:
+    image = Image.alpha_composite(Image.new("RGBA", image.size, (255, 255, 255, 255)), image.convert("RGBA")).convert("RGB")
     rgb = image.convert("RGB")
     gray = _resize_gray(rgb, (256, 256))
     small = _resize_gray(rgb, (32, 32))
@@ -1580,13 +1589,26 @@ _EXERCISE_NUMBERS = {
 }
 
 
+def _normalize_exercise_time(text: str) -> str:
+    def compound(match):
+        hours, minutes = map(int, match.groups())
+        return f"{hours * 60 + minutes} minutes" if minutes < 60 else match.group(0)
+
+    def decimal_hours(match):
+        minutes = round(float(match.group(1).replace(",", ".")) * 60, 5)
+        return f"{int(minutes)} minutes" if minutes.is_integer() else match.group(0)
+
+    text = re.sub(r"(?<![\w.,])(\d{1,3})\s*(?:heures?|hours?|h)\s*(\d{1,2})(?:\s*(?:minutes?|mins?))?\b", compound, text, flags=re.I)
+    return re.sub(r"(?<![\w.,])(\d{1,3}[.,]\d{1,2})\s*(?:heures?|hours?|h)\b", decimal_hours, text, flags=re.I)
+
+
 def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> dict[str, Any]:
     """Conservative extraction of explicit FR/EN counts, durations and pixel lists.
 
     Negative examples are not declarations. Conflicts/ranges are surfaced rather
     than silently choosing a number; unknown constraints remain unknown.
     """
-    texts = [question, goal, *(context.get(key, "") for key in ("task", "final_size"))]
+    texts = [_normalize_exercise_time(text) for text in [question, goal, *(context.get(key, "") for key in ("task", "final_size"))]]
     number = r"(?:\d{1,4}|" + "|".join(_EXERCISE_NUMBERS) + r")"
     variants_re = re.compile(r"(?<![\w.,])(" + number + r")\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b", re.I)
     minutes_re = re.compile(r"(?<![\w.,])(" + number + r")\s*(minutes?|mins?|heures?|hours?|h)\b", re.I)
@@ -1594,7 +1616,7 @@ def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> 
     counts, durations, sizes, unresolved = set(), set(), set(), []
 
     def negative(text: str, start: int) -> bool:
-        clause = re.split(r"[.!?;\n,]|\b(?:mais|but|rather|plutôt)\b", text[:start], flags=re.I)[-1]
+        clause = re.split(r"[.!?;\n]|\b(?:mais|but|rather|plutôt|seulement|only|exactement|exactly)\b", text[:start], flags=re.I)[-1]
         return bool(re.search(r"\b(?:pas|ni|sans|no|not|without|exclude|excluding|exclure|éviter|eviter|interdit)\b", clause, re.I))
 
     def constrained_range(text: str, start: int) -> bool:
@@ -1650,14 +1672,15 @@ def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: 
     constraints = _exercise_constraints(str(question), str(goal), design_workflow["brief"])
     question, goal = str(question).strip(), str(goal).strip()
     axes = (critique or {}).get("axes", {}) if isinstance(critique, dict) else {}
+    axes = axes if isinstance(axes, dict) else {}
     known_axes = {"beaux_arts", "hierarchy", "legibility", "memorability", "differentiation"}
     ranked = sorted([
         (key, axis) for key, axis in axes.items()
         if key in known_axes and isinstance(axis, dict)
-        and type(axis.get("score")) in (int, float) and math.isfinite(axis["score"])
+        and type(axis.get("score")) in (int, float) and math.isfinite(axis["score"]) and 0 <= axis["score"] <= 20
         and axis.get("status") not in ("non_evaluable", "non_testé", "indéterminé")
     ], key=lambda pair: pair[1]["score"])[:2]
-    focus = " et ".join(axis.get("label", key) for key, axis in ranked) or "la décision formulée"
+    focus = " et ".join(compact_text(axis["label"], 100) if isinstance(axis.get("label"), str) and axis["label"].strip() else key for key, axis in ranked) or "la décision formulée"
     diagnosis = f"Isoler {focus}, conserver le contenu constant et respecter les contraintes déclarées. Aucune mesure auprès du public n’est inférée."
     count, duration, sizes = constraints["variant_count"], constraints["duration_minutes"], constraints["sizes_px"]
     variant_step = f"Produire exactement {count} variantes à contenu constant; ne faire varier que la décision étudiée." if count is not None else "Fixer le nombre de variantes avant production; aucune quantité n’est présumée."

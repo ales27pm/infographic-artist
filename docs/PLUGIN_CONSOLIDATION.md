@@ -108,3 +108,55 @@ Regression entry points: `python/tests/test_review_regressions.py`,
 host-API harness; successful follow-up delivery does not prove native image
 creation inside ChatGPT. Keep that external boundary explicitly unverified until
 an actual image-generation tool call and returned image have been observed.
+
+## Runtime revision 4 — deeper boundary verification (2026-10-24)
+
+The hosted runtime is `1.2.0-hatchable.4`; the standalone version is
+`1.2.0+reviewfix.4`. The portable package version remains 1.2.0. This change is
+not a new OpenAI portal approval or publication. The canonical widget is
+`app-v1.2.0-r4.html`; r3, r2 and all earlier aliases remain readable.
+
+Image tools now accept host-authorized ChatGPT attachment origins only. An
+arbitrary external image URL must first be attached/selected in ChatGPT. Each
+redirect is validated before following it. Raster signatures, MIME consistency,
+12 MiB processing size and header dimensions (8192 per side / 50 million pixels)
+are checked before browser decoding. The decoder starts on the managed browser's
+initial blank page and receives only a data URL; it never navigates to user
+HTML. Alpha is flattened onto white before resampling, consistently with Python.
+Hatchable buffers fetch responses upstream, so the byte cap is a processing limit,
+not a claimed streaming network/memory guarantee. The trusted-host policy is not
+an independent audit of OpenAI/CDN DNS or the platform network boundary.
+
+User briefs are rejected at explicit length limits rather than silently truncated.
+Unsearchable nonempty atlas queries no longer become browse requests. Coaching
+recognizes decimal and compound hour budgets, keeps negative size lists negative,
+and ignores malformed/out-of-range supplied axes. This remains conservative
+numeric extraction, not unrestricted natural-language understanding.
+
+Native handoffs distinguish valid acknowledgements from malformed values. With
+host widget-state support, SHA-256 fingerprints and delivery phases survive an
+iframe reload; raw prompts are not persisted there. An interrupted/pending receipt
+restores as uncertain and is not resent. Without host persistence support, the
+existing in-memory protection remains. Clipboard denial offers a selectable full
+native request. Late host capability can become usable without sending anything
+automatically. A stale tool result cannot replace a newer user selection, and a
+failed read preserves the current design and recovery controls.
+
+Release gates now execute the actual generated production handler through its
+image pipeline, not just the source module. The builder keeps the explicit
+`BEGIN_PUBLIC_IMAGE_INPUTS` boundary; do not strip new public policy constants
+when excluding the experimental renderer. Managed Hatchable browsers reject an
+explicit `goto('about:blank')` even though their initial page is blank: use that
+initial page directly, verified in the live managed service. PNG/JPEG/WebP/GIF
+are decoded in Chromium in local tests; transparent and white-backed fixtures
+have equal descriptors. Test doubles for network/host delivery are labelled and
+must not be presented as a new real ChatGPT image-generation proof.
+
+
+Native file-transport regression: the actual connector uses the exact temporary
+origin `oaisdmntprcentralus.blob.core.windows.net` for the synthetic mounted-file
+fixture. Initial r4 deployment rejected it; a hostname-only diagnostic identified
+it without exposing signed paths or query parameters. The final policy admits
+that exact observed origin, not `*.blob.core.windows.net`, with a regression test
+in both runtimes. Deployment success is not file-transport success: always rerun
+an actual connector upload/read after changing the origin policy.
