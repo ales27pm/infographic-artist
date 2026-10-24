@@ -76,3 +76,35 @@ The local contract adds **150 documented design principles, 69 sources and 14 do
 The plan and the three separate recognition, comprehension and preference evaluations begin as `non_testé`, with empty observations and evidence. Image-critique scores remain technical heuristics, not measured recognition, comprehension, preference or an aggregate beauty score. Any actual verification must retain its target, criterion and evidence type: `calcul`, `inspection` or `essai`. A plan, visible stage or heuristic score is not a completed audit.
 
 The canonical UI resource is `ui://infographic-artist/app-v1.2.0.html`; the `app-v1.html`, `app-v1.1.1.html` and `app-v1.1.2.html` aliases remain readable. The exclusive **`@Créer une image`** host-native handoff is preserved. This section documents local source changes; remote tests, installation, portal approval and showcase publication require their own evidence and are not asserted here.
+
+## Runtime revision 2 — review corrections (2026-10-24)
+
+The portable/public package stays at 1.2.0. The hosted MCP runtime identifies as
+`1.2.0-hatchable.2`, with `release.runtime_revision = 2`; the standalone Python
+runtime identifies as `1.2.0+reviewfix.2`. This is not a new OpenAI publication
+attestation. The canonical widget resource is `app-v1.2.0-r2.html`; the original
+`app-v1.2.0.html` and earlier aliases remain readable.
+
+Graph queries reserve matching subjects before one-hop context and truncation.
+Nonempty unmatched queries return an explicit empty graph, not unrelated popular
+nodes. Image prompts preserve required exact text and declared dimensions in the
+actual host handoff; web briefs receive page-layout directions, not logo sheets.
+
+The coach extracts explicit French/English counts, minute/hour budgets and pixel
+lists. It does not claim general natural-language understanding: conflicting,
+ranged or unsupported recognized constraints stay unresolved rather than becoming
+invented defaults. Proposed schedules and acceptance criteria are not performed
+user studies. Recognition, comprehension and preference remain separately untested.
+
+Without a reference, `axes.differentiation.score` is `null`, with status
+`non_evaluable`. Consumers must use `score_max` (80 for the four scored axes),
+respect `excluded_axes`, and never coerce unavailable axes to zero or /100. No
+overall grade is assigned to partial coverage. With a reference, differentiation
+remains only a relative perceptual heuristic, not corpus-wide originality.
+
+Regression entry points: `python/tests/test_review_regressions.py`,
+`hatchable/tests/review-regressions.test.mjs` and
+`hatchable/tests-ui/review-regressions.test.mjs`. The browser tests use an isolated
+host-API harness; successful follow-up delivery does not prove native image
+creation inside ChatGPT. Keep that external boundary explicitly unverified until
+an actual image-generation tool call and returned image have been observed.

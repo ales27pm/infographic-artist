@@ -119,11 +119,11 @@ test('coaching does not reinterpret a critique as human-study evidence', async (
   assert.ok(Object.values(result.design_workflow.evaluations).every(item => item.status === 'non_testé' && item.evidence.length === 0));
 });
 
-test('critique retains numeric axes but declares heuristic and untested human scope', () => {
+test('critique scores available axes and declares heuristic and untested human scope', () => {
   const metrics = { foreground_occupancy: .3, centroid: { x: .5, y: .5 }, balance: .8, saliency_concentration: .4, edge_density: .15, contrast: .3, small_size_stability: .8, entropy: .6 };
   const result = critiqueImageMetrics(metrics);
   assert.equal(Object.keys(result.axes).length, 5);
-  assert.equal(result.score, Math.round(Object.values(result.axes).reduce((sum, item) => sum + item.score, 0) * 10) / 10);
+  assert.equal(result.score, Math.round(Object.values(result.axes).reduce((sum, item) => sum + (item.score ?? 0), 0) * 10) / 10);
   assert.equal(result.score_kind, 'heuristic_proxy');
   assert.match(result.axes.memorability.label, /proxy/);
   assert.equal(result.axes.memorability.basis, 'heuristic');

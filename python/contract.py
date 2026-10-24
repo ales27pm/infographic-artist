@@ -3,7 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r2.html"
+BASE_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0.html"
 LEGACY_TEMPLATE_URI = "ui://infographic-artist/app-v1.html"
 PREVIOUS_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.1.html"
 RECENT_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.2.html"
@@ -377,7 +378,7 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "title": "Coach a design decision",
         "description": (
             "Use this when the user wants to understand why one graphic decision is stronger, convert critique into a "
-            "45–90 minute exercise, or define measurable acceptance criteria for the next iteration. Includes the eight-stage design workflow with declared context, missing facts and separate untested human evaluations."
+            "constraint-aware exercise, or define measurable acceptance criteria for the next iteration. Includes the eight-stage design workflow with declared context, missing facts and separate untested human evaluations."
         ),
         "input": _object_schema(
             {

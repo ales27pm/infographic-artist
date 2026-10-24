@@ -28,8 +28,8 @@ import httpx
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
-from runtime_capabilities import generation_handoff, require_rendering
 from design_workflow import build_design_workflow, search_principles, untested_evaluations
+from runtime_capabilities import generation_handoff, require_rendering
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
@@ -308,53 +308,56 @@ def search_design_systems(query: str = "", kind: str = "", limit: int = 12) -> d
 
 
 def explore_graph(query: str = "", limit: int = 80) -> dict[str, Any]:
+    """Keep matching subjects ahead of bounded, one-hop context; never invent matches."""
     limit = max(20, min(int(limit), 120))
     nodes = GRAPH_DOCUMENT.get("nodes", [])
     edges = GRAPH_DOCUMENT.get("edges", [])
-    q_tokens = _tokens(query)
-    if q_tokens:
-        selected = {
-            node["id"]
-            for node in nodes
-            if all(token in normalize(" ".join(str(node.get(key, "")) for key in ("label", "node_type", "category", "kind", "ref"))) for token in q_tokens)
-        }
-        # Pull two-hop neighbours to preserve meaning without returning the full graph.
-        for _ in range(2):
-            expanded = set(selected)
-            for edge in edges:
-                if edge["source"] in selected:
-                    expanded.add(edge["target"])
-                if edge["target"] in selected:
-                    expanded.add(edge["source"])
-            selected = expanded
-        # Keep the graph useful when an exact query has only a tiny component.
-        if len(selected) < min(20, limit):
-            for node in sorted(nodes, key=lambda item: item.get("degree", 0), reverse=True):
-                selected.add(node["id"])
-                if len(selected) >= min(20, limit):
-                    break
-        filtered_nodes = [node for node in nodes if node["id"] in selected]
+    q_tokens, q_normalized = _tokens(query), normalize(query)
+    has_query = bool(str(query).strip())
+
+    def fields(node: dict[str, Any]) -> list[str]:
+        return [normalize(node.get(key, "")) for key in ("id", "label", "node_type", "category", "kind", "ref")]
+
+    def relevance(node: dict[str, Any]) -> tuple[int, int, int, str]:
+        values = fields(node)
+        return (
+            0 if q_normalized and q_normalized in values else 1,
+            0 if q_normalized and normalize(node.get("label", "")).startswith(q_normalized) else 1,
+            -node.get("degree", 0), str(node["id"]),
+        )
+
+    matches = [node for node in nodes if q_tokens and all(token in " ".join(fields(node)) for token in q_tokens)] if has_query else []
+    match_ids = {node["id"] for node in matches}
+    if has_query:
+        adjacent = set()
+        for edge in edges:
+            if edge["source"] in match_ids:
+                adjacent.add(edge["target"])
+            if edge["target"] in match_ids:
+                adjacent.add(edge["source"])
+        neighbours = [node for node in nodes if node["id"] in adjacent and node["id"] not in match_ids]
+        candidates = sorted(matches, key=relevance) + sorted(neighbours, key=relevance)
     else:
-        filtered_nodes = sorted(nodes, key=lambda node: node.get("degree", 0), reverse=True)
-    filtered_nodes = filtered_nodes[:limit]
+        candidates = sorted(nodes, key=lambda node: (-node.get("degree", 0), str(node["id"])))
+    filtered_nodes = candidates[:limit]
     keep = {node["id"] for node in filtered_nodes}
-    filtered_edges = [edge for edge in edges if edge["source"] in keep and edge["target"] in keep][: limit * 3]
+    filtered_edges = [edge for edge in edges if edge["source"] in keep and edge["target"] in keep][:limit * 3]
     return {
         "query": compact_text(query, 250),
-        "nodes": [
-            {
-                "id": node["id"],
-                "label": node.get("label", node["id"]),
-                "type": node.get("node_type", "concept"),
-                "ref": node.get("ref", ""),
-                "x": node.get("x", 0.5),
-                "y": node.get("y", 0.5),
-                "degree": node.get("degree", 0),
-            }
-            for node in filtered_nodes
-        ],
+        "nodes": [{
+            "id": node["id"], "label": node.get("label", node["id"]),
+            "type": node.get("node_type", "concept"), "ref": node.get("ref", ""),
+            "x": node.get("x", 0.5), "y": node.get("y", 0.5), "degree": node.get("degree", 0),
+            "is_match": node["id"] in match_ids,
+            "distance": (0 if node["id"] in match_ids else 1) if has_query else None,
+        } for node in filtered_nodes],
         "edges": filtered_edges,
-        "meta": {"node_count": len(filtered_nodes), "edge_count": len(filtered_edges)},
+        "meta": {
+            "node_count": len(filtered_nodes), "edge_count": len(filtered_edges),
+            "matched_count": len(matches), "returned_match_count": len(keep & match_ids),
+            "context_hops": 1, "no_matches": bool(has_query and not matches),
+            "truncated": len(candidates) > limit,
+        },
     }
 
 
@@ -395,7 +398,7 @@ _CONCEPT_BOARD_LAYERS = {
         "one cropped detail showing the counterform logic, and two restrained application mockups"
     ),
     "type": (
-        "a wordmark construction study with abstract placeholder glyphs, spacing rhythm diagrams, "
+        "a wordmark construction study using the exact locked brand name, spacing rhythm diagrams, "
         "a monogram crop, and two small-use tests where the typographic anomaly remains readable"
     ),
     "system": (
@@ -411,43 +414,40 @@ def _join_prompt_terms(values: Iterable[Any], fallback: str, *, limit: int = 6) 
 
 
 def _concept_board_prompt(
-    *,
-    name: str,
-    sector: str,
-    promise: str,
-    audience: str,
-    traits: list[str],
-    avoid: list[str],
-    archetype: dict[str, Any],
-    precedents: list[dict[str, Any]],
+    *, name: str, sector: str, promise: str, audience: str, traits: list[str],
+    avoid: list[str], archetype: dict[str, Any], precedents: list[dict[str, Any]],
+    design_context: dict[str, Any] | None = None,
 ) -> str:
-    precedent_names = _join_prompt_terms((source.get("name") for source in precedents), "no visible precedent references", limit=3)
-    trait_text = _join_prompt_terms(traits, "clear, coherent, distinctive")
-    avoid_text = _join_prompt_terms(
-        [
-            *avoid,
-            "existing logos",
-            "mascots",
-            "signature typography",
-            "trade dress",
-            "recognizable third-party colour systems",
-        ],
-        "existing logos, protected marks, mascots, signature typography, trade dress",
-        limit=10,
-    )
-    layer_text = _CONCEPT_BOARD_LAYERS.get(archetype["key"], "three disciplined visual studies and production tests")
-    return compact_text(
-        "Create one square concept board for an original brand identity, not a finished logo. "
-        f"Brand or project name: {name}. Sector: {sector}. Promise to make visible: {promise}. "
-        f"Audience: {audience}. Direction: {archetype['name']}. Structural idea: {archetype['architecture']} "
-        f"Show {layer_text}. Express these traits through structure: {trait_text}. "
-        f"Use a restrained palette logic that can still work in black and white. Avoid: {avoid_text}. "
-        f"The cited precedents are method-only context ({precedent_names}); do not include, imitate, remix, "
-        "or allude visually to their protected forms. Do not reproduce existing marks, protected logos, mascots, "
-        "signature lettering, negative-space tricks, trade dress, or recognizable third-party brand systems. "
-        "Use placeholder text where needed and keep the board production-minded, high-contrast, and independently derived.",
-        1800,
-    )
+    """Carry validated brief constraints into the actual host prompt without truncation."""
+    context = design_context or {}
+    medium = context.get("medium", "")
+    web_medium = any(token in normalize(medium) for token in ("web", "interface", "responsive", "ecran", "application"))
+    layout_layers = {
+        "symbol": "a complete responsive page with one dominant visual anchor, readable content hierarchy, navigation and a clear primary action; integrate the mark instead of delivering a logo sheet",
+        "type": "a complete editorial page led by the exact headline and brand name, deliberate type scale, column rhythm and a visible primary action; show the mobile reflow, not only letter construction",
+        "system": "a complete page system with repeatable sections, a governed content grid, navigation and responsive module behaviour; the grid must organize real content rather than become decoration",
+    }
+    layer = layout_layers[archetype["key"]] if web_medium else _CONCEPT_BOARD_LAYERS[archetype["key"]]
+    parts = [
+        "Create an original design study for the declared medium, not a generic logo-only concept board." if medium else "Create one concept board for an original brand identity, not a finished logo.",
+        f"Locked brand name (verbatim): {json.dumps(name, ensure_ascii=False)}.",
+        "Preserve the locked name and every exact required text or motif in the declared brief verbatim, including punctuation, case and accents. Never replace them with abstract glyphs or substitute words. Negative constraints are exclusions, not content to render.",
+    ]
+    for key, label in (("task", "Declared task"), ("message", "Declared message and exact-copy instructions"), ("medium", "Primary deliverable / medium"), ("final_size", "Required final applications and dimensions"), ("cultural_context", "Language, cultural and palette constraints")):
+        if context.get(key):
+            parts.append(f"{label}: {context[key]}")
+    if context.get("final_size"):
+        parts.append("Show each listed application as a separate labelled view at its stated aspect ratio. Include the declared desktop/mobile reflow and print application where requested; do not force them into a square layout. A concept preview is not a verified final-size export.")
+    parts.extend([
+        f"Sector: {sector}. Promise: {promise}. Audience: {audience}.",
+        f"Direction: {archetype['name']}. Structural principle: {archetype['architecture']} Show {layer}.",
+        f"Traits to express: {_join_prompt_terms(traits, 'clear, coherent, distinctive')}.",
+        "Declared exclusions (verbatim): " + "; ".join(avoid) if avoid else "No additional exclusions declared.",
+        "The cited precedents are method-only context (" + _join_prompt_terms((source.get("name") for source in precedents), "no visible precedent references", limit=3) + "); do not include, imitate, remix or allude visually to their protected forms.",
+        "Do not reproduce existing marks, protected logos, mascots, signature lettering, negative-space tricks, trade dress or recognizable third-party brand systems.",
+        "Placeholder copy is permitted only for secondary content explicitly authorized by the brief, never for the locked name or required text. If faithful lettering cannot be produced, leave a clearly identified blank area for separate exact typesetting rather than inventing glyphs. Keep the design independently derived and production-minded.",
+    ])
+    return " ".join(parts)
 
 
 def _board_evaluation_focus(archetype: dict[str, Any]) -> list[str]:
@@ -459,7 +459,9 @@ def _board_evaluation_focus(archetype: dict[str, Any]) -> list[str]:
 
 
 def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
-    name = compact_text(brief.get("name"), 120)
+    name = str(brief.get("name") or "").strip()
+    if len(name) > 120:
+        raise ValueError("The exact brand name must not exceed 120 characters; it is never silently truncated.")
     sector = compact_text(brief.get("sector"), 160)
     promise = compact_text(brief.get("promise"), 1000)
     if not name or not sector or len(promise) < 3:
@@ -467,7 +469,7 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
     design_workflow = build_design_workflow(brief.get("design_context"), declared_brief=brief)
     audience = compact_text(design_workflow["brief"].get("audience") or "public général", 400)
     traits = [compact_text(value, 100) for value in brief.get("traits", []) if compact_text(value, 100)][:8]
-    avoid = [compact_text(value, 100) for value in brief.get("must_avoid", []) if compact_text(value, 100)][:8]
+    avoid = [str(value).strip() for value in brief.get("must_avoid", []) if str(value).strip()][:8]
     risk = brief.get("risk_tolerance") or "équilibrée"
     seed_material = json.dumps({"name": name, "sector": sector, "promise": promise, "traits": traits, "avoid": avoid, "risk": risk}, sort_keys=True, ensure_ascii=False)
     rng = random.Random(int(hashlib.sha256(seed_material.encode()).hexdigest()[:16], 16))
@@ -514,6 +516,7 @@ def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
             avoid=avoid,
             archetype=archetype,
             precedents=route["precedents"],
+            design_context={**design_workflow["brief"], **(brief.get("design_context") or {})},
         )
         route["board_evaluation_focus"] = _board_evaluation_focus(archetype)
         routes.append(route)
@@ -1474,19 +1477,27 @@ def critique_image(image: Image.Image, *, reference: Image.Image | None = None, 
     comparison = compare_images(image, reference) if reference is not None else None
     if comparison:
         differentiation = _clamp_score(20 * (1 - comparison["risk_score"] / 100))
-        diff_confidence = "élevée"
+        diff_confidence = "heuristique; limitée à la référence fournie"
     else:
-        differentiation = _clamp_score(20 * (0.45 * complexity_fit + 0.35 * (1 - min(abs(occupancy - 0.35) / 0.55, 1)) + 0.20 * min(m["entropy"] / 0.8, 1)))
-        diff_confidence = "faible; aucune référence fournie"
+        differentiation = None
+        diff_confidence = "non évaluable; aucune référence fournie"
     axes = {
         "beaux_arts": {"label": "Beaux-arts / composition", "score": round(composition, 1)},
         "hierarchy": {"label": "Hiérarchie visuelle", "score": round(hierarchy, 1)},
         "legibility": {"label": "Lisibilité et réduction", "score": round(legibility, 1)},
         "memorability": {"label": "Complexité et saillance (proxy)", "score": round(memorability, 1), "basis": "heuristic", "measurement_note": "Indice calculé à partir de complexité, entropie et saillance; aucune mémorisation observée."},
-        "differentiation": {"label": "Différenciation", "score": round(differentiation, 1), "confidence": diff_confidence},
+        "differentiation": {
+            "label": "Différenciation (référence uniquement)",
+            "score": round(differentiation, 1) if differentiation is not None else None,
+            "status": "heuristic" if comparison is not None else "non_evaluable",
+            "confidence": diff_confidence,
+            "measurement_note": "Écart perceptuel à la seule référence fournie; aucune mesure d’originalité concurrentielle." if comparison is not None else "Aucune référence ni corpus comparatif : aucune note ni conclusion de différenciation.",
+        },
     }
-    total = round(sum(axis["score"] for axis in axes.values()), 1)
-    weaknesses = sorted(axes.items(), key=lambda pair: pair[1]["score"])[:2]
+    scored_axes = {key: axis for key, axis in axes.items() if axis["score"] is not None}
+    total = round(sum(axis["score"] for axis in scored_axes.values()), 1)
+    score_max = 20 * len(scored_axes)
+    weaknesses = sorted(scored_axes.items(), key=lambda pair: pair[1]["score"])[:2]
     actions = []
     mapping = {
         "beaux_arts": "Reconstruire en noir et blanc avec une masse dominante, une contreforme et un centre visuel délibéré.",
@@ -1500,15 +1511,18 @@ def critique_image(image: Image.Image, *, reference: Image.Image | None = None, 
     return {
         "context": compact_text(context, 500),
         "score": total,
+        "score_max": score_max,
+        "excluded_axes": [key for key in axes if key not in scored_axes],
+        "priority_axes": [key for key, _ in weaknesses],
         "score_kind": "heuristic_proxy",
-        "score_label": "Indice technique heuristique",
+        "score_label": "Indice technique heuristique" if score_max == 100 else "Sous-total technique — axes évaluables seulement",
         "evaluations": untested_evaluations(),
-        "grade": "A" if total >= 86 else "B" if total >= 72 else "C" if total >= 58 else "D",
+        "grade": ("A" if total >= 86 else "B" if total >= 72 else "C" if total >= 58 else "D") if score_max == 100 else None,
         "axes": axes,
         "technical_metrics": {key: value for key, value in m.items() if key not in {"average_hash", "difference_hash", "colour_histogram"}},
         "priority_actions": actions,
         "reference_comparison": comparison,
-        "method_note": "Le total et les axes sont des proxies heuristiques conservés pour comparer les repères techniques. Ils ne mesurent ni beauté, ni mémorisation, ni compréhension réelle. Les évaluations humaines restent non testées sans essai; ces indices ne remplacent ni le jugement humain, ni la recherche de marques, ni l’examen juridique.",
+        "method_note": "Le sous-total porte uniquement sur les axes évaluables et son maximum est explicite; ne pas comparer des totaux de couvertures différentes. Les axes sont des proxies heuristiques. Ils ne mesurent ni beauté, ni mémorisation, ni compréhension réelle. Les évaluations humaines restent non testées sans essai; ces indices ne remplacent ni le jugement humain, ni la recherche de marques, ni l’examen juridique.",
     }
 
 
@@ -1557,46 +1571,127 @@ def compare_images(left: Image.Image, right: Image.Image | None) -> dict[str, An
     }
 
 
+_EXERCISE_NUMBERS = {
+    "un": 1, "une": 1, "one": 1, "single": 1, "deux": 2, "two": 2,
+    "trois": 3, "three": 3, "quatre": 4, "four": 4, "cinq": 5, "five": 5,
+    "six": 6, "sept": 7, "seven": 7, "huit": 8, "eight": 8,
+    "neuf": 9, "nine": 9, "dix": 10, "ten": 10, "onze": 11,
+    "eleven": 11, "douze": 12, "twelve": 12,
+}
+
+
+def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> dict[str, Any]:
+    """Conservative extraction of explicit FR/EN counts, durations and pixel lists.
+
+    Negative examples are not declarations. Conflicts/ranges are surfaced rather
+    than silently choosing a number; unknown constraints remain unknown.
+    """
+    texts = [question, goal, *(context.get(key, "") for key in ("task", "final_size"))]
+    number = r"(?:\d{1,4}|" + "|".join(_EXERCISE_NUMBERS) + r")"
+    variants_re = re.compile(r"(?<![\w.,])(" + number + r")\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b", re.I)
+    minutes_re = re.compile(r"(?<![\w.,])(" + number + r")\s*(minutes?|mins?|heures?|hours?|h)\b", re.I)
+    sizes_re = re.compile(r"(?<![\w.,])\d+(?:\s*(?:,|/|\bet\b|\band\b)\s*\d+)*\s*(?:px|pixels?)\b", re.I)
+    counts, durations, sizes, unresolved = set(), set(), set(), []
+
+    def negative(text: str, start: int) -> bool:
+        clause = re.split(r"[.!?;\n,]|\b(?:mais|but|rather|plutôt)\b", text[:start], flags=re.I)[-1]
+        return bool(re.search(r"\b(?:pas|ni|sans|no|not|without|exclude|excluding|exclure|éviter|eviter|interdit)\b", clause, re.I))
+
+    def constrained_range(text: str, start: int) -> bool:
+        prefix = text[:start]
+        return bool(re.search(r"(?:" + number + r")\s*(?:[-–—]|à|to|ou|or)\s*$", prefix, re.I) or re.search(r"\b(?:au plus|au moins|maximum|minimum|at most|at least|up to)\s*$", prefix, re.I))
+
+    def value(token: str) -> int:
+        return int(token) if token.isdigit() else _EXERCISE_NUMBERS[token.lower()]
+
+    for text in texts:
+        for pattern, found, maximum in ((variants_re, counts, 24), (minutes_re, durations, 1440)):
+            for match in pattern.finditer(text):
+                if negative(text, match.start()):
+                    continue
+                if constrained_range(text, match.start()):
+                    unresolved.append(match.group(0))
+                    continue
+                parsed = value(match.group(1))
+                if pattern is minutes_re and match.group(2).lower() in ("h", "heure", "heures", "hour", "hours"):
+                    parsed *= 60
+                if 1 <= parsed <= maximum:
+                    found.add(parsed)
+                else:
+                    unresolved.append(match.group(0))
+        for match in sizes_re.finditer(text):
+            if negative(text, match.start()):
+                continue
+            if constrained_range(text, match.start()):
+                unresolved.append(match.group(0))
+                continue
+            if re.search(r"\d\s*[×x*]\s*$", text[:match.start()], re.I):
+                continue  # A page's width/height is not a list of icon test sizes.
+            for raw in re.findall(r"\d+", match.group(0)):
+                parsed = int(raw)
+                if 1 <= parsed <= 4096:
+                    sizes.add(parsed)
+                else:
+                    unresolved.append(match.group(0))
+    ambiguous = len(counts) > 1 or len(durations) > 1 or bool(unresolved)
+    return {
+        "variant_count": next(iter(counts)) if len(counts) == 1 and not ambiguous else None,
+        "duration_minutes": next(iter(durations)) if len(durations) == 1 and not ambiguous else None,
+        "sizes_px": sorted(sizes),
+        "constraint_status": "ambiguous" if ambiguous else "declared" if counts or durations or sizes else "unspecified",
+        "unresolved_constraints": list(dict.fromkeys(unresolved)),
+        "constraint_note": "Extraction explicite de nombres et unités, pas une interprétation exhaustive du langage. Les contraintes contradictoires ou non prises en charge ne sont pas remplacées par des valeurs par défaut.",
+    }
+
+
 def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration", design_context: dict[str, Any] | None = None) -> dict[str, Any]:
     design_workflow = build_design_workflow(design_context)
-    question = compact_text(question, 1800)
-    goal = compact_text(goal, 400)
+    # Extract from full input before any display shortening.
+    constraints = _exercise_constraints(str(question), str(goal), design_workflow["brief"])
+    question, goal = str(question).strip(), str(goal).strip()
     axes = (critique or {}).get("axes", {}) if isinstance(critique, dict) else {}
-    ranked = sorted(
-        [(key, value) for key, value in axes.items() if isinstance(value, dict) and isinstance(value.get("score"), (int, float))],
-        key=lambda pair: pair[1]["score"],
-    )
-    weakest = ranked[:2]
-    exercises = {
-        "beaux_arts": "Produire six vignettes noir et blanc de 4 cm. Utiliser une masse dominante, une contreforme et aucun effet.",
-        "hierarchy": "Construire trois versions avec des ordres de lecture volontairement différents. Demander à trois personnes ce qu’elles ont vu en premier.",
-        "legibility": "Tester à 16, 24 et 48 px, en monochrome, flou, réserve, gravure et découpe vinyle.",
-        "memorability": "Montrer le signe pendant deux secondes, le masquer, puis faire redessiner uniquement le contour extérieur et un trait interne.",
-        "differentiation": "Placer la référence la plus proche à côté en gris; changer contour, topologie, construction typographique et composition jusqu’à disparition de la ressemblance cumulative.",
-    }
-    criteria = {
-        "beaux_arts": "La composition reste stable en aplats, avec un point d’entrée clair et une zone de repos volontaire.",
-        "hierarchy": "Définir le public et le critère attendu, puis consigner le premier élément identifié sans explication.",
-        "legibility": "Le noyau reste identifiable à 24 px et en monochrome.",
-        "memorability": "Consigner le contour effectivement rappelé selon un protocole défini; ne pas déduire ce résultat d’un indice technique.",
-        "differentiation": "Aucune convergence cumulative forte ne subsiste entre silhouette, topologie, typographie, comportement chromatique et composition.",
-    }
-    if weakest:
-        diagnosis = "La prochaine itération doit isoler " + " et ".join(value.get("label", key) for key, value in weakest) + ", plutôt que de tout redessiner en même temps."
-        plan = [exercises[key] for key, _ in weakest if key in exercises]
-        acceptance = [criteria[key] for key, _ in weakest if key in criteria]
-    else:
-        diagnosis = "Aucune critique chiffrée n’a été fournie. Transformer la question en une décision visuelle falsifiable avant de raffiner le style."
-        plan = ["Formuler la décision comme une hypothèse d’une phrase, puis construire trois prototypes structurellement incompatibles en noir et blanc."]
-        acceptance = ["La direction choisie communique la promesse visée sans explication verbale et survit à trois contextes de production."]
+    known_axes = {"beaux_arts", "hierarchy", "legibility", "memorability", "differentiation"}
+    ranked = sorted([
+        (key, axis) for key, axis in axes.items()
+        if key in known_axes and isinstance(axis, dict)
+        and type(axis.get("score")) in (int, float) and math.isfinite(axis["score"])
+        and axis.get("status") not in ("non_evaluable", "non_testé", "indéterminé")
+    ], key=lambda pair: pair[1]["score"])[:2]
+    focus = " et ".join(axis.get("label", key) for key, axis in ranked) or "la décision formulée"
+    diagnosis = f"Isoler {focus}, conserver le contenu constant et respecter les contraintes déclarées. Aucune mesure auprès du public n’est inférée."
+    count, duration, sizes = constraints["variant_count"], constraints["duration_minutes"], constraints["sizes_px"]
+    variant_step = f"Produire exactement {count} variantes à contenu constant; ne faire varier que la décision étudiée." if count is not None else "Fixer le nombre de variantes avant production; aucune quantité n’est présumée."
+    size_text = ", ".join(f"{size} px" for size in sizes)
+    inspect_step = f"Inspecter chaque variante à {size_text}, à 100 % sur le fond d’usage; consigner les écarts." if sizes else "Fixer les tailles d’usage avant inspection; aucune taille n’est présumée."
+    steps = [
+        f"Formuler une hypothèse sur {focus}; conserver les textes exacts et fixer les critères avant comparaison.",
+        variant_step, inspect_step,
+        "Comparer les observations et consigner la décision. Séparer inspection technique, reconnaissance, compréhension et préférence; garder les essais non réalisés en non_testé.",
+    ]
+    if constraints["constraint_status"] == "ambiguous":
+        diagnosis = "Contraintes numériques contradictoires ou non prises en charge : clarification requise avant de fixer un protocole chiffré."
+        steps = ["Clarifier les nombres, durées ou plages déclarés sans choisir arbitrairement l’une des valeurs."]
+    schedule = []
+    if duration is not None:
+        units = duration * 100
+        allocations = [units * weight // 100 for weight in (15, 45, 30)]
+        allocations.append(units - sum(allocations))
+        schedule = [{"minutes": amount / 100, "task": task} for amount, task in zip(allocations, steps, strict=True)]
+    acceptance = [
+        f"À {size} px, inspecter chaque variante sur le fond d’usage : seuil proposé de 0 caractère requis remplacé ou rogné; consigner séparément les erreurs de lecture observées. Non testé."
+        for size in sizes
+    ]
+    acceptance.append("Critères proposés pour ce projet, non normes universelles : contenu constant, écarts documentés et aucune conclusion de reconnaissance, compréhension ou préférence sans essai correspondant.")
+    if count is not None:
+        acceptance.append(f"Comparer exactement {count} variantes, sans en ajouter pour satisfaire un gabarit.")
+    if duration is not None:
+        acceptance.append(f"La somme des étapes planifiées est exactement {duration} minutes; ce budget ne prouve pas que les essais ont été exécutés.")
     return {
-        "question": question,
-        "goal": goal,
-        "design_workflow": design_workflow,
+        "question": question, "goal": goal, "design_workflow": design_workflow,
         "critique_scope": "Les axes éventuels sont des repères heuristiques; ils ne constituent pas des preuves de reconnaissance, de compréhension ou de préférence.",
         "diagnosis": diagnosis,
-        "why": "Une décision plus forte réduit l’ambiguïté du système visuel et rend le prochain test mesurable. La finition ne peut pas réparer une hiérarchie structurelle faible ni une topologie copiée.",
-        "exercise": {"duration": "45–90 minutes", "steps": plan},
+        "why": "Une comparaison à contenu constant peut isoler la décision; sa validité dépend des observations réelles, pas du nombre d’adjectifs ni d’un gabarit fixe.",
+        "exercise": {**constraints, "duration": f"{duration} minutes" if duration is not None else "À définir", "steps": steps, "schedule": schedule},
         "acceptance_criteria": acceptance,
-        "coach_rule": "Défendre la décision avec des preuves observables : réduction, rappel, ordre de lecture, comportement en production et distance par rapport aux références — pas seulement avec des adjectifs.",
+        "coach_rule": "Défendre la décision avec des observations documentées. Une bibliographie, un indice ou un protocole proposé ne remplace pas un essai réalisé.",
     }

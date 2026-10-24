@@ -10,6 +10,7 @@
 @media(max-width:850px){.grid,.route-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.scoreball{justify-self:start;max-width:120px}.stats{grid-template-columns:repeat(2,1fr)}.compare,.coach{grid-template-columns:1fr}.axis{grid-template-columns:125px 1fr 42px}}
 @media(max-width:560px){.wrap{padding:15px}.top{padding:11px 13px}.brand span:last-child{display:none}.grid,.route-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.actions #fullscreen{display:none}}
 @media(prefers-color-scheme:dark){:root{--bg:#171914;--panel:#20231c;--ink:#f2efe6;--muted:#b0b5a9;--line:#f2efe625;--dark:#0d0f0b}.scoreball b{color:#151712}.card:before{opacity:.25}.sources a{color:#aeb9ff}}
+.axis-unavailable{grid-column:2/-1;min-width:0;overflow-wrap:anywhere}.axis>strong{overflow-wrap:anywhere}
 </style>
 <style>
 .status-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-weight:760}.status-pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn)}.status-pill[data-status="succeeded"]:before{background:var(--good)}.status-pill[data-status="failed"]:before{background:var(--bad)}.asset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.asset{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}.asset img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg)}.asset-body{padding:12px}.job-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.job-meta .stat{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 76%,transparent)}@media(max-width:850px){.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.job-meta{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.asset-grid,.job-meta{grid-template-columns:1fr}}
@@ -161,6 +162,10 @@
   }
   function renderGraph(d){
     const nodes=arr(d.nodes), edges=arr(d.edges), byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
+    if(!nodes.length){
+      root.innerHTML=titleBlock('Knowledge graph',d.query?'Réseau · '+d.query:'Mécanismes et systèmes','0 nœuds · 0 relations')+'<p class="notice">Aucun nœud ne correspond à cette recherche. Aucun résultat sans rapport n’a été substitué.</p>';
+      return;
+    }
     const W=1000,H=560,pad=42;
     const xy=n=>({x:pad+(Number(n.x)||.5)*(W-pad*2),y:pad+(Number(n.y)||.5)*(H-pad*2)});
     const lines=edges.map(e=>{const a=byId[e.source],b=byId[e.target]; if(!a||!b)return '';const A=xy(a),B=xy(b);return `<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="#f2efe626" stroke-width="1"/>`;}).join('');
@@ -237,7 +242,7 @@
   function renderEvaluations(d){
     const evaluations=arr(d.evaluations);
     if(!evaluations.length)return '';
-    return `<section class="section"><div class="section-title"><h2>Évaluation</h2></div><div class="grid">${evaluations.map(e=>{const c=e.critique||{};return `<article class="card"><div class="eyebrow">${esc(e.route_id)}</div><h3>Indice heuristique · ${esc(c.score ?? '—')}/100</h3>${list(c.priority_actions,'Aucune action prioritaire')}</article>`}).join('')}</div></section>`;
+    return `<section class="section"><div class="section-title"><h2>Évaluation</h2></div><div class="grid">${evaluations.map(e=>{const c=e.critique||{};return `<article class="card"><div class="eyebrow">${esc(e.route_id)}</div><h3>Indice heuristique · ${esc(c.score ?? '—')}/${esc(c.score_max ?? 100)}</h3>${list(c.priority_actions,'Aucune action prioritaire')}</article>`}).join('')}</div></section>`;
   }
   function renderRenderJob(d){
     const p=d.progress||{};
@@ -247,12 +252,21 @@
   }
   function renderWorkflow(d){renderRenderJob(d);}
   function renderCritique(d){
-    const axes=Object.values(d.axes||{});
-    root.innerHTML=titleBlock('Repères techniques',`Indice heuristique · ${d.score}/100`,d.context||'Mesures techniques pour orienter la prochaine inspection. Les résultats auprès du public ne sont pas testés par cet indice.')+`<section class="bars">${axes.map(a=>`<div class="axis"><strong>${esc(a.label)}</strong><div class="track"><div class="fill" style="width:${pct((a.score/20)*100)}%"></div></div><b>${esc(a.score)}/20</b></div>`).join('')}</section><section class="section"><div class="section-title"><h2>Actions prioritaires</h2></div>${list(d.priority_actions)}</section>${d.reference_comparison?similarityBlock(d.reference_comparison):''}<div class="notice"><strong>Limite.</strong> ${esc(d.method_note)}</div>`;
+    const axes=Object.entries(d.axes||{});
+    const maximum=Number.isFinite(d.score_max)?d.score_max:100;
+    const title=(maximum===100?'Indice heuristique':'Sous-total technique')+' · '+(d.score??'—')+'/'+maximum;
+    const rows=axes.map(([key,a])=>{
+      const available=Number.isFinite(a.score)&&a.status!=='non_evaluable';
+      return `<div class="axis" data-axis="${esc(key)}" data-axis-status="${available?'heuristic':'non_evaluable'}"><strong>${esc(a.label)}</strong>`+
+        (available?`<div class="track"><div class="fill" style="width:${pct((a.score/20)*100)}%"></div></div><b>${esc(a.score)}/20</b>`:
+        `<span class="axis-unavailable"><strong>Non évaluable</strong><br><span class="meta">${esc(a.measurement_note||'Référence comparative requise.')}</span></span>`)+`</div>`;
+    }).join('');
+    root.innerHTML=titleBlock('Repères techniques',title,d.context||'Mesures techniques pour orienter la prochaine inspection. Les résultats auprès du public ne sont pas testés par cet indice.')+
+      `<section class="bars">${rows}</section><section class="section"><div class="section-title"><h2>Actions prioritaires</h2></div>${list(d.priority_actions)}</section>${d.reference_comparison?similarityBlock(d.reference_comparison):''}<div class="notice"><strong>Limite.</strong> ${esc(d.method_note)}</div>`;
   }
   function similarityBlock(d){return `<section class="section"><div class="section-title"><h2>Risque perceptuel · ${esc(d.risk_band)}</h2><strong>${esc(d.risk_score)}/100</strong></div><div class="gauge"><i style="left:${pct(d.risk_score)}%"></i></div><div class="grid" style="margin-top:12px">${Object.entries(d.components||{}).map(([k,v])=>`<article class="card" style="min-height:130px"><div class="eyebrow">${esc(k.replaceAll('_',' '))}</div><h3>${esc(v)}%</h3></article>`).join('')}</div><h3>Transformations structurelles</h3>${list(d.recommended_transformations)}<div class="notice"><strong>Juridique.</strong> ${esc(d.legal_note)}</div></section>`;}
   function renderSimilarity(d){root.innerHTML=titleBlock('Triage de similarité',`${d.risk_score}/100 · ${d.risk_band}`,'La proximité visuelle est décomposée pour montrer où agir, au lieu de fournir un verdict opaque.')+similarityBlock(d);}
-  function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
+  function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${arr(d.exercise?.schedule).length?'<div data-coach-schedule>'+list(d.exercise.schedule.map(step=>step.minutes+' min · '+step.task))+'</div>':list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
   function render(payload){
     clearRenderPoll();
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;
