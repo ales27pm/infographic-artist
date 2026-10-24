@@ -27,7 +27,9 @@ test('portable and compatibility packages contain explicit product-specific rele
 
 test('package version, release version and server version stay synchronized',()=>{
  const p=read('plugins/infographic-artist/plugin.json');
- assert.equal(APP_VERSION,`${p.version}-hatchable.1`);
+ const release=read('deployment/hatchable/manifest.json').release;
+ assert.equal(APP_VERSION,`${p.version}-hatchable.${release.runtime_revision}`);
+ assert.equal(release.runtime_revision,2);
  assert.equal(read('deployment/hatchable/manifest.json').release.version,p.version);
  assert.equal(read('chatgpt-tool-review-autofill.json').version,p.version);
 });

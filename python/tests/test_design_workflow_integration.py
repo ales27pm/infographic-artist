@@ -56,7 +56,7 @@ def test_critique_retains_numbers_and_identifies_heuristic_scope():
     result = core.critique_image(Image.new("RGB", (64, 64), "#fffdf8"))
     assert len(result["axes"]) == 5
     assert 0 <= result["score"] <= 100
-    assert result["score"] == pytest.approx(sum(item["score"] for item in result["axes"].values()), abs=0.2)
+    assert result["score"] == pytest.approx(sum(item["score"] for item in result["axes"].values() if item["score"] is not None), abs=0.2)
     assert result["score_kind"] == "heuristic_proxy"
     assert result["axes"]["memorability"]["basis"] == "heuristic"
     assert "proxy" in result["axes"]["memorability"]["label"]

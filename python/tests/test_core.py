@@ -141,7 +141,7 @@ def test_image_metrics_and_critique() -> None:
     result = core.critique_image(image, context="Test")
     assert 0 <= result["score"] <= 100
     assert len(result["axes"]) == 5
-    assert sum(axis["score"] for axis in result["axes"].values()) == pytest.approx(result["score"], abs=0.2)
+    assert sum(axis["score"] for axis in result["axes"].values() if axis["score"] is not None) == pytest.approx(result["score"], abs=0.2)
     assert result["priority_actions"]
 
 

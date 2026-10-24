@@ -115,11 +115,41 @@ export async function searchDesignSystems(query='',kind='',limit=12) {
   ranked.sort((a,b)=>b.score-a.score || String(b.item.name).localeCompare(String(a.item.name)));
   return {query:compactText(query,250),kind,total_matches:ranked.length,items:ranked.slice(0,limit).map(({item})=>({id:libraryId(item),name:item.name,kind:item.type||'',region:item.region||'',era:item.era||'',focus:(item.focus||[]).slice(0,6),principles:(item.principles||[]).slice(0,5),signature_projects:(item.key_works||[]).slice(0,5),source_url:item.source_url||'',source_status:item.source_status||''}))};
 }
-export async function exploreGraph(query='',limit=80) {
-  limit=Math.max(20,Math.min(Number(limit)||80,120)); const graph=await loadGraph(), nodes=graph.nodes||[], edges=graph.edges||[], qTokens=tokens(query); let filtered;
-  if(qTokens.length){let selected=new Set(nodes.filter((node)=>qTokens.every((token)=>normalize([node.label,node.node_type,node.category,node.kind,node.ref].join(' ')).includes(token))).map((n)=>n.id)); for(let hop=0;hop<2;hop++){const expanded=new Set(selected); for(const edge of edges){if(selected.has(edge.source)) expanded.add(edge.target); if(selected.has(edge.target)) expanded.add(edge.source);} selected=expanded;} if(selected.size<Math.min(20,limit)){for(const node of [...nodes].sort((a,b)=>(b.degree||0)-(a.degree||0))){selected.add(node.id); if(selected.size>=Math.min(20,limit)) break;}} filtered=nodes.filter((n)=>selected.has(n.id));} else filtered=[...nodes].sort((a,b)=>(b.degree||0)-(a.degree||0));
-  filtered=filtered.slice(0,limit); const keep=new Set(filtered.map((n)=>n.id)); const outEdges=edges.filter((e)=>keep.has(e.source)&&keep.has(e.target)).slice(0,limit*3);
-  return {query:compactText(query,250),nodes:filtered.map((n)=>({id:n.id,label:n.label||n.id,type:n.node_type||'concept',ref:n.ref||'',x:n.x??0.5,y:n.y??0.5,degree:n.degree||0})),edges:outEdges,meta:{node_count:filtered.length,edge_count:outEdges.length}};
+export async function exploreGraph(query = '', limit = 80) {
+  limit = Math.max(20, Math.min(Number(limit) || 80, 120));
+  const graph = await loadGraph(), nodes = graph.nodes || [], edges = graph.edges || [];
+  const qTokens = tokens(query), q = normalize(query), hasQuery = Boolean(String(query).trim());
+  const fields = node => ['id', 'label', 'node_type', 'category', 'kind', 'ref'].map(key => normalize(node[key] ?? ''));
+  const rank = node => [q && fields(node).includes(q) ? 0 : 1, q && normalize(node.label).startsWith(q) ? 0 : 1, -(node.degree || 0), node.id];
+  const compare = (a, b) => {
+    const x = rank(a), y = rank(b);
+    for (let i = 0; i < x.length; i++) { if (x[i] < y[i]) return -1; if (x[i] > y[i]) return 1; }
+    return 0;
+  };
+  const matches = hasQuery ? nodes.filter(node => qTokens.length && qTokens.every(token => fields(node).join(' ').includes(token))) : [];
+  const matchIds = new Set(matches.map(node => node.id));
+  let candidates;
+  if (hasQuery) {
+    const adjacent = new Set();
+    for (const edge of edges) {
+      if (matchIds.has(edge.source)) adjacent.add(edge.target);
+      if (matchIds.has(edge.target)) adjacent.add(edge.source);
+    }
+    const neighbours = nodes.filter(node => adjacent.has(node.id) && !matchIds.has(node.id));
+    candidates = [...matches.sort(compare), ...neighbours.sort(compare)];
+  } else candidates = [...nodes].sort((a, b) => (b.degree || 0) - (a.degree || 0) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  const filtered = candidates.slice(0, limit), keep = new Set(filtered.map(node => node.id));
+  const outEdges = edges.filter(edge => keep.has(edge.source) && keep.has(edge.target)).slice(0, limit * 3);
+  return {
+    query: compactText(query, 250),
+    nodes: filtered.map(node => ({ id: node.id, label: node.label || node.id, type: node.node_type || 'concept', ref: node.ref || '',
+      x: node.x ?? .5, y: node.y ?? .5, degree: node.degree || 0, is_match: matchIds.has(node.id),
+      distance: hasQuery ? (matchIds.has(node.id) ? 0 : 1) : null })),
+    edges: outEdges,
+    meta: { node_count: filtered.length, edge_count: outEdges.length, matched_count: matches.length,
+      returned_match_count: filtered.filter(node => matchIds.has(node.id)).length,
+      context_hops: 1, no_matches: hasQuery && matches.length === 0, truncated: candidates.length > limit }
+  };
 }
 const ROUTE_ARCHETYPES=[
   {key:'symbol',name:'Signal autonome',architecture:'Un symbole compact conçu d’abord en silhouette monochrome, puis relié au nom par une règle de proportion stable.',geometry:'Une masse primaire, une tension directionnelle et une contreforme utile. Éviter les détails décoratifs avant 24 px.',typography:'Mot-signe calme et distinct, sans chercher à répéter littéralement la forme du symbole.',assets:['symbole','mot-signe','micro-icône','règles de réduction'],tests:['12/24/48 px','monochrome','flou 3 px','découpe','rappel après 2 secondes']},
@@ -128,23 +158,48 @@ const ROUTE_ARCHETYPES=[
 ];
 const CONCEPT_BOARD_LAYERS={
   symbol:'a dominant black-and-white symbol silhouette, a reduction strip at 48, 24, and 12 px, one cropped detail showing the counterform logic, and two restrained application mockups',
-  type:'a wordmark construction study with abstract placeholder glyphs, spacing rhythm diagrams, a monogram crop, and two small-use tests where the typographic anomaly remains readable',
+  type:'a wordmark construction study using the exact locked brand name, spacing rhythm diagrams, a monogram crop, and two small-use tests where the typographic anomaly remains readable',
   system:'a governed visual grammar with a visible grid, three generated module variations, one motion/keyframe strip, and two application mockups that share the same invariants'
 };
 function joinPromptTerms(values,fallback,limit=6){const clean=(values||[]).map((value)=>compactText(value,90)).filter(Boolean);return clean.length?clean.slice(0,limit).join(', '):fallback;}
-function conceptBoardPrompt({name,sector,promise,audience,traits,avoid,arch,precedents}) {
-  const precedentNames=joinPromptTerms((precedents||[]).map((source)=>source.name),'no visible precedent references',3),traitText=joinPromptTerms(traits,'clear, coherent, distinctive'),avoidText=joinPromptTerms([...(avoid||[]),'existing logos','mascots','signature typography','trade dress','recognizable third-party colour systems'],'existing logos, protected marks, mascots, signature typography, trade dress',10),layerText=CONCEPT_BOARD_LAYERS[arch.key]||'three disciplined visual studies and production tests';
-  return compactText(`Create one square concept board for an original brand identity, not a finished logo. Brand or project name: ${name}. Sector: ${sector}. Promise to make visible: ${promise}. Audience: ${audience}. Direction: ${arch.name}. Structural idea: ${arch.architecture} Show ${layerText}. Express these traits through structure: ${traitText}. Use a restrained palette logic that can still work in black and white. Avoid: ${avoidText}. The cited precedents are method-only context (${precedentNames}); do not include, imitate, remix, or allude visually to their protected forms. Do not reproduce existing marks, protected logos, mascots, signature lettering, negative-space tricks, trade dress, or recognizable third-party brand systems. Use placeholder text where needed and keep the board production-minded, high-contrast, and independently derived.`,1800);
+function conceptBoardPrompt({ name, sector, promise, audience, traits, avoid, arch, precedents, designContext = {} }) {
+  const medium = designContext.medium || '';
+  const webMedium = ['web', 'interface', 'responsive', 'ecran', 'application'].some(token => normalize(medium).includes(token));
+  const layoutLayers = {
+    symbol: 'a complete responsive page with one dominant visual anchor, readable content hierarchy, navigation and a clear primary action; integrate the mark instead of delivering a logo sheet',
+    type: 'a complete editorial page led by the exact headline and brand name, deliberate type scale, column rhythm and a visible primary action; show the mobile reflow, not only letter construction',
+    system: 'a complete page system with repeatable sections, a governed content grid, navigation and responsive module behaviour; the grid must organize real content rather than become decoration'
+  };
+  const layer = webMedium ? layoutLayers[arch.key] : CONCEPT_BOARD_LAYERS[arch.key];
+  const parts = [
+    medium ? 'Create an original design study for the declared medium, not a generic logo-only concept board.' : 'Create one concept board for an original brand identity, not a finished logo.',
+    `Locked brand name (verbatim): ${JSON.stringify(name)}.`,
+    'Preserve the locked name and every exact required text or motif in the declared brief verbatim, including punctuation, case and accents. Never replace them with abstract glyphs or substitute words. Negative constraints are exclusions, not content to render.'
+  ];
+  for (const [key, label] of [['task', 'Declared task'], ['message', 'Declared message and exact-copy instructions'], ['medium', 'Primary deliverable / medium'], ['final_size', 'Required final applications and dimensions'], ['cultural_context', 'Language, cultural and palette constraints']]) {
+    if (designContext[key]) parts.push(`${label}: ${designContext[key]}`);
+  }
+  if (designContext.final_size) parts.push('Show each listed application as a separate labelled view at its stated aspect ratio. Include the declared desktop/mobile reflow and print application where requested; do not force them into a square layout. A concept preview is not a verified final-size export.');
+  parts.push(
+    `Sector: ${sector}. Promise: ${promise}. Audience: ${audience}.`,
+    `Direction: ${arch.name}. Structural principle: ${arch.architecture} Show ${layer}.`,
+    `Traits to express: ${joinPromptTerms(traits, 'clear, coherent, distinctive')}.`,
+    avoid.length ? `Declared exclusions (verbatim): ${avoid.join('; ')}` : 'No additional exclusions declared.',
+    `The cited precedents are method-only context (${joinPromptTerms(precedents.map(source => source.name), 'no visible precedent references', 3)}); do not include, imitate, remix or allude visually to their protected forms.`,
+    'Do not reproduce existing marks, protected logos, mascots, signature lettering, negative-space tricks, trade dress or recognizable third-party brand systems.',
+    'Placeholder copy is permitted only for secondary content explicitly authorized by the brief, never for the locked name or required text. If faithful lettering cannot be produced, leave a clearly identified blank area for separate exact typesetting rather than inventing glyphs. Keep the design independently derived and production-minded.'
+  );
+  return parts.join(' ');
 }
 function boardEvaluationFocus(arch){return[`La planche exprime la promesse par la structure ${arch.key} plutôt que par une finition de surface.`,'La silhouette, la topologie, la typographie, le comportement chromatique et la composition divergent clairement des précédents cités.','L’idée principale survit aux tests monochrome, petite taille, flou et rappel rapide.'];}
 function seedFromText(text){let h=2166136261; for(let i=0;i<text.length;i++){h^=text.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0;}
 function seededShuffle(values, seed){const out=[...values]; let s=seed||1; const rand=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return (s>>>0)/4294967296;}; for(let i=out.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[out[i],out[j]]=[out[j],out[i]];} return out;}
 export async function generateDirections(brief) {
-  const name=compactText(brief?.name,120), sector=compactText(brief?.sector,160), promise=compactText(brief?.promise,1000); if(!name||!sector||promise.length<3) throw new Error('name, sector, and a meaningful promise are required.');
+  const name=String(brief?.name ?? '').trim(); if(name.length>120) throw new Error('The exact brand name must not exceed 120 characters; it is never silently truncated.'); const sector=compactText(brief?.sector,160), promise=compactText(brief?.promise,1000); if(!name||!sector||promise.length<3) throw new Error('name, sector, and a meaningful promise are required.');
   const designWorkflow=buildDesignWorkflow(brief.design_context,brief);
-  const audience=compactText(designWorkflow.brief.audience||'public général',400), traits=(brief.traits||[]).map((v)=>compactText(v,100)).filter(Boolean).slice(0,8), avoid=(brief.must_avoid||[]).map((v)=>compactText(v,100)).filter(Boolean).slice(0,8), risk=brief.risk_tolerance||'équilibrée';
+  const audience=compactText(designWorkflow.brief.audience||'public général',400), traits=(brief.traits||[]).map((v)=>compactText(v,100)).filter(Boolean).slice(0,8), avoid=(brief.must_avoid||[]).map((v)=>String(v).trim()).filter(Boolean).slice(0,8), risk=brief.risk_tolerance||'équilibrée';
   const seedMaterial=JSON.stringify({name,sector,promise,traits,avoid,risk}); let precedents=(await searchAtlas([sector,promise,...traits].join(' '),{limit:12})).items; precedents=seededShuffle(precedents,seedFromText(seedMaterial));
-  const routes=ROUTE_ARCHETYPES.map((arch,index)=>{const precedent=precedents[index], secondary=precedents[index+3], sources=[precedent,secondary].filter(Boolean), principles=[]; for(const source of sources) principles.push(...(source.principles||[]).slice(0,2)); const route={id:arch.key,name:arch.name,thesis:`Pour ${name}, rendre « ${promise} » visible par ${arch.architecture[0].toLowerCase()+arch.architecture.slice(1)}`,architecture:arch.architecture,geometry:arch.geometry,typography:arch.typography,palette_logic:'Commencer en noir et blanc; ajouter une couleur fonctionnelle liée à la promesse, puis vérifier le contraste et la reproduction.',assets:arch.assets,stress_tests:arch.tests,traits_to_express:traits.length?traits:['clarté','cohérence','présence'],must_avoid:avoid,precedents:sources.map((source)=>({id:source.id,name:source.name,principle_only:(source.principles||[source.lesson||''])[0]})),transferable_principles:[...new Set(principles)].slice(0,4),anti_copy_rule:'Ne pas emprunter la silhouette, la construction des lettres, la combinaison chromatique, le dispositif d’espace négatif ou la composition du précédent. Redériver chaque forme depuis ce brief.',fit:{audience,risk_tolerance:risk,sector}};route.concept_board_prompt=conceptBoardPrompt({name,sector,promise,audience,traits,avoid,arch,precedents:route.precedents});route.board_evaluation_focus=boardEvaluationFocus(arch);return route;});
+  const routes=ROUTE_ARCHETYPES.map((arch,index)=>{const precedent=precedents[index], secondary=precedents[index+3], sources=[precedent,secondary].filter(Boolean), principles=[]; for(const source of sources) principles.push(...(source.principles||[]).slice(0,2)); const route={id:arch.key,name:arch.name,thesis:`Pour ${name}, rendre « ${promise} » visible par ${arch.architecture[0].toLowerCase()+arch.architecture.slice(1)}`,architecture:arch.architecture,geometry:arch.geometry,typography:arch.typography,palette_logic:'Commencer en noir et blanc; ajouter une couleur fonctionnelle liée à la promesse, puis vérifier le contraste et la reproduction.',assets:arch.assets,stress_tests:arch.tests,traits_to_express:traits.length?traits:['clarté','cohérence','présence'],must_avoid:avoid,precedents:sources.map((source)=>({id:source.id,name:source.name,principle_only:(source.principles||[source.lesson||''])[0]})),transferable_principles:[...new Set(principles)].slice(0,4),anti_copy_rule:'Ne pas emprunter la silhouette, la construction des lettres, la combinaison chromatique, le dispositif d’espace négatif ou la composition du précédent. Redériver chaque forme depuis ce brief.',fit:{audience,risk_tolerance:risk,sector}};route.concept_board_prompt=conceptBoardPrompt({name,sector,promise,audience,traits,avoid,arch,precedents:route.precedents,designContext:{...designWorkflow.brief,...(brief.design_context||{})}});route.board_evaluation_focus=boardEvaluationFocus(arch);return route;});
   return {brief:{name,sector,promise,audience,traits,must_avoid:avoid,risk_tolerance:risk},routes,design_workflow:designWorkflow,image_generation_handoff:generationHandoff(),decision_rule:'Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.'};
 }
 function validateImageInput(file) {
@@ -184,8 +239,105 @@ function clampScore(v){return Math.max(0,Math.min(20,v));}
 function hamming(a,b){let diff=0;for(let i=0;i<Math.min(a.length,b.length);i++)if(Boolean(a[i])!==Boolean(b[i]))diff++;return 1-diff/Math.max(1,Math.min(a.length,b.length));}
 function cosine(a,b){let dot=0,aa=0,bb=0;for(let i=0;i<Math.min(a.length,b.length);i++){dot+=a[i]*b[i];aa+=a[i]*a[i];bb+=b[i]*b[i];}return aa&&bb?dot/Math.sqrt(aa*bb):0;}
 export function compareImageMetrics(lm,rm){const ah=hamming(lm.average_hash,rm.average_hash),dh=hamming(lm.difference_hash,rm.difference_hash),colour=Math.max(0,Math.min(1,cosine(lm.colour_histogram,rm.colour_histogram))),occupancy=1-Math.min(Math.abs(lm.foreground_occupancy-rm.foreground_occupancy)/.65,1),centroid=1-Math.min(Math.hypot(lm.centroid.x-rm.centroid.x,lm.centroid.y-rm.centroid.y)/.7,1),edge=1-Math.min(Math.abs(lm.edge_density-rm.edge_density)/.45,1),stability=1-Math.min(Math.abs(lm.small_size_stability-rm.small_size_stability)/.8,1);const components={silhouette_hash:Math.round(1000*ah)/10,edge_hash:Math.round(1000*dh)/10,colour_distribution:Math.round(1000*colour)/10,mass_occupancy:Math.round(1000*occupancy)/10,composition_centroid:Math.round(1000*centroid)/10,edge_density:Math.round(1000*edge)/10,small_size_behaviour:Math.round(1000*stability)/10};const risk=Math.round(1000*(.26*ah+.18*dh+.10*colour+.14*occupancy+.12*centroid+.10*edge+.10*stability))/10,band=risk>=82?'très élevé':risk>=68?'élevé':risk>=52?'accru':risk>=35?'modéré':'faible',strongest=Object.entries(components).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([dimension,score])=>({dimension,score})),transformations=[];if(ah>=.70)transformations.push('Changer le contour extérieur, l’axe et les terminaisons jusqu’à ce que la silhouette diverge sous les tests de flou et de monochrome.');if(dh>=.70||edge>=.75)transformations.push('Reconstruire la topologie interne et l’espace négatif; ne pas conserver les mêmes ouvertures, découpes ou rythmes directionnels.');if(colour>=.82)transformations.push('Tester un comportement chromatique structurellement différent et valider le dessin en monochrome afin que la couleur ne soit pas la seule distinction.');if(centroid>=.82&&occupancy>=.82)transformations.push('Changer la composition, le rapport d’aspect, les relations d’échelle et le placement des masses plutôt que de simplement redessiner les détails.');if(!transformations.length)transformations.push('Continuer de documenter une dérivation indépendante et effectuer malgré tout une recherche professionnelle de marques et de risque de confusion avant le lancement.');return{risk_score:risk,risk_band:band,components,strongest_convergences:strongest,recommended_transformations:transformations,legal_note:'Il s’agit d’un triage perceptuel, non d’une autorisation de marque ni d’un avis juridique. Le risque de similarité dépend aussi du secteur, du territoire, du public, du contexte d’usage et des droits protégés.'};}
-export function critiqueImageMetrics(m,referenceComparison=null,context=''){const occupancy=m.foreground_occupancy,centroidDistance=Math.hypot(m.centroid.x-.5,m.centroid.y-.5),composition=clampScore(20*(.42*m.balance+.28*(1-Math.min(centroidDistance/.55,1))+.30*(1-Math.min(Math.abs(occupancy-.38)/.5,1)))),hierarchy=clampScore(20*(.60*Math.min(m.saliency_concentration/.55,1)+.40*(1-Math.min(Math.abs(m.edge_density-.18)/.35,1)))),legibility=clampScore(20*(.55*Math.min(m.contrast/.30,1)+.45*m.small_size_stability)),complexityFit=1-Math.min(Math.abs(m.edge_density-.16)/.32,1),memorability=clampScore(20*(.45*complexityFit+.30*Math.min(m.entropy/.78,1)+.25*Math.min(m.saliency_concentration/.55,1)));let differentiation,diffConfidence;if(referenceComparison){differentiation=clampScore(20*(1-referenceComparison.risk_score/100));diffConfidence='élevée';}else{differentiation=clampScore(20*(.45*complexityFit+.35*(1-Math.min(Math.abs(occupancy-.35)/.55,1))+.20*Math.min(m.entropy/.8,1)));diffConfidence='faible; aucune référence fournie';}const round1=(v)=>Math.round(v*10)/10,axes={beaux_arts:{label:'Beaux-arts / composition',score:round1(composition)},hierarchy:{label:'Hiérarchie visuelle',score:round1(hierarchy)},legibility:{label:'Lisibilité et réduction',score:round1(legibility)},memorability:{label:'Complexité et saillance (proxy)',score:round1(memorability),basis:'heuristic',measurement_note:'Indice calculé à partir de complexité, entropie et saillance; aucune mémorisation observée.'},differentiation:{label:'Différenciation',score:round1(differentiation),confidence:diffConfidence}},total=round1(Object.values(axes).reduce((s,a)=>s+a.score,0)),weaknesses=Object.entries(axes).sort((a,b)=>a[1].score-b[1].score).slice(0,2),mapping={beaux_arts:'Reconstruire en noir et blanc avec une masse dominante, une contreforme et un centre visuel délibéré.',hierarchy:'Créer trois variantes qui changent volontairement le premier point d’attention; tester en vignette et à deux mètres.',legibility:'Retirer les détails qui s’effondrent à 24 px, puis vérifier les versions monochrome, floutée, gravée et inversée.',memorability:'Réduire l’idée à un contour redessinable après deux secondes d’exposition; conserver une seule anomalie contrôlée.',differentiation:'Changer la silhouette, la topologie, la typographie, le comportement chromatique et la composition — pas seulement le style de surface.'};const technical_metrics={...m};delete technical_metrics.average_hash;delete technical_metrics.difference_hash;delete technical_metrics.colour_histogram;return{context:compactText(context,500),score:total,score_kind:'heuristic_proxy',score_label:'Indice technique heuristique',evaluations:untestedEvaluations(),grade:total>=86?'A':total>=72?'B':total>=58?'C':'D',axes,technical_metrics,priority_actions:weaknesses.map(([key])=>mapping[key]),reference_comparison:referenceComparison,method_note:'Le total et les axes sont des proxies heuristiques conservés pour comparer les repères techniques. Ils ne mesurent ni beauté, ni mémorisation, ni compréhension réelle. Les évaluations humaines restent non testées sans essai; ces indices ne remplacent ni le jugement humain, ni la recherche de marques, ni l’examen juridique.'};}
-export function coachDecision(question,critique=null,goal='improve the next iteration',designContext=null){const designWorkflow=buildDesignWorkflow(designContext);question=compactText(question,1800);goal=compactText(goal,400);const axes=critique&&typeof critique==='object'?(critique.axes||{}):{},ranked=Object.entries(axes).filter(([,v])=>v&&typeof v.score==='number').sort((a,b)=>a[1].score-b[1].score).slice(0,2),exercises={beaux_arts:'Produire six vignettes noir et blanc de 4 cm. Utiliser une masse dominante, une contreforme et aucun effet.',hierarchy:'Construire trois versions avec des ordres de lecture volontairement différents. Demander à trois personnes ce qu’elles ont vu en premier.',legibility:'Tester à 16, 24 et 48 px, en monochrome, flou, réserve, gravure et découpe vinyle.',memorability:'Montrer le signe pendant deux secondes, le masquer, puis faire redessiner uniquement le contour extérieur et un trait interne.',differentiation:'Placer la référence la plus proche à côté en gris; changer contour, topologie, construction typographique et composition jusqu’à disparition de la ressemblance cumulative.'},criteria={beaux_arts:'La composition reste stable en aplats, avec un point d’entrée clair et une zone de repos volontaire.',hierarchy:'Définir le public et le critère attendu, puis consigner le premier élément identifié sans explication.',legibility:'Le noyau reste identifiable à 24 px et en monochrome.',memorability:'Consigner le contour effectivement rappelé selon un protocole défini; ne pas déduire ce résultat d’un indice technique.',differentiation:'Aucune convergence cumulative forte ne subsiste entre silhouette, topologie, typographie, comportement chromatique et composition.'};let diagnosis,plan,acceptance;if(ranked.length){diagnosis=`La prochaine itération doit isoler ${ranked.map(([key,v])=>v.label||key).join(' et ')}, plutôt que de tout redessiner en même temps.`;plan=ranked.map(([k])=>exercises[k]).filter(Boolean);acceptance=ranked.map(([k])=>criteria[k]).filter(Boolean);}else{diagnosis='Aucune critique chiffrée n’a été fournie. Transformer la question en une décision visuelle falsifiable avant de raffiner le style.';plan=['Formuler la décision comme une hypothèse d’une phrase, puis construire trois prototypes structurellement incompatibles en noir et blanc.'];acceptance=['La direction choisie communique la promesse visée sans explication verbale et survit à trois contextes de production.'];}return{question,goal,design_workflow:designWorkflow,critique_scope:'Les axes éventuels sont des repères heuristiques; ils ne constituent pas des preuves de reconnaissance, de compréhension ou de préférence.',diagnosis,why:'Une décision plus forte réduit l’ambiguïté du système visuel et rend le prochain test mesurable. La finition ne peut pas réparer une hiérarchie structurelle faible ni une topologie copiée.',exercise:{duration:'45–90 minutes',steps:plan},acceptance_criteria:acceptance,coach_rule:'Défendre la décision avec des preuves observables : réduction, rappel, ordre de lecture, comportement en production et distance par rapport aux références — pas seulement avec des adjectifs.'};}
+export function critiqueImageMetrics(m,referenceComparison=null,context=''){const occupancy=m.foreground_occupancy,centroidDistance=Math.hypot(m.centroid.x-.5,m.centroid.y-.5),composition=clampScore(20*(.42*m.balance+.28*(1-Math.min(centroidDistance/.55,1))+.30*(1-Math.min(Math.abs(occupancy-.38)/.5,1)))),hierarchy=clampScore(20*(.60*Math.min(m.saliency_concentration/.55,1)+.40*(1-Math.min(Math.abs(m.edge_density-.18)/.35,1)))),legibility=clampScore(20*(.55*Math.min(m.contrast/.30,1)+.45*m.small_size_stability)),complexityFit=1-Math.min(Math.abs(m.edge_density-.16)/.32,1),memorability=clampScore(20*(.45*complexityFit+.30*Math.min(m.entropy/.78,1)+.25*Math.min(m.saliency_concentration/.55,1)));let differentiation,diffConfidence;if(referenceComparison){differentiation=clampScore(20*(1-referenceComparison.risk_score/100));diffConfidence='heuristique; limitée à la référence fournie';}else{differentiation=null;diffConfidence='non évaluable; aucune référence fournie';}const round1=(v)=>Math.round(v*10)/10,axes={beaux_arts:{label:'Beaux-arts / composition',score:round1(composition)},hierarchy:{label:'Hiérarchie visuelle',score:round1(hierarchy)},legibility:{label:'Lisibilité et réduction',score:round1(legibility)},memorability:{label:'Complexité et saillance (proxy)',score:round1(memorability),basis:'heuristic',measurement_note:'Indice calculé à partir de complexité, entropie et saillance; aucune mémorisation observée.'},differentiation:{label:'Différenciation (référence uniquement)',score:differentiation===null?null:round1(differentiation),status:referenceComparison?'heuristic':'non_evaluable',confidence:diffConfidence,measurement_note:referenceComparison?'Écart perceptuel à la seule référence fournie; aucune mesure d’originalité concurrentielle.':'Aucune référence ni corpus comparatif : aucune note ni conclusion de différenciation.'}},scoredAxes=Object.entries(axes).filter(([,axis])=>Number.isFinite(axis.score)),scoreMax=scoredAxes.length*20,total=round1(scoredAxes.reduce((sum,[,axis])=>sum+axis.score,0)),weaknesses=[...scoredAxes].sort((a,b)=>a[1].score-b[1].score).slice(0,2),mapping={beaux_arts:'Reconstruire en noir et blanc avec une masse dominante, une contreforme et un centre visuel délibéré.',hierarchy:'Créer trois variantes qui changent volontairement le premier point d’attention; tester en vignette et à deux mètres.',legibility:'Retirer les détails qui s’effondrent à 24 px, puis vérifier les versions monochrome, floutée, gravée et inversée.',memorability:'Réduire l’idée à un contour redessinable après deux secondes d’exposition; conserver une seule anomalie contrôlée.',differentiation:'Changer la silhouette, la topologie, la typographie, le comportement chromatique et la composition — pas seulement le style de surface.'};const technical_metrics={...m};delete technical_metrics.average_hash;delete technical_metrics.difference_hash;delete technical_metrics.colour_histogram;return{context:compactText(context,500),score:total,score_max:scoreMax,excluded_axes:Object.keys(axes).filter(key=>axes[key].score===null),priority_axes:weaknesses.map(([key])=>key),score_kind:'heuristic_proxy',score_label:scoreMax===100?'Indice technique heuristique':'Sous-total technique — axes évaluables seulement',evaluations:untestedEvaluations(),grade:scoreMax===100?(total>=86?'A':total>=72?'B':total>=58?'C':'D'):null,axes,technical_metrics,priority_actions:weaknesses.map(([key])=>mapping[key]),reference_comparison:referenceComparison,method_note:'Le sous-total porte uniquement sur les axes évaluables et son maximum est explicite; ne pas comparer des totaux de couvertures différentes. Les axes sont des proxies heuristiques. Ils ne mesurent ni beauté, ni mémorisation, ni compréhension réelle. Les évaluations humaines restent non testées sans essai; ces indices ne remplacent ni le jugement humain, ni la recherche de marques, ni l’examen juridique.'};}
+const EXERCISE_NUMBERS = {
+  un: 1, une: 1, one: 1, single: 1, deux: 2, two: 2, trois: 3, three: 3,
+  quatre: 4, four: 4, cinq: 5, five: 5, six: 6, sept: 7, seven: 7,
+  huit: 8, eight: 8, neuf: 9, nine: 9, dix: 10, ten: 10, onze: 11,
+  eleven: 11, douze: 12, twelve: 12
+};
+function exerciseConstraints(question, goal, context) {
+  // Conservative FR/EN extraction: negative examples, conflicts and ranges
+  // must never be silently converted into an invented exact constraint.
+  const texts = [question, goal, context.task || '', context.final_size || ''];
+  const number = String.raw`(?:\d{1,4}|${Object.keys(EXERCISE_NUMBERS).join('|')})`;
+  const variantsRe = new RegExp(String.raw`(?<![\w.,])(${number})\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b`, 'gi');
+  const minutesRe = new RegExp(String.raw`(?<![\w.,])(${number})\s*(minutes?|mins?|heures?|hours?|h)\b`, 'gi');
+  const sizesRe = /(?<![\w.,])\d+(?:\s*(?:,|\/|\bet\b|\band\b)\s*\d+)*\s*(?:px|pixels?)\b/gi;
+  const counts = new Set(), durations = new Set(), sizes = new Set(), unresolved = [];
+  const negative = (text, start) => {
+    const clause = text.slice(0, start).split(/[.!?;\n,]|\b(?:mais|but|rather|plutôt)\b/i).at(-1);
+    return /\b(?:pas|ni|sans|no|not|without|exclude|excluding|exclure|éviter|eviter|interdit)\b/i.test(clause);
+  };
+  const constrainedRange = (text, start) => {
+    const prefix = text.slice(0, start);
+    return new RegExp(String.raw`(?:${number})\s*(?:[-–—]|à|to|ou|or)\s*$`, 'i').test(prefix)
+      || /\b(?:au plus|au moins|maximum|minimum|at most|at least|up to)\s*$/i.test(prefix);
+  };
+  const value = token => /^\d+$/.test(token) ? Number(token) : EXERCISE_NUMBERS[token.toLowerCase()];
+  for (const text of texts) {
+    for (const [pattern, found, maximum] of [[variantsRe, counts, 24], [minutesRe, durations, 1440]]) {
+      for (const match of text.matchAll(pattern)) {
+        if (negative(text, match.index)) continue;
+        if (constrainedRange(text, match.index)) { unresolved.push(match[0]); continue; }
+        let parsed = value(match[1]);
+        if (pattern === minutesRe && ['h', 'heure', 'heures', 'hour', 'hours'].includes(match[2].toLowerCase())) parsed *= 60;
+        if (parsed >= 1 && parsed <= maximum) found.add(parsed); else unresolved.push(match[0]);
+      }
+    }
+    for (const match of text.matchAll(sizesRe)) {
+      if (negative(text, match.index)) continue;
+      if (constrainedRange(text, match.index)) { unresolved.push(match[0]); continue; }
+      if (/\d\s*[×x*]\s*$/i.test(text.slice(0, match.index))) continue;
+      for (const raw of match[0].match(/\d+/g)) {
+        const parsed = Number(raw);
+        if (parsed >= 1 && parsed <= 4096) sizes.add(parsed); else unresolved.push(match[0]);
+      }
+    }
+  }
+  const ambiguous = counts.size > 1 || durations.size > 1 || unresolved.length > 0;
+  return {
+    variant_count: counts.size === 1 && !ambiguous ? [...counts][0] : null,
+    duration_minutes: durations.size === 1 && !ambiguous ? [...durations][0] : null,
+    sizes_px: [...sizes].sort((a, b) => a - b),
+    constraint_status: ambiguous ? 'ambiguous' : counts.size || durations.size || sizes.size ? 'declared' : 'unspecified',
+    unresolved_constraints: [...new Set(unresolved)],
+    constraint_note: 'Extraction explicite de nombres et unités, pas une interprétation exhaustive du langage. Les contraintes contradictoires ou non prises en charge ne sont pas remplacées par des valeurs par défaut.'
+  };
+}
+export function coachDecision(question, critique = null, goal = 'improve the next iteration', designContext = null) {
+  const designWorkflow = buildDesignWorkflow(designContext);
+  const constraints = exerciseConstraints(String(question), String(goal), designWorkflow.brief);
+  question = String(question).trim(); goal = String(goal).trim();
+  const axes = critique && typeof critique === 'object' ? (critique.axes || {}) : {};
+  const known = new Set(['beaux_arts', 'hierarchy', 'legibility', 'memorability', 'differentiation']);
+  const ranked = Object.entries(axes).filter(([key, axis]) => known.has(key) && axis && Number.isFinite(axis.score)
+    && !['non_evaluable', 'non_testé', 'indéterminé'].includes(axis.status)).sort((a, b) => a[1].score - b[1].score).slice(0, 2);
+  const focus = ranked.map(([key, axis]) => axis.label || key).join(' et ') || 'la décision formulée';
+  let diagnosis = `Isoler ${focus}, conserver le contenu constant et respecter les contraintes déclarées. Aucune mesure auprès du public n’est inférée.`;
+  const count = constraints.variant_count, duration = constraints.duration_minutes, sizes = constraints.sizes_px;
+  const variantStep = count !== null ? `Produire exactement ${count} variantes à contenu constant; ne faire varier que la décision étudiée.` : 'Fixer le nombre de variantes avant production; aucune quantité n’est présumée.';
+  const sizeText = sizes.map(size => `${size} px`).join(', ');
+  const inspectStep = sizes.length ? `Inspecter chaque variante à ${sizeText}, à 100 % sur le fond d’usage; consigner les écarts.` : 'Fixer les tailles d’usage avant inspection; aucune taille n’est présumée.';
+  let steps = [
+    `Formuler une hypothèse sur ${focus}; conserver les textes exacts et fixer les critères avant comparaison.`,
+    variantStep, inspectStep,
+    'Comparer les observations et consigner la décision. Séparer inspection technique, reconnaissance, compréhension et préférence; garder les essais non réalisés en non_testé.'
+  ];
+  if (constraints.constraint_status === 'ambiguous') {
+    diagnosis = 'Contraintes numériques contradictoires ou non prises en charge : clarification requise avant de fixer un protocole chiffré.';
+    steps = ['Clarifier les nombres, durées ou plages déclarés sans choisir arbitrairement l’une des valeurs.'];
+  }
+  let schedule = [];
+  if (duration !== null) {
+    const units = duration * 100, allocations = [15, 45, 30].map(weight => Math.floor(units * weight / 100));
+    allocations.push(units - allocations.reduce((sum, amount) => sum + amount, 0));
+    schedule = allocations.map((amount, index) => ({ minutes: amount / 100, task: steps[index] }));
+  }
+  const acceptance = sizes.map(size => `À ${size} px, inspecter chaque variante sur le fond d’usage : seuil proposé de 0 caractère requis remplacé ou rogné; consigner séparément les erreurs de lecture observées. Non testé.`);
+  acceptance.push('Critères proposés pour ce projet, non normes universelles : contenu constant, écarts documentés et aucune conclusion de reconnaissance, compréhension ou de préférence sans essai correspondant.');
+  if (count !== null) acceptance.push(`Comparer exactement ${count} variantes, sans en ajouter pour satisfaire un gabarit.`);
+  if (duration !== null) acceptance.push(`La somme des étapes planifiées est exactement ${duration} minutes; ce budget ne prouve pas que les essais ont été exécutés.`);
+  return {
+    question, goal, design_workflow: designWorkflow,
+    critique_scope: 'Les axes éventuels sont des repères heuristiques; ils ne constituent pas des preuves de reconnaissance, de compréhension ou de préférence.',
+    diagnosis,
+    why: 'Une comparaison à contenu constant peut isoler la décision; sa validité dépend des observations réelles, pas du nombre d’adjectifs ni d’un gabarit fixe.',
+    exercise: { ...constraints, duration: duration !== null ? `${duration} minutes` : 'À définir', steps, schedule },
+    acceptance_criteria: acceptance,
+    coach_rule: 'Défendre la décision avec des observations documentées. Une bibliographie, un indice ou un protocole proposé ne remplace pas un essai réalisé.'
+  };
+}
 export async function executeTool(name,args={}){
   if(name==='open_brand_atlas'){
     const options={region:args.region||'',pattern:args.pattern||'',category:args.category||'',era:args.era||'',limit:args.limit??12};
