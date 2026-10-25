@@ -1,4 +1,4 @@
-import { resolveRequest, requestRoutes, directAdvice } from './request-policy.js';
+import { resolveRequest, requestRoutes, directAdvice, VARIANT_COUNT_PATTERN, quantityValue } from './request-policy.js';
 import { validateSchema } from './schema.js';
 import { TOOLS } from './contract.js';
 import { loadAtlas, loadLibrary, loadGraph } from "./data.js";
@@ -404,7 +404,7 @@ function exerciseConstraints(question, goal, context) {
   // must never be silently converted into an invented exact constraint.
   const texts = [question, goal, context.task || '', context.final_size || ''].map(normalizeExerciseTime);
   const number = String.raw`(?:\d{1,4}|${Object.keys(EXERCISE_NUMBERS).join('|')})`;
-  const variantsRe = new RegExp(String.raw`(?<![\w.,])(${number})\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b`, 'gi');
+  const variantsRe = new RegExp(VARIANT_COUNT_PATTERN, 'gi');
   const minutesRe = new RegExp(String.raw`(?<![\w.,])(${number})\s*(minutes?|mins?|heures?|hours?|h)\b`, 'gi');
   const sizesRe = /(?<![\w.,])\d+(?:\s*(?:,|\/|\bet\b|\band\b)\s*\d+)*\s*(?:px|pixels?)\b/gi;
   const counts = new Set(), durations = new Set(), sizes = new Set(), unresolved = [];
@@ -423,7 +423,8 @@ function exerciseConstraints(question, goal, context) {
       for (const match of text.matchAll(pattern)) {
         if (negative(text, match.index)) continue;
         if (constrainedRange(text, match.index)) { unresolved.push(match[0]); continue; }
-        let parsed = value(match[1]);
+        let parsed = pattern===variantsRe?quantityValue(match[1]):value(match[1]);
+        if(parsed===null){unresolved.push(match[0]);continue;}
         if (pattern === minutesRe && ['h', 'heure', 'heures', 'hour', 'hours'].includes(match[2].toLowerCase())) parsed *= 60;
         if (parsed >= 1 && parsed <= maximum) found.add(parsed); else unresolved.push(match[0]);
       }

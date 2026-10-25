@@ -2,8 +2,15 @@
 // The host interprets intent; the server checks scope/constraints, not arbitrary semantics.
 import { REQUEST_POLICY as POLICY } from 'lib/request-policy-data.js';
 const MODES = new Set(['create','adapt','identity_exploration','advice','exercise','plan']);
-const NUMBERS = {un:1,une:1,one:1,deux:2,two:2,trois:3,three:3,quatre:4,four:4,cinq:5,five:5,six:6,sept:7,seven:7,huit:8,eight:8,neuf:9,nine:9,dix:10,ten:10};
-const COUNT = String.raw`\b(\d{1,4}|${Object.keys(NUMBERS).join('|')})\s+(?:(?:seul|seule|single)\s+)?(?:variantes?|variants?|variations?|versions?|directions?|pistes?|routes?|affiches?|posters?|illustrations?|compositions?|layouts?|pages?\s+web)\b`;
+// One vocabulary for public directions and the exercise planner in both runtimes.
+const NUMBERS = POLICY.quantity.number_words;
+const quantityPattern=nouns=>String.raw`(?<![\w.,])([+-]?[0-9]+(?:[.,][0-9]+)?|${Object.keys(NUMBERS).join('|')})\s+(?:(?:seul|seule|single)\s+)?(?:${nouns.join('|')})\b`;
+const COUNT=quantityPattern([...POLICY.quantity.variant_nouns,...POLICY.quantity.deliverable_nouns]);
+export const VARIANT_COUNT_PATTERN=quantityPattern(POLICY.quantity.variant_nouns);
+export function quantityValue(token){
+ token=token.toLowerCase();
+ return Object.hasOwn(NUMBERS,token)?NUMBERS[token]:/^[+-]?[0-9]+$/.test(token)?Number(token):null;
+}
 const normalized = value => String(value ?? '').normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/’/g,"'");
 const has = (pattern,value) => new RegExp(pattern).test(normalized(value));
 function negativePrefix(text,start){
@@ -11,7 +18,6 @@ function negativePrefix(text,start){
  return has(String.raw`\b(?:pas|ni|sans|no|not|without|avoid|eviter|interdit|exclude)\b|don\x27t`,clause);
 }
 const positive=(pattern,text)=>{const value=normalized(text);return [...value.matchAll(new RegExp(pattern,'g'))].some(m=>!negativePrefix(value,m.index));};
-const number=token=>/^\d+$/.test(token)?Number(token):NUMBERS[token];
 export function resolveRequest(brief,{coaching=false}={}){
  const execution=brief.execution??{};
  if(typeof execution!=='object'||Array.isArray(execution)||Object.keys(execution).some(k=>!['mode','variant_count','workflow_depth','locked_elements','allowed_changes'].includes(k)))throw new Error('execution contains unsupported controls.');
@@ -26,10 +32,15 @@ export function resolveRequest(brief,{coaching=false}={}){
  if([...String(brief.request??'')].length>4000)throw new Error('request must not exceed 4000 characters; it is never silently truncated.');
  const exclusions=(brief.must_avoid??[]).map(String),locks=[...(execution.locked_elements??[])],declared=normalized(text),errors=[],counts=new Set(),forbidden=new Set();
  for(const m of declared.matchAll(new RegExp(COUNT,'g'))){
+  const value=quantityValue(m[1]);
+  if(value===null){errors.push('Clarifier le nombre de livrables : une quantité entière est requise.');continue;}
   if(!negativePrefix(declared,m.index)&&has(String.raw`(?:\d+|un|une|one|deux|two|trois|three|quatre|four)\s*(?:[-–—]|a|to|ou|or|et|and)\s*$|\b(?:au plus|au moins|maximum|minimum|at most|at least|up to)\s*$`,declared.slice(0,m.index)))errors.push('Clarifier la plage de quantités; ne pas la convertir en un nombre exact.');
-  (negativePrefix(declared,m.index)?forbidden:counts).add(number(m[1]));
+  (negativePrefix(declared,m.index)?forbidden:counts).add(value);
  }
- for(const exclusion of exclusions)for(const m of normalized(exclusion).matchAll(new RegExp(COUNT,'g')))forbidden.add(number(m[1]));
+ for(const exclusion of exclusions)for(const m of normalized(exclusion).matchAll(new RegExp(COUNT,'g'))){
+  const value=quantityValue(m[1]);
+  if(value===null)errors.push('Clarifier la quantité exclue : une quantité entière est requise.');else forbidden.add(value);
+ }
  if(execution.variant_count!==undefined)counts.add(execution.variant_count);
  if(counts.size>1||[...counts].some(c=>c<1||c>6||forbidden.has(c)))errors.push('Clarifier le nombre de livrables : les quantités déclarées sont incompatibles ou hors de la plage 1–6.');
  const count=counts.size===1?[...counts][0]:1;

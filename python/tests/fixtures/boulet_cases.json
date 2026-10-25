@@ -1,0 +1,132 @@
+[
+  {
+    "id": "conseil_cible",
+    "tool": "coach_brand_decision",
+    "args": {
+      "question": "Sur l’accueil mobile de fenetresboulet.com, le libellé Soumission ouvre le menu plutôt que le formulaire. Quel changement ciblé recommander ? Aucun exercice, aucune variante ni refonte de marque.",
+      "goal": "Distinguer la commande de menu et la demande de soumission.",
+      "design_context": {
+        "task": "Améliorer la hiérarchie de l’accueil et distinguer le menu mobile du lien vers la demande de soumission.",
+        "message": "Textes existants à conserver : BOULET; À vos côtés depuis 1976. Proposition de libellé : Demander une soumission.",
+        "medium": "Page d’accueil web responsive",
+        "final_size": "Bureau 1440 × 1000 px; mobile 390 × 844 px",
+        "cultural_context": "Français du Québec; identité Boulet bleue, rouge et blanche, pas la palette 27PM."
+      },
+      "execution": {
+        "mode": "advice",
+        "workflow_depth": "none",
+        "locked_elements": [
+          "Logo Boulet existant : symbole blanc dans un carré rouge et mot-signe BOULET bleu. Réutiliser le fichier réel, ne pas redessiner.",
+          "Identité actuelle : bleu, rouge et blanc; aucun nouveau monogramme.",
+          "Conserver les familles : Fenêtres, Portes d’entrée, Portes patio, Portes de garage.",
+          "Conserver les informations réelles de fabrication et les preuves existantes; ne pas inventer de garantie, de rabais ou de certification."
+        ]
+      }
+    },
+    "expected": {
+      "stages": 0,
+      "mode": "advice"
+    }
+  },
+  {
+    "id": "adaptation_cadree",
+    "tool": "generate_brand_directions",
+    "args": {
+      "request": "Adapter la page d’accueil de fenetresboulet.com sans refaire l’identité. Préparer une seule proposition ciblée, sans générer d’image maintenant. Conserver le logo, les couleurs et les quatre familles de produits existantes.",
+      "name": "Portes et Fenêtres Boulet",
+      "design_context": {
+        "task": "Améliorer la hiérarchie de l’accueil et distinguer le menu mobile du lien vers la demande de soumission.",
+        "message": "Textes existants à conserver : BOULET; À vos côtés depuis 1976. Proposition de libellé : Demander une soumission.",
+        "medium": "Page d’accueil web responsive",
+        "final_size": "Bureau 1440 × 1000 px; mobile 390 × 844 px",
+        "cultural_context": "Français du Québec; identité Boulet bleue, rouge et blanche, pas la palette 27PM."
+      },
+      "must_avoid": [
+        "Refonte du logo, nouveau monogramme ou nouvelle palette",
+        "Trois pistes de marque",
+        "Parcours complet en huit étapes non demandé",
+        "Changement de site, publication ou envoi de formulaire"
+      ],
+      "execution": {
+        "mode": "adapt",
+        "variant_count": 1,
+        "workflow_depth": "none",
+        "locked_elements": [
+          "Logo Boulet existant : symbole blanc dans un carré rouge et mot-signe BOULET bleu. Réutiliser le fichier réel, ne pas redessiner.",
+          "Identité actuelle : bleu, rouge et blanc; aucun nouveau monogramme.",
+          "Conserver les familles : Fenêtres, Portes d’entrée, Portes patio, Portes de garage.",
+          "Conserver les informations réelles de fabrication et les preuves existantes; ne pas inventer de garantie, de rabais ou de certification."
+        ],
+        "allowed_changes": [
+          "Hiérarchie du premier écran",
+          "Menu mobile correctement intitulé Menu",
+          "Lien distinct Demander une soumission",
+          "Accès visible aux quatre familles de produits sur mobile"
+        ]
+      }
+    },
+    "expected": {
+      "stages": 0,
+      "routes": 1,
+      "mode": "adapt"
+    }
+  },
+  {
+    "id": "deux_propositions_controles_explicites",
+    "tool": "generate_brand_directions",
+    "args": {
+      "request": "Pour l’accueil Boulet, proposer exactement deux propositions de mise en page, sans changer le logo.",
+      "design_context": {
+        "medium": "Page web",
+        "message": "BOULET"
+      },
+      "execution": {
+        "mode": "adapt",
+        "variant_count": 2,
+        "workflow_depth": "none",
+        "locked_elements": [
+          "Logo Boulet existant"
+        ]
+      }
+    },
+    "expected": {
+      "routes": 2,
+      "stages": 0
+    }
+  },
+  {
+    "id": "deux_propositions_langage_seul",
+    "tool": "generate_brand_directions",
+    "args": {
+      "request": "Pour l’accueil Boulet, proposer exactement deux propositions de mise en page, sans changer le logo.",
+      "design_context": {
+        "medium": "Page web",
+        "message": "BOULET"
+      }
+    },
+    "expected": {
+      "routes": 2,
+      "stages": 0
+    }
+  },
+  {
+    "id": "contradiction_synonyme_proposition",
+    "tool": "generate_brand_directions",
+    "args": {
+      "request": "Préparer une seule proposition pour la page d’accueil Boulet, pas plusieurs. Conserver le logo approuvé.",
+      "design_context": {
+        "medium": "Page web",
+        "message": "BOULET"
+      },
+      "execution": {
+        "mode": "adapt",
+        "variant_count": 3
+      }
+    },
+    "expected": {
+      "status": "clarification_required",
+      "routes": 0,
+      "stages": 0
+    }
+  }
+]

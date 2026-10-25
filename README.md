@@ -1,4 +1,6 @@
-# Infographic Artist — 1.3.0 / current-intent alignment
+# Infographic Artist — 1.3.1 / current-intent alignment
+
+Patch 1.3.1: the Boulet quantity regressions are covered by unchanged original inputs. Proposal nouns are shared by Python, JavaScript and the exercise planner; contradictory or unsupported counts block the image brief. No website, DNS, subscription or OpenAI registry change is part of this patch.
 
 Current target: local PC through Tailscale, `/infographic-artist/mcp`. The existing OpenAI registry connection is a separate migration boundary; no registry update or directory approval is asserted by this source.
 

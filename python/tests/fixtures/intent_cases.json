@@ -331,5 +331,240 @@
     "count": 1,
     "stages": 0,
     "identity": false
+  },
+  {
+    "id": "boulet_deux_propositions_langage_seul",
+    "tool": "directions",
+    "args": {
+      "request": "Pour l’accueil Boulet, proposer exactement deux propositions de mise en page, sans changer le logo.",
+      "design_context": {
+        "medium": "Page web",
+        "message": "BOULET"
+      }
+    },
+    "count": 2,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "boulet_contradiction_synonyme_proposition",
+    "tool": "directions",
+    "args": {
+      "request": "Préparer une seule proposition pour la page d’accueil Boulet, pas plusieurs. Conserver le logo approuvé.",
+      "design_context": {
+        "medium": "Page web",
+        "message": "BOULET"
+      },
+      "execution": {
+        "mode": "adapt",
+        "variant_count": 3
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "two_proposals_en",
+    "tool": "directions",
+    "args": {
+      "request": "Prepare exactly two proposals for the home page. Keep the approved logo."
+    },
+    "count": 2,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "one_single_proposal_conflict_en",
+    "tool": "directions",
+    "args": {
+      "request": "Prepare one single proposal for the home page.",
+      "execution": {
+        "variant_count": 3
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "two_propositions_not_three",
+    "tool": "directions",
+    "args": {
+      "request": "Deux propositions, pas trois propositions."
+    },
+    "count": 2,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "two_proposals_not_three_en",
+    "tool": "directions",
+    "args": {
+      "request": "Two proposals, not three proposals."
+    },
+    "count": 2,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "proposal_excluded_count",
+    "tool": "directions",
+    "args": {
+      "request": "Préparer des propositions pour cet accueil.",
+      "execution": {
+        "variant_count": 3
+      },
+      "must_avoid": [
+        "Trois propositions"
+      ]
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_exclusion_needs_count",
+    "tool": "directions",
+    "args": {
+      "request": "Pas une seule proposition."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_textual_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Deux propositions; quatre propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_range_fr",
+    "tool": "directions",
+    "args": {
+      "request": "Entre deux et quatre propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_range_en",
+    "tool": "directions",
+    "args": {
+      "request": "Between two and four proposals."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_maximum",
+    "tool": "directions",
+    "args": {
+      "request": "Au maximum trois propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_unrequested_exact_copy",
+    "tool": "directions",
+    "args": {
+      "request": "Créer une affiche.",
+      "design_context": {
+        "message": "Texte exact : Deux propositions et trois étapes."
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "proposal_in_locked_element_not_command",
+    "tool": "directions",
+    "args": {
+      "request": "Créer une affiche.",
+      "execution": {
+        "locked_elements": [
+          "Titre approuvé : Deux propositions"
+        ]
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "proposal_request_task_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Deux propositions.",
+      "design_context": {
+        "task": "Produire une seule proposition"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_zero",
+    "tool": "directions",
+    "args": {
+      "request": "Préparer 0 propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_too_many",
+    "tool": "directions",
+    "args": {
+      "request": "Créer sept propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_fraction",
+    "tool": "directions",
+    "args": {
+      "request": "Prepare 1.5 proposals."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "proposal_large_number",
+    "tool": "directions",
+    "args": {
+      "request": "Préparer 10000 propositions."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
   }
 ]

@@ -3,7 +3,7 @@ name: infographic-artist
 description: Help with graphic design broadly: focused advice, posters, illustrations, infographics, interfaces, identities and coherent cross-medium applications. Follow the current intent, preserve approved decisions, retrieve only useful principles and use native image generation when requested.
 ---
 
-# Infographic Artist — current-intent workflow, 1.3.0
+# Infographic Artist — current-intent workflow, 1.3.1
 
 The product is this plugin in ChatGPT and Codex. A showcase website, atlas or research catalogue supports it; none replaces the user's actual task. The October native-image workflow is authoritative. Historical July rendering instructions are not a production fallback.
 
@@ -37,7 +37,7 @@ Set `execution.mode` according to the current intent:
 - `exercise`: a comparative protocol only when requested, via `coach_brand_decision`.
 - `plan`: a full design plan only when requested, usually via `coach_brand_decision`.
 
-`execution.variant_count` is the explicitly requested count, one by default. General composition supports up to six routes; identity exploration up to three structural routes. Do not force three routes. An unsupported or conflicting count needs a narrow clarification, not silent truncation.
+`execution.variant_count` is the explicitly requested count, one by default. Quantity vocabulary includes French propositions and English proposals. A detected count in the request must agree with structured controls; contradictory counts return clarification and no generation route. This is bounded checking, not complete language understanding. General composition supports up to six routes; identity exploration up to three structural routes. Do not force three routes. An unsupported or conflicting count needs a narrow clarification, not silent truncation.
 
 Carry confirmed decisions verbatim in `execution.locked_elements`; use `execution.allowed_changes` to restrict a local intervention. `execution.workflow_depth` defaults to `none`; use `full` only when the user requests the full proposed plan. Never synthesize a new brand name, audience, palette, logo or template to fill unknown fields.
 

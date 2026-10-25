@@ -1571,7 +1571,8 @@ def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> 
     """
     texts = [_normalize_exercise_time(text) for text in [question, goal, *(context.get(key, "") for key in ("task", "final_size"))]]
     number = r"(?:\d{1,4}|" + "|".join(_EXERCISE_NUMBERS) + r")"
-    variants_re = re.compile(r"(?<![\w.,])(" + number + r")\s+(?:variantes?|variants?|versions?|prototypes?|vignettes?|routes?)\b", re.I)
+    from request_policy import VARIANT_COUNT_RE, quantity_value
+    variants_re = re.compile(VARIANT_COUNT_RE, re.I)
     minutes_re = re.compile(r"(?<![\w.,])(" + number + r")\s*(minutes?|mins?|heures?|hours?|h)\b", re.I)
     sizes_re = re.compile(r"(?<![\w.,])\d+(?:\s*(?:,|/|\bet\b|\band\b)\s*\d+)*\s*(?:px|pixels?)\b", re.I)
     counts, durations, sizes, unresolved = set(), set(), set(), []
@@ -1595,7 +1596,10 @@ def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> 
                 if constrained_range(text, match.start()):
                     unresolved.append(match.group(0))
                     continue
-                parsed = value(match.group(1))
+                parsed = quantity_value(match.group(1)) if pattern is variants_re else value(match.group(1))
+                if parsed is None:
+                    unresolved.append(match.group(0))
+                    continue
                 if pattern is minutes_re and match.group(2).lower() in ("h", "heure", "heures", "hour", "hours"):
                     parsed *= 60
                 if 1 <= parsed <= maximum:

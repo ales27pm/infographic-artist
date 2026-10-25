@@ -1,3 +1,13 @@
+# Quantity regression patch — 1.3.1
+
+The five original Boulet test requests are preserved in `python/tests/fixtures/boulet_cases.json`. `propositions` and `proposals` join the shared quantity vocabulary used by Python, JavaScript and exercise planning. Exclusions, nonintegral/out-of-range counts and contradictory text/structured controls stop before a renderable route is returned. Exact-copy and locked-element fields remain data, not command sources.
+
+Canonical widget URI is `app-v1.3.1-r1.html`; the 1.3.0 and earlier aliases remain readable. Widget HTML and native handoff are unchanged. Run all local suites and `test:intent-parity`; verify the original Boulet arguments through the deployed MCP boundary. A registry update or actual image generation remains a distinct external boundary.
+
+Recovery: pytest reserves `request` as a fixture name; use `request_text` for test parametrization. A collection error is not a failed product assertion. Never fix a language regression by rephrasing the user's recorded request.
+
+---
+
 # Current authority — 1.3.0 / intent alignment
 
 The local Tailscale endpoint and installable package are the current deployment target. The sections below record earlier releases and are historical when they conflict with the 1.3.0 skill.

@@ -38,8 +38,8 @@ test('invalid JSON-RPC params is a protocol error',async()=>{
 
 test('versioned and legacy widget resource IDs both resolve',async()=>{
  const listed=await rpc('resources/list',{});const canonical=listed.body.result.resources[0].uri;
- assert.equal(canonical,'ui://infographic-artist/app-v1.3.0-r1.html');
- for(const uri of [canonical,'ui://infographic-artist/app-v1.2.0-r4.html','ui://infographic-artist/app-v1.2.0-r3.html','ui://infographic-artist/app-v1.2.0-r2.html','ui://infographic-artist/app-v1.2.0.html','ui://infographic-artist/app-v1.1.2.html','ui://infographic-artist/app-v1.1.1.html','ui://infographic-artist/app-v1.html']){
+ assert.equal(canonical,'ui://infographic-artist/app-v1.3.1-r1.html');
+ for(const uri of [canonical,'ui://infographic-artist/app-v1.3.0-r1.html','ui://infographic-artist/app-v1.2.0-r4.html','ui://infographic-artist/app-v1.2.0-r3.html','ui://infographic-artist/app-v1.2.0-r2.html','ui://infographic-artist/app-v1.2.0.html','ui://infographic-artist/app-v1.1.2.html','ui://infographic-artist/app-v1.1.1.html','ui://infographic-artist/app-v1.html']){
   const r=await rpc('resources/read',{uri});assert.equal(r.body.result.contents[0].uri,uri);
   assert.match(r.body.result.contents[0].text,/Résultat de transmission incertain/);
  }

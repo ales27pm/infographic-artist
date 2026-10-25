@@ -13,8 +13,25 @@ from typing import Any
 
 POLICY = json.loads((Path(__file__).parent / 'data/request_policy.json').read_text())
 MODES = {'create', 'adapt', 'identity_exploration', 'advice', 'exercise', 'plan'}
-NUMBERS = {'un':1,'une':1,'one':1,'deux':2,'two':2,'trois':3,'three':3,'quatre':4,'four':4,'cinq':5,'five':5,'six':6,'sept':7,'seven':7,'huit':8,'eight':8,'neuf':9,'nine':9,'dix':10,'ten':10}
-COUNT_RE = r'\b(\d{1,4}|' + '|'.join(NUMBERS) + r')\s+(?:(?:seul|seule|single)\s+)?(?:variantes?|variants?|variations?|versions?|directions?|pistes?|routes?|affiches?|posters?|illustrations?|compositions?|layouts?|pages?\s+web)\b'
+# Vocabulary is release data shared by both runtimes and the exercise planner.
+NUMBERS = POLICY['quantity']['number_words']
+
+
+def quantity_pattern(nouns: list[str]) -> str:
+    number = r'[+-]?[0-9]+(?:[.,][0-9]+)?|' + '|'.join(NUMBERS)
+    return r'(?<![\w.,])(' + number + r')\s+(?:(?:seul|seule|single)\s+)?(?:' + '|'.join(nouns) + r')\b'
+
+
+COUNT_RE = quantity_pattern(POLICY['quantity']['variant_nouns'] + POLICY['quantity']['deliverable_nouns'])
+VARIANT_COUNT_RE = quantity_pattern(POLICY['quantity']['variant_nouns'])
+
+
+def quantity_value(token: str) -> int | None:
+    """Do not truncate a decimal or an oversized digit sequence into a new count."""
+    token = token.lower()
+    if token in NUMBERS:
+        return NUMBERS[token]
+    return int(token) if re.fullmatch(r'[+-]?[0-9]+', token) else None
 
 
 def normalized(value: Any) -> str:
@@ -62,14 +79,21 @@ def resolve_request(brief: dict[str, Any], *, coaching: bool = False) -> dict[st
     counts, forbidden = set(), set()
     for match in re.finditer(COUNT_RE, declared):
         token = match.group(1)
-        value = int(token) if token.isdigit() else NUMBERS[token]
+        value = quantity_value(token)
+        if value is None:
+            errors.append('Clarifier le nombre de livrables : une quantité entière est requise.')
+            continue
         if not negative_prefix(declared, match.start()) and has(r"(?:\d+|un|une|one|deux|two|trois|three|quatre|four)\s*(?:[-–—]|a|to|ou|or|et|and)\s*$|\b(?:au plus|au moins|maximum|minimum|at most|at least|up to)\s*$", declared[:match.start()]):
             errors.append('Clarifier la plage de quantités; ne pas la convertir en un nombre exact.')
         (forbidden if negative_prefix(declared, match.start()) else counts).add(value)
     for exclusion in exclusions:
         for match in re.finditer(COUNT_RE, normalized(exclusion)):
             token = match.group(1)
-            forbidden.add(int(token) if token.isdigit() else NUMBERS[token])
+            value = quantity_value(token)
+            if value is None:
+                errors.append('Clarifier la quantité exclue : une quantité entière est requise.')
+            else:
+                forbidden.add(value)
     if 'variant_count' in execution:
         counts.add(execution['variant_count'])
     if len(counts)>1 or any(c<1 or c>6 or c in forbidden for c in counts):

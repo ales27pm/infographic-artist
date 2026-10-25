@@ -20,7 +20,7 @@ async function fixture(c,width){
  assert.equal(page.url(),'https://widget.test/');assert.match(await page.title(),/Infographic Artist/);
  return {page,errors,data};
 }
-for(const width of [390,1440])for(const id of ['poster_no_rebrand','website_preserve_identity','targeted_alignment','structured_count_conflict','full_plan_opt_in'])test(`${id} rendered at ${width}px`,async()=>{
+for(const width of [390,1440])for(const id of ['poster_no_rebrand','website_preserve_identity','targeted_alignment','structured_count_conflict','full_plan_opt_in','boulet_deux_propositions_langage_seul','boulet_contradiction_synonyme_proposition'])test(`${id} rendered at ${width}px`,async()=>{
  const c=cases.find(x=>x.id===id),{page,errors}=await fixture(c,width);
  try{
   assert.ok((await page.locator('#root').innerText()).length>30);
@@ -35,6 +35,13 @@ for(const width of [390,1440])for(const id of ['poster_no_rebrand','website_pres
    assert.ok(sent.prompt.startsWith('@Créer une image\n\n'));assert.ok(sent.prompt.includes('Horaire d’hiver'));assert.ok(sent.prompt.includes('420 × 594 mm'));assert.ok(sent.prompt.includes('conserver le logo déjà approuvé'));
    assert.ok(!sent.prompt.includes('Show a dominant black-and-white symbol silhouette'));
   }
+  if(id==='boulet_deux_propositions_langage_seul'){
+   await page.locator('.route details summary').first().click();
+   assert.equal(await page.locator('.route .prompt').first().isVisible(),true);
+   assert.match(await page.locator('.route .prompt').first().innerText(),/exactement deux propositions/);
+  }
+  if(id.startsWith('boulet_'))assert.deepEqual(await page.evaluate(()=>window.__sent),[]);
+  await page.evaluate(()=>window.scrollTo(0,0));
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.deepEqual(errors,[]);
   if(process.env.INFOGRAPHIC_QA_DIR){fs.mkdirSync(process.env.INFOGRAPHIC_QA_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.INFOGRAPHIC_QA_DIR,`intent-${id}-${width}.png`),fullPage:true});}
  }finally{await page.close();}

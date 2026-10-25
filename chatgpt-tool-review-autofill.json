@@ -5,7 +5,7 @@
     "plugins/infographic-artist/plugin.json",
     "plugins/infographic-artist/mcp.json"
   ],
-  "version": "1.3.0",
+  "version": "1.3.1",
   "app_info": {
     "display_name": "Infographic Artist",
     "subtitle": "Infographie et conseil visuel",
@@ -225,7 +225,7 @@
     "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
   },
   "publication": {
-    "release_notes": "Infographic Artist 1.3.0 — Alignement sur l’intention actuelle : création ciblée par défaut, décisions approuvées conservées, nombre de pistes déclaré, conseil sans protocole imposé, parcours complet optionnel et ambiguïtés bloquées avant génération. Hébergement local via Tailscale; génération native uniquement. Ce paquet ne prouve ni la mise à jour du registre OpenAI ni sa publication."
+    "release_notes": "Infographic Artist 1.3.1 corrige les quantités révélées par le test Boulet : propositions/proposals reconnus, contradictions entre texte et contrôles bloquées avant génération, vocabulaire partagé par les deux runtimes et le coach. Les demandes originales deviennent des tests de régression. Génération native uniquement; aucun changement du site Boulet, des DNS, de la facturation ni du registre OpenAI."
   },
   "portal_note": "Apply to the existing Infographic Artist record after reading its current state. Explicitly replace old release notes. This file does not assert compliance, developer identity, review approval or public publication."
 }

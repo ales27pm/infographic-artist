@@ -3,7 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.3.0-r1.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.3.1-r1.html"
+V130_TEMPLATE_URI = "ui://infographic-artist/app-v1.3.0-r1.html"
 R4_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r4.html"
 R3_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r3.html"
 R2_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r2.html"
