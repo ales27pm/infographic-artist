@@ -1,28 +1,28 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "infographic-artist",
-  "version": "1.2.0",
-  "description": "Research brand systems and 150 documented design principles across 14 domains with 69 sources, critique supplied visuals with technical heuristics, and prepare an eight-stage design plan and original creative directions.",
+  "version": "1.3.0",
+  "description": "Infographie au sens large : conseils ciblés, créations et déclinaisons respectant la demande actuelle, principes documentés et génération d’images native.",
   "author": {
     "name": "27PM",
     "email": "support@27pm.org"
   },
-  "homepage": "https://infographic-artist-1w7v.hatchable.site",
+  "homepage": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist",
   "repository": "https://github.com/ales27pm/infographic-artist",
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Infographic Artist",
-        "shortDescription": "Principes sourcés, parcours de conception et critique visuelle.",
-        "longDescription": "Étudie les systèmes de marque et les visuels fournis avec un atlas documenté et un catalogue de 150 principes, 69 sources et 14 domaines. Recherche les principes avec kind=principle et prépare un parcours de conception en huit étapes à partir du design_context déclaré. Les scores de critique sont des diagnostics heuristiques ; reconnaissance, compréhension et préférence restent des évaluations distinctes, initialisées à non_testé. Le catalogue est une cartographie étendue, sans prétention d’exhaustivité. Prépare trois directions originales et transmet le brief par @Créer une image ; seule une exécution réelle par la capacité native de la conversation produit une image.",
+        "shortDescription": "Créer juste ce qui est demandé.",
+        "longDescription": "Affiches, illustrations, interfaces, infographies et identités visuelles. Adapter l’intervention à la demande actuelle, conserver les décisions approuvées, choisir les principes utiles et créer les images avec la capacité native de la conversation. Un seul livrable par défaut; exploration de marque et parcours complet uniquement sur demande. Le serveur valide les contraintes explicites, sans prétendre comprendre seul toute formulation ni avoir effectué des essais humains.",
         "composerIcon": "./assets/app-icon-64.png",
         "logo": "./assets/app-icon-512.png",
         "developerName": "27PM",
         "category": "Design",
-        "websiteURL": "https://infographic-artist-1w7v.hatchable.site",
-        "supportURL": "https://infographic-artist-1w7v.hatchable.site/support",
-        "privacyPolicyURL": "https://infographic-artist-1w7v.hatchable.site/privacy",
-        "termsOfServiceURL": "https://infographic-artist-1w7v.hatchable.site/terms",
+        "websiteURL": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist",
+        "supportURL": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist/support",
+        "privacyPolicyURL": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist/privacy",
+        "termsOfServiceURL": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist/terms",
         "defaultPrompt": [
           "Compare IBM et NASA comme systèmes graphiques.",
           "Recherche les principes sur le nombre d’or avec kind=principle et explique leurs limites et leurs sources.",
@@ -97,7 +97,7 @@
         "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
       },
       "publication": {
-        "release_notes": "Infographic Artist 1.2.0 adds a documented catalogue of 150 design principles, 69 sources and 14 domains through search_design_systems with kind=principle. Coaching and creative directions accept optional design_context and return the eight-stage design plan with recognition, comprehension and preference separately marked non_testé. Visual-critique scores remain technical heuristics, not measured human outcomes or a beauty score. Full principle cards retain their limits and source reading scope. The exclusive @Créer une image native handoff is preserved; no server-side paid image API or fabricated generation result is introduced."
+        "release_notes": "Infographic Artist 1.3.0 — Alignement sur l’intention actuelle : création ciblée par défaut, décisions approuvées conservées, nombre de pistes déclaré, conseil sans protocole imposé, parcours complet optionnel et ambiguïtés bloquées avant génération. Hébergement local via Tailscale; génération native uniquement. Ce paquet ne prouve ni la mise à jour du registre OpenAI ni sa publication."
       }
     }
   },

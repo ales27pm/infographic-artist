@@ -1,4 +1,7 @@
 import { browser } from "hatchable";
+import { resolveRequest, requestRoutes, directAdvice } from 'lib/request-policy.js';
+import { validateSchema } from 'lib/schema.js';
+import { TOOLS } from 'lib/contract.js';
 import { loadAtlas, loadLibrary, loadGraph } from "lib/data.js";
 import { generationHandoff } from "lib/runtime.js";
 import { buildDesignWorkflow, searchPrinciples, untestedEvaluations } from "lib/design-workflow.js";
@@ -196,12 +199,14 @@ function boardEvaluationFocus(arch){return[`La planche exprime la promesse par l
 function seedFromText(text){let h=2166136261; for(let i=0;i<text.length;i++){h^=text.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0;}
 function seededShuffle(values, seed){const out=[...values]; let s=seed||1; const rand=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return (s>>>0)/4294967296;}; for(let i=out.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[out[i],out[j]]=[out[j],out[i]];} return out;}
 export async function generateDirections(brief) {
-  const name=String(brief?.name ?? '').trim(); if([...name].length>120) throw new Error('The exact brand name must not exceed 120 characters; it is never silently truncated.'); const sector=compactText(brief?.sector,160), promise=compactText(brief?.promise,1000); if(!name||!sector||promise.length<3) throw new Error('name, sector, and a meaningful promise are required.');
-  const designWorkflow=buildDesignWorkflow(brief.design_context,brief);
-  const audience=compactText(designWorkflow.brief.audience||'public général',400), traits=(brief.traits||[]).map((v)=>compactText(v,100)).filter(Boolean).slice(0,8), avoid=(brief.must_avoid||[]).map((v)=>String(v).trim()).filter(Boolean).slice(0,8), risk=brief.risk_tolerance||'équilibrée';
-  const seedMaterial=JSON.stringify({name,sector,promise,traits,avoid,risk}); let precedents=(await searchAtlas([sector,promise,...traits].join(' '),{limit:12})).items; precedents=seededShuffle(precedents,seedFromText(seedMaterial));
-  const routes=ROUTE_ARCHETYPES.map((arch,index)=>{const precedent=precedents[index], secondary=precedents[index+3], sources=[precedent,secondary].filter(Boolean), principles=[]; for(const source of sources) principles.push(...(source.principles||[]).slice(0,2)); const route={id:arch.key,name:arch.name,thesis:`Pour ${name}, rendre « ${promise} » visible par ${arch.architecture[0].toLowerCase()+arch.architecture.slice(1)}`,architecture:arch.architecture,geometry:arch.geometry,typography:arch.typography,palette_logic:'Commencer en noir et blanc; ajouter une couleur fonctionnelle liée à la promesse, puis vérifier le contraste et la reproduction.',assets:arch.assets,stress_tests:arch.tests,traits_to_express:traits.length?traits:['clarté','cohérence','présence'],must_avoid:avoid,precedents:sources.map((source)=>({id:source.id,name:source.name,principle_only:(source.principles||[source.lesson||''])[0]})),transferable_principles:[...new Set(principles)].slice(0,4),anti_copy_rule:'Ne pas emprunter la silhouette, la construction des lettres, la combinaison chromatique, le dispositif d’espace négatif ou la composition du précédent. Redériver chaque forme depuis ce brief.',fit:{audience,risk_tolerance:risk,sector}};route.concept_board_prompt=conceptBoardPrompt({name,sector,promise,audience,traits,avoid,arch,precedents:route.precedents,designContext:{...designWorkflow.brief,...(brief.design_context||{})}});route.board_evaluation_focus=boardEvaluationFocus(arch);return route;});
-  return {brief:{name,sector,promise,audience,traits,must_avoid:avoid,risk_tolerance:risk},routes,design_workflow:designWorkflow,image_generation_handoff:generationHandoff(),decision_rule:'Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.'};
+ const schema = TOOLS.find(t=>t.name==='generate_brand_directions').inputSchema;
+ const invalid=validateSchema(schema,brief);if(invalid)throw new Error(invalid);
+ const context=brief.design_context??{};
+ if(![brief.request,brief.promise,context.task,context.message].some(v=>typeof v==='string'&&v.trim()))throw new Error('Input validation: provide the current request, a task, or a purpose; a brand identity is not required.');
+ const resolution=resolveRequest(brief),workflow=buildDesignWorkflow(context,brief,resolution.workflow_depth),routes=requestRoutes(brief,resolution,ROUTE_ARCHETYPES);
+ const result={brief:{...brief,name:brief.name||'',sector:brief.sector||'',promise:brief.promise||'',audience:context.audience||brief.audience||''},routes,intent_resolution:resolution,design_workflow:workflow,image_generation_handoff:{...generationHandoff(),ready:routes.length>0},decision_rule:resolution.clarifications.length?resolution.clarifications.join(' '):routes.length===1?'Réaliser uniquement la demande actuelle en conservant les décisions approuvées.':routes.length?`Comparer uniquement les ${routes.length} pistes demandées, à contenu et éléments verrouillés constants.`:'Répondre à la demande sans démarrer de création d’image.'};
+ if(resolution.mode==='advice')Object.assign(result,directAdvice(brief.request||context.task||''));
+ return result;
 }
 // BEGIN_PUBLIC_IMAGE_INPUTS — retained by the public bundle builder.
 const TRUSTED_IMAGE_HOSTS = new Set(['files.openai.com', 'cdn.openai.com', 'chatgpt.com', 'oaiusercontent.blob.core.windows.net', 'oaidalleapiprodscus.blob.core.windows.net', 'oaisdmntprcentralus.blob.core.windows.net']);
@@ -390,7 +395,7 @@ function exerciseConstraints(question, goal, context) {
     constraint_note: 'Extraction explicite de nombres et unités, pas une interprétation exhaustive du langage. Les contraintes contradictoires ou non prises en charge ne sont pas remplacées par des valeurs par défaut.'
   };
 }
-export function coachDecision(question, critique = null, goal = 'improve the next iteration', designContext = null) {
+function exerciseCoachDecision(question, critique = null, goal = 'improve the next iteration', designContext = null) {
   const designWorkflow = buildDesignWorkflow(designContext);
   const constraints = exerciseConstraints(String(question), String(goal), designWorkflow.brief);
   question = String(question).trim(); goal = String(goal).trim();
@@ -456,6 +461,21 @@ export async function executeTool(name,args={}){
     const left=await imageMetrics(args.left),right=await imageMetrics(args.right);
     return{view:'similarity',data:compareImageMetrics(left,right)};
   }
-  if(name==='coach_brand_decision')return{view:'coach',data:coachDecision(args.question||'',args.critique,args.goal||'improve the next iteration',args.design_context)};
+  if(name==='coach_brand_decision')return{view:'coach',data:coachDecision(args.question||'',args.critique,args.goal||'improve the next iteration',args.design_context,args.execution)};
   throw new Error(`Unknown tool: ${name}`);
+}
+
+export function coachDecision(question, critique=null, goal='improve the next iteration', designContext=null, execution=null){
+ const resolution=resolveRequest({question,design_context:designContext??{},execution:execution??{}},{coaching:true});
+ const workflow=buildDesignWorkflow(designContext,null,resolution.workflow_depth);
+ if(resolution.status==='resolved'&&['exercise','plan'].includes(resolution.mode)){
+  const effectiveQuestion=execution?.variant_count!==undefined?`${question}\nExactement ${execution.variant_count} variantes.`:question;
+  const result=exerciseCoachDecision(effectiveQuestion,critique,goal,designContext);result.question=question;
+  Object.assign(result,{mode:resolution.mode,intent_resolution:resolution,design_workflow:workflow});
+  if(resolution.mode==='plan')Object.assign(result.exercise,{steps:[],schedule:[]});
+  return result;
+ }
+ const advice=directAdvice(String(question));
+ if(resolution.status!=='resolved')Object.assign(advice,{answer:null,requires_host_reasoning:false});
+ return {question,goal,mode:'advice',intent_resolution:resolution,design_workflow:workflow,...advice,diagnosis:resolution.clarifications.join(' ')||'Répondre à la décision précise, sans relancer une conception complète.',why:'Le niveau d’intervention suit la demande actuelle.',exercise:{variant_count:null,duration_minutes:null,sizes_px:[],duration:'Non demandé',steps:[],schedule:[],constraint_status:resolution.status!=='resolved'?'ambiguous':'not_requested'},acceptance_criteria:[],coach_rule:'Conserver les décisions approuvées; ne pas présenter un conseil comme un essai réalisé.'};
 }

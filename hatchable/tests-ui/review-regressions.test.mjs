@@ -63,7 +63,7 @@ test('the displayed coaching schedule preserves the exact 60-minute allocation',
   } finally { await page.close(); }
 });
 test('actual direction prompt arrives in host handoff without dropping exact copy or formats', async () => {
-  const data = await generateDirections({ name: '27PM', sector: 'Studio web', promise: 'Rendre le complexe clair.', design_context: {
+  const data = await generateDirections({ execution:{variant_count:2}, name: '27PM', sector: 'Studio web', promise: 'Rendre le complexe clair.', design_context: {
     message: 'Conserver « 27PM » et « 27:00 » exactement.', medium: 'Page web responsive', final_size: 'Bureau 1440 × 900 px; mobile 390 × 844 px.'
   } });
   const { page, errors } = await fixture('directions', data);

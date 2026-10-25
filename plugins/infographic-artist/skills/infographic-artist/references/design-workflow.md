@@ -1,3 +1,5 @@
+> Current 1.3.0 scope: this complete workflow is optional and appears only when requested. It is not a mandatory prelude to advice, an edit, an illustration or an existing-identity adaptation. Retain approved decisions and adapt the depth.
+
 # Parcours de conception — huit étapes
 
 ## Repères de lecture

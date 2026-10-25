@@ -5,7 +5,8 @@
   "scripts": {
     "test": "node --test hatchable/tests/*.test.mjs",
     "bundle:mcp": "node scripts/bundle_public_mcp.mjs",
-    "test:ui": "node --test hatchable/tests-ui/*.test.mjs"
+    "test:ui": "node --test hatchable/tests-ui/*.test.mjs",
+    "test:intent-parity": "node scripts/check_intent_parity.mjs"
   },
   "devDependencies": {
     "esbuild": "0.27.3",

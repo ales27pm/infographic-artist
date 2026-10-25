@@ -3,8 +3,8 @@
   "schema_version": 1,
   "app_info": {
     "display_name": "Infographic Artist",
-    "subtitle": "Brand research & critique",
-    "description": "Infographic Artist helps designers research brand systems, compare precedents, critique supplied images, explore a mechanism graph, develop three original creative directions and prepare precise image-generation briefs. Image creation uses the host conversation’s native tools when available; this public MCP service does not run paid image-generation jobs.",
+    "subtitle": "Infographie et conseil visuel",
+    "description": "Infographic Artist supports visual communication broadly: focused advice, posters, illustrations, infographics, interfaces and brand identities. It follows the current request, preserves approved decisions and prepares native-image briefs without imposing three directions or a full design workflow. Complete planning and identity exploration are opt-in. The host interprets intent; the server validates bounded controls. Image creation uses only the available native host tool; the public service does not run paid image-generation jobs.",
     "category": "DESIGN"
   },
   "tools": {

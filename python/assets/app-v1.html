@@ -36,7 +36,7 @@
 <body>
 <div class="app">
 <header class="top"><div class="brand"><span class="mark" aria-hidden="true"></span><span>Infographic Artist</span><span class="badge" id="viewBadge">workspace</span></div><div class="actions"><button class="btn" id="newSearch">Atlas</button><button class="btn" id="openPrinciples">Principes</button><button class="btn" id="fullscreen">Agrandir</button></div></header>
-<main class="wrap" id="root"><section class="empty"><div><div class="mark"></div><h2>Le mécanisme, pas le pastiche.</h2><p class="lead">Demande à ChatGPT d’ouvrir l’atlas, de comparer des systèmes, d’analyser une proposition ou de générer trois directions originales.</p></div></section></main>
+<main class="wrap" id="root"><section class="empty"><div><div class="mark"></div><h2>Le mécanisme, pas le pastiche.</h2><p class="lead">Demande à ChatGPT d’ouvrir l’atlas, de comparer des systèmes, d’analyser une proposition ou de préparer le visuel demandé.</p></div></section></main>
 </div>
 <script>
 (() => {
@@ -288,9 +288,14 @@
     root.innerHTML=titleBlock('Bibliothèque de systèmes',d.query?`Méthodes · ${d.query}`:'Studios, manuels et écoles',`${d.total_matches||arr(d.items).length} correspondances`)+`<section class="grid">${arr(d.items).map((x,i)=>`<article class="card" style="--card-accent:${palette[i%palette.length]}"><div class="eyebrow">${esc(x.kind)} · ${esc(x.region)}</div><h3>${esc(x.name)}</h3><p class="meta">${esc(x.era)}</p><div class="tags">${arr(x.focus).map(pill).join('')}</div><p><strong>Principes</strong><br>${arr(x.principles).map(esc).join(' · ')}</p><p class="meta">${arr(x.signature_projects).map(esc).join(' · ')}</p></article>`).join('')}</section>`;
   }
   function renderDirections(d){
-    const b=d.brief||{};
-    const h=d.image_generation_handoff||{};
-    root.innerHTML=titleBlock('Brief → système',b.name||'Directions originales',`${b.sector||''} · ${b.promise||''}`)+`<div class="notice"><strong>Décision.</strong> ${esc(d.decision_rule)}</div>${h.instructions?`<div class="notice"><strong>Création des images.</strong> ${esc(h.instructions)} ${h.storage_note?esc(h.storage_note):''}</div>`:''}<section class="route-grid">${arr(d.routes).map(r=>`<article class="route"><div class="eyebrow">Route ${esc(r.id)}</div><h3>${esc(r.name)}</h3><p><strong>${esc(r.thesis)}</strong></p><p>${esc(r.architecture)}</p><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><button class="btn copy-native-brief" data-route="${esc(r.id)}" aria-label="Copier le brief complet pour la génération native">Copier le brief pour ChatGPT</button><p class="meta" role="status" aria-live="polite" data-copy-status></p><h4>Géométrie</h4><p>${esc(r.geometry)}</p><h4>Typographie</h4><p>${esc(r.typography)}</p><h4>Actifs</h4><div class="tags">${arr(r.assets).map(pill).join('')}</div><h4>Prompt concept board</h4><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><h4>Évaluation</h4>${list(r.board_evaluation_focus)}<h4>Tests</h4>${list(r.stress_tests)}<div class="notice"><strong>Anti-copie.</strong> ${esc(r.anti_copy_rule)}</div><p class="meta">Précédents de principe : ${arr(r.precedents).map(p=>esc(p.name)).join(' · ')||'aucun'}</p></article>`).join('')}</section>`;
+    const b=d.brief||{},h=d.image_generation_handoff||{},resolution=d.intent_resolution||{},routes=arr(d.routes);
+    const blocked=resolution.status==='clarification_required';
+    root.innerHTML=titleBlock(blocked?'Précision nécessaire':'Demande → visuel',b.name||'Visuel demandé',b.request||b.design_context?.task||b.promise||'')+
+      `<div class="notice" data-scope-status="${esc(resolution.status||'resolved')}">${esc(d.decision_rule||'')}</div>`+
+      (d.answer?`<p class="lead" data-focused-advice>${esc(d.answer)}</p>`:'')+
+      (arr(resolution.locked_elements).length?'<section class="workflow-brief" data-locked-elements><h3>Éléments conservés</h3>'+list(resolution.locked_elements)+'</section>':'')+
+      (routes.length&&h.instructions?`<p class="meta">${esc(h.instructions)}</p>`:'')+
+      `<section class="route-grid">${routes.map(r=>`<article class="route"><div class="eyebrow">${resolution.identity_exploration?'Identité · ':''}${routes.length>1?'Piste '+esc(r.id):'Intervention ciblée'}</div><h3>${esc(r.name)}</h3><p>${esc(r.architecture)}</p><div class="tags">${arr(r.assets).map(pill).join('')}</div><button class="btn native-render-route" data-route="${esc(r.id)}">@Créer une image</button><button class="btn copy-native-brief" data-route="${esc(r.id)}" aria-label="Copier le brief complet pour la génération native">Copier le brief pour ChatGPT</button><p class="meta" role="status" aria-live="polite" data-copy-status></p><details><summary>Brief complet et contraintes</summary><pre class="prompt">${esc(r.concept_board_prompt||'')}</pre><p class="meta">${esc(r.anti_copy_rule||'')}</p></details></article>`).join('')}</section>`;
   }
   let renderPollTimer = null;
   let renderPollJob = '';
@@ -340,7 +345,14 @@
   }
   function similarityBlock(d){return `<section class="section"><div class="section-title"><h2>Risque perceptuel · ${esc(d.risk_band)}</h2><strong>${esc(d.risk_score)}/100</strong></div><div class="gauge"><i style="left:${pct(d.risk_score)}%"></i></div><div class="grid" style="margin-top:12px">${Object.entries(d.components||{}).map(([k,v])=>`<article class="card" style="min-height:130px"><div class="eyebrow">${esc(k.replaceAll('_',' '))}</div><h3>${esc(v)}%</h3></article>`).join('')}</div><h3>Transformations structurelles</h3>${list(d.recommended_transformations)}<div class="notice"><strong>Juridique.</strong> ${esc(d.legal_note)}</div></section>`;}
   function renderSimilarity(d){root.innerHTML=titleBlock('Triage de similarité',`${d.risk_score}/100 · ${d.risk_band}`,'La proximité visuelle est décomposée pour montrer où agir, au lieu de fournir un verdict opaque.')+similarityBlock(d);}
-  function renderCoach(d){root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${arr(d.exercise?.schedule).length?'<div data-coach-schedule>'+list(d.exercise.schedule.map(step=>step.minutes+' min · '+step.task))+'</div>':list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
+  function renderCoach(d){
+    if(d.mode==='advice'){
+      root.innerHTML=titleBlock(d.intent_resolution?.status==='clarification_required'?'Précision nécessaire':'Conseil ciblé','La décision demandée',d.diagnosis||'')+
+        '<section class="coach-panel" data-focused-advice><p class="lead">'+esc(d.answer||d.host_guidance||'Clarifier la décision demandée.')+'</p>'+
+        (d.evidence_status?'<p class="meta">'+esc(d.evidence_status==='recommandation_conditionnelle'?'Conseil conditionnel — aucune inspection du visuel ni essai réalisé.':'Le raisonnement doit être complété à partir du contexte réel de la conversation.')+'</p>':'')+'<details><summary>Question d’origine</summary><p>'+esc(d.question||'')+'</p></details></section>';
+      return;
+    }
+    root.innerHTML=titleBlock('Mode coach','Une décision falsifiable',d.diagnosis)+`<section class="coach"><article class="coach-panel"><div class="eyebrow">Pourquoi</div><h3>${esc(d.goal)}</h3><p>${esc(d.why)}</p><div class="notice"><strong>Règle de coach.</strong> ${esc(d.coach_rule)}</div></article><article class="coach-panel"><div class="eyebrow">Exercice · ${esc(d.exercise?.duration)}</div><h3>${esc(d.question)}</h3>${arr(d.exercise?.schedule).length?'<div data-coach-schedule>'+list(d.exercise.schedule.map(step=>step.minutes+' min · '+step.task))+'</div>':list(d.exercise?.steps)}<h3>Critères d’acceptation</h3>${list(d.acceptance_criteria)}</article></section>`;}
   function render(payload){
     clearRenderPoll();
     current=payload; const view=payload?.view||'workspace'; const d=payload?.data||{}; badge.textContent=view;

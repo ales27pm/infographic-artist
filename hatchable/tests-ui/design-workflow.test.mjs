@@ -36,7 +36,7 @@ async function screenshot(page,name){
 }
 
 test('real coaching output displays the eight stages and three untested outcomes',async()=>{
-  const result=await tool('coach_brand_decision',{question:'Comparer les surfaces de trois bulles sans déformer les quantités.',design_context:{task:'Comparer 1, 4 et 9',audience:'Public du musée',message:'Les surfaces expriment les quantités',medium:'Affiche statique',final_size:'420 × 594 mm'}});
+  const result=await tool('coach_brand_decision',{question:'Comparer les surfaces de trois bulles sans déformer les quantités.',execution:{workflow_depth:'full'},design_context:{task:'Comparer 1, 4 et 9',audience:'Public du musée',message:'Les surfaces expriment les quantités',medium:'Affiche statique',final_size:'420 × 594 mm'}});
   for(const viewport of [{width:1440,height:1000},{width:390,height:844}]){
     const {page,errors}=await fixture(result,viewport);
     try{

@@ -88,7 +88,7 @@ export function untestedEvaluations() {
   return copy(DESIGN_WORKFLOW.evaluations);
 }
 
-export function buildDesignWorkflow(designContext = null, declaredBrief = null) {
+export function buildDesignWorkflow(designContext = null, declaredBrief = null, depth = 'full') {
   const brief = normalizeDesignContext(designContext);
   const briefSources = Object.fromEntries(Object.keys(brief).map(key => [key, 'design_context.' + key]));
   // Read original arguments only, never defaults synthesized for creative routes.
@@ -103,7 +103,7 @@ export function buildDesignWorkflow(designContext = null, declaredBrief = null) 
     schema_version: DESIGN_WORKFLOW.schema_version, title: DESIGN_WORKFLOW.title,
     status: 'non_testé', scope_note: DESIGN_WORKFLOW.scope_note,
     brief, brief_sources: briefSources, missing_brief: Object.keys(CONTEXT_FIELDS).filter(key => !Object.hasOwn(brief, key)),
-    stages: copy(DESIGN_WORKFLOW.stages), evaluations: untestedEvaluations(), evidence_contract: copy(DESIGN_WORKFLOW.evidence_contract),
+    included: depth === 'full', stages: depth === 'full' ? copy(DESIGN_WORKFLOW.stages) : [], evaluations: untestedEvaluations(), evidence_contract: copy(DESIGN_WORKFLOW.evidence_contract),
     principle_lookup: { tool: 'search_design_systems', kind: 'principle', query_hint: 'Utiliser un identifiant de principe ou un thème pour lire la fiche complète et ses sources.' },
     catalogue_counts: catalogueCounts()
   };

@@ -1,62 +1,68 @@
 ---
 name: infographic-artist
-description: Research and improve visual identities, art, infographics and UI applications with documented principles of proportion, geometry, perception, aesthetics, physics and information design. Use for sourced precedents, concrete critique, an eight-step design workflow, distinct creative directions and native concept-to-image creation with Infographic Artist.
+description: Help with graphic design broadly: focused advice, posters, illustrations, infographics, interfaces, identities and coherent cross-medium applications. Follow the current intent, preserve approved decisions, retrieve only useful principles and use native image generation when requested.
 ---
 
-# Infographic Artist
+# Infographic Artist — current-intent workflow, 1.3.0
 
-The product is this plugin in ChatGPT and Codex. A showcase website or an HTML atlas is a supporting artifact, not a replacement for working plugin tools.
+The product is this plugin in ChatGPT and Codex. A showcase website, atlas or research catalogue supports it; none replaces the user's actual task. The October native-image workflow is authoritative. Historical July rendering instructions are not a production fallback.
 
-## Eight-step design workflow
+## Start with the current request
 
-Follow [the design workflow](references/design-workflow.md) in this order, adapting the depth to the task and reusing the user's confirmed context:
+Interpret what the user wants now: an answer, critique, small edit, adaptation, new visual, exploration or complete design plan. Match both the action and its depth. A small question deserves a direct answer, not a tool call or eight-stage protocol by default. Creation is not automatically branding. Branding is one capability among posters, illustration, data communication, interfaces and other visual work.
 
-1. Définir la tâche, le public, le message, le support et la taille finale.
-2. Déterminer ce que le visuel doit représenter correctement.
-3. Appliquer les contraintes de reproduction et d’accessibilité pertinentes.
-4. Choisir les principes perceptifs qui clarifient la structure.
-5. Explorer plusieurs systèmes de proportion et de composition.
-6. Développer la direction artistique et les références symboliques.
-7. Effectuer les corrections optiques et les déclinaisons.
-8. Évaluer séparément reconnaissance, compréhension et préférence.
+Reuse confirmed context without making the user repeat it. Preserve approved logos, palette, typography, text, motifs and composition unless the current request explicitly reopens that choice. Carry the identity's meaningful relationships across its site, message and visual applications without forcing every artifact into the same layout. Do not treat an older discussion as an instruction overriding the current request. Do not claim to inspect or edit a reference that is not actually accessible.
 
-Retrieve relevant principles on demand with `search_design_systems` and `kind='principle'`, searching by ID, name or domain. The bundled [design-principles.json](references/design-principles.json) contains 150 concepts, 69 references and 14 domains; it is an extended map, not an exhaustive or systematic review. Read each selected record's `basis`, `application`, `limits` and `source_ids`, then the cited source's scope. Applications are proposed translations into design, not experimentally validated instructions for every image. Load only relevant records; never apply all 150 rules to every brief.
+The host model performs the semantic interpretation. The MCP server is a bounded brief/constraint processor, not an autonomous language model. It has no persistent approval memory: the host must carry current approved decisions and real references into each relevant call. Do not claim this protocol guarantees arbitrary-language understanding or exact preservation by an image generator.
 
-When supported by the discovered tool schema, pass optional `design_context` (`task`, `message`, `medium`, `final_size`, `audience`, `cultural_context`) to `coach_brand_decision` or `generate_brand_directions`. Their `data.design_workflow` is an eight-step plan initialized as `non_testé`, not a performed audit. The Principes/library view exposes the same research; a visible step, returned plan or heuristic score is not evidence of completion. If the installed tools lack these fields, state that limitation and use the reference to prepare the plan without inventing a successful API call.
+## Choose only relevant tools
 
-For actual checks, distinguish `calcul`, `inspection` and `essai`. Record only supported states: `non_testé`, `satisfait`, `écart`, `indéterminé`, `non_applicable`; attach the actual target, criterion and evidence. Keep recognition, comprehension and preference separate. Never produce an aggregate beauty score or imply that the server performed user studies, computed compliance or validated a proposed check.
+For a straightforward advice question, answer directly using the supplied context and actual images. For a historical precedent, use `open_brand_atlas` and then `get_brand_case` with a returned ID. Distinguish deep studies from index leads. Use `search_design_systems`, `explore_brand_graph` or `compare_brand_systems` only when useful to the question; an atlas search is not mandatory for every creation.
 
-## Tools and evidence
+For documented principles, use `search_design_systems` with `kind='principle'`. The catalogue contains 150 concepts, 69 references and 14 domains; it is an extended map, not an exhaustive review. Read the relevant definition, application, limits, basis and source scope. Geometry is not a universal beauty guarantee; symbolic traditions are not physical evidence. Never impose all principles, sacred geometry, a golden-ratio grid or monochrome on every brief.
 
-Use the bundled `infographic_artist` MCP server. Its canonical HTTPS endpoint ends in `/api/chatgpt-mcp`, not `/mcp`. Discover available tools; never assume a render tool exists just because an old document mentions it.
+For real supplied image files, use `critique_brand_image` or `compare_brand_images` when the requested technical analysis warrants it. These legacy names do not restrict the product to brand identity. Do not invent file URLs or publish private images to make a test pass. A local path in Codex is not a remote file reference. Use native visual inspection when appropriate and label the basis honestly. Heuristic scores do not establish beauty, memorability, comprehension, accessibility certification or legal clearance.
 
-1. Identify the actual supplied image, brand name, intended medium and design question. Read or inspect the supplied files before claiming to have reviewed them. Do not invent initials, company identities or user-test results.
-2. Use `open_brand_atlas` for precedents; then `get_brand_case` with a returned ID for sources and detail. Separate the 64 deeper studies from the broader index. Index entries are research leads, not verified historical claims.
-3. Use `search_design_systems`, `explore_brand_graph` or `compare_brand_systems` only when they answer the question. Study mechanisms, not copied silhouettes.
-4. For supplied images, use `critique_brand_image` or `compare_brand_images` with real file inputs. ChatGPT rewrites selected file parameters. A raw local Codex path is NOT an HTTPS file input: use an actual host-provided file reference or native visual inspection and label it as such. Do not upload private files to a public host just to make a test pass.
-5. Distinguish computed image descriptors, subjective critique and observed user tests. The 100-point scores are heuristic diagnostics, not measured memorability, trademark clearance or WCAG contrast certification.
-6. Use `generate_brand_directions` to prepare three structurally different routes. Preserve the user's exact words and brand constraints. Select a route based on silhouette, counterforms, hierarchy, small-size legibility and real production needs.
+## Prepare the requested visual, not an automatic rebrand
 
-## Creating actual images
+`generate_brand_directions` retains its legacy API name. It now accepts a current `request`, optional `design_context`, and optional `execution` controls. Brand name, sector and promise are optional; do not invent them for an illustration or infographic.
 
-`generate_brand_directions` returns art-directed prompts, not rendered images. Read `image_generation_handoff`.
+Pass the actual request, including exclusions, and preserve exact copy, dimensions, support, audience and cultural context in the documented fields. Do not put operative instructions only in `design_context.message`: that field is treated as content, not parsed as commands.
 
-When its mode is `host_native`, the only designated ChatGPT image-generation action is **`@Créer une image`**. The widget button must display that exact label and send a follow-up starting with `@Créer une image` to request the real native tool. This is a conversation handoff, not a direct API call or a guarantee of tool execution. In Codex, use a native image-generation capability only when actually available; do not substitute a separate provider. If the user requests an image and the host provides the native tool, invoke that real tool. Carry the chosen route, original reference and exact text into that tool. Never paste tool JSON as the finished artwork; never say an image is generating unless a real generation call was made.
+Set `execution.mode` according to the current intent:
+- `create`: produce the scoped visual.
+- `adapt`: apply or change an existing approved system without reopening it.
+- `identity_exploration`: only when a new identity is explicitly requested.
+- `advice`: no visual production; generally answer directly without this tool.
+- `exercise`: a comparative protocol only when requested, via `coach_brand_decision`.
+- `plan`: a full design plan only when requested, usually via `coach_brand_decision`.
 
-When the host has no image tool, return the selected production brief and say that no image was rendered in that execution. Do not invent a render job, a completed image, a download URL, a provider key or a paid API request. The public server does not run the experimental renderer. Do not enable the old `render_brand_direction`, `run_brand_workflow`, or paid Images API as a fallback for this native workflow. A mock provider proves plumbing only, not artwork quality.
+`execution.variant_count` is the explicitly requested count, one by default. General composition supports up to six routes; identity exploration up to three structural routes. Do not force three routes. An unsupported or conflicting count needs a narrow clarification, not silent truncation.
 
-For edits, a real image target is required. Do not treat an opaque ID or a claim of an approved image as an available file. Avoid requesting new uploads when the actual file is already supplied and readable.
+Carry confirmed decisions verbatim in `execution.locked_elements`; use `execution.allowed_changes` to restrict a local intervention. `execution.workflow_depth` defaults to `none`; use `full` only when the user requests the full proposed plan. Never synthesize a new brand name, audience, palette, logo or template to fill unknown fields.
 
-## Improve and verify
+Read `intent_resolution`. On `clarification_required`, ask the reported narrow question and do not create an image. Do not ignore an empty route list or `image_generation_handoff.ready=false`. Passing constraints through as text is not enough: reject conflicting actions and keep non-authorized identity exploration out of the result.
 
-Give specific changes to the drawing, spacing, hierarchy and applications. Keep wordmark geometry identical across colour and reversed variants unless an optical correction is deliberately documented. Check small sizes, monochrome, wide/mobile lockups and actual production constraints. No automatic numerical claim of perfection.
+`coach_brand_decision` defaults to focused advice. Its `answer` can be a conditional suggestion for a supported case. If `requires_host_reasoning=true`, reason from the real context; do not present the tool as having supplied an answer it did not compute. Exercises and complete plans are opt-in. Do not present a proposal as a performed test.
 
-Use `coach_brand_decision` to convert the weakest decision into a concrete next test. A proposed test is not a performed test. An accessible logo does not certify the interface around it.
+## Actual image creation
 
-The optional `references/atlas-70.md` is a complementary collection of 70 annotated project references. Read relevant sections when developing the seven previously studied brand families; it is not a pack of reusable third-party logos or fonts.
+The only designated ChatGPT image-generation action is **`@Créer une image`**, using the real native host capability when available and requested. A direction is a brief, not an image. The button sends a conversation follow-up; it is not a direct Images API call and does not guarantee host execution. Preserve the chosen route, current request, approved constraints, exact text and actual references. Never output tool JSON as artwork or announce a generated image without an actual image result.
 
-## Scope and recovery
+In Codex, use a genuinely available native equivalent only. When unavailable, return the production brief and state that no image was rendered. Never enable `render_brand_direction`, `run_brand_workflow`, a separate provider or a paid API as a fallback. Do not invent jobs, URLs, provider keys or results. A mock proves plumbing only.
 
-Keep the plugin, its MCP runtime, UI resource, versioned source and installable package aligned. Do not deploy a new site, publish on a user's behalf, change domains, start paid services, or rewrite another project unless that is explicitly requested. Never use GitHub Actions in this project.
+For edits, verify the real target image is accessible. Ask for the missing reference only when necessary; do not ask again when it is already supplied. Do not redraw a claimed approved logo from an opaque ID or memory.
 
-On failure, identify the failing layer, inspect authoritative state and any partial side effects, fix the mechanism, and rerun the original failing test. Do not retry a successful deploy or install because its first response was interrupted.
+## Optional complete workflow and evidence
+
+When requested, use [the design workflow](references/design-workflow.md). Its eight stages are a planning aid, not mandatory output for every request. Adapt depth and retain approved decisions; do not restart from a new identity.
+
+Use only supported evidence states: `non_testé`, `satisfait`, `écart`, `indéterminé`, `non_applicable`. Distinguish `calcul`, `inspection` and `essai`, with actual target, criterion and evidence. Keep recognition, comprehension and preference separate. A displayed stage, formula, bibliography, heuristic or proposed acceptance criterion is not proof of completion.
+
+## Connection, scope and recovery
+
+Use the MCP URL in the bundled `mcp.json`: the local Tailscale deployment ends in `/infographic-artist/mcp`. The older `/api/chatgpt-mcp` hostname is historical. A prepared package or live endpoint does not prove that an existing OpenAI registration has migrated.
+
+Keep source, both runtime contracts, UI resource, deployment and package aligned. Do not change DNS, subscriptions or unrelated projects, activate paid services, or publish on the user's behalf without authorization. Never use GitHub Actions in this project.
+
+On failure, inspect authoritative state and partial side effects, fix the mechanism, then rerun the original failing case. Do not weaken tests or repeat an already-successful deployment. Preserve a rollback and distinguish local tests, public MCP tests, real host file transport and actual native-image execution.

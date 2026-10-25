@@ -29,14 +29,14 @@ def test_principle_search_uses_existing_library_view_without_changing_atlas():
 def test_directions_and_dispatch_preserve_native_handoff_and_declared_facts(monkeypatch):
     monkeypatch.delenv("INFOGRAPHIC_ENABLE_SERVER_RENDERING", raising=False)
     monkeypatch.delenv("IMAGE_GENERATION_PROVIDER", raising=False)
-    brief = {"name": "Atelier", "sector": "architecture", "promise": "Précision humaine"}
+    brief = {"execution": {"mode":"identity_exploration", "variant_count":3}, "name": "Atelier", "sector": "architecture", "promise": "Précision humaine"}
     plain = core.generate_directions(brief)
     supplied = asyncio.run(fallback_server._execute_tool("generate_brand_directions", {**brief, "design_context": {"audience": "Architectes", "final_size": "1080 × 1350 px"}}))["data"]
     assert supplied["image_generation_handoff"] == plain["image_generation_handoff"]
     assert plain["image_generation_handoff"]["native_tool"] == "@Créer une image"
     assert [route["id"] for route in supplied["routes"]] == ["symbol", "type", "system"]
     assert "audience" in plain["design_workflow"]["missing_brief"]
-    assert plain["brief"]["audience"] == "public général"
+    assert plain["brief"]["audience"] == ""
     assert supplied["design_workflow"]["brief"]["audience"] == "Architectes"
     assert supplied["brief"]["audience"] == "Architectes"
     assert all(route["concept_board_prompt"] for route in supplied["routes"])
@@ -44,7 +44,7 @@ def test_directions_and_dispatch_preserve_native_handoff_and_declared_facts(monk
 
 def test_coaching_does_not_turn_critique_or_input_claims_into_human_evidence():
     critique = {"axes": {"memorability": {"label": "Old memorability label", "score": 19}}, "evaluations": {"recognition": {"status": "satisfait", "evidence": ["unverified claim"]}}}
-    result = asyncio.run(fallback_server._execute_tool("coach_brand_decision", {"question": "Que vérifier ?", "critique": critique, "design_context": {"task": "Comparer les valeurs"}}))["data"]
+    result = asyncio.run(fallback_server._execute_tool("coach_brand_decision", {"question": "Que vérifier ?", "execution":{"workflow_depth":"full"}, "critique": critique, "design_context": {"task": "Comparer les valeurs"}}))["data"]
     assert result["design_workflow"]["brief"] == {"task": "Comparer les valeurs"}
     assert len(result["design_workflow"]["stages"]) == 8
     for item in result["design_workflow"]["evaluations"].values():

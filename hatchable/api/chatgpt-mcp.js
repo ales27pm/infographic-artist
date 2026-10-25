@@ -42,7 +42,7 @@ export default async function(req,res){
   if(method==='resources/list')return result(res,id,{resources:RESOURCES});
   if(method==='resources/templates/list')return result(res,id,{resourceTemplates:RESOURCE_TEMPLATES});
   if(method==='resources/read'){
-    if(params.uri!==TEMPLATE_URI && !['ui://infographic-artist/app-v1.2.0-r3.html','ui://infographic-artist/app-v1.2.0-r2.html','ui://infographic-artist/app-v1.2.0.html','ui://infographic-artist/app-v1.html','ui://infographic-artist/app-v1.1.1.html','ui://infographic-artist/app-v1.1.2.html'].includes(params.uri))return rpcError(res,id,-32002,'Resource not found');
+    if(params.uri!==TEMPLATE_URI && !['ui://infographic-artist/app-v1.2.0-r4.html','ui://infographic-artist/app-v1.2.0-r3.html','ui://infographic-artist/app-v1.2.0-r2.html','ui://infographic-artist/app-v1.2.0.html','ui://infographic-artist/app-v1.html','ui://infographic-artist/app-v1.1.1.html','ui://infographic-artist/app-v1.1.2.html'].includes(params.uri))return rpcError(res,id,-32002,'Resource not found');
     return result(res,id,{contents:[{uri:params.uri,mimeType:MIME_TYPE,text:await loadWidgetHtml(),_meta:RESOURCES[0]._meta}]});
   }
   if(method!=='tools/call')return rpcError(res,id,-32601,'Method not found');

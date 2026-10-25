@@ -3,6 +3,7 @@
 No portal request, attestations or publication-status mutations are performed.
 """
 import json
+from urllib.parse import urlsplit
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,7 +14,8 @@ def generated_autofill():
     plugin = json.loads((plugin_root / 'plugin.json').read_text())
     mcp = json.loads((plugin_root / 'mcp.json').read_text())
     endpoint = mcp['mcpServers']['infographic_artist']['url']
-    origin = endpoint.removesuffix('/api/chatgpt-mcp')
+    parsed = urlsplit(endpoint)
+    origin = f'{parsed.scheme}://{parsed.netloc}'
     csp = {'connect_domains': [], 'resource_domains': [origin]}
     tools = {}
     for name, item in public['tools'].items():

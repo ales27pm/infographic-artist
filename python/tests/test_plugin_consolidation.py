@@ -45,7 +45,7 @@ def test_distributable_plugin_points_to_real_mcp():
     manifest = json.loads((root / "plugin.json").read_text())
     assert manifest["name"] == "infographic-artist"
     mcp = json.loads((root / "mcp.json").read_text())
-    assert mcp["mcpServers"]["infographic_artist"]["url"] == "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp"
+    assert mcp["mcpServers"]["infographic_artist"]["url"] == "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist/mcp"
     assert (root / "skills/infographic-artist/SKILL.md").is_file()
 
 

@@ -1,3 +1,15 @@
+# Infographic Artist — 1.3.0 / current-intent alignment
+
+Current target: local PC through Tailscale, `/infographic-artist/mcp`. The existing OpenAI registry connection is a separate migration boundary; no registry update or directory approval is asserted by this source.
+
+Production briefs follow the current task. One scoped deliverable is the default; full eight-stage planning and identity exploration are opt-in. Approved decisions travel in `execution.locked_elements`, authorized changes in `execution.allowed_changes`. Conflicting controls stop before image handoff. The host interprets meaning; the server validates bounded controls rather than claiming general language understanding.
+
+Image generation remains exclusively the available host-native `@Créer une image`. No paid image provider, new DNS record or subscription is enabled by this change. See the current plugin skill and `python/tests/fixtures/intent_cases.json` for the request contract and shared FR/EN acceptance cases.
+
+Run Python, Node and browser tests locally. No GitHub Actions. Build reproducible artifacts with `python3 scripts/build_plugin.py` and `node scripts/bundle_public_mcp.mjs`; use their `--check` flags before release. All test/evidence outputs stay outside the source tree. The instructions below describe prior releases and are subordinate to this section when they conflict.
+
+---
+
 # Infographic Artist — 1.2.0
 
 ## Current plugin source: ChatGPT and Codex (1.2.0)

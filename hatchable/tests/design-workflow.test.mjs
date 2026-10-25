@@ -98,12 +98,12 @@ test('existing public library view serves principles and preserves historical se
 });
 
 test('directions retain host handoff and do not treat generated audience defaults as declarations', async () => {
-  const brief = { name: 'Atelier', sector: 'architecture', promise: 'Précision humaine' };
+  const brief = { execution:{mode:'identity_exploration',variant_count:3}, name: 'Atelier', sector: 'architecture', promise: 'Précision humaine' };
   const plain = await generateDirections(brief);
   const supplied = (await executeTool('generate_brand_directions', { ...brief, design_context: { audience: 'Architectes', final_size: '1080 × 1350 px' } })).data;
   assert.deepEqual(supplied.image_generation_handoff, plain.image_generation_handoff);
   assert.equal(plain.image_generation_handoff.native_tool, '@Créer une image');
-  assert.equal(plain.brief.audience, 'public général');
+  assert.equal(plain.brief.audience, '');
   assert.ok(plain.design_workflow.missing_brief.includes('audience'));
   assert.equal(supplied.brief.audience, 'Architectes');
   assert.deepEqual(supplied.routes.map(route => route.id), ['symbol', 'type', 'system']);
@@ -112,7 +112,7 @@ test('directions retain host handoff and do not treat generated audience default
 
 test('coaching does not reinterpret a critique as human-study evidence', async () => {
   const critique = { axes: { memorability: { score: 19, label: 'Old memorability label' } }, evaluations: { recognition: { status: 'satisfait', evidence: ['unverified claim'] } } };
-  const result = (await executeTool('coach_brand_decision', { question: 'Que vérifier ?', critique, design_context: { task: 'Comparer les valeurs' } })).data;
+  const result = (await executeTool('coach_brand_decision', { question: 'Que vérifier ?', execution:{workflow_depth:'full'}, critique, design_context: { task: 'Comparer les valeurs' } })).data;
   assert.deepEqual(result.design_workflow.brief, { task: 'Comparer les valeurs' });
   assert.equal(result.design_workflow.stages.length, 8);
   assert.deepEqual(coachDecision('Question').design_workflow.brief, {});

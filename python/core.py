@@ -461,74 +461,34 @@ def _board_evaluation_focus(archetype: dict[str, Any]) -> list[str]:
 
 
 def generate_directions(brief: dict[str, Any]) -> dict[str, Any]:
-    name = str(brief.get("name") or "").strip()
-    if len(name) > 120:
-        raise ValueError("The exact brand name must not exceed 120 characters; it is never silently truncated.")
-    sector = compact_text(brief.get("sector"), 160)
-    promise = compact_text(brief.get("promise"), 1000)
-    if not name or not sector or len(promise) < 3:
-        raise ValueError("name, sector, and a meaningful promise are required.")
-    design_workflow = build_design_workflow(brief.get("design_context"), declared_brief=brief)
-    audience = compact_text(design_workflow["brief"].get("audience") or "public général", 400)
-    traits = [compact_text(value, 100) for value in brief.get("traits", []) if compact_text(value, 100)][:8]
-    avoid = [str(value).strip() for value in brief.get("must_avoid", []) if str(value).strip()][:8]
-    risk = brief.get("risk_tolerance") or "équilibrée"
-    seed_material = json.dumps({"name": name, "sector": sector, "promise": promise, "traits": traits, "avoid": avoid, "risk": risk}, sort_keys=True, ensure_ascii=False)
-    rng = random.Random(int(hashlib.sha256(seed_material.encode()).hexdigest()[:16], 16))
-    precedent_query = " ".join([sector, promise, *traits])
-    precedents = search_atlas(precedent_query, limit=12)["items"]
-    rng.shuffle(precedents)
-    routes = []
-    for index, archetype in enumerate(_ROUTE_ARCHETYPES):
-        precedent = precedents[index] if index < len(precedents) else None
-        secondary = precedents[index + 3] if index + 3 < len(precedents) else None
-        principles = []
-        for source in (precedent, secondary):
-            if source:
-                principles.extend(source.get("principles", [])[:2])
-        route = {
-            "id": archetype["key"],
-            "name": archetype["name"],
-            "thesis": f"Pour {name}, rendre « {promise} » visible par {archetype['architecture'][0].lower() + archetype['architecture'][1:]}",
-            "architecture": archetype["architecture"],
-            "geometry": archetype["geometry"],
-            "typography": archetype["typography"],
-            "palette_logic": (
-                "Commencer en noir et blanc; ajouter une couleur fonctionnelle liée à la promesse, puis vérifier le contraste et la reproduction."
-            ),
-            "assets": archetype["assets"],
-            "stress_tests": archetype["tests"],
-            "traits_to_express": traits or ["clarté", "cohérence", "présence"],
-            "must_avoid": avoid,
-            "precedents": [
-                {"id": source["id"], "name": source["name"], "principle_only": source.get("principles", [source.get("lesson", "")])[0] if source else ""}
-                for source in (precedent, secondary)
-                if source
-            ],
-            "transferable_principles": list(dict.fromkeys(principles))[:4],
-            "anti_copy_rule": "Ne pas emprunter la silhouette, la construction des lettres, la combinaison chromatique, le dispositif d’espace négatif ou la composition du précédent. Redériver chaque forme depuis ce brief.",
-            "fit": {"audience": audience, "risk_tolerance": risk, "sector": sector},
-        }
-        route["concept_board_prompt"] = _concept_board_prompt(
-            name=name,
-            sector=sector,
-            promise=promise,
-            audience=audience,
-            traits=traits,
-            avoid=avoid,
-            archetype=archetype,
-            precedents=route["precedents"],
-            design_context={**design_workflow["brief"], **(brief.get("design_context") or {})},
-        )
-        route["board_evaluation_focus"] = _board_evaluation_focus(archetype)
-        routes.append(route)
-    return {
-        "brief": {"name": name, "sector": sector, "promise": promise, "audience": audience, "traits": traits, "must_avoid": avoid, "risk_tolerance": risk},
-        "routes": routes,
-        "design_workflow": design_workflow,
-        "image_generation_handoff": generation_handoff(_retention_hours()),
-        "decision_rule": "Prototyper les trois routes en monochrome avant d’en choisir une. Retenir celle dont la structure — et non la finition — rend la promesse la plus facile à percevoir et la plus difficile à confondre.",
+    from request_policy import resolve_request, request_routes, direct_advice
+    if not isinstance(brief, dict):
+        raise ValueError("A structured request is required.")
+    # Both direct callers and MCP use the same bounded public contract.
+    from contract import TOOL_DEFINITIONS
+    import jsonschema
+    try:
+        jsonschema.validate(brief, TOOL_DEFINITIONS["generate_brand_directions"]["input"])
+    except jsonschema.ValidationError as exc:
+        raise ValueError("Invalid production brief: " + exc.message) from exc
+    context = brief.get("design_context") or {}
+    if not any(str(brief.get(k) or "").strip() for k in ("request", "promise")) and not context.get("task") and not context.get("message"):
+        raise ValueError("Input validation: provide the current request, a task, or a purpose; a brand identity is not required.")
+    resolution = resolve_request(brief)
+    workflow = build_design_workflow(context, declared_brief=brief, depth=resolution["workflow_depth"])
+    routes = request_routes(brief, resolution, _ROUTE_ARCHETYPES)
+    result = {
+        "brief": {**brief, "name": brief.get("name", ""), "sector": brief.get("sector", ""), "promise": brief.get("promise", ""), "audience": context.get("audience") or brief.get("audience", "")},
+        "routes": routes, "intent_resolution": resolution, "design_workflow": workflow,
+        "image_generation_handoff": {**generation_handoff(_retention_hours()), "ready": bool(routes)},
+        "decision_rule": " ".join(resolution["clarifications"]) if resolution["clarifications"] else (
+            "Réaliser uniquement la demande actuelle en conservant les décisions approuvées." if len(routes)==1 else
+            f"Comparer uniquement les {len(routes)} pistes demandées, à contenu et éléments verrouillés constants." if routes else
+            "Répondre à la demande sans démarrer de création d’image."),
     }
+    if resolution["mode"] == "advice":
+        result.update(direct_advice(brief.get("request") or context.get("task", "")))
+    return result
 
 
 _BACKGROUND_TASKS: set[asyncio.Task[Any]] = set()
@@ -1228,7 +1188,8 @@ async def run_brand_workflow(args: dict[str, Any]) -> dict[str, Any]:
     provider = _provider()
     options = _render_options(args)
     _enforce_render_abuse_controls("workflow", provider)
-    directions = generate_directions(args)
+    # Experimental opt-in three-board renderer; never exposed by the public native profile.
+    directions = generate_directions({**_brief_payload(args), "execution": {"mode": "identity_exploration", "variant_count": 3}})
     job = _new_job(
         "workflow",
         provider=provider,
@@ -1666,7 +1627,7 @@ def _exercise_constraints(question: str, goal: str, context: dict[str, Any]) -> 
     }
 
 
-def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration", design_context: dict[str, Any] | None = None) -> dict[str, Any]:
+def _exercise_coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration", design_context: dict[str, Any] | None = None) -> dict[str, Any]:
     design_workflow = build_design_workflow(design_context)
     # Extract from full input before any display shortening.
     constraints = _exercise_constraints(str(question), str(goal), design_workflow["brief"])
@@ -1717,4 +1678,32 @@ def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: 
         "exercise": {**constraints, "duration": f"{duration} minutes" if duration is not None else "À définir", "steps": steps, "schedule": schedule},
         "acceptance_criteria": acceptance,
         "coach_rule": "Défendre la décision avec des observations documentées. Une bibliographie, un indice ou un protocole proposé ne remplace pas un essai réalisé.",
+    }
+
+
+def coach_decision(question: str, critique: dict[str, Any] | None = None, goal: str = "improve the next iteration", design_context: dict[str, Any] | None = None, execution: dict[str, Any] | None = None) -> dict[str, Any]:
+    from request_policy import resolve_request, direct_advice
+    controls = {"question": question, "design_context": design_context or {}, "execution": execution or {}}
+    resolution = resolve_request(controls, coaching=True)
+    workflow = build_design_workflow(design_context, depth=resolution["workflow_depth"])
+    if resolution["status"] == "resolved" and resolution["mode"] in {"exercise", "plan"}:
+        effective_question = question
+        if execution and "variant_count" in execution:
+            effective_question = f"{question}\nExactement {execution['variant_count']} variantes."
+        result = _exercise_coach_decision(effective_question, critique, goal, design_context)
+        result["question"] = question
+        result.update(mode=resolution["mode"], intent_resolution=resolution, design_workflow=workflow)
+        if resolution["mode"] == "plan":
+            result["exercise"].update(steps=[], schedule=[])
+        return result
+    advice = direct_advice(str(question))
+    if resolution["status"] != "resolved":
+        advice.update(answer=None, requires_host_reasoning=False)
+    return {
+        "question": question, "goal": goal, "mode": "advice", "intent_resolution": resolution,
+        "design_workflow": workflow, **advice,
+        "diagnosis": " ".join(resolution["clarifications"]) or "Répondre à la décision précise, sans relancer une conception complète.",
+        "why": "Le niveau d’intervention suit la demande actuelle.",
+        "exercise": {"variant_count": None, "duration_minutes": None, "sizes_px": [], "duration": "Non demandé", "steps": [], "schedule": [], "constraint_status": "ambiguous" if resolution["status"] != "resolved" else "not_requested"},
+        "acceptance_criteria": [], "coach_rule": "Conserver les décisions approuvées; ne pas présenter un conseil comme un essai réalisé.",
     }

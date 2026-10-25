@@ -1,3 +1,13 @@
+# Current native-only runtime — Infographic Artist 1.3.0
+
+Use the root README and the current plugin skill for the production contract. Brand names and three routes are no longer mandatory. A complete eight-stage plan is opt-in.
+
+For native-only execution use `IMAGE_GENERATION_ENABLED=0` and `IMAGE_GENERATION_PROVIDER=host_native`, with no provider key. The published local service uses the official MCP SDK behind the separately validated Tailscale gateway, not the legacy demo pages. Public exposure requires its request, host and origin controls.
+
+The smoke script documented below explicitly enables the experimental mock renderer and expects twelve tools. It is not the acceptance gate for the nine-tool public profile. Use the actual public native-profile tests instead.
+
+## Historical experimental README (July; not production authority)
+
 # Infographic Artist — ChatGPT App 1.0.1
 
 Infographic Artist is an MCP-backed ChatGPT App for brand-system research and design decisions. It exposes an interactive atlas, a knowledge graph, a graphic-systems library, original direction generation with plugin-ready concept-board prompts, plugin-side image rendering, visual critique, perceptual-similarity triage, and a coach that converts feedback into measurable experiments.

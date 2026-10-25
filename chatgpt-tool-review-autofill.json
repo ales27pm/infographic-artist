@@ -5,21 +5,21 @@
     "plugins/infographic-artist/plugin.json",
     "plugins/infographic-artist/mcp.json"
   ],
-  "version": "1.2.0",
+  "version": "1.3.0",
   "app_info": {
     "display_name": "Infographic Artist",
-    "subtitle": "Brand research & critique",
-    "description": "Infographic Artist helps designers research brand systems, compare precedents, critique supplied images, explore a mechanism graph, develop three original creative directions and prepare precise image-generation briefs. Image creation uses the host conversation’s native tools when available; this public MCP service does not run paid image-generation jobs.",
+    "subtitle": "Infographie et conseil visuel",
+    "description": "Infographic Artist supports visual communication broadly: focused advice, posters, illustrations, infographics, interfaces and brand identities. It follows the current request, preserves approved decisions and prepares native-image briefs without imposing three directions or a full design workflow. Complete planning and identity exploration are opt-in. The host interprets intent; the server validates bounded controls. Image creation uses only the available native host tool; the public service does not run paid image-generation jobs.",
     "category": "DESIGN"
   },
   "mcp_server": {
-    "url": "https://infographic-artist-1w7v.hatchable.site/api/chatgpt-mcp",
+    "url": "https://ales27pm-system-product-name.tail7ee921.ts.net/infographic-artist/mcp",
     "authentication": "No Auth"
   },
   "default_csp_metadata": {
     "connect_domains": [],
     "resource_domains": [
-      "https://infographic-artist-1w7v.hatchable.site"
+      "https://ales27pm-system-product-name.tail7ee921.ts.net"
     ]
   },
   "privacy_costs_retention": {
@@ -40,7 +40,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -54,7 +54,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -68,7 +68,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -82,7 +82,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -96,7 +96,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -110,7 +110,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -124,7 +124,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -138,7 +138,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     },
@@ -152,7 +152,7 @@
       "csp_metadata": {
         "connect_domains": [],
         "resource_domains": [
-          "https://infographic-artist-1w7v.hatchable.site"
+          "https://ales27pm-system-product-name.tail7ee921.ts.net"
         ]
       }
     }
@@ -225,7 +225,7 @@
     "commerce_description": "No payment or commerce flow. The public MCP service does not incur image-generation provider spend."
   },
   "publication": {
-    "release_notes": "Infographic Artist 1.2.0 adds a documented catalogue of 150 design principles, 69 sources and 14 domains through search_design_systems with kind=principle. Coaching and creative directions accept optional design_context and return the eight-stage design plan with recognition, comprehension and preference separately marked non_testé. Visual-critique scores remain technical heuristics, not measured human outcomes or a beauty score. Full principle cards retain their limits and source reading scope. The exclusive @Créer une image native handoff is preserved; no server-side paid image API or fabricated generation result is introduced."
+    "release_notes": "Infographic Artist 1.3.0 — Alignement sur l’intention actuelle : création ciblée par défaut, décisions approuvées conservées, nombre de pistes déclaré, conseil sans protocole imposé, parcours complet optionnel et ambiguïtés bloquées avant génération. Hébergement local via Tailscale; génération native uniquement. Ce paquet ne prouve ni la mise à jour du registre OpenAI ni sa publication."
   },
   "portal_note": "Apply to the existing Infographic Artist record after reading its current state. Explicitly replace old release notes. This file does not assert compliance, developer identity, review approval or public publication."
 }

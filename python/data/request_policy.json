@@ -1,0 +1,73 @@
+{
+  "schema_version": "1",
+  "patterns": {
+    "preserve_identity": "\\b(?:conserver|garder|preserver|preserve|keep|retain)\\b[^.!?;\\n]{0,100}\\b(?:logo|identite|wordmark|brand|palette)\\b|\\b(?:logo|identite|wordmark|brand)\\b[^.!?;\\n]{0,60}\\b(?:approuv|approved|unchanged|inchange)|\\b(?:sans|without|no)\\b[^.!?;\\n]{0,50}\\b(?:refonte|rebrand|nouvelle identite)\\b|\\b(?:ne|pas|sans|do not|don\\x27t|no|without)\\b[^.!?;\\n]{0,50}\\b(?:redessine|redessiner|redraw|redesign|rebrand|refonte)\\b",
+    "identity_change": "\\b(?:creer|create|redessiner|redesign|refaire|proposer|nouveau|nouvelle|new)\\b[^.!?;\\n]{0,70}\\b(?:logo|identite|monogramme|brand)\\b",
+    "no_variants": "\\b(?:pas|sans|no|without)\\s+(?:(?:de|des|aucune|any|additional|extra)\\s+)?(?:variantes?|variants?|versions?|pistes?)\\b",
+    "advice_only": "\\b(?:seulement|uniquement|juste|only|just)\\s+(?:un |du |a )?(?:conseil|avis|advice|answer)\\b|\\b(?:conseil|avis|advice)\\s+(?:seul|seulement|only)\\b",
+    "exercise": "\\b(?:exercice|exercise|protocole|protocol|tests?|variantes?|variants?|comparer|compare)\\b",
+    "full_workflow": "\\b(?:plan|parcours|workflow|protocole)\\s+(?:complet|complete|full)\\b|\\b(?:huit|eight|8)[ -](?:etapes|steps)\\b|\\bfull\\s+(?:plan|workflow|protocol)\\b",
+    "no_workflow": "\\b(?:pas|sans|no|without)\\b[^.!?;\\n]{0,45}\\b(?:plan|protocole|parcours|workflow)\\b",
+    "identity_exploration": "\\b(?:explorer|explore|exploration|concevoir|create|creer)\\b[^.!?;\\n]{0,100}\\b(?:nouvelle identite|new identity|identite visuelle|brand identity|nouveau logo|new logo)\\b|\\b(?:dessine|dessiner|draw|design|creer|create)\\s+(?:un |une |a |an |le |the )?(?:nouveau |new )?(?:logo|identite visuelle|brand identity)\\b"
+  },
+  "composition_routes": [
+    {
+      "key": "composition",
+      "name": "Hiérarchie du contenu",
+      "architecture": "Organiser les éléments demandés selon leur importance pour le lecteur."
+    },
+    {
+      "key": "rhythm",
+      "name": "Rythme de lecture",
+      "architecture": "Explorer une autre organisation spatiale du même contenu, sans modifier les éléments approuvés."
+    },
+    {
+      "key": "relationships",
+      "name": "Relations visuelles",
+      "architecture": "Clarifier les liens entre les éléments demandés par leur proximité et leur échelle."
+    },
+    {
+      "key": "focus",
+      "name": "Point d’attention",
+      "architecture": "Faire varier le point d’attention principal en conservant le contenu et l’identité."
+    },
+    {
+      "key": "density",
+      "name": "Densité et respiration",
+      "architecture": "Explorer les espaces et la densité du contenu dans le format déclaré."
+    },
+    {
+      "key": "sequence",
+      "name": "Séquence de lecture",
+      "architecture": "Explorer un autre ordre de découverte des informations sans changer leur sens."
+    }
+  ],
+  "identity_routes": [
+    {
+      "key": "symbol",
+      "name": "Signal autonome",
+      "architecture": "Explorer un symbole lié au sens de la demande, selon la palette et les éléments autorisés.",
+      "assets": [
+        "symbole",
+        "mot-signe"
+      ]
+    },
+    {
+      "key": "type",
+      "name": "Rythme typographique propriétaire",
+      "architecture": "Explorer un rythme typographique distinct dans les limites des textes et des choix déjà approuvés.",
+      "assets": [
+        "mot-signe"
+      ]
+    },
+    {
+      "key": "system",
+      "name": "Champ vivant gouverné",
+      "architecture": "Explorer des règles cohérentes de composition et de variation adaptées aux supports demandés.",
+      "assets": [
+        "règles de composition",
+        "gabarits demandés"
+      ]
+    }
+  ]
+}

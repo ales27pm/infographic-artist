@@ -3,7 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r4.html"
+TEMPLATE_URI = "ui://infographic-artist/app-v1.3.0-r1.html"
+R4_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r4.html"
 R3_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r3.html"
 R2_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0-r2.html"
 BASE_TEMPLATE_URI = "ui://infographic-artist/app-v1.2.0.html"
@@ -13,12 +14,14 @@ RECENT_TEMPLATE_URI = "ui://infographic-artist/app-v1.1.2.html"
 MIME_TYPE = "text/html;profile=mcp-app"
 
 SERVER_INSTRUCTIONS = (
-    "Infographic Artist studies brand systems and user-supplied visual proposals. "
-    "Treat iconic identities as precedents of method only. Never reproduce protected logos, "
-    "signature typography, mascots, colour systems, negative-space tricks, or trade dress. "
-    "Derive every direction from the user brief. Similarity scores are perceptual triage, not legal clearance. "
-    "Prefer deep atlas cases over index-only entries when making historical claims. State uncertainty and request "
-    "professional trademark review before commercial launch."
+    "Infographic Artist supports visual communication broadly: posters, illustrations, infographics, interfaces, identities and coherent multi-support systems. "
+    "Start from the current user intent, not a mandatory branding workflow. Answer small questions directly; call only relevant tools. "
+    "Preserve approved logos, palette, typography, exact text, motifs and layouts unless the current user explicitly reopens them. Carry these constraints and the latest real supplied references between turns; the server itself is stateless. "
+    "For production briefs pass the current request and explicit execution controls. Default to one scoped deliverable and no eight-stage plan. "
+    "Use identity_exploration only for an explicitly requested new identity. Ask a narrow clarification if controls conflict; never silently replace constraints with templates. "
+    "Use documented principles as context-dependent tools, not universal beauty laws or mandatory decoration. Separate evidence, technical heuristics and untested human outcomes. "
+    "Image creation is exclusively the host-native @Créer une image action when actually available and requested. A brief, acknowledgement or mock is not an image. Never enable the old paid server renderer. "
+    "Treat external brand precedents as methods, not signatures to copy. Reuse the user's actual authorized approved assets without inventing missing images."
 )
 
 FILE_SCHEMA: dict[str, Any] = {
@@ -36,7 +39,7 @@ FILE_SCHEMA: dict[str, Any] = {
 
 DESIGN_CONTEXT_SCHEMA: dict[str, Any] = {
     "type": "object",
-    "description": "Optional declared design context for the eight-stage plan. Omitted facts remain unknown; no defaults or test evidence are inferred.",
+    "description": "Declared context for the current task. An eight-stage plan is optional. Omitted facts remain unknown; no defaults or evidence are inferred.",
     "properties": {
         "task": {"type": "string", "maxLength": 800, "description": "What the reader or user must accomplish."},
         "message": {"type": "string", "maxLength": 1000, "description": "The message or relationship to communicate."},
@@ -46,6 +49,19 @@ DESIGN_CONTEXT_SCHEMA: dict[str, Any] = {
         "cultural_context": {"type": "string", "maxLength": 600, "description": "Relevant cultural context and references, when known."},
     },
     "additionalProperties": False,
+}
+
+EXECUTION_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "description": "Controls interpreted by the host from the current user request, not from a fixed workflow. Contradictions require clarification. The server is stateless; carry approved decisions on each relevant call.",
+    "properties": {
+        "mode": {"type":"string", "enum":["create","adapt","identity_exploration","advice","exercise","plan"], "description":"create a scoped visual; adapt an approved design; explore a new identity only when requested; answer advice directly; exercise or plan only when asked."},
+        "variant_count": {"type":"integer", "minimum":1, "maximum":6, "description":"Exact requested count, default one for production. New identity exploration supports at most three structural routes. Never override a conflicting request."},
+        "workflow_depth": {"type":"string", "enum":["none","full"], "description":"Default none. full adds the eight-stage proposed plan only when requested; it is not a completed audit."},
+        "locked_elements": {"type":"array", "maxItems":16, "items":{"type":"string","minLength":1,"maxLength":1000}, "description":"Verbatim approved decisions that must not be reopened. A claimed file is not an available image."},
+        "allowed_changes": {"type":"array", "maxItems":16, "items":{"type":"string","minLength":1,"maxLength":1000}, "description":"When supplied, restrict the intervention to these explicitly authorized changes."},
+    },
+    "additionalProperties":False,
 }
 
 RENDER_OPTIONS_SCHEMA: dict[str, Any] = {
@@ -268,14 +284,17 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "invoked": "Graphic systems ready",
     },
     "generate_brand_directions": {
-        "title": "Generate original brand directions",
+        "title": "Prepare the requested visual",
         "description": (
-            "Use this when the user provides a brand brief and wants three structurally incompatible creative routes. "
-            "The tool transfers principles, never protected forms, and includes stress tests, anti-copy rules, and "
-            "plugin-ready image-generation prompts for concept boards. Includes an eight-stage design plan with untested checks; no user-study result or accessibility conformance is inferred."
+            "Use this when the user requests a production brief for a visual: poster, illustration, infographic, interface, existing-identity adaptation or explicit identity exploration. "
+            "Legacy tool name; a brand name, sector and promise are not mandatory. Pass request, design_context and optional execution controls. "
+            "Default one deliverable, no new branding and no full workflow. Preserve approved constraints; conflicting scope/counts return clarification with no generation route. "
+            "For a small advice question answer directly without this tool. Returns prompts, never generated images."
         ),
         "input": _object_schema(
             {
+                "request": {"type":"string", "minLength":1, "maxLength":4000, "description":"The current user request verbatim, including exclusions; not a historical branding brief."},
+                "execution": deepcopy(EXECUTION_SCHEMA),
                 "name": {"type": "string", "minLength": 1, "description": "Brand or project name."},
                 "sector": {"type": "string", "minLength": 1, "description": "Sector or operating context."},
                 "promise": {"type": "string", "minLength": 3, "description": "What the identity must make credible or perceptible."},
@@ -285,7 +304,7 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
                 "must_avoid": {"type": "array", "items": {"type": "string"}, "maxItems": 8, "default": []},
                 "risk_tolerance": {"type": "string", "default": "équilibrée"},
             },
-            ["name", "sector", "promise"],
+            [],
         ),
         "view": "directions",
         "invoking": "Generating original directions",
@@ -379,11 +398,13 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
     "coach_brand_decision": {
         "title": "Coach a design decision",
         "description": (
-            "Use this when the user wants to understand why one graphic decision is stronger, convert critique into a "
-            "constraint-aware exercise, or define measurable acceptance criteria for the next iteration. Includes the eight-stage design workflow with declared context, missing facts and separate untested human evaluations."
+            "Use this when the user requests help with a design decision without forcing a redesign or research protocol. Prefer answering simple advice directly in the conversation. "
+            "When called, default to focused advice; use execution.mode=exercise or plan only when requested. "
+            "The host reasons from actual context; unknown questions return reasoning guidance, not a fabricated expert conclusion. Full eight-stage planning is opt-in."
         ),
         "input": _object_schema(
             {
+                "execution": deepcopy(EXECUTION_SCHEMA),
                 "question": {"type": "string", "minLength": 1, "description": "The concrete design decision or uncertainty."},
                 "goal": {"type": "string", "default": "improve the next iteration"},
                 "critique": {"type": "object", "description": "Optional critique result previously returned by critique_brand_image."},
@@ -392,8 +413,8 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
             ["question"],
         ),
         "view": "coach",
-        "invoking": "Turning critique into a test",
-        "invoked": "Coaching plan ready",
+        "invoking": "Examining the requested decision",
+        "invoked": "Design decision ready",
     },
 }
 

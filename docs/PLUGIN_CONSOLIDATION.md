@@ -1,3 +1,15 @@
+# Current authority — 1.3.0 / intent alignment
+
+The local Tailscale endpoint and installable package are the current deployment target. The sections below record earlier releases and are historical when they conflict with the 1.3.0 skill.
+
+Current-request controls are `execution.mode`, `variant_count`, `workflow_depth`, `locked_elements` and `allowed_changes`. Brand metadata is optional. Scope defaults to one visual and no complete plan. Identity exploration is explicit; focused advice must not manufacture an exercise. The host interprets meaning; bounded FR/EN server rules validate conflicts and never claim universal language understanding. Unknown copy/asset data is not fabricated. The server is stateless: approved context must be carried by the host.
+
+Source Python and JavaScript runtimes share request vocabulary and acceptance fixtures. The build regenerates JavaScript tool descriptors from the Python contract. Existing image safety, uncertain-delivery recovery and native-only public rendering boundaries remain mandatory. MCP names remain compatible; `app-v1.3.0-r1.html` is canonical and old resource URIs remain readable.
+
+The existing OpenAI registration is not changed by a local build or deployment. No new registration, subscription, DNS change, external image provider or paid API is authorized by these instructions.
+
+---
+
 # Infographic Artist — consolidated plugin, 1.2.0
 
 The deliverable is a working plugin in ChatGPT and Codex. The Vercel 70-reference catalogue is a research artifact, not the plugin or a replacement MCP server.

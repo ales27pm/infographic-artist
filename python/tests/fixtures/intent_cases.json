@@ -1,0 +1,335 @@
+[
+  {
+    "id": "poster_no_rebrand",
+    "tool": "directions",
+    "args": {
+      "name": "Bibliothèque du quartier",
+      "sector": "Service public",
+      "promise": "Informer des heures d’ouverture",
+      "must_avoid": [
+        "Créer un nouveau logo ou un monogramme",
+        "Proposer trois pistes",
+        "Faire une planche de marque"
+      ],
+      "design_context": {
+        "task": "Créer une seule affiche informative; conserver le logo déjà approuvé sans modification.",
+        "message": "Texte exact : Horaire d’hiver",
+        "medium": "Affiche imprimée",
+        "final_size": "420 × 594 mm",
+        "audience": "Usagers de la bibliothèque"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "website_preserve_identity",
+    "tool": "directions",
+    "args": {
+      "name": "27PM",
+      "sector": "Studio web québécois",
+      "promise": "Rendre le complexe clair",
+      "must_avoid": [
+        "Redessiner le logo approuvé",
+        "Changer la palette noire, blanche et vermillon",
+        "Proposer une nouvelle identité"
+      ],
+      "design_context": {
+        "task": "Décliner l’identité approuvée sur une seule page web, sans rouvrir le choix du logo.",
+        "message": "Textes exacts : 27PM et 27:00",
+        "medium": "Page web responsive",
+        "final_size": "1440 × 900 px et 390 × 844 px",
+        "audience": "Entreprises B2B francophones"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "illustration_no_brand_fields",
+    "tool": "directions",
+    "args": {
+      "request": "Dessiner une illustration botanique, sans logo ni texte.",
+      "design_context": {
+        "medium": "Illustration",
+        "final_size": "1024 × 1024 px"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "two_infographics",
+    "tool": "directions",
+    "args": {
+      "request": "Proposer exactement deux variantes de cette infographie, pas trois pistes.",
+      "design_context": {
+        "medium": "Infographie",
+        "message": "Comparer 1, 4 et 9",
+        "final_size": "1200 × 800 px"
+      }
+    },
+    "count": 2,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "english_one_poster",
+    "tool": "directions",
+    "args": {
+      "request": "Create one poster. Keep the approved logo unchanged. Do not propose three directions.",
+      "design_context": {
+        "medium": "Poster",
+        "message": "WINTER HOURS"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "explicit_identity_exploration",
+    "tool": "directions",
+    "args": {
+      "name": "Atelier Boréal",
+      "sector": "Architecture",
+      "promise": "Précision humaine",
+      "request": "Explorer trois directions pour une nouvelle identité visuelle.",
+      "execution": {
+        "mode": "identity_exploration",
+        "variant_count": 3
+      }
+    },
+    "count": 3,
+    "stages": 0,
+    "identity": true
+  },
+  {
+    "id": "six_layouts",
+    "tool": "directions",
+    "args": {
+      "request": "Create six layout variations.",
+      "execution": {
+        "mode": "create",
+        "variant_count": 6
+      },
+      "design_context": {
+        "medium": "Poster"
+      }
+    },
+    "count": 6,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "full_plan_opt_in",
+    "tool": "directions",
+    "args": {
+      "request": "Créer une affiche et fournir le plan complet en huit étapes.",
+      "execution": {
+        "workflow_depth": "full"
+      },
+      "design_context": {
+        "medium": "Affiche"
+      }
+    },
+    "count": 1,
+    "stages": 8,
+    "identity": false
+  },
+  {
+    "id": "structured_count_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Créer une seule affiche.",
+      "execution": {
+        "variant_count": 3
+      },
+      "design_context": {
+        "medium": "Affiche"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "textual_count_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Deux variantes, puis quatre variantes.",
+      "design_context": {
+        "medium": "Affiche"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "locked_identity_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Conserver le logo approuvé.",
+      "execution": {
+        "mode": "identity_exploration",
+        "locked_elements": [
+          "Logo approuvé"
+        ]
+      },
+      "design_context": {
+        "medium": "Affiche"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "copy_is_not_instruction",
+    "tool": "directions",
+    "args": {
+      "request": "Créer une affiche.",
+      "design_context": {
+        "medium": "Affiche",
+        "message": "Texte exact : Trois variantes et huit étapes"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  },
+  {
+    "id": "targeted_alignment",
+    "tool": "coach",
+    "args": {
+      "question": "Je veux seulement un conseil : pour le sous-titre de cette affiche, alignement à gauche ou centré ? Ne crée pas de variantes et ne me propose pas un protocole complet.",
+      "goal": "Répondre à cette décision précise, sans refaire l’identité",
+      "design_context": {
+        "task": "Choisir l’alignement du sous-titre",
+        "medium": "Affiche imprimée",
+        "message": "Horaire d’hiver",
+        "final_size": "420 × 594 mm"
+      }
+    },
+    "stages": 0,
+    "advice": true
+  },
+  {
+    "id": "english_alignment",
+    "tool": "coach",
+    "args": {
+      "question": "Only advice: should this subtitle be left aligned or centred? No variants and no full workflow."
+    },
+    "stages": 0,
+    "advice": true
+  },
+  {
+    "id": "explicit_exercise",
+    "tool": "coach",
+    "args": {
+      "question": "Deux variantes seulement en 60 minutes, tests à 24 et 48 px.",
+      "execution": {
+        "mode": "exercise"
+      }
+    },
+    "stages": 0,
+    "advice": false
+  },
+  {
+    "id": "explicit_coach_plan",
+    "tool": "coach",
+    "args": {
+      "question": "Préparer un parcours complet en huit étapes pour mon affiche.",
+      "execution": {
+        "mode": "plan",
+        "workflow_depth": "full"
+      }
+    },
+    "stages": 8,
+    "advice": false
+  },
+  {
+    "id": "ranged_count_not_exact",
+    "tool": "directions",
+    "args": {
+      "request": "Créer entre 2 et 4 variantes de cette affiche."
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "new_logo_explicit",
+    "tool": "directions",
+    "args": {
+      "request": "Dessiner un logo pour cette association.",
+      "design_context": {
+        "medium": "Logo"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": true
+  },
+  {
+    "id": "do_not_redraw_identity",
+    "tool": "directions",
+    "args": {
+      "request": "Ne redessine pas le logo.",
+      "execution": {
+        "mode": "identity_exploration"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "workflow_conflict",
+    "tool": "directions",
+    "args": {
+      "request": "Une affiche, sans parcours complet.",
+      "execution": {
+        "workflow_depth": "full"
+      }
+    },
+    "count": 0,
+    "stages": 0,
+    "identity": false,
+    "clarification": true
+  },
+  {
+    "id": "locked_palette",
+    "tool": "directions",
+    "args": {
+      "request": "Adapter cette affiche, changer seulement le sous-titre.",
+      "execution": {
+        "mode": "adapt",
+        "locked_elements": [
+          "Logo approuvé",
+          "Noir, blanc et vermillon",
+          "27PM et 27:00"
+        ],
+        "allowed_changes": [
+          "Sous-titre uniquement"
+        ]
+      },
+      "design_context": {
+        "medium": "Affiche",
+        "message": "Texte exact : Horaire d’hiver"
+      }
+    },
+    "count": 1,
+    "stages": 0,
+    "identity": false
+  }
+]

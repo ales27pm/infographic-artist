@@ -66,6 +66,7 @@ def test_directions_are_structurally_incompatible_and_french(monkeypatch) -> Non
     result = core.generate_directions(
         {
             "name": "Atelier Boréal",
+            "execution": {"mode":"identity_exploration", "variant_count":3},
             "sector": "architecture durable",
             "promise": "rendre la précision humaine et crédible",
             "traits": ["précise", "humaine"],
@@ -74,14 +75,14 @@ def test_directions_are_structurally_incompatible_and_french(monkeypatch) -> Non
     )
     assert [route["id"] for route in result["routes"]] == ["symbol", "type", "system"]
     assert len({route["architecture"] for route in result["routes"]}) == 3
-    assert all("Ne pas emprunter" in route["anti_copy_rule"] for route in result["routes"])
+    assert all("pas comme formes à copier" in route["anti_copy_rule"] for route in result["routes"])
     assert result["image_generation_handoff"]["mode"] == "plugin_rendering_available"
     assert "run_brand_workflow" in result["image_generation_handoff"]["instructions"]
     assert f"{configured_retention:g} heures" in result["image_generation_handoff"]["storage_note"]
-    assert all("concept board" in route["concept_board_prompt"] for route in result["routes"])
-    assert all("Do not reproduce existing marks" in route["concept_board_prompt"] for route in result["routes"])
-    assert all(len(route["board_evaluation_focus"]) == 3 for route in result["routes"])
-    assert "Prototyper" in result["decision_rule"]
+    assert all("Identity exploration is explicitly requested" in route["concept_board_prompt"] for route in result["routes"])
+    assert all("Do not copy the signatures of third-party precedents" in route["concept_board_prompt"] for route in result["routes"])
+    assert all(route["board_evaluation_focus"] and "non effectuée" in route["board_evaluation_focus"][0] for route in result["routes"])
+    assert "3 pistes demandées" in result["decision_rule"]
 
 
 @pytest.mark.asyncio

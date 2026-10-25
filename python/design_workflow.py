@@ -100,7 +100,7 @@ def untested_evaluations() -> dict[str, Any]:
     return deepcopy(DESIGN_WORKFLOW["evaluations"])
 
 
-def build_design_workflow(design_context: dict[str, Any] | None = None, *, declared_brief: dict[str, Any] | None = None) -> dict[str, Any]:
+def build_design_workflow(design_context: dict[str, Any] | None = None, *, declared_brief: dict[str, Any] | None = None, depth: str = "full") -> dict[str, Any]:
     brief = normalize_design_context(design_context)
     brief_sources = {key: "design_context." + key for key in brief}
     # Read only original arguments, never the defaults synthesized for creative routes.
@@ -114,7 +114,7 @@ def build_design_workflow(design_context: dict[str, Any] | None = None, *, decla
         "status": "non_testé", "scope_note": DESIGN_WORKFLOW["scope_note"],
         "brief": brief, "brief_sources": brief_sources,
         "missing_brief": [key for key in CONTEXT_FIELDS if key not in brief],
-        "stages": deepcopy(DESIGN_WORKFLOW["stages"]), "evaluations": untested_evaluations(),
+        "included": depth == "full", "stages": deepcopy(DESIGN_WORKFLOW["stages"]) if depth == "full" else [], "evaluations": untested_evaluations(),
         "evidence_contract": deepcopy(DESIGN_WORKFLOW["evidence_contract"]),
         "principle_lookup": {"tool": "search_design_systems", "kind": "principle", "query_hint": "Utiliser un identifiant de principe ou un thème pour lire la fiche complète et ses sources."},
         "catalogue_counts": catalogue_counts(),

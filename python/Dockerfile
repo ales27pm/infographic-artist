@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     HOST=0.0.0.0
 WORKDIR /app
 COPY pyproject.toml README.md ./
-COPY server.py official_server.py fallback_server.py contract.py core.py ./
+COPY server.py official_server.py fallback_server.py contract.py core.py design_workflow.py runtime_capabilities.py request_policy.py ./
 COPY assets ./assets
 COPY data ./data
 COPY docs ./docs

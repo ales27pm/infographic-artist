@@ -29,7 +29,8 @@ test('package version, release version and server version stay synchronized',()=
  const p=read('plugins/infographic-artist/plugin.json');
  const release=read('deployment/hatchable/manifest.json').release;
  assert.equal(APP_VERSION,`${p.version}-hatchable.${release.runtime_revision}`);
- assert.equal(release.runtime_revision,4);
+ assert.equal(release.runtime_revision,1);
+ assert.equal(p.version,'1.3.0');
  assert.equal(read('deployment/hatchable/manifest.json').release.version,p.version);
  assert.equal(read('chatgpt-tool-review-autofill.json').version,p.version);
 });
